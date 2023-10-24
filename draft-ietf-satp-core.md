@@ -15,7 +15,7 @@ pi:
   compact: yes
   subcompact: no
 
-title: Secure Asset Transfer Protocol (SATP) Core 
+title: Secure Asset Transfer Protocol (SATP) Core
 abbrev: SATP Core
 docname: draft-ietf-satp-core-latest
 category: info
@@ -34,7 +34,7 @@ venue:
   mail: "sat@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/sat/"
   github: "ietf-satp/draft-ietf-satp-architecture"
-  latest: "https://ietf-satp.github.io/draft-ietf-satp-architecture/draft-ietf-satp-architecture.html"
+  latest: "https://ietf-satp.github.io/draft-ietf-satp-core/draft-ietf-satp-core.html"
 
 author:
  -
@@ -52,6 +52,7 @@ author:
     name: Rafael Belchior
     organization: INESC-ID, Técnico Lisboa, Blockdaemon
     email: rafael.belchior@tecnico.ulisboa.pt
+
 
 informative:
 #    ABCH20:

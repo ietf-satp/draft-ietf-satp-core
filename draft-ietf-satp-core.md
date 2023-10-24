@@ -37,17 +37,17 @@ venue:
   latest: "https://ietf-satp.github.io/draft-ietf-satp-core/draft-ietf-satp-core.html"
 
 author:
- -
-    ins: T. Hardjono
-    name: Thomas Hardjono
-    organization: MIT
-    email: hardjono@mit.edu
- -
+  -
     ins: M. Hargreaves
     name: Martin Hargreaves
     organization: Quant Network
     email: martin.hargreaves@quant.network
- -
+  -
+    ins: T. Hardjono
+    name: Thomas Hardjono
+    organization: MIT
+    email: hardjono@mit.edu
+  -
     ins: R. Belchior
     name: Rafael Belchior
     organization: INESC-ID, Técnico Lisboa, Blockdaemon
@@ -55,965 +55,1648 @@ author:
 
 
 informative:
-#    ABCH20:
-#    author:
-#    - ins: T. Ankenbrand
-#    - ins: D. Bieri
-#    - ins: R. Cortivo
-#    - ins: J. Hoehener
-#    - ins: T. Hardjono
-#    date: May 2020
-#    target: https://arxiv.org/abs/2007.11877
-#    title: Proposal for a Comprehensive Crypto Asset Taxonomy
-  # Abebe19:
-#    author:
-#    - ins: E. Abebe
-#    - ins: D. Behl
-#    - ins: C. Govindarajan
-#    - ins: Y. Hu
-#    - ins: D. Karunamoorthy
-#    - ins: P. Novotny
-#    - ins: V. Pandit
-#    - ins: V. Ramakrishna
-#    - ins: C. Vecchiola
-#    date: December 2019
-#    target: https://arxiv.org/abs/1911.01064
-#    title: Enabling Enterprise Blockchain Interoperability with Trusted Data Transfer (Middleware 2019, Industry Track)
-  # Abebe21:
-#    author:
-#    - ins: E. Abebe
-#    - ins: Y. Hu
-#    - ins: A. Irvin
-#    - ins: D. Karunamoorthy
-#    - ins: V. Pandit
-#    - ins: V. Ramakrishna
-#    - ins: J. Yu
-#    date: May 2021
-#    target: https://arxiv.org/abs/2012.07339
-#    title: Verifiable Observation of Permissioned Ledgers (ICBC2021)
-#  BCH21:
-#    author:
-#    - ins: R. Belchior
-#    - ins: M. Correia
-#    - ins: T. Hardjono
-#    date: March 2021
-#    target: https://datatracker.ietf.org/doc/draft-belchior-gateway-recovery/
-#    title: DLT Gateway Crash Recovery Mechanism, IETF, draft-belchior-gateway-recovery-01.
-#  BVGC20:
-#    author:
-#    - ins: R. Belchior
-#    - ins: A. Vasconcelos
-#    - ins: S. Guerreiro
-#    - ins: M. Correia
-#    date: May 2020
-#    target: https://arxiv.org/abs/2005.14282v2
-#    title: 'A Survey on Blockchain Interoperability: Past, Present, and Future Trends'
-  Clar88:
+  draft-belchior-satp-gateway-recovery-00:
     author:
-    - ins: D. Clark
-    date: August 1988
-    title: The Design Philosophy of the DARPA Internet Protocols, ACM Computer Communication Review, Proc SIGCOMM 88, vol. 18, no. 4, pp. 106-114
-#   DLVIEW:
-#     author:
-#     - ins: V. Ramakrishna
-#     - ins: V. Pandit
-#     - ins: S. Nishad
-#     - ins: K. Narayanam
-#     - ins: 'D. Vinayagamurthy '
-#     date: November 2021
-#     title: Views and View Addresses for Blockchain/DLT Interoperability, IETF Draft
-  Gray81:
-    author:
-    - ins: J. Gray
-    date: September 1981
-    title: 'The Transaction Concept: Virtues and Limitations, in VLDB Proceedings of the 7th International Conference, Cannes, France, September 1981, pp. 144-154'
-#   HLP19:
-#     author:
-#     - ins: T. Hardjono
-#     - ins: A. Lipton
-#     - ins: A. Pentland
-#     date: June 2019
-#     target: https://doi:10.1109/TEM.2019.2920154
-#     title: Towards and Interoperability Architecture for Blockchain Autonomous Systems, IEEE Transactions on Engineering Management
-  HS2019:
-    author:
+    - ins: R. Belchior
+    - ins: M. Correia
+    - ins: A. Augusto
     - ins: T. Hardjono
-    - ins: N. Smith
-    date: December 2019
-    target: https://doi.org/10.3389/fbloc.2019.00024
-    title: Decentralized Trusted Computing Base for Blockchain Infrastructure Security, Frontiers Journal, Special Issue on Blockchain Technology, Vol. 2, No. 24
-#  Herl19:
-#    author:
-#    - ins: M. Herlihy
-#    date: February 2019
-#    target: https://doi.org/10.1145/3209623
-#    title: Blockchains From a Distributed Computing Perspective, Communications of the ACM, vol. 62, no. 2, pp. 78-85
-  IDevID:
+    date: July 2023
+    target: https://datatracker.ietf.org/doc/draft-belchior-satp-gateway-recovery/.
+    title: SATP Gateway Crash Recovery Mechanism
+
+  NIST:
     author:
-    - ins: M. Richardson
-    - ins: J. Yang
-    date: August 2020
-    target: https://tools.ietf.org/html/draft-richardson-t2trg-idevid-considerations-01
-    title: ' A Taxonomy of operational security of manufacturer installed keys and anchors. IETF draft-richardson-t2trg-idevid-considerations-01'
-  SRC84:
+    - ins: D. Yaga
+    - ins: P. Mell
+    - ins: N. Roby
+    - ins: K. Scarfone
+    date: October 2018
+    target: https://doi.org/10.6028/NIST.IR.8202
+    title: NIST Blockchain Technology Overview (NISTR-8202)
+
+  RFC5939:
     author:
-    - ins: J. Saltzer
-    - ins: D. Reed
-    - ins: D. Clark
-    date: November 1984
-    title: End-to-End Arguments in System Design, ACM Transactions on Computer Systems, vol. 2, no. 4, pp. 277-288
+    - ins: F. Andreasen
+    date: September 2010
+    target: https://www.rfc-editor.org/info/rfc5939
+    title: Session Description Protocol (SDP) Capability Negotiation
 
 normative:
-  FATF:
+  RFC2119:
     author:
-    - ins: FATF
-      org: Financial Action Task Force (FATF)
-    date: October 2018
-    target: http://www.fatf- gafi.org/publications/fatfrecommendations/documents/fatf-recommendations.html
-    title: International Standards on Combating Money Laundering and the Financing of Terrorism and Proliferation - FATF Revision of Recommendation 15 (Updated June 2021)
-  # ISO:
-#    author:
-#    - ins: ISO
-#    date: July 2020
-#    target: https://www.iso.org
-#    title: Blockchain and distributed ledger technologies- Vocabulary (ISO:22739:2020)
-  ISO20022:
+    - ins: S. Bradner
+    date: March 1997
+    target: https://www.rfc-editor.org/info/rfc2119
+    title: Key words for use in RFCs to Indicate Requirement Levels
+
+  RFC2234:
     author:
-    - ins: ISO
-    date: July 2023
-    target: https://www.iso20022.org
-    title: Universal Financial Industry Message Scheme (ISO 20022).
-  ITIN:
+    - ins: D. Crocker
+    - ins: P. Overell
+    date: November 1997
+    target: https://www.rfc-editor.org/info/rfc2234
+    title: Augmented BNF for Syntax Specifications ABNF
+
+  RFC7519:
     author:
-    - ins: ITSA
-    date: July 2023
-    target: https://my.itsa.global/what-we-do
-    title: International Token Identification Number.
-  # NIST:
-#    author:
-#    - ins: D. Yaga
-#    - ins: P. Mell
-#    - ins: N. Roby
-#    - ins: K. Scarfone
-#    date: October 2018
-#    target: https://doi.org/10.6028/NIST.IR.8202
-#    title: NIST Blockchain Technology Overview (NISTR-8202)
-  SAT:
-    author:
-    - ins: M. Hargreaves
-    - ins: T. Hardjono
-    - ins: R. Belchior
-    date: July 2023
-    target: https://datatracker.ietf.org/doc/draft-ietf-satp-core/>.
-    title: IETF Secure Asset Transfer Protocol (SATP)
+    - ins: M. Jones
+    - ins: J. Bradley
+    - ins: N. Sakimura
+    date: May 2015
+    target: https://www.rfc-editor.org/info/rfc7519
+    title: JSON Web Token (JWT)
+
+
 
 --- abstract
 
-This document proposes an interoperability architecture for
-      the secure transfer of assets between two networks or
-      systems based on the gateway model.
+This memo describes the Secure Asset Transfer (SAT) Protocol for digital assets.
+	SAT is a protocol operating between two gateways that conducts
+	the transfer of a digital asset from one gateway to another.
+	The protocol establishes a secure channel between the endpoints and
+	implements a 2-phase commit to ensure the properties of transfer
+	atomicity, consistency, isolation and durability.
 
 --- middle
 
 # Introduction
 {: #introduction}
- This document proposes an interoperability architecture based on gateways,
-      which are points of interconnection between networks or systems.
+This memo proposes a secure asset transfer protocol (SATP) that is
+   intended to be deployed between two gateway endpoints
+   to transfer a digital asset from an origin network
+   to a destination network.
 
-There are several services that may be offered by a gateway,
-one of which being the direct transfer of a digital asset from one network
-to another via pairs of gateways without a mediating third party.
+   Both the origin and destination networks are assumed to be opaque
+ 	in the sense that the interior constructs of a given network
+ 	is not read/write accessible to unauthorized entities.
 
-A given network or system may have one or more gateways to perform
-a unidirectional direct transfer of digital assets to
-another network possessing one or more compatible gateways.
+  The protocol utilizes the asset burn-and-mint paradigm whereby the asset
+ 	to be transferred is permanently disabled or destroyed (burned)
+ 	at the origin network and is re-generated (minted) at the destination network.
+ 	This is achieved through the coordinated actions of the peer gateways
+ 	handling the unidirectional transfer at the respective networks.
 
-Both gateways must implement a secure asset transfer protocol
-that must satisfy certain security, privacy and atomicity requirements.
+  A gateway is assumed to be trusted to perform the tasks involved in the asset transfer.
 
-The purpose of this architecture document is to provide a technical framework
-within which to define the required properties of
-a gateway that supports the secure asset transfer protocol.
+The overall aim of the protocol is to ensure that the state of assets
+ 	in the origin and destination networks remain consistent,
+ 	and that asset movements into (out of) networks via gateways can be accounted for.
+
+  There are several desirable technical properties of the protocol.
+ 	The protocol must ensure that the properties of atomicity, consistency,
+ 	isolation, and durability (ACID) are satisfied.
+
+  The requirement of consistency implies that the
+ 	asset transfer protocol always leaves both networks
+ 	in a consistent state (that the asset is located in
+ 	one system/network only at any time).
+
+  Atomicity means that the protocol must guarantee
+ 	that either the transfer commits (completes) or entirely fails,
+ 	where failure is taken to mean there is no change to the
+ 	state of the asset in the origin (sender) network.
+
+  The property of isolation means that while a transfer
+ 	is occurring to a digital asset from an origin network,
+ 	no other state changes can occur to the asset.
+
+The property of durability means that once
+ 	the transfer has been committed by both gateways,
+ 	that this commitment must hold regardless of subsequent
+ 	unavailability (e.g. crash) of the gateways implementing the SAT protocol.
+
+All messages exchanged between gateways are assumed to run over TLS1.2,
+ 	and the endpoints at the respective gateways are associated with
+ 	a certificate indicating the legal owner (or operator) of the gateway.
+
+# Conventions used in this document
+{: #conventions}
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+	"SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL"
+	in this document are to be interpreted as described in RFC 2119 [RFC2119].
+
+	In this document, these words will appear with that interpretation
+	only when in ALL CAPS. Lower case uses of these words are not to be
+	interpreted as carrying significance described in RFC 2119.
+
+
 
 # Terminology
-{: #terms}
+{: #terminology}
 
-Following is some terminology used in the current document.
-We borrow terminology from NIST and ISO as much as possible,
-introducing new terms only when needed:
+  The following are some terminology used in the current document:
 
+* Client application: This is the application employed by a user
+	 to interact with a gateway.
 
-* Asset network (system): The network or system where a digital asset is utilized.
+* Gateway: The computer system functionally capable of acting
+ 	as a gateway in an asset transfer.
 
-* Asset Transfer Protocol: The protocol used to transfer (move)
-a digital asset from one network to another using gateways.
+* Sender gateway: The gateway that initiates a unidirectional asset transfer.
 
-* Origin network: The current network where the digital asset is located.
+* Recipient gateway: The gateway that is the recipient side of
+ 	a unidirectional asset transfer.
 
-* Destination network: The network to which a digital asset is to be transferred.
+* Claim: An assertion made by an Entity [JWT].
 
-* Resource Domain: The collection of resources and entities
-participating within an asset network.
-The domain denotes a boundary for permissible or authorized actions on resources.
+* Claim Type: Syntax used for representing a Claim Value [JWT].
 
-* Interior Resources: The various interior protocols,
-data structures and cryptographic constructs that
-are a core part of an asset network or system.
+* Gateway Claim: An assertion made by a Gateway regarding the status or
+ 	condition of resources (e.g. assets, public keys, etc.)
+ 	accessible to that gateway (e.g. within its network or system).
 
-* Exterior Resources: The various protocols,
-data structures and cryptographic constructs
-that are outside of (external to) the network or system.
+# The Secure Asset Transfer Protocol
+{: #satp-protocol}
 
-* Gateway: The collection of services which connects
-to a minimum of one network or system,
-and which implements the secure asset transfer protocol.
+## Overview
+{: #satp-overview}
 
-* Entity public-key pair: This the private-public key pairs of an entity,
-where the public-key is available and verifiable outside the network.
-Among others, it may be utilized for interactions withother entities
-from outside the network.
-The term is used to distinguish this public-key from other key-pairs
-belonging to the same entity, but which is only available within the (private) network.
+		 The Secure Asset Transfer Protocol (SATP) is a gateway-to-gateway protocol
+		used by a sender gateway with a recipient gateway to perform
+		a unidirectional transfer of a digital asset.
 
-* Originator: Person or organization in an origin network seeking
-the transfer of a digital asset to a beneficiary located in a remote network.
-
-* Beneficiary: Person or organization in an destination network seeking
-to receive the transfer of a digital asset from an originator located in a remote network.
-
-* Gateway device identity: The identity of the device implementing the gateway functions.
-The term is used in the sense of IDevID (IEEE 802.1AR) or EK/AIK (in TPM1.2 and TPM2.0) [IDevID].
-
-* Gateway owner: The entity that owns and operates a gateway within a network.
-
-* Application Context-ID: The relevant identifier used by originator's application and
-the beneficiary's application to identify the context of the asset transfer at the gateway level.
-The context identifier may also be used to bind the application to
-the selected gateway for the given transfer instance, identified by a Session-ID.
-
-* Gateway Session-ID: This is the identifier used between the sender gateway and
-the recipient gateway to identify the specific transfer instance.
-The Session-ID must be included in all messages between the gateways.
-
-{::boilerplate bcp14-tagged}
-
-# Assumptions and Principles
-{: #assumptions}
-
-The following assumptions and principles underlie the design of the
-      current gateway architecture, and correspond
-      to the design principles of the Internet architecture.
-
-
-## Design Principles
-{: #designprinciples}
-
-* Opaque network resources:
-The interior resources of each network are assumed
-to be opaque to (hidden from) external entities.
-Any resources to be made accessible to an external entity
-must be made explicitly accessible by a gateway with proper authorization.
-
-* Externalization of value:
-The asset transfer protocol is agnostic (oblivious)
-to the economic or monetary value (if any) of the digital asset being transferred.
-
-The opaque resources principle permits the architecture
-to be applied in cases where one (or both) networks are private (closed membership).
-It is the analog of the autonomous systems principle in IP networking [Clar88],
-where interior routes in local subnets are not visible to other external networks.
-
-The value-externalization principle permits an asset transfer protocol
-to be designed for efficiency, security and reliability --
-independent of the changes in the perceived economic value of the digital asset.
-It is the analog of the end-to-end principle in the Internet architecture [SRC84],
-where contextual information is placed at the endpoints of the transfer.
-
-## Operational Assumptions
-{: #operationalassumptions}
-The following conditions are assumed to have occurred,
-leading to the invocation of the asset transfer protocol between two gateways:
-
-* Application level context establishment: The transfer request from an
-      Originator utilizing an application (App1) in the origin network is assumed
-      to have occurred, and that some context-identifier has subsequently been derived
-      by the respective applications (App1 and App2).
-      Furthermore, this context-identifier is assumed to have been delivered
-      by the each application to its corresponding gateway,
-      permiting each gateway to internally bind the
-      transfer session-identifier to that context-identifier.
-
- * Identification of asset to be transferred: The applications at
-the originator and the beneficiary are assumed to have identified
-the digital asset to be transferred.
-
- * Identification of originator and beneficiary:
-The originator and beneficiary are assumed to have been
-identified and that consent has been obtained from
-both parties regarding the asset transfer.
-
- * Identification of origin and destination asset networks:
-The origin and destination networks are assumed to have been identified.
-
- * Selection of gateway: The two corresponding gateways
-at the origin and destination networks are assumed to have been identified and selected.
-
-
-## Assumptions Regarding Gateway Operators
-{: #operatorassumptions}
-The following conditions are assumed to have occurred,
-leading to the invocation of the asset transfer protocol
-between two gateways:
-
-
- * Identification of gateway-owners:
-The owners of the two corresponding gateways are assumed
-to have been identified and their ownership status verified.
-
-
- * Gateway liabilities: Gateways and gateway-operators are assumed
-to take on legal and financial liability for their transactions,
-and gateways are assumed to operate under
-a well-defined legal framework (e.g. contractual relationship).
-Furthermore, the legal framework is assumed to be supported by
-compatible legislation in the relevant jurisdictions
-where the gateways are operating.
-
- * Gateway message signatures: All messages between gateways
-are assumed to be signed and verified (e.g. X.509).
-
- * Transitory ownership of asset by gateway:
-Assets being transferred via SAT will technically be owned
-by gateway in transit and gateways are liable for
-them while they have ownership.
-
-* Network data: Gateways are assumed to have mechanisms in place to trust data
-returned from their local networks.
-This will depend on the technical architecture and capabilities
-of each specific network.
-
- * Gateways are trusted: The gateways are assumed to be trusted
-to carry-out all the stages of the protocol described in this architecture.
-
-
-# Gateway Interoperability Modes
-{: #modes}
-
-The current interoperability architecture based
-on gateways recognizes several types of transfer flows:
-
-* Asset transfer: This refers to the transfer of a digital asset
-from the origin network to a destination network,
-where a successful asset transfer causes the asset
-to be extinguished in the origin network and be created (generated)
-at the destination network.
-
- * Data transfer: This refers to the transfer of data only under authorization,
-in such a way that the data can be verified by a third party.
-The data transfer mode addresses the use-cases where
-the state update in one network or system depends on the existence of state information
-recorded in a different network or system.
-
- * Asset exchange (swap): This refers to the case where
-two users are present in two networks,
-and they perform concurrent and atomic swaps of two assets
-in the two corresponding networks,
-without transferring the assets outside the networks.
-The gateways aid in coordinating the messages pertaining to the swap.
-
-The remainder of this architecture document will focus on the asset transfer flows.
-
-# Architecture
-{: #architecture}
-
-## Goal of Architecture
-{: #goalarchitecture}
-
-The goal of the interoperability architecture is to permit two (2) gateways
-belonging to distinct networks to conduct a transfer of digital assets transfer between them,
-in a secure, atomic and verifiable manner.
-
-
-The asset as understood by the two gateways is expressed
-in an standard digital format in a way meaningful
-to the gateway syntactically and semantically.
-
-
-The architecture recognizes that there are different networks currently
-in operation and evolving, and that in many cases the interior technical constructs
-in these networks maybe incompatible with one another.
-
-
-The architecture therefore assumes that in addition
-to implementing the bilateral secure asset transfer protocol,
-a gateway has the role of making opaque (i.e. hiding)
-the constructs that are local and specific to its network.
-
-
-Overall this approach ensures a high degree of interoperability across these networks,
-where each network can operate as a true autonomous system.
-Additionally, this approach permits each network to evolve
-its interior technology implementations without affecting other (external) networks.
-
-The current architecture focuses on unidirectional asset transfers,
-although the building blocks in this architecture can be used
-to support protocols for bidirectional transfers.
-
-For simplicity the current architecture employs two (2) gateways
-per transfer as the basic building block,
-with one gateway in the origin and destination networks respectively.
-However, the architecture seeks to be extensible to address future cases
-involving multiple gateways at both sides.
-
-## Overview of Asset Transfer
-{: #overviewtransfer}
-
-An asset transfer between two networks is performed using
-a secure asset transfer protocol implemented by
-the gateways in the respective networks.
-The two gateways implement the protocol in a direct interaction (unmediated).
-
-A successful transfer results in the asset being extinguished (burned)
-or marked on the origin network, and for the asset to be regenerated (minted)
-at the destination network.
-
-The secure asset transfer protocol provides a coordination
-between the two gateways through the various message flows
-in the protocol that is communicated over a secure channel.
-
-The protocol implements a commitment mechanism between the
-two gateways to ensure that the relevant properties
-atomicity, consistency, isolation, and durability are achieved in the transfer.
-
-The mechanism to extinguish (burn) or regenerate (mint) an asset from/into
-a network by its gateway is dependent on the specific network
-and is outside the scope of the current architecture.
-
-As part of the commitment mechanism,
-the sender gateway in the origin network must deliver a signed assertion
-to the receiver gateway at the destination network which states that asset
-in question has been extinguished (burned) from the origin network.
-
-Similarly, the receiver gateway at the destination network
-must in return deliver a signed assertion to the sender gateway at the origin network
-which states that the asset has been regenerated (minted) in the destination network.
-
-These two tasks must be performed in a synchronized fashion
-between the two gateways,
-and the commitment mechanism must provide sufficent evidence of the
-asset transfer that is verifiable by an authorized third party.
-
-## Desirable Properties of Asset Transfer
-{: #properties}
-The desirable features of asset transfers
-between two gateway  include, but not limited,
-to the following:
-
-* Atomicity: A transfer must either commit or entirely fail (failure means no change to asset state).
-
-* Consistency: A transfer (commit or fail) always leaves the networks in a consistent state
-(i.e. the asset is located in one network only at any time).
-
-* Isolation: While the transfer is occurring, the asset state cannot be modified in the origin network.
-
-* Durability: Once a transfer has been committed by both gateways,
-it must remain so regardless of subsequent gateway crashes.
-
-
-* Verifiable by authorized third parties:
-The proof that the asset has been extinguished in the origin network,
-and the proof that the asset has been generated
-in the destination network must be verifiable by an authorized third party.
-
-
-An implementation of the asset transfer protocol should satisfy these properties,
-independent of whether the implementation employs
-stateful messaging or stateless messaging between the two gateways.
-
-Effecting an asset transfer safely and securely is not simply
-a matter of communicating desire or intent between two systems represented
-by gateways, though such communication is a necessary part of asset transfer.
-The systems, or at least their gateway proxies,
-must be interoperable in order to transfer assets among themselves,
-but such interoperability imposes strictly more demands on systems managing digital assets,
-especially systems that are built on distributed ledgers,
-than conventional communication interoperability does.
-
-Communication interoperability, which is concerned with syntax and semantics of information
-geared towards producing a common understanding (or knowledge reconciliation) among systems,
-is insufficient to fulfill an asset transfer that requires systems to carry out state
-updates in concert with each other.
-But communication, or messaging standards, play a necessary and complementary role
-to asset transfer protocols.
-An exemplar of this is ISO 20022,
-which is a comprehensive global standard for financial messaging that
-specifies message syntax for common actions occurring in financial business processes,
-including payments, credit card transactions, securities settlements, funds, and trade [ISO20022].
-This standard provides the tools to model business processes from basic logical building blocks
-and schemas to construct messages using common formats like XML, JSON, and ASN.1.
-
-As we will see later in this document, such messaging standards are useful to
-communicate information about the states of processes and digital assets across systems,
-to make requests, and to convey intent.
-They therefore play a necessary and complementary role in asset transfer protocols.
-However they are by themselves insufficient to ensure the ACID and verifiability properties described earlier.
-Another way to think about the relationship between messaging standards
-like ISO 20022 and asset transfer protocols is that the former is concerned
-with the "what" of cross-system interoperability whereas
-the latter is concerned with the "how".
-Both kinds of protocols treat systems as black boxes,
-but asset transfer protocols must place some responsibility,
-and depend, on systems to drive a protocol instance to successful conclusion.
-
-
-## Event log-data, crash recovery and backup gateways
-{: #log-data}
-
-Implementations of a gateway should maintain event logs and checkpoints
-for the purpose of gateway crash recovery.
-The log-data generated by a gateway should be considered as
-an interior resource accessible to other authorized gateways within the same network.
-
-The mechanism used to provide gateway crash-recovery is dependent
-on the specific network.
-For interoperability purposes the information contained in the log and
-the format of the log-data should be standardized.
-
-The resumption of an interrupted transfer session (e.g. due to gateway crash, network failure, etc.)
-should take into consideration the aspects of secure channel establishment
-and the aspects of the transfer protocol resumption.
-In some cases, a new secure channel (e.g. TLS session) may need to be
-established between the two gateways, before a resumption of the transfer can begin.
-
-The log-data collected by a gateway acts also as
-a checkpoint mechanism to assist the recovered (or backup) gateway in continuing the transfer.
-The point at which to re-start the transfer protocol flow
-is dependent on the implementation of the gateway recovery strategy.
-
-
-## Overview of the Stages in Asset Transfer
-{: #phasetransfer}
-
-The interaction between two gateways in the secure asset transfer protocol is summarized in Figure 1,
-where the origin network is NW1 and the destination network is NW2. T
-he gateways are denoted as G1 and G2 respectively.
+		 The protocol defines a number of API endpoints,
+		resources and identifier definitions,
+		and message flows corresponding to the asset transfer
+		between the two gateways.
 
 ~~~
-         Originator                                   Beneficiary
-             |                                             |
-      +-------------+                               +-------------+
-      |   Client    |                               |   Client    |
-      | Application |                               | Application |
-      |    (App1)   |                               |    (App2)   |
-      +-------------+                               +-------------+
-             |                                             |
-             |                  (Stages)                   |
-             V                                             V
-      +-------------+       |<-----(1)----->|       +-------------+
-      |    Network  |  +----+               +----+  |   Network   |
-      |     NW1     |  |Gate|               |Gate|  |     NW2     |
-      |             |--|way |<-----(2)----->|way |--|             |
-      | +---------+ |  | G1 |               | G2 |  | +---------+ |
-      | |  State  | |  +----+               +----+  | |   State | |
-      | | Data DB1| |  +----+               +----+  | | Data DB2| |
-      | +---------+ |       |<-----(3)----->|       | +---------+ |
-      +-------------+                               +-------------+
-~~~
-
-{: #gateway-stages}
-
-The stages are summarized as follows.
-
-* Stage 0: Pre-transfer Verification and Context Establishment.
-The two applications utilized by the originator and beneficiary
-is assumed to interact as part of the asset transfer.
-In this stage, the applications App1 and App2 may establish
-some shared transfer context information (e.g.  Context-ID) at the application level
-that will be made
-available to their respective gateways G1 and G2.
-The legal verification of the identities of the Originator and
-Beneficiary may occur in this stages [FATF].
-This stage is outside the scope of the current architecture.
-
-* Stage 1: Transfer Initiation Claims negotiations.
-In this stage gateways G1 and G2 must exchange information (claims)
-regarding the asset to be transferred, the identity information of
-the Originator and Beneficiary and other information
-regarding relevant actors (e.g. gateway owner/operator).
-
-Additionally, the gateways must exchange information regarding
-the gateway and network characteristics that are unique
-to G1, G2, NW1 and NW2 for this particular transfer instance.
-
-
-* Stage 2: Lock Assertion and Receipt.  In this stage, gateway G1
-must provide gateway G2 with a signed assertion that
-the asset in NW1 has been immobilized and under the control on G1.
-A signed assertion is needed because NW1 may be a private or closed network,
-and therefore the state-database (ledger) in NW1 is no readable by external entities including by G2.
-Gateway G1 must therefore make this signed assertion explicitly.
-Note that the owner/operator of G1 takes on liability in signing this assertion.
-
-
-* Stage 3: Commitment Preparation and Finalization.
-In this stage gateways G1 and G2 commit to the unidirectional asset transfer
-using a 3PC (3-phase commit) subprotocol.
-
-These transfer stages will be further discussed below.
-
-
-# Transfer Initiation Claims negotiations (Stage-1)
-{: #phase-one}
-
-The purpose of this stage is for the sender gateway (G1) and
-the receiver gateway (G2) to agree on the asset instance
-to be transferred from the origin network NW1 to the destination network NW2.
-In addition, the gateways must exchange validated information or
-artifacts regarding the originator and beneficiary of the asset transfer,
-and exchange gateway-specific and network-specific parameters.
-
-These artifacts are contained in the Transfer Initiation Claims set
-that is sent from gateway G1 to G2. The set of claims may be
-negotiated between GH1 and G2 in multi-round set of messages.
-
-
+             +----------+                +----------+
+             |  Client  |                | Off-net  |
+             |   (App)  |                | Resource |
+             +----------+                +----------+
+                  |                      |API Type-3|
+                  |                      +----------+
+                  |                           ^
+                  V                           |
+             +----------+                     |
+             |API Type-1|                     |
+  +------+   +----------+----+        +----+----------+   +------+
+  |      |   |          |    |        |    |          |   |      |
+  | Net. |   | Gateway  |API |        |API | Gateway  |   | Net. |
+  | NW1  |---|    G1    |Type|<------>|Type|    G2    |---| NW2  |
+  |      |   |          | 2  |        | 2  |          |   |      |
+  +------+   +----------+----+        +----+----------+   +------+
 
 ~~~
-      App1  DB1          G1                     G2          DB2    App2
-       |     |            |                      |            |     |
-       |     |            |                      |            |     |
-       |<------------ (transfer context establishment) ------------>|
-       |     |            |                      |            |     |
-       |---request------->|                      |<------request----|
-       |     |            |                      |            |     |
-     ..|.....|............|......................|............|.....|..
-       |     |            |       Stage 1        |            |     |
-       |     |            |                      |            |     |
-       |     |       (1.1)|<---Proposal Claims-->|            |     |
-       |     |            |                      |            |     |
-       |     |            |                      |            |     |
-       |     |       (1.2)|<--Proposal Receipt-->|            |     |
-       |     |            |                      |            |     |
-       |     |            |                      |            |     |
-       |     |       (1.3)|<--Transf. Commence-->|            |     |
-       |     |            |                      |            |     |
-       |     |            |                      |            |     |
-       |     |       (1.4)|<--- ACK Commence --->|            |     |
-       |     |            |                      |            |     |
-     ..|.....|............|......................|............|.....|..
-       |     |            |                      |            |     |
+{: #satp-fig-overview}
+
+## SAT Model
+{: #satp-model}
+
+The model for SATP is shown in Figure 1.
+
+		 The Client (application) interacts with its local gateway (G1)
+		over an interface (API Type-1) in order to provide instructions
+		to the gateway with regards to actions to assets and related
+		resources located in the local system or network (NW1).
+
+		 Gateways interact with each other over a gateway interface (API Type- 2).
+		A given gateway may be required to access resources that are
+		not located in network NW1 or network NW2.
+		Access to these types of resources are performed
+		over an off-network interface (API Type-3).
+
+## Types of APIs
+{: #satp-apitypes}
+
+The following are the types of APIs in SATP:
+
+				* Gateway APIs for client (API Type-1):
+				This the REST APIs that permit a Client (application)
+				to interact with a local gateway,
+				and issue instructions for actions pertaining
+				to resources accessible to the gateway.
+
+				* Gateway APIs for peer gateways (API Type-2):
+				This is the REST APIs employed by two (2) peer gateways
+				in performing unidirectional asset transfers.
+
+				* APIs for validation of off-network resources (API Type-3):
+				This is the REST APIs made available by a resource server (resource owner)
+				at which a gateway can access resources.
+
+
+		The use of these APIs is dependent on the mode of access and the type of flow in question.
+
+## Types of Flows
+{: #satp-flowtypes}
+
+The SAT protocol defines the following three (3) flows:
+
+				* Transfer Initiation flow:
+				This flow deals with commencing a transfer from one gateway to another.
+				Several tasks are involved, including (but not limited to):
+				(i) gateway identification and
+				mutual authentication;
+				(ii) exchange of asset type (definition) information;
+				(iii) verification of the asset definition, and others.
+
+				* Lock-Assertion flow: This flow deals with the conveyance of
+				signed assertions from the sender gateway to the receiver gateway
+				regarding the locked status of an asset at the origin network.
+
+				* Commitment Establishment flow:
+				This flow deals with the asset transfer and commitment
+				establishment between two gateways.
+
+      These flow will be discussed below.
+
+## Resources and Identifier
+{: #satp-resources-ident}
+
+	 (a) Resource addressing for systems or networks,
+			using the URL syntax.
+
+			 (b) Client identification based on the URN format.
+			These are for identifying clients (developers and applications)
+			who access these resources,
+			and which in some use-cases require access authorization.
+
+			 (c) Protocol message family for negotiating authentication,
+			authorisation, and parameters for confidential channel establishment.
+
+			 (d) Resource discovery mechanism for developers
+			and applications to discover resources hosted at a gateway.
+			The gateway response is subject to the level of access granted
+			to that developer or application.
+
+
+# SATP Message Format, identifiers and Descriptors
+{: #satp-messages-identifiers}
+## Overview
+{: #satp-overview-messages-identifiers}
+
+		  This section describes (i) the phases of SATP;
+  		 (ii) the format of SATP messages; (iii) the format for resource descriptors;
+  		(iv) a method for gateways to implement access controls;
+  		(iv) protocol for negotiating security capabilities;
+  		(v) discovery and accessing resources and provisions for
+  		backward compatibility with existing systems.
+
+
+## SATP Message Format
+{: #satp-message-format}
+
+		  SATP messages are exchanged between applications (clients)
+		 and gateways (servers).
+		 They consist of protocol negotiation and functional messages.
+
+		Messages are in JSON format, with protocol specific mandatory fields,
+		 support for several authentication and authorization schemes and support
+		 for a free format field for plaintext or encrypted payloads
+		 directed at the gateway.
+
+		JSON format message, mandatory fields are shown below:
+* Version: SATP protocol Version (major, minor).
+
+* Message Type: This refers to the type of request or response to be conveyed in this message.
+
+* Session ID: unique identifier (UUIDv2) representing
+				   a session between two gateways handling a single unidirectional transfer.
+
+* Transfer-Context ID: unique optional identifier (UUIDv2)
+				representing the application layer context.
+
+* Sequence Number: Monotonically increasing counter that uniquely represents a message from a session.
+
+* Resource URL: Location of Resource to be accessed.
+
+* Developer URN: Assertion of developer / application identity.
+
+* Action/Response: GET/POST and arguments (or Response Code)
+
+* Credential Profile: Specify type of auth (e.g. SAML, OAuth, X.509)
+
+* Credential Block: Credential token, certificate, string
+
+* Payload Profile: Asset profile and capabilities
+
+* Application Profile: Vendor or Application specific profile
+
+* Payload: Payload for POST, responses, and local networks.
+					The payload is specific to the current SAT phase.
+
+* Payload Hash: hash of the current message payload.
+
+* Message signature: Gateway EDCSA signature over the message
+
+		Other relevant attributes may exists that need to be captured for logging purposes.
+
+
+## Digital Asset Resource Descriptors
+{: #satp-resource-descriptor-sec}
+
+
+		Resources are identified by URL [RFC1738] as described below:
+
+* The type is new: application/satres
+
+* The access protocol is SATP.
+
+		Data included in the URL includes the folowing:
+
+
+### Organization Identifier
+{: #satp-org-id-sec}
+
+				  This MAY be a Legal Entity Identifier (LEI) or other
+				 identifier linking resource ownership to a real world entity.
+				 Any scheme for identifying gateway owners may be implemented
+				 (e.g. LEI directory, closed user group membership, SWIFT BIC, etc.).
+
+ 				 The developer or application MAY validate the identity
+ 				with the issuing authority.
+ 				The identifier is not a trusted identity,
+ 				but MAY be relied on where trust has been established
+ 				between the two parties (e.g. in a closed user group).
+
+				The mechanisms to determine organizations identifiers
+				is out of scope for the current specification.
+
+
+### Gateway / Endpoint ID
+{: #satp-gateway-id-sec}
+			FQDN of the SATP compliant gateway. Required to establish IP connectivity.
+				This MUST resolve to a valid IP address.
+
+### Network or system Identifier
+{: #satp-dlt-id-sec}
+ 				 Specific to the gateway behind which the target network operates.
+ 				This field is local to the gateway and is used to direct
+ 				SATP interactions to the correct underlying network.
+ 				This value maybe alphanumeric or a hexadecimal value.
+
+ 				 For example: "tradelens-network", "EU-supply-chain".
+
+
+### Network Resource
+{: #satp-network-resource-sec}
+
+ 				 Specifies a resource held on the underlying network.
+ 				This field must be meaningful to the network in question
+ 				but is otherwise an arbitrary string.
+ 				The underlying object it points to may be a network address,
+ 				data block, transaction ID, alias, etc. or
+ 				a future object type not yet defined.
+
+### Examples
+{: #satp-resource-example-sec}
+
+				satpres://quant/api.gateway1.com/swift
+
+
+## Digital Asset Resource Client Descriptors
+{: #satp-clientresource-descriptor-sec}
+
+
+		Resources are identified by URN as described below:
+
+					* The type is new: application/satpclient
+
+		The URN format does not imply availability of access protocol.
+
+		Data included in the URN includes the following:
+
+
+### Organization Identifier
+{: #satp-client-org-id-sec}
+
+				 Legal Entity Identifier (LEI) or other identifier
+				linking resource ownership to a real-world entity.
+				Any scheme for identifying Gateway owners may be implemented
+				(e.g. LEI directory, closed user group membership, BIC, etc.).
+
+ 				 The Gateway MAY validate the identity with the issuing authority.
+ 				The identifier is not a trusted identity,
+ 				but MAY be relied on where trust has been established
+ 				between the two parties (e.g. in a closed user group).
+
+### Gateway / Endpoint ID
+{: #satp-client-gateway-id-sec}
+
+ 				 Applications which interact with multiple networks
+ 				can operate in a mode whereby the application connects to its local gateway,
+ 				which then forwards application traffic to local networks and
+ 				to remote networks via other SATP gateways.
+
+				  Where this is the case, this field identifies the "home" gateway
+				 for this application.
+				 This may be required to carry out gateway to gateway handshaking
+				 and protocol negotiation, or for the server to look up use
+				 case specific data relating to the client.
+
+### Organizational Unit
+{: #satp-client-org-unit-sec}
+ 				 The organization unit within the organization that the client
+ 				(application or developer) belongs to.
+ 				This assertion should be backed up with authentication via the negotiated protocol.
+
+ 				 The purpose of this field is to allow gateways to maintain access control
+ 				mapping between applications and resources that are independent of the
+ 				authentication and authorization schemes used,
+ 				supporting future changes and supporting counterparties
+ 				that operate different schemes.
+
+
+
+### Name
+{: #satp-client-dlt-resource-sec}
+
+				A locally unique (within the OU) identifier, which can identify the application,
+				project or individual developer responsible for this client connection.
+				This is the most granular unit of access control,
+				and gateways should ensure appropriate identifiers
+				are used for the needs of the application or use case.
+
+### Examples
+{: #satp-client-resource-example-sec}
+
+				satclient:quant/api.overledger.quant.com/research/luke.riley
+
+### Gateway Level Access Control
+{: #satp-gateway-access-sec}
+
+		Gateways can enforce access rules based on standard naming conventions using
+		novel or existing mechanisms such as AuthZ protocols using
+		the resource identifiers above, for example:
+
+		satpclient://hsbc/api.overledger.hsbc.com/lending/eric.devloper
+
+		can READ/WRITE
+
+		satpres://quant/api.gateway1.com/tradelens
+
+		AND
+
+		satpres://quant/api.gateway1.com/ripple
+
+		These rules would allow a client so identified to access resources directly, for example:
+
+		satpres://quant/api.gateway1.com/tradelens/xxxxxADDRESSxxxxx
+
+		This method allows resource owners to easily grant access to individuals,
+		groups and organizations. Individual gateway implementations may implement access controls,
+		including subsetting and supersetting or applications or
+		resources according to their own requirements.
+
+
+
+
+## Negotiation of Security Protocols and Parameters
+{: #satp-negotiation-sec}
+
+### TLS Established
+{: #satp-tls-Established-sec}
+
+TLS 1.2 or higher MUST be implemented to protect gateway communications.
+				TLS 1.3 or higher SHOULD be implemented where both
+				gateways support TLS 1.3 or higher.
+
+### Client offers supported credential schemes
+{: #satp-client-offers-sec}
+
+				Capability negotiation prior to data exchange,
+				follows a scheme similar to the Session Description Protocol [RFC 5939].
+				Initially the client (application) sends a JSON block containing
+				acceptable credential schemes, e.g. OAuth2.0, SAML in
+				the "Credential Scheme" field of the SATP message.
+
+### Server selects supported credential scheme
+{: #satp-server-selects-sec}
+				The server (recipient Gateway) selects one acceptable credential scheme from
+				the offered schemes, returning the selection in the "Credential Scheme"
+				field of the SATP message.
+
+				If no acceptable credential scheme was offered,
+				an HTPP 511 "Network Authentication Required" error
+				is returned in the Action/Response field of the SATP message.
+
+### Client asserts or proves identity
+{: #client-procedure-sec}
+								The details of the assertion / verification step are specific to
+				the chosen credential scheme and are out of scope of this document.
+
+### Sequence numbers initialized
+{: #sequence-numbers-sec}
+   		 	 				 Sequence numbers are used to allow the server to
+ 				correctly order operations from the client,
+ 				some of which may be asynchronous, synchronous,
+ 				idempotent with duplicate requests handled in
+ 				different ways according to the use case.
+
+ 				 The initial sequence number is proposed by the client (sender gateway)
+ 				after the finalization of credential verification.
+ 				The server (recipient gateway) MUST respond with
+ 				the same sequence number to indicate acceptance.
+
+ 				 The client (sender gateway) increments the sequence number
+ 				with each new request.
+ 				Sequence numbers can be reused for retries in the
+ 				event of a gateway timeout.
+
+
+### Messages can now be exchanged
+{: #satp-msg-exchnge-sec}
+				 				 Handshaking is complete at this point,
+ 				and the client can send SAT messages to perform actions on resources,
+ 				which MAY reference the SAT Payload field.
+
+## Asset Profile Identification
+{: #satp-asset-profile-negotiation}
+
+		The client and server must mutually agree as to the asset type or
+		profile that is the subject to the current transfer from the client and server.
+		The client must provide the server with the asset-identification number,
+		or the server may provide the client with the asset-identification numbers
+		for the digital asset supported by the server.
+
+		Formal specification of asset identification is out of scope of this document.
+		Global numbering of digital asset types or profiles is expected to be
+		performed by a legally recognized entity.
+
+
+## Application Profile Negotiation
+{: #satp-application-profile-negotiation}
+
+		Where an application relies on specific extensions for operation,
+		these can be represented in an Application Profile.
+
+		For example, a payments application tracks payments through the use of
+		a cloud based API and will only interact with gateways that log messages to that API,
+		a resource profile can be established:
+
+		Application Name: TRACKER
+		X-Tracker_URL: https://api.tracker.com/updates
+		X-Tracking-Policy: Always
+
+		As gateways implement this functionality, they support the TRACKER application profile,
+		and the application is able to expand its reach by periodically polling
+		for the availability of the profile.
+
+		This is an intentionally generalized extension mechanism for
+		application or vendor specific functionality.
+
+
+## Discovery of Digital Asset Resources
+{: #satp-resource-discovery-sec}
+				Applications located outside a network or system SHOULD be able
+		to discover which resources they are authorized to access in a network or system.
+
+		Resource discovery is handled by the gateway in front of the network.
+		For instance using a GET  request against the gateway
+		URL with no resource identifier could return
+		a list of URLs available to the requester.
+		This list is  subject to the access controls above.
+
+		Gateways MAY allow applications to discover resources
+		they do not have access to.
+		This should be indicated in the free text field,
+		and gateways SHOULD implement a process for applications to request access.
+
+		Formal specification of supported
+		resource discovery methods is out of scope of this document.
+
+
+# Identity and Asset Verification Flow (Stage 0)
+{: #satp-Stage0-section}
+ 		 Prior to commencing the asset transfer from the sender gateway (client)
+ 		to the recipient gateway (server),
+ 		both gateways must perform a number of verifications steps.
+ 		The types of information required by both the sender and recipient
+ 		are use-case dependent and asset-type dependent.
+
+ 		The verifications include, but not limited to, the following:
+
+				* Gateway identity mutual verification:
+				This is the identity of the gateway at the protocol and network layer.
+				This may include validating the X509 certificates of the gateways.
+
+
+				* Gateway owner verification:
+				This is the verification of the identity (e.g. LEI) of the owners of the gateways.
+
+				* Gateway device and state validation:
+				This is the device attestation evidence [RATS]
+				that a gateway must collect and convey to each other,
+				where a verifier is assumed to be available to decode,
+				parse and appraise the evidence.
+
+				* Originator and beneficiary identity verification:
+				This is the identity and public-key of the entity (originator)
+				in the origin network seeking to transfer the asset to
+				another entity (beneficiary) in the destination network.
+
+  		 These are considered out of scope in the current specifications,
+  		and are assumed to have been successfully completed prior to
+  		the commencement of the transfer initiation flow.
+
+
+
+# Transfer Initiation and Commencement Flows (Stage 1)
+{: #satp-stage1-section}
+	 This section describes the SATP Set-up stage,
+	where a sender gateway interacts with a recipient gateway, proposing a session.
+
+ 	 These artifacts are contained in the Transfer Initiation Claims.
+
+	 Gateways MUST support the use of the HTTP GET and POST methods
+	defined in RFC 2616 [RFC2616] for the endpoint.
+
+	 Clients (sender gateway) MAY use the HTTP GET or POST methods to send messages
+	in this phase to the server (recipient gateway).
+	If using the HTTP GET method, the request parameters may be
+	serialized using URI Query String Serialization.
+
+	 The client and server may be required to sign certain messages
+	in order to provide standalone proof (for non-repudiation)
+	independent of the secure channel between the client and server.
+	This proof may be required for audit verifications (e.g. post-event).
+
+ 	 (NOTE: Flows occur over TLS. Nonces are not shown).
+
+
+
+
+
+## Transfer Initialization Claims
+{: #satp-stage1-init-claims}
+   						This is set of artifacts pertaining to the asset that
+			must be agreed upon between the client (sender
+   			gateway) and the server (recipient gateway).
+
+			 The Transfer Initialization Claims consists of the following:
+
+				* digital_asset_id:  This is the globally unique identifier for the digital asset
+				located in the origin network.
+
+				* asset_profile_id:  This is the globally unique identifier for the asset-profile
+				definition (document) on which the digital asset was issued.
+
+				* verified_originator_entity_id:  This is the identity data of the originator entity
+				(person or organization) in the origin network.
+				This information must be verified by the sender gateway.
+
+				* verified_beneficiary_entity_id:  This is the identity data of the beneficiary entity
+				(person or organization) in the destination network.
+				This information must be verified by the receiver gateway.
+
+				 * originator_pubkey REQUIRED. This is the public key of the asset owner (originator)
+				in the origin network or system.
+
+				 * beneficiary_pubkey REQUIRED. This is the public key of the beneficiary
+				in the destination network.
+
+				 * sender_gateway_network_id REQUIRED. This is the identifier of the
+				origin network or system behind the client.
+
+				 * recipient_gateway_network_id REQUIRED. This is the identifier of the destination
+				network or system behind the server.
+
+				 * client_identity_pubkey REQUIRED. The public key of client who sent this message.
+
+				 * server_identity_pubkey REQUIRED. The public key of server for whom this message is intended.
+
+
+				* sender_gateway_owner_id:  This is the identity information of the owner or operator
+				of the sender gateway.
+
+				* receiver_gateway_owner_id:  This is the identity information of the owner or operator
+				of the recipient gateway.
+
+
+
+
+
+
+
+## Conveyance of Network Capabilities and Parameters
+{: #satp-stage1-conveyance}
+
+			This is set of artifacts pertaining to the origin network behind
+			the client (sender gateway) that MAY be communicated to the server (recipient gateway).
+			A server may accept the asset-related claims but reject the
+			transfer request based on parameters of the origin network.
+
+			Some of these parameters maybe gateway-specific (e.g. chosen signature algorithm),
+			while others are inherent in the origin network
+			(e.g. lock type; average lock duration time; etc.).
+
+
+			The network capabilities list is as follows:
+				* sender_gateway_network_id REQUIRED.  This is the identifier of the
+      			origin network or system behind the client.
+
+				* signature_algorithm REQUIRED: The digital signature algorithm chosen
+				by the client (sender gateway) for signing claims.
+
+				* supported_signature_algorithm OPTIONAL: The list of algorithm-id that is
+				supported by the client from which the server MAY select.
+
+				* Lock_type REQUIRED: faucet, timelock, hashlock, hashtimelock,
+      			multi-claim PC, destroy/burn (escrowed cross-claim).
+
+				* Lock_expiration_time REQUIRED: when will the lock or escrow expire.
+
+				* Permissions OPTIONAL: list of identities (public-keys or X.509
+				certificates) that can perform operations on the escrow or lock on
+			      the asset in the origin network.
+
+				* developer_URN OPTIONAL: Assertion of developer / application identity.
+
+				* credential_profile REQUIRED: Specify type of auth (e.g.  SAML, OAuth, X.509).
+
+
+
+				* application_profile OPTIONAL: Vendor or Application specific profile.
+
+				* logging_profile REQUIRED: contains the profile regarding the logging procedure.  Default is local store
+
+				* Access_control_profile REQUIRED: the profile regarding the
+				confidentiality of the log entries being stored.  Default is only
+				the gateway that created the logs can access them.
+
+				* Subsequent calls OPTIONAL: details possible escrow actions.
+
+				* History OPTIONAL: provides an history of the escrow, in case it
+				has previously been initialized.
+
+
+## Transfer Proposal Message
+{: #satp-stage1-init-transfer-proposal}
+
+			The purpose of this message is for the client to initiate an asset
+			   Transfer and propose the set of claims related to the asset to be transferred.
+			   This message must be signed by the client.
+
+			Depending on the proposal, multiple rounds of
+			communication between the client and the server may occur.
+
+
+			 This message is sent from the client to the Transfer Initialization Endpoint
+			at the server.
+
+			The parameters of this message consists of the following:
+
+
+				* version REQUIRED: SAT protocol Version (major, minor).
+
+				* message_type REQUIRED:  urn:ietf:satp:msgtype:init-proposal-msg.
+
+				* session_id  REQUIRED: A unique identifier (UUIDv2) chosen by the
+				client to identify the current session.
+
+				* transferContext_id OPTIONAL: An optional identifier (UUIDv2) used to identify
+				the current transfer session at the application layer.
+
+				* transfer_init_claims: The set of artifacts and parameters as the basis
+				for the current transfer.
+
+				* transfer_init_claims_format OPTIONAL: The format of the transfer initialization claims.
+
+				 * network_capabilities_list REQUIRED: The set of origin network parameters reported by the client to the server.
+
+				* client_identity_pubkey REQUIRED. The public key of client who sent this message.
+
+				* server_identity_pubkey REQUIRED. The public key of server for whom this message is intended.
+
+				* multiple_claims_allowed OPTIONAL: true/false.
+
+				* multiple_cancels_allowed OPTIONAL: true/false.
+
+				* client signature REQUIRED: The client's signature over the message.
+
+## Transfer Proposal Receipt Message
+{: #satp-stage1-init-receipt}
+
+ 			The purpose of this message is for the server to indicate explicit
+			acceptance of the Transfer Initialization Claims
+			in the transfer proposal message.
+
+			 The message must be signed by the server.
+
+			 The message is sent from the server to the Transfer Proposal Endpoint at the client.
+
+			The parameters of this message consists of the following:
+
+				* version REQUIRED: SAT protocol Version (major, minor).
+
+				* message_type REQUIRED:  urn:ietf:satp:msgtype:init-receipt-msg
+
+				* session_id  REQUIRED: A unique identifier (UUIDv2) chosen by the
+				client to identify the current session.
+
+				* transferContext_id OPTIONAL: An optional identifier (UUIDv2) used to identify
+				the current transfer session at the application layer.
+
+				* hash_transfer_init_claims REQUIRED: Hash of the Transfer Initialization Claims
+				received in the Transfer Proposal Message.
+
+				*  Timestamp REQUIRED: timestamp referring to when
+				the Initialization Request Message was received.
+
+
+				Example: TBD.
+
+
+
+
+## Transfer Proposal Reject and Conditional Reject Message
+{: #satp-stage1-init-reject-conditional}
+
+			The purpose of this message is for the server to
+			indicate a rejection or conditional rejection of
+			the Transfer Initialization Claims.
+			In the case of a conditional rejection, the server may propose
+			a different set of claims (counter-proposal claims) to the client.
+
+			If the server wishes to indicate a conditional rejection,
+			the server MUST include a counter-proposal set of claims.
+
+			If the server does not wish to proceed, the server MUST include an empty (blank) counter-proposal.
+
+			Depending on the proposal and counter-proposal,
+			multiple rounds of communication between the client and the server may occur.
+
+
+			The message must be signed by the server.
+
+			The message is sent from the server to the Transfer Proposal Endpoint at the client.
+
+			The parameters of this message consists of the following:
+
+				* version REQUIRED: SAT protocol Version (major, minor).
+
+				* message_type REQUIRED:  urn:ietf:satp:msgtype:init-reject-msg
+
+				* session_id  REQUIRED: A unique identifier (UUIDv2) chosen by the
+				client to identify the current session.
+
+				* transferContext_id OPTIONAL: An optional identifier (UUIDv2) used to identify
+				the current transfer session at the application layer.
+
+				* hash_transfer_init_claims REQUIRED: Hash of the Transfer Initialization Claims
+				received in the Transfer Proposal Message.
+
+				* transfer_init_counter_claims: The set of artifacts and parameters as the
+			      counter-proposal to the client.
+
+				* Timestamp REQUIRED: timestamp referring to when
+				the Initialization Request Message was received.
+
+
+				Example: TBD.
+
+
+
+## Transfer Commence Message
+{: #satp-transfer-commence-sec}
+				 The purpose of this message is for the client to signal to
+		the server that the client is ready to start the transfer of the
+		digital asset. This message must be signed by the client.
+
+		This message is sent by the client as a response to the Transfer Proposal Receipt Message previously
+		receuved from the server.
+
+		This message is sent by the client to the Transfer Commence Endpoint at the server.
+
+		The parameters of this message consists of the following:
+
+			* message_type REQUIRED. MUST be the value urn:ietf:satp:msgtype:transfer-commence-msg.
+
+			* session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+			by client in the Initialization Request Message.
+
+			* transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+			used to identify the current transfer session at the application layer.
+
+ 			* client_identity_pubkey REQUIRED. The public key of client who sent this message.
+
+ 			* server_identity_pubkey REQUIRED. The public key of server for whom this message is intended.
+
+ 			* hash_transfer_init_claims REQUIRED: Hash of the Transfer Initialization Claims
+ 			received in the Transfer Proposal Message.
+
+ 			* hash_prev_message REQUIRED. The hash of the last message, in this case the
+ 			Transfer Proposal Receipt message.
+
+ 			* client_transfer_number OPTIONAL. This is the transfer identification number
+ 			chosen by the client. This number is meaningful only the client.
+
+			* client_signature REQUIRED. The digital signature of the client.
+
+		For example, the client makes the following HTTP request using TLS
+		(with extra line breaks for display purposes only):
 
 ~~~
-{: #phaseone-figure}
 
+   POST /token HTTP/1.1
+     Host: server.example.com
+     Authorization: Basic awHCaGRSa3F0MzpnWDFmQmF0M2ZG
+     Content-Type: application/x-www-form-urlencoded
 
-This stage starts with the assumption that in network NW1 the gateway
-who processes the asset transfer has been selected (namely gateway G1).
-It also assumes that the destination network NW2 has been identified
-where the beneficiary is located, and that gateway G2 in
-network NW2 has been identified.
+         {
+         "message_type": "urn:ietf:satp:msgtype:transfer-commence-msg",
+         "session_id":"9097hkstgkjvVbNH",
+         "originator_pubkey":"zGy89097hkbfgkjvVbNH",
+         "beneficiary_pubkey": "mBGHJjjuijh67yghb",
+         "sender_net_system": "originNETsystem",
+         "recipient_net_system":"recipientNETsystem",
+         "client_identity_pubkey":"fgH654tgeryuryuy",
+         "server_identity_pubkey":"dFgdfgdfgt43tetr535teyrfge4t54334",
+         "transfer_init_claims":"nbvcwertyhgfdsertyhgf2h3v4bd3v21",
+         "hash_prev_message":"DRvfrb654vgreDerverv654nhRbvder4",
+         "client_transfer_number":"ji9876543ewdfgh",
+         "client_signature":"fdw34567uyhgfer45"
+         }
 
-The first message (Transfer Proposal Claims) maybe multi-round in
-the sense there is a negotiation of the claims between G1 and G2.
-Once G2 accepts the agreed claims,
-G2 must send a signed receipt carrying the hash of the claims agreed.
-
-
-There are several steps that may occur in Stage 1:
-
-* Secure channel establishment between G1 and G2:
-This includes the mutual verification of the gateway device identities
-and the exchange of the relevant parameters for secure channel establishment.
-In cases where device attestation [^1] is required,
-the mutual attestation protocol must occur
-between G1 and G2 prior to proceeding to the next stage.
-
-[^1]: Add ref to RATS document
-
-* Mutual device attestations: In cases where device attestation
-is required, each gateway must yield attestation evidence
-to the other regarding its configuration.
-A gateway may take on the role as a attestation verifier,
-or it may rely on an external verifier to appraise the received evidence.
-
-* Validation of the gateway ownership:
-There must be a means for gateway G1 and G2 to verify their respective ownerships
-(i.e. entities owning G1 and G2 respectively).
-Examples of ownership verification mechanism include X.509 certificates,
-directories of gateways and owners, and others.
-
-* Validation of owner status: In some jurisdictions,
-limitations may be placed for regulated asset service providers
-to transact only with other similarly regulated service providers.
-Examples of mechanisms used to validate legal status of service providers
-include directories, Extended Validation (EV) X.509 certificates, and others.
-
-* Identification and validation of type/asset profile:
-Both gateways must agree on the type of asset being
-transferred based on the published profile of the asset.
-Gateway G1 must communicate the asset-profile identification
-to gateway G2, who in turn must validate both the legal status of
-the asset as well as the technical capability of its network to accept the type of asset.
-The policies governing network NW2 with regards to permissible incoming assets
-must be enforced by G2.
-
-* Exchange of Travel Rule information and validation:
-In jurisdictions where the Travel Rule policies
-regarding originator and beneficiary information is enforced [FATF],
-the owners of gateways G1 and G2 must comply to the Travel Rule.
-Mechanisms must be used to permit gateways G1 and G2
-to make available originator/beneficiary information
-to one another in such a away that the Travel Rule information
-can be logged as part of the asset transfer history.
-
-* Negotiation of asset transfer protocol parameters:
-Gateway G1 and G2 must agree on the parameters to be employed within
-the asset transfer protocol.
-Examples include endpoints definitions for resources,
-type of commitment flows (e.g. 2PC or 3PC),
-lock-time durations, and others [SAT].
-
-We do not need to invent new standards for several of these steps.
-Instead, we can rely on existing messaging standards like ISO 20022 [ISO20022]
-or ITIN [ITIN] for gateway ownership validation,
-owner status validation, asset profile identification, and
-communication of travel rule and transfer context information.
-For identification of digital assets maintained by
-distributed ledgers or blockchain systems,
-we can also rely on standards like ITIN [ITIN].
-
-Once gateways G1 and G2 agree on the claims related to the asset transfer,
-the two gateways can proceed by G1 sending the Transfer Commence message,
-which must be explicitly acknowledged by gateway G2.
-
-# Asset Lock Assertion and Receipt (Stage 2)
-{: #phase-two}
-
-In this stage, gateway G1 must issue a signed assertion that
-the asset in origin network NW1 has been immobilized and under the control of G1.
-
-
-The steps of Stage 2 are summarized in Figure 4, and broadly consists of the following:
-
-* G1 lock/escrow asset (2.1): Gateway G1 proceeds to establish
-a lock or escrow the asset belonging to the originator.
-This prevents other local transactions in NW1 from changing the state of the asset
-until such time the lock by G1 is finalized or released.
-A time-lock or escrow may also be employed.
-
-
-* Lock Assertion (2.2): Gateway G1 sends a digitally signed assertion
-regarding the locked (escrowed or immobilized) state on the asset in network NW1.
-The signature by G1 is performed using its entity public-key pair.
-This signature signifies that G1 (i.e. its owner/operator) is legally standing
-behind its statement regarding the locked/escrowed state on the asset.
-The mechanism to lock or immobilize the asset is outside the scope of SATP.
-
-
-* G2 Logs and Broadcasts lock-assertion information (2.3): Gateway G2 logs a copy of the signed
-      lock-assertion message received in Step 2.4 to its local state data DB2.
-      G2 may also broadcast the fasts of the lock-assertion to all members of network NW2.
-      The mechanism to log and to broadcast is out of scope for SATP.
-
-
-* Lock-Assertion Receipt  (2.4): If gateway G2 accepts the signed assertion from G1,
-then G2 responds with a digitally signed receipt message
-which includes a hash of the previous lock-assertion message.
-The signature by G2 is performed using its entity public-key pair.
-Otherwise, if G2 declines accepting the assertion then G2 can simply ignore
-the transfer and let the session time-out (i.e. transfer attempt has failed).
 
 ~~~
+{: #transfer-commence-sec-example}
 
-        Orig DB1           G1                   G2            DB2  Benef
-        |     |            |      (Stage 1)     |              |     |
-        |     |            |                    |              |     |
-      ..|.....|............|....................|..............|.....|..
-        |     |            |       Stage 2      |              |     |
-        |     |            |                    |              |     |
-        |     |<---Lock----|(2.1)               |              |     |
-        |     |            |                    |              |     |
-        |     |       (2.2)|--Lock-Assertion--->|              |     |
-        |     |            |                    |              |     |
-        |     |            |               (2.3)|--Broadcast-->|     |
-        |     |            |                    |              |     |
-        |     |            |                    |              |     |
-        |     |            |<-----Receipt-------|(2.4)         |     |
-        |     |            |                    |              |     |
-      ..|.....|............|....................|..............|.....|..
-        |     |            |                    |              |     |
+
+
+## Commence Response Message (ACK-Commence)
+{: #satp-transfer-commence-resp-sec}
+		 		The purpose of this message is for the server to indicate agreement
+ 		to proceed with the asset transfer, based on the artifacts
+ 		found in the previous Transfer Proposal Message.
+
+		This message is sent by the server to the Transfer Commence Endpoint at the client.
+
+		 The message must be signed by the server.
+
+		The parameters of this message consists of the following:
+
+ 			 * message_type REQUIRED urn:ietf:satp:msgtype:ack-commence-msg
+
+			* session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+			by client in the Initialization Request Message.
+
+			* transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+			used to identify the current transfer session at the application layer.
+
+			 * client_identity_pubkey REQUIRED. The client for whom this message is intended.
+
+ 			* server_identity_pubkey REQUIRED. The server who sent this message.
+
+ 			* hash_prev_message REQUIRED.  The hash of the last message, in this case the
+ 			the Transfer Commence Message.
+
+ 			 * server_transfer_number OPTIONAL. This is the transfer identification number
+ 			chosen by the server. This number is meaningful only to the server.
+
+			* server_signature REQUIRED. The digital signature of the server.
+
+		An example of a success response could be as follows: (TBD)
+
+
+
+
+# Lock Assertion and Receipt (Stage 2)
+{: #satp-stage2-section}
+
+
+	The messages in this stage pertain to the sender gateway providing
+	the recipient gateway with a signed assertion that the asset in the origin network
+	has been locked or disabled and under the control of the sender gateway.
+
+	 In the following, the sender gateway takes the role of the client
+	while the recipient gateway takes the role of the server.
+
+	 The flow follows a request-response model.
+	The client makes a request (POST) to the Lock-Assertion Endpoint at the server.
+
+	 Gateways MUST support the use of the HTTP GET and POST methods
+	defined in RFC 2616 [RFC2616] for the endpoint.
+
+	 Clients MAY use the HTTP GET or POST methods to send messages in this phase to the server.
+	If using the HTTP GET method, the request parameters may be serialized
+	using URI Query String Serialization.
+
+ 	 (NOTE: Flows occur over TLS. Nonces are not shown).
+
+
+
+## Lock Assertion Message
+{: #satp-lock-assertion-message-sec}
+
+		The purpose of this message is for the client (sender gateway) to
+		   convey a signed claim to the server (receiver gateway) declaring that the asset in
+		   question has been locked or escrowed by the client in the origin
+		   network (e.g. to prevent double spending).
+
+ 		 The format of the claim is dependent on the network or system
+ 		of the client and is outside the scope of this specification.
+
+ 		 This message is sent from the client to the Lock Assertion Endpoint at the server.
+
+ 		 The server must validate the claims (payload)
+ 		in this message prior to the next step.
+
+		The message must be signed by the client.
+
+
+
+		The parameters of this message consists of the following:
+
+
+			* message_type REQUIRED urn:ietf:satp:msgtype:lock-assert-msg.
+
+			* session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+			by client in the Initialization Request Message.
+
+			* transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+			used to identify the current transfer session at the application layer.
+
+			* client_identity_pubkey REQUIRED. The client who sent this message.
+
+ 			* server_identity_pubkey REQUIRED. The server for whom this message is intended.
+
+ 			* lock_assertion_claim REQUIRED. The lock assertion claim or statement by the client.
+
+ 			* lock_assertion_claim_format REQUIRED. The format of the claim.
+
+ 			* lock_assertion_expiration REQUIRED.  The duration of time of the lock or escrow upon the asset.
+
+ 			* hash_prev_message REQUIRED. The hash of the previous message.
+
+ 			* client_transfer_number OPTIONAL. This is the
+ 			transfer identification number chosen by the client.
+ 			This number is meaningful only to the client.
+
+			* client_signature REQUIRED. The digital signature of the client.
+
+
+
+
+
+
+## Lock Assertion Receipt Message
+{: #satp-lock-assertion-receipt-section}
+		The purpose of this message is for the server (receiver gateway)
+		to indicate acceptance of the claim(s) in the lock-assertion message
+		delivered by the client (sender gateway) in the previous message.
+
+		This message is sent from the server to the Assertion Receipt Endpoint
+		at the client.
+
+
+		The message must be signed by the server.
+
+		The parameters of this message consists of the following:
+
+			* message_type REQUIRED urn:ietf:satp:msgtype:assertion-receipt-msg.
+
+			* session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+			by client in the Initialization Request Message.
+
+			* transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+			used to identify the current transfer session at the application layer.
+
+			* client_identity_pubkey REQUIRED. The client for whom this message is intended.
+
+			* server_identity_pubkey REQUIRED. The server who sent this message.
+
+			* hash_prev_message REQUIRED. The hash of previous message.
+
+			* server_transfer_number OPTIONAL. This is the transfer identification number chosen by the server.
+			This number is meaningful only to the server.
+
+			* server_signature REQUIRED. The digital signature of the server.
+
+
+
+
+
+
+
+# Commitment Preparation and Finalization  (Stage 3)
+{: #satp-phase3-sec}
+   		This section describes the transfer commitment agreement between the
+	client (sender gateway) and the server (receiver gateway).
+
+	This phase must be completed within the time specified
+	in the lock_assertion_expiration value in the lock-assertion message.
+
+	In the following, the sender gateway takes the role of the client
+	while the recipient gateway takes the role of the server.
+
+	The flow follows a request-response model.
+	The client makes a request (POST) to the Transfer Commitment endpoint at the server.
+
+	Gateways MUST support the use of the HTTP GET and POST methods
+	defined in RFC 2616 [RFC2616] for the endpoint.
+
+	Clients MAY use the HTTP GET or POST methods to send messages in this phase to the server.
+	If using the HTTP GET method, the request parameters maybe serialized
+	using URI Query String Serialization.
+
+	The client and server may be required to sign certain messages
+	in order to provide standalone proof (for non-repudiation) independent of the
+	secure channel between the client and server.
+	This proof maybe required for audit verifications post-event.
+
+	(NOTE: Flows occur over TLS. Nonces are not shown).
+
+
+
+
+
+## Commit Preparation Message (Commit-Prepare)
+{: #satp-commit-preparation-message-sec}
+				The purpose of this message is for the client to indicate
+		its readiness to begin the commitment of the transfer.
+
+		This message is sent from the client to the Commit Prepare Endpoint at the server.
+
+
+		The message must be signed by the client.
+
+
+		The parameters of this message consists of the following:
+
+			* message_type REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-prepare-msg
+
+			* session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+			by client in the Initialization Request Message.
+
+			* transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+			used to identify the current transfer session at the application layer.
+
+			* client_identity_pubkey REQUIRED. The client who sent this message.
+
+			* server_identity_pubkey REQUIRED. The server for whom this message is intended.
+
+			* hash_prev_message REQUIRED. The hash of previous message.
+
+			* client_transfer_number OPTIONAL.
+			This is the transfer identification number chosen by the client.
+			This number is meaningful only the client.
+
+			* client_signature REQUIRED. The digital signature of the client.
+
+
+
+
+## Commit Ready Message (Commit-Ready)
+{: #satp-commit-ready-section}
+				The purpose The purpose of this message is for the server to indicate to the client that:
+		(i) the server has created (minted) an equivalent asset in the destination
+		network;
+		(ii) that the newly minted asset has been self-assigned to the server;
+		and (iii) that the server is ready to proceed to the next step.
+
+		This message is sent from the server to the Commit Ready Endpoint at the client.
+
+		The message must be signed by the server.
+
+
+		The parameters of this message consists of the following:
+
+
+			* message_type REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-ready-msg.
+
+			* session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+			by client in the Initialization Request Message.
+
+			* transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+			used to identify the current transfer session at the application layer.
+
+			* client_identity_pubkey REQUIRED. The client for whom this message is intended.
+
+			* server_identity_pubkey REQUIRED. The server who sent this message.
+
+			* mint_assertion_claims REQUIRED. The mint assertion claim or statement by the server.
+
+			* mint_assertion_format OPTIONAL.  The format of the assertion payload.
+
+			* hash_prev_message REQUIRED. The hash of previous message.
+
+			* server_transfer_number OPTIONAL.
+			This is the transfer identification number chosen by the server.
+			This number is meaningful only the server.
+
+			* server_signature REQUIRED. The digital signature of the server.
+
+
+
+
+## Commit Final Assertion Message (Commit-Final)
+{: #satp-commit-final-message-section}
+
+ 		 The purpose of this message is for the client to indicate to the server
+ 		that the client (sender gateway) has completed the extinguishment (burn)
+ 		of the asset in the origin network.
+
+		The message must contain standalone claims related
+		to the extinguishment of the asset by the client.
+		The standalone claim must be signed by the client.
+
+   		This message is sent from the client to the Commit Final Assertion Endpoint at the server.
+
+   		The message must be signed by the server.
+
+		The parameters of this message consists of the following:
+
+
+			* message_type REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-final-msg.
+
+			* session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+			by client in the Initialization Request Message.
+
+			* transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+			used to identify the current transfer session at the application layer.
+
+			* client_identity_pubkey REQUIRED. The client who sent this message.
+
+			* server_identity_pubkey REQUIRED. The server for whom this message is intended.
+
+			* burn_assertion_claim REQUIRED. The burn assertion signed claim or statement by the client.
+
+			* burn_assertion_claim_format OPTIONAL.  The format of the claim.
+
+			* hash_prev_message REQUIRED. The hash of previous message.
+
+			* client_transfer_number OPTIONAL.
+			This is the transfer identification number chosen by the client.
+			This number is meaningful only the client.
+
+			* client_signature REQUIRED. The digital signature of the client.
+
+
+
+## Commit-Final Acknowledgement Receipt Message (ACK-Final-Receipt)
+{: #satp--final-ack-section}
+				The purpose of this message is to indicate to the client that the server has
+		completed the assignment of the newly minted asset to
+		the intended beneficiary at the destination network.
+
+   		This message is sent from the server to the Commit Final Receipt Endpoint at the client.
+
+   		The message must be signed by the server.
+
+		The parameters of this message consists of the following:
+
+
+			* message_type REQUIRED. It MUST be the value urn:ietf:satp:msgtype:ack-commit-final-msg.
+
+			* session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+			by client in the Initialization Request Message.
+
+			* transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+			used to identify the current transfer session at the application layer.
+
+			* client_identity_pubkey REQUIRED. The client for whom this message is intended..
+
+			* server_identity_pubkey REQUIRED. The server who sent this message.
+
+			* assignment_assertion_claim REQUIRED. The claim or statement by the server
+			that the asset has been assigned by the server to the intended beneficiary.
+
+			* assignment_assertion_claim_format OPTIONAL.  The format of the claim.
+
+			* hash_prev_message REQUIRED. The hash of previous message.
+
+			* server_transfer_number OPTIONAL.
+			This is the transfer identification number chosen by the server.
+			This number is meaningful only the server.
+
+			* server_signature REQUIRED. The digital signature of the server.
+
+
+
+## Transfer Complete Message
+{: #satp-transfer-complete-message-section}
+				The purpose of this message is for the client to indicate to the server that
+		the asset transer session (identified by session_id)
+		has been completed and that no further messages are to be
+		expected from the client in regards to this transfer instance.
+
+		The message closes the first message of Stage 2 (Transfer Commence Message).
+
+  		This message is sent from the client to the Transfer Complete Endpoint at the server.
+
+   		The message must be signed by the client.
+
+		The parameters of this message consists of the following:
+
+			* message_type REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-transfer-complete-msg.
+
+			* session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+			by client in the Initialization Request Message.
+
+			* transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+			used to identify the current transfer session at the application layer.
+
+			* client_identity_pubkey REQUIRED. The client who sent this message.
+
+			* server_identity_pubkey REQUIRED. The server for whom this message is intended.
+
+			* hash_prev_message REQUIRED. The hash of previous message.
+
+			* hash_transfer_commence REQUIRED. The hash of the Transfer Commence message
+			at the start of Stage 2.
+
+			* client_transfer_number OPTIONAL.
+			This is the transfer identification number chosen by the client.
+			This number is meaningful only the client.
+
+			* client_signature REQUIRED. The digital signature of the client.
+
+
+
+
+# SATP Session Resumption
+{: #satp-session-resume-section}
+   	   	 This section answers the question how can a backup gateway build trust
+   	with the counter party gateway to resume the execution of the protocol,
+   	in the presence of errors and crashes?
+
+	Gateways may enter faulty state at any time while execution the protocol.
+	The faulty state can manifest itself by incorrect behavior,
+	leading to gateways emitting alerts and errors.
+
+	In some instances, gateways may crash.
+	We employ either the primary-backup or self-healing paradigm,
+	meaning that the crashed gateway will eventually be replaced
+	by a functioning one, or recover, respectively.
+
+
+	When a crash occurs, we initiate a recovery procedure by
+	the backup gateway or the recovered gateway, as defined in the
+	crash recovery draft [draft-belchior-satp-gateway-recovery-00].
+	In either case, if the recovery happens  within a time period defined as max_timeout (in Stage 2), the recovered gateway triggers a session resumption.
+	The schema and order of the recovered messages is specified in the crash recovery draft.
+
+
+	In the case where there is no answer from the gateway within the specified max_timeout,
+	the counter-party gateway rollbacks the process until that stage.
+	Upon recovery, the crashed gateway learns that the counterparty gateway
+	has initated a rollback, and it proceeds accordingly (by also initating a rollback).
+	Note that rollbacks can also happen in case of unresolved errors.
+
+
+	The non-crashed gateway that conducts the rollback tries to communicate
+	with the crashed gateway from time to time (self healing) or to contact
+	the backup gateways (primary-backup).
+	In any case, and upon the completion of a rollback,
+	the non-crashed gateway sends a ROLLBACK message
+	to the recovered gateway to notify that a rollback happened.
+	The recovered gateway should answer with ROLLBACK-ACK.
+
+	Since the self-healing recovery process does not require
+	changes to the protocol (since from the counterparty gateway perspective,
+	the sender gateway is just taking longer than normal;
+	there are no new actions done or logs recorded),
+	we focus on the primary-backup paradigm.
+
+
+## Primary-Backup Session Resumption
+{: #satp-session-resume-section-pb}
+
+
+			Upon a gateway recovering using primary-backup,
+			a new gateway (recovered gateway) takes over the crashed gateway.
+			The counter-party gateway assures that the recovered gateway
+			is legitimate (according to the crash recovery specification).
+
+			After the recovery, the gateways exchange information about
+			their current view of the protocol, since the crashed gateway
+			may have been in the middle of executing the protocol when it crashed.
+
+			After that, the gateways agree on the current state of the protocol.
+
+
+
+
+## Recovery Messages
+{: #satp-session-resume-recovery-msg}
+		We have omitted the logging procedure (only focusing the different messages).
+		As defined in the crash recovery draft [draft-belchior-satp-gateway-recovery-00],
+		there are a set of messages that are exchanged between the recovered
+		gateway and counterparty gateway:
+
+
+		* RECOVER: when a gateway crashes and recovers,
+			it sends a RECOVER message to the counterparty gateway,
+			informing them of its most recent state.
+			The message contains various parameters such as the session ID,
+			message type, SATP phase, sequence number,
+			a flag indicating if the sender is a backup gateway,
+			the new public key if the sender is a backup,
+			the timestamp of the last known log entry, and the sender's digital signature.
+
+		* RECOVER-UPDATE: Upon receiving the RECOVER message,
+			the counterparty gateway sends a RECOVER-UPDATE message.
+			This message carries the difference between the log entry
+			corresponding to the received sequence number from the
+			recovered gateway and the latest sequence number
+			(corresponding to the latest log entry).
+			The message includes parameters such as the session ID, message type,
+			the hash of the previous message, the list of log messages that
+			the recovered gateway needs to update, and the sender's digital signature.
+
+		* RECOVER-SUCCESS: The recovered gateway responds with
+			a RECOVER-SUCCESS message if its logs have been successfully updated.
+			If there are inconsistencies detected,
+			the recovered gateway initiates a dispute with a RECOVER-DISPUTE message.
+			The message parameters include session ID, message type,
+			the hash of the previous message, a boolean indicating success,
+			a list of hashes of log entries that were appended to the
+			recovered gateway log, and the sender's digital signature.
+
+
+		In case the recovery procedure has failed and a rollback process
+		is needed, the following messages are used:
+
+		* ROLLBACK: A gateway that initiates a rollback sends a ROLLBACK message.
+			The message parameters include session ID, message type,
+			a boolean indicating success, a list of actions performed
+			to rollback a state (e.g., UNLOCK, BURN), a list of proofs
+			specific to the DLT [SATP], and the sender's digital signature.
+
+		* ROLLBACK-ACK: Upon successful rollback, the counterparty
+			gateway sends a ROLLBACK-ACK message to the recovered gateway acknowledging
+			that the rollback has been performed successfully.
+			The message parameters are similar to those of the ROLLBACK message.
+
+
+
+
+# Error Messages
+{: #satp-alert-error-messages}
+   		SATP SATP distinguishes between
+	application driven closures (terminations) and
+	those caused by errors at the SATP protocol level.
+
+	The list of errors and desciption can be found in the Appendix.
+
 ~~~
-{: #phasetwo-figure}
+  enum { session_closure(1), nonfatal_error (2) fatal_error(3), (255) } AlertLevel;
 
+      enum {
+          close_notify(0),
+          bad_certificate(42),
+          unsupported_certificate(43),
+          certificate_revoked(44),
+          certificate_expired(45),
+          certificate_unknown(46),
+          illegal_parameter(47),
+          TBD
+          (255)
+      } AlertDescription;
 
-The purpose of the signed lock-assertion is for dispute resolution between G1 and G2
-(i.e. the entities who own and operate G1 and G2 respectively)
-in the case that asset state inconsistencies in NW1 and NW2 are discovered later.
-
-The gateway G2 must return a digitally signed receipt to G1
-regarding the earlier signed lock-assertion in order to
-cover G1 (exculpatory proof) in the case of later denial by G2.
-
-# Commitment Preparation and Finalization (Stage 3)
-{: #phase-three}
-
-In Stage 3 the gateways G1 and G2 finalizes to the asset transfer
-by performing a commitment protocol (e.g. 2PC or 3PC) as a process (sub-protocol)
-embedded within the overall SATP asset transfer protocol.
-
-Upon receiving the signed receipt message from G2 in the previous stage,
-G1 begins the commitment (see Figure 5):
-
-* Commit-prepare (3.1):
-Gateway G1 indicates to G2 to prepare for the commitment of the transfer.
-This message must include a hash of the previous messages (message 2.5 and 2.6).
-
-* Temporary asset mint (3.2): Gateway G2 creates (mints)
-an equivalent asset in NW2 assigned to itself as the owner.
-This step can be reversed (i.e. asset destroyed)
-in the case of the failure in the commitment steps
-because G2 is still the owner of the asset in NW2.
-
-* Commit-ready (3.3): Gateway G2 sends a commit-ready message
-to G1 indicating that it is ready to carry-out the last steps of
-the commitment subprotocol.
-Note that that the entire asset transfer session can be aborted
-before this step without affecting the asset state in the respective networks.
-
-* Asset burn (3.4): Gateway G1 extinguishes (burns) the asset
-in network NW1 which it has locked since Step 2.3.
-
-* Commit-final assertion (3.5): Gateway G1 indicates to G2 that G1 has
-      performed the extinguishment of the asset in NW1.  This message
-      must be digitally signed by G1.
-
-* Asset-assignment (3.6): Gateway G2 assigns the minted asset
-(which it has been self-holding since Step 3.2) to the Beneficiary.
-
-* ACK-final receipt (3.7): Gateway G2 sends a signed assertion
-that it has assigned the asset to the intended Beneficiary.
-
-* Receipt broadcast (3.8) Gateway G1 logs a copy of the
-signed receipt message to its local state data DB2.
-G1 may also broadcast the fasts of the signed receipt
-to all members of network NW1.
-The mechanism to log and to broadcast is out of scope for SATP.
-
-* Transfer complete (3.9): Gateway G1 must explicitly close the
-      asset transfer session with gateway G2.  This allows both sides to
-      close down the secure channel established earlier in Stage 1.
-
+      struct {
+          AlertLevel level;
+          AlertDescription description;
+      } Alert;
 ~~~
-        Orig DB1           G1                   G2           DB2  Benef
-        |     |             |      (Stage 2)     |            |     |
-        |     |             |                    |            |     |
-      ..|.....|.............|....................|............|.....|..
-        |     |             |       Stage 3      |            |     |
-        |     |             |                    |            |     |
-        |     |        (3.1)|--Commit Prepare--->|            |     |
-        |     |             |                    |            |     |
-        |     |             |               (3.2)|----Mint--->|     |
-        |     |             |                    |            |     |
-        |     |             |<--Commit Ready ----|(3.3)       |     |
-        |     |             |                    |            |     |
-        |     |             |                    |            |     |
-        |     |<---Burn-----|(3.4)               |            |     |
-        |     |             |                    |            |     |
-        |     |        (3.5)|-Commit Final Asrt->|            |     |
-        |     |             |                    |            |     |
-        |     |             |                    |            |     |
-        |     |             |               (3.6)|---Assign-->|     |
-        |     |             |                    |            |     |
-        |     |             |<-----ACK Final-----|(3.7)       |     |
-        |     |             |                    |            |     |
-        |     |             |                    |            |     |
-        |     |<-Broadcast--|(3.8)               |            |     |
-        |     |             |                    |            |     |
-        |     |        (3.9)|-----Completed----->|            |     |
-        |     |             |                    |            |     |
-      ..|.....|.............|....................|............|.....|..
-        |     |             |                    |            |     |
-
-~~~
-{: #phasethree-figure}
+{: #fig-error-format}
 
 
-# The Commitment Sub-Protocol
-{: #subprotocol}
+## Closure Alerts
+{: #satp-closure-alerts-section}
 
-Within Stage 3, the gateways must implement one (or more) transactional commitment sub-protocols
-that permit the coordination between two gateways, and the final commitment of the asset transfer.
+		The SATP client and server (gateways) must share knowledge that
+		the transfer connection is ending in order to avoid third party attacks.
 
-In the case that there are multiple commitment subprotocols supported by the gateways,
-the choice of the sub-protocol (type/version) and
-the corresponding commitment evidence must be negotiated between the gateways during Stage 1.
+		(a) close_notify:  This alert notifies the recipient that the sender gateway
+		will not send any more messages on this transfer connection.
+		Any data received after a closure alert has been received MUST be ignored.
 
-For example, in Stage 2 and Stage 3 discussed above
-the gateways G1 and G2 may implement the classic 2-Phase or 3-Phase Commit (2PC or 3PC)
-sub-protocol [Gray81] as a means to ensure efficient
-and non-disputable commitments to the asset transfer.
-
-Historically, transactional commitment protocols employ locking mechanisms
-to prevent update conflicts on the data item in question.
-When used within the context of digital asset transfers across networks,
-the fact that an asset has been locked in NW1 must be communicated via an assertion to G2
-(as the 3PC participant) in an indisputable manner.
-
-Similarly, G2 must return a signed assertion to G1 that the asset has been regenerated (minted) in NW2.
-
-These signed assertions must be verifiable by an authorized third party,
-in the case that disputes occur (post event) or where legal audit
-is required on the asset transfer.
-
-The precise form of these assertions must be standardized
-(for the given transactional commitment protocol) to eliminate any ambiguity.
-
-# Security Considerations
-{: #securityconsider}
-
-As an asset network holds an increasing number of digital assets,
-it may become attractive to attackers seeking to compromise the cryptographic keys of the entities,
-services and its end-users.
-
-Gateways are of particular interest to attackers
-because they enable the transferal of digital assets to external networks,
-which may or may not be regulated.
-As such, hardening technologies and tamper-resistant crypto-processors
-(e.g. TPM, SGX) should be used for implementations of gateways [HS2019].
-
-# Policy Considerations
-{: #policyconsider}
-
-Digital asset transfers must be policy-driven
-in the sense that it must observe and enforce
-the policies defined for the network.
-Resources that make-up a network are owned and operated by entities
-(e.g. legal persons or organizations),
-and these entities typically operate within regulatory jurisdictions [FATF].
-It is the responsibility of these entities to translate
-regulatory policies into functions on networks that
-comply to the relevant regulatory policies.
-
-At the application layer,
-asset transfers must take into consideration
-the legal status of assets and incorporate relevant asset-related policies
-into their business logic.
-These policies must permeate down to the gateways
-that implement the functions of asset transaction processing.
+		(b) user_canceled:  This alert notifies the recipient that the sender gateway
+		is canceling the transfer connection for some reason unrelated to a protocol failure.
 
 
-# Compatibility Considerations
-{: #compatibilityconsider}
 
-As the asset transfer protocol must be completely agnostic
-to the anatomy of a digital asset and to the type of ledger technology
-underlying a system maintaining digital assets,
-it must be compatible with different asset identification
-standards like ISO 20022 and ITIN, and with standards for communicating
-information about business processes (like ISO 20022).
-Keeping the Stage-0 specification open and not tied to
-a specific messaging or identification standard allows the
-Secure Asset Transfer architecture to be flexible and inclusive,
-and thereby meet compatibility goals.
+
+## Error Alerts
+{: #error-alerts-section}
+				When an error is detected by a SATP gateway, the detecting gateway sends a message to its peer.
+
+		Upon transmission or receipt of a fatal alert message, both gateways MUST immediately close the connection.
+		Whenever a SATP implementation encounters a fatal error condition,
+		it SHOULD send an appropriate fatal alert and
+		MUST close the connection without sending or receiving any additional data.
+
+		The following error alerts are defined:
+
+
+			* connection_error: There is an error in the TLS session establishment
+			(TLS error codes should be reported-up to gateway level)
+
+			* bad_certificate:  The gateway certificate was corrupt, contained signatures,
+			that did not verify correctly, etc.
+			(Some common TLS level errors: unsupported_certificate,
+			certificate_revoked, certificate_expired, certificate_unknown, unknown_ca).
+
+			* protocol_version_error:  The SATP protocol version the peer
+			has attempted to negotiate is recognized but not supported.
+
+			* (Others TBD)
+
+
+
+# Security Consideration
+{: #satp-Security-Consideration}
+   		Gateways are of particular interest to attackers because
+	they are a kind of end-to-end pipeline that enable the transferral of
+	digital assets to external networks or systems.
+	Thus, attacking a gateway may be attractive to attackers instead of
+	the network behind a gateway.
+
+	As such, hardware hardening technologies and
+	tamper-resistant crypto-processors (e.g. TPM, Secure Enclaves, SGX)
+	should be considered for implementations of gateways.
+
+# IANA Consideration
+{: #satp-iana-Consideration}
+	(TBD)
+
+
+# Appendix A: Error Types
+{: #error-types-section}
+		The following lists the error associated with each message in SATP.
+
+	(Note: these have been laid out for convenience, and may be grouped together more efficiently later).
+
+## Transfer Commence and Response errors
+{: #errors-transfer-commence}
+
+		The following are the list of errors related to Transfer Commence and Response:
+
+			* [err_2.1] Badly formed message.
+			* [err_2.2] Incorrect parameter.
+			* [err_2.3] ACK mismatch.
+
+
+## Lock Assertion errors
+{: #errors-lock-assertion}
+		The following are the list of errors related to Lock Assertion:
+
+			* [err_2.4.1] Badly formed message: badly formed Claim.
+			* [err_2.4.2] Badly formed message: bad signature.
+			* [err_2.4.3] Badly formed message: wrong transaction ID.
+			* [err_2.4.4] Badly formed message: Mismatch hash values.
+			* [err_2.4.5] Expired signing-key certificate.
+			* [err_2.4.6] Expired Claim.
+
+## Lock Assertion Receipt errors
+{: #errors-lock-assertion-receipt}
+		The following are the list of errors related to Lock Assertion Receipt:
+
+			* [err_2.6.1] Badly formed message: badly formed Claim.
+			* [err_2.6.2] Badly formed message: bad signature.
+			* [err_2.6.3] Badly formed message: wrong transaction ID.
+			* [err_2.6.4] Badly formed message: Mismatch hash values.
+			* [err_2.6.5] Expired signing-key certificate.
+			* [err_2.6.6] Expired Claim.
+
+
+
+## Commit Preparation errors
+{: #errors-commit-prepare}
+		The following are the list of errors related to Commit Preparation:
+
+			* [err_3.1.1] Badly formed message: wrong transaction ID.
+			* [err_3.1.2] Badly formed message: mismatch hash value (i.e. from msg 2.6).
+			* [err_3.1.3] Incorrect parameter.
+			* [err_3.1.4] Message out of sequence.
+
+
+## Commit Preparation Acknowledgement errors
+{: #errors-commit-prepare-ack}
+
+		The following are the list of errors related to Commit Preparation Acknowledgement:
+			* [err_3.2.1] Badly formed message: wrong transaction ID.
+			* [err_3.2.2] Badly formed message: mismatch hash value.
+			* [err_3.2.3] Incorrect parameter.
+			* [err_3.2.4] Message out of sequence.
+
+
+## Commit Ready errors
+{: #errors-commit-ready}
+
+		The following are the list of errors related to Commit Ready:
+			* [err_3.4.1] Badly formed message: wrong transaction ID.
+			* [err_3.4.2] Badly formed message: mismatch hash value.
+			* [err_3.4.3] Incorrect parameter.
+			* [err_3.4.4] Message out of sequence (ACK mismatch).
+
+## Commit Final Assertion errors
+{: #errors-commit-final-assertion}
+
+		The following are the list of errors related to Commit Final Assertion:
+			* [err_3.6.1] Badly formed message: badly formed Claim.
+			* [err_3.6.2] Badly formed message: bad signature.
+			* [err_3.6.3] Badly formed message: wrong transaction ID.
+			* [err_3.6.4] Badly formed message: Mismatch hash values.
+			* [err_3.6.5] Expired signing-key certificate.
+			* [err_3.6.6] Expired Claim.
+
+
 
 --- back

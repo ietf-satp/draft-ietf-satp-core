@@ -33,7 +33,7 @@ venue:
   type: "Working Group"
   mail: "sat@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/sat/"
-  github: "ietf-satp/draft-ietf-satp-architecture"
+  github: "ietf-satp/draft-ietf-satp-core"
   latest: "https://ietf-satp.github.io/draft-ietf-satp-core/draft-ietf-satp-core.html"
 
 author:

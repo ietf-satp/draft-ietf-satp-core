@@ -56,3 +56,4 @@ jobs:
         path: |
           draft-*.html
           draft-*.txt
+          draft-*.pdf

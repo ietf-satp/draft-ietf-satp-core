@@ -242,17 +242,9 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 {: #satp-model}
 
 The model for SATP is shown in Figure 1.
-
-  The Client (application) interacts with its local gateway (G1)
-        over an interface (API Type-1) in order to provide instructions
-        to the gateway with regards to actions to assets and related
-        resources located in the local system or network (NW1).
-
-         Gateways interact with each other over a gateway interface (API Type- 2).
-        A given gateway may be required to access resources that are
-        not located in network NW1 or network NW2.
-        Access to these types of resources are performed
-        over an off-network interface (API Type-3).
+The model for SATP is shown in Figure 1.
+The Client (application) interacts with its local gateway (G1) over an interface (API Type-1) in order to provide instructions to the gateway with regards to actions to assets and related resources located in the local system or network (NW1).
+Gateways interact with each other over a gateway interface (API Type-2). A given gateway may be required to access resources that are not located in network NW1 or network NW2. Access to these types of resources are performed over an off-network interface (API Type-3).
 
 ## Types of APIs
 {: #satp-apitypes}

@@ -53,16 +53,6 @@ author:
     email: rafael.belchior@tecnico.ulisboa.pt
 
 informative:
-  draft-belchior-satp-gateway-recovery-00:
-    author:
-    - ins: R. Belchior
-    - ins: M. Correia
-    - ins: A. Augusto
-    - ins: T. Hardjono
-    date: July 2023
-    target: https://datatracker.ietf.org/doc/draft-belchior-satp-gateway-recovery/.
-    title: SATP Gateway Crash Recovery Mechanism
-
   NIST:
     author:
     - ins: D. Yaga
@@ -81,21 +71,8 @@ informative:
     title: Session Description Protocol (SDP) Capability Negotiation
 
 normative:
-#  RFC2119:
-#    author:
-#    - ins: S. Bradner
-#    date: March 1997
-#    target: https://www.rfc-editor.org/info/rfc2119
-#    title: Key words for use in RFCs to Indicate Requirement Levels
-
-  RFC7519:
-    author:
-    - ins: M. Jones
-    - ins: J. Bradley
-    - ins: N. Sakimura
-    date: May 2015
-    target: https://www.rfc-editor.org/info/rfc7519
-    title: JSON Web Token (JWT)
+  JWT: RFC7519
+  REQ-LEVEL: RFC2119
 
 --- abstract
 
@@ -156,7 +133,7 @@ All messages exchanged between gateways are assumed to run over TLS1.2,
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL"
-in this document are to be interpreted as described in RFC 2119 [@RFC2119].
+in this document are to be interpreted as described in RFC 2119 {{REQ-LEVEL}}.
 
 In this document, these words will appear with that interpretation
 only when in ALL CAPS. Lower case uses of these words are not to be
@@ -180,9 +157,9 @@ The following are some terminology used in the current document:
 - Recipient gateway: The gateway that is the recipient side of
  a unidirectional asset transfer.
 
-- Claim: An assertion made by an Entity [RFC7519].
+- Claim: An assertion made by an Entity {{JWT}}.
 
-- Claim Type: Syntax used for representing a Claim Value [RFC7519].
+- Claim Type: Syntax used for representing a Claim Value {{JWT}}.
 
 - Gateway Claim: An assertion made by a Gateway regarding the status or
  condition of resources (e.g. assets, public keys, etc.)
@@ -1250,7 +1227,7 @@ by a functioning one, or recover, respectively.
 
 When a crash occurs, we initiate a recovery procedure by
 the backup gateway or the recovered gateway, as defined in the
-crash recovery draft [draft-belchior-satp-gateway-recovery-00].
+crash recovery draft {{?I-D.draft-belchior-satp-gateway-recovery}}.
 In either case, if the recovery happenswithin a time period defined as max_timeout (in Stage 2), the recovered gateway triggers a session resumption.
 The schema and order of the recovered messages is specified in the crash recovery draft.
 
@@ -1298,7 +1275,7 @@ we focus on the primary-backup paradigm.
 ## Recovery Messages
 {: #satp-session-resume-recovery-msg}
  We have omitted the logging procedure (only focusing the different messages).
- As defined in the crash recovery draft [draft-belchior-satp-gateway-recovery-00],
+ As defined in the crash recovery draft {{?I-D.draft-belchior-satp-gateway-recovery}},
  there are a set of messages that are exchanged between the recovered
  gateway and counterparty gateway:
 
@@ -1451,32 +1428,32 @@ should be considered for implementations of gateways.
 
  The following are the list of errors related to Transfer Commence and Response:
 
- - [err_2.1] Badly formed message.
- - [err_2.2] Incorrect parameter.
- - [err_2.3] ACK mismatch.
+ - err_2.1: Badly formed message.
+ - err_2.2: Incorrect parameter.
+ - err_2.3: ACK mismatch.
 
 
 ## Lock Assertion errors
 {: #errors-lock-assertion}
  The following are the list of errors related to Lock Assertion:
 
- - [err_2.4.1] Badly formed message: badly formed Claim.
- - [err_2.4.2] Badly formed message: bad signature.
- - [err_2.4.3] Badly formed message: wrong transaction ID.
- - [err_2.4.4] Badly formed message: Mismatch hash values.
- - [err_2.4.5] Expired signing-key certificate.
- - [err_2.4.6] Expired Claim.
+ - err_2.4.1: Badly formed message: badly formed Claim.
+ - err_2.4.2: Badly formed message: bad signature.
+ - err_2.4.3: Badly formed message: wrong transaction ID.
+ - err_2.4.4: Badly formed message: Mismatch hash values.
+ - err_2.4.5: Expired signing-key certificate.
+ - err_2.4.6: Expired Claim.
 
 ## Lock Assertion Receipt errors
 {: #errors-lock-assertion-receipt}
  The following are the list of errors related to Lock Assertion Receipt:
 
- - [err_2.6.1] Badly formed message: badly formed Claim.
- - [err_2.6.2] Badly formed message: bad signature.
- - [err_2.6.3] Badly formed message: wrong transaction ID.
- - [err_2.6.4] Badly formed message: Mismatch hash values.
- - [err_2.6.5] Expired signing-key certificate.
- - [err_2.6.6] Expired Claim.
+ - err_2.6.1: Badly formed message: badly formed Claim.
+ - err_2.6.2: Badly formed message: bad signature.
+ - err_2.6.3: Badly formed message: wrong transaction ID.
+ - err_2.6.4: Badly formed message: Mismatch hash values.
+ - err_2.6.5: Expired signing-key certificate.
+ - err_2.6.6: Expired Claim.
 
 
 
@@ -1484,13 +1461,13 @@ should be considered for implementations of gateways.
 {: #errors-commit-prepare}
  The following are the list of errors related to Commit Preparation:
 
- - [err_3.1.1] Badly formed message: wrong transaction ID.
+ - err_3.1.1: Badly formed message: wrong transaction ID.
 
- - [err_3.1.2] Badly formed message: mismatch hash value (i.e. from msg 2.6).
+ - err_3.1.2: Badly formed message: mismatch hash value (i.e. from msg 2.6).
 
- - [err_3.1.3] Incorrect parameter.
+ - err_3.1.3: Incorrect parameter.
 
- - [err_3.1.4] Message out of sequence.
+ - err_3.1.4: Message out of sequence.
 
 
 ## Commit Preparation Acknowledgement errors
@@ -1498,10 +1475,10 @@ should be considered for implementations of gateways.
 
  The following are the list of errors related to Commit Preparation Acknowledgement:
 
- - [err_3.2.1] Badly formed message: wrong transaction ID.
- - [err_3.2.2] Badly formed message: mismatch hash value.
- - [err_3.2.3] Incorrect parameter.
- - [err_3.2.4] Message out of sequence.
+ - err_3.2.1: Badly formed message: wrong transaction ID.
+ - err_3.2.2: Badly formed message: mismatch hash value.
+ - err_3.2.3: Incorrect parameter.
+ - err_3.2.4: Message out of sequence.
 
 
 ## Commit Ready errors
@@ -1509,30 +1486,30 @@ should be considered for implementations of gateways.
 
  The following are the list of errors related to Commit Ready:
 
- - [err_3.4.1] Badly formed message: wrong transaction ID.
+ - err_3.4.1: Badly formed message: wrong transaction ID.
 
- - [err_3.4.2] Badly formed message: mismatch hash value.
+ - err_3.4.2: Badly formed message: mismatch hash value.
 
- - [err_3.4.3] Incorrect parameter.
+ - err_3.4.3: Incorrect parameter.
 
- - [err_3.4.4] Message out of sequence (ACK mismatch).
+ - err_3.4.4: Message out of sequence (ACK mismatch).
 
 ## Commit Final Assertion errors
 {: #errors-commit-final-assertion}
 
  The following are the list of errors related to Commit Final Assertion:
 
- - [err_3.6.1] Badly formed message: badly formed Claim.
+ - err_3.6.1: Badly formed message: badly formed Claim.
 
- - [err_3.6.2] Badly formed message: bad signature.
+ - err_3.6.2: Badly formed message: bad signature.
 
- - [err_3.6.3] Badly formed message: wrong transaction ID.
+ - err_3.6.3: Badly formed message: wrong transaction ID.
 
- - [err_3.6.4] Badly formed message: Mismatch hash values.
+ - err_3.6.4: Badly formed message: Mismatch hash values.
 
- - [err_3.6.5] Expired signing-key certificate.
+ - err_3.6.5: Expired signing-key certificate.
 
- - [err_3.6.6] Expired Claim.
+ - err_3.6.6: Expired Claim.
 
 
 

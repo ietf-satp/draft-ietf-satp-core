@@ -81,20 +81,12 @@ informative:
     title: Session Description Protocol (SDP) Capability Negotiation
 
 normative:
-  RFC2119:
-    author:
-    - ins: S. Bradner
-    date: March 1997
-    target: https://www.rfc-editor.org/info/rfc2119
-    title: Key words for use in RFCs to Indicate Requirement Levels
-
-  RFC2234:
-    author:
-    - ins: D. Crocker
-    - ins: P. Overell
-    date: November 1997
-    target: https://www.rfc-editor.org/info/rfc2234
-    title: Augmented BNF for Syntax Specifications ABNF
+#  RFC2119:
+#    author:
+#    - ins: S. Bradner
+#    date: March 1997
+#    target: https://www.rfc-editor.org/info/rfc2119
+#    title: Key words for use in RFCs to Indicate Requirement Levels
 
   RFC7519:
     author:
@@ -164,7 +156,7 @@ All messages exchanged between gateways are assumed to run over TLS1.2,
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL"
-in this document are to be interpreted as described in RFC 2119 [RFC2119].
+in this document are to be interpreted as described in RFC 2119 [@RFC2119].
 
 In this document, these words will appear with that interpretation
 only when in ALL CAPS. Lower case uses of these words are not to be
@@ -188,9 +180,9 @@ The following are some terminology used in the current document:
 - Recipient gateway: The gateway that is the recipient side of
  a unidirectional asset transfer.
 
-- Claim: An assertion made by an Entity [JWT].
+- Claim: An assertion made by an Entity [RFC7519].
 
-- Claim Type: Syntax used for representing a Claim Value [JWT].
+- Claim Type: Syntax used for representing a Claim Value [RFC7519].
 
 - Gateway Claim: An assertion made by a Gateway regarding the status or
  condition of resources (e.g. assets, public keys, etc.)
@@ -207,22 +199,22 @@ The following are some terminology used in the current document:
 The protocol defines a number of API endpoints,resources and identifier definitions, and message flows corresponding to the asset transfer between the two gateways.
 
 ~~~
-+----------++----------+
-|Client|| Off-net|
-| (App)|| Resource |
-+----------++----------+
-||API Type-3|
-|+----------+
-|^
-V|
-+----------+ |
-|API Type-1| |
-+------+ +----------+----+ +----+----------+ +------+
-|| | || || | ||
-| Net. | | Gateway|API | |API | Gateway| | Net. |
-| NW1|---|G1|Type|<------>|Type|G2|---| NW2|
-|| | | 2| | 2| | ||
-+------+ +----------+----+ +----+----------+ +------+
+             +----------+                +----------+
+             |  Client  |                | Off-net  |
+             |   (App)  |                | Resource |
+             +----------+                +----------+
+                  |                      |API Type-3|
+                  |                      +----------+
+                  |                           ^
+                  V                           |
+             +----------+                     |
+             |API Type-1|                     |
+  +------+   +----------+----+        +----+----------+   +------+
+  |      |   |          |    |        |    |          |   |      |
+  | Net. |   | Gateway  |API |        |API | Gateway  |   | Net. |
+  | NW1  |---|    G1    |Type|<------>|Type|    G2    |---| NW2  |
+  |      |   |          | 2  |        | 2  |          |   |      |
+  +------+   +----------+----+        +----+----------+   +------+
 
 ~~~
 {: #satp-fig-overview}
@@ -271,7 +263,7 @@ This flow deals with the asset transfer and commitment establishment between two
 
 These flows will be discussed below.
 
-## Resources and Identifier
+## Resources and Identifiers
 {: #satp-resources-ident}
 
 (a) Resource addressing for systems or networks, using the URL syntax.
@@ -285,8 +277,9 @@ These flows will be discussed below.
 
 # SATP Message Format, identifiers and Descriptors
 {: #satp-messages-identifiers}
+
 ## Overview
-{: #satp-overview-messages-identifiers}
+{: #satp-message-identifier-overview}
 
 This section describes:
 
@@ -405,7 +398,7 @@ A locally unique (within the OU) identifier, which can identify the application,
 
 satclient:quant/api.overledger.quant.com/research/luke.riley
 
-### Gateway Level Access Control
+## Gateway Level Access Control
 {: #satp-gateway-access-sec}
 
 Gateways can enforce access rules based on standard naming conventions using novel or existing mechanisms such as AuthZ protocols using the resource identifiers above, for example:
@@ -425,8 +418,12 @@ These rules would allow a client so identified to access resources directly, for
 satpres://quant/api.gateway1.com/tradelens/xxxxxADDRESSxxxxx
 
 This method allows resource owners to easily grant access to individuals, groups, and organizations. Individual gateway implementations may implement access controls, including subsetting and supersetting of applications or resources according to their own requirements.
+
 ## Negotiation of Security Protocols and Parameters
-{: #satp-negotiation-sec}
+
+{: #satp-negotiation-params-sec}
+
+We present the negotiation phase of the protocols and their parameters.
 
 ### TLS Established
 {: #satp-tls-Established-sec}
@@ -436,7 +433,7 @@ TLS 1.2 or higher MUST be implemented to protect gateway communications. TLS 1.3
 ### Client offers supported credential schemes
 {: #satp-client-offers-sec}
 
-Capability negotiation, similar to the Session Description Protocol [RFC 5939], occurs prior to data exchange. Initially, the client (application) sends a JSON block containing acceptable credential schemes, such as OAuth2.0 or SAML, in the "Credential Scheme" field of the SATP message.
+Capability negotiation, similar to the Session Description Protocol [RFC5939], occurs prior to data exchange. Initially, the client (application) sends a JSON block containing acceptable credential schemes, such as OAuth2.0 or SAML, in the "Credential Scheme" field of the SATP message.
 
 ### Server selects supported credential scheme
 {: #satp-server-selects-sec}
@@ -468,9 +465,9 @@ The client and server must mutually agree on the asset type or profile that is t
 
 Where an application relies on specific extensions for operation, these can be represented in an Application Profile. For example, a payments application that tracks payments using a cloud-based API and interacts only with gateways logging messages to that API can establish a resource profile as follows:
 
-Application Name: TRACKER
-X-Tracker_URL: https://api.tracker.com/updates
-X-Tracking-Policy: Always
+    Application Name: TRACKER
+    X-Tracker_URL: https://api.tracker.com/updates
+    X-Tracking-Policy: Always
 
 As gateways implement this functionality, they support the TRACKER application profile, and the application is able to expand its reach by periodically polling for the availability of the profile.
 
@@ -555,17 +552,17 @@ gateway) and the server (recipient gateway).
 
 The Transfer Initialization Claims consists of the following:
 
-- digital_asset_id:This is the globally unique identifier for the digital asset
+- digital_asset_id: This is the globally unique identifier for the digital asset
 located in the origin network.
 
-- asset_profile_id:This is the globally unique identifier for the asset-profile
+- asset_profile_id: This is the globally unique identifier for the asset-profile
 definition (document) on which the digital asset was issued.
 
-- verified_originator_entity_id:This is the identity data of the originator entity
+- verified_originator_entity_id: This is the identity data of the originator entity
 (person or organization) in the origin network.
 This information must be verified by the sender gateway.
 
-- verified_beneficiary_entity_id:This is the identity data of the beneficiary entity
+- verified_beneficiary_entity_id: This is the identity data of the beneficiary entity
 (person or organization) in the destination network.
 This information must be verified by the receiver gateway.
 
@@ -586,10 +583,10 @@ network or system behind the server.
  - server_identity_pubkey REQUIRED. The public key of server for whom this message is intended.
 
 
-- sender_gateway_owner_id:This is the identity information of the owner or operator
+- sender_gateway_owner_id: This is the identity information of the owner or operator
 of the sender gateway.
 
-- receiver_gateway_owner_id:This is the identity information of the owner or operator
+- receiver_gateway_owner_id: This is the identity information of the owner or operator
 of the recipient gateway.
 
 
@@ -632,16 +629,16 @@ the asset in the origin network.
 
 - developer_URN OPTIONAL: Assertion of developer / application identity.
 
-- credential_profile REQUIRED: Specify type of auth (e.g.SAML, OAuth, X.509).
+- credential_profile REQUIRED: Specify type of auth (e.g., SAML, OAuth, X.509).
 
 
 
 - application_profile OPTIONAL: Vendor or Application specific profile.
 
-- logging_profile REQUIRED: contains the profile regarding the logging procedure.Default is local store
+- logging_profile REQUIRED: contains the profile regarding the logging procedure. Default is local store
 
 - Access_control_profile REQUIRED: the profile regarding the
-confidentiality of the log entries being stored.Default is only
+confidentiality of the log entries being stored. Default is only
 the gateway that created the logs can access them.
 
 - Subsequent calls OPTIONAL: details possible escrow actions.
@@ -669,9 +666,9 @@ This message is sent from the client to the Transfer Initialization Endpoint
 
 - version REQUIRED: SAT protocol Version (major, minor).
 
-- message_type REQUIRED:urn:ietf:satp:msgtype:init-proposal-msg.
+- message_type REQUIRED: urn:ietf:satp:msgtype:init-proposal-msg.
 
-- session_idREQUIRED: A unique identifier (UUIDv2) chosen by the
+- session_id REQUIRED: A unique identifier (UUIDv2) chosen by the
 client to identify the current session.
 
 - transferContext_id OPTIONAL: An optional identifier (UUIDv2) used to identify
@@ -709,9 +706,9 @@ The message is sent from the server to the Transfer Proposal Endpoint at the cli
 
 - version REQUIRED: SAT protocol Version (major, minor).
 
-- message_type REQUIRED:urn:ietf:satp:msgtype:init-receipt-msg
+- message_type REQUIRED: urn:ietf:satp:msgtype:init-receipt-msg
 
-- session_idREQUIRED: A unique identifier (UUIDv2) chosen by the
+- session_id REQUIRED: A unique identifier (UUIDv2) chosen by the
 client to identify the current session.
 
 - transferContext_id OPTIONAL: An optional identifier (UUIDv2) used to identify
@@ -720,7 +717,7 @@ the current transfer session at the application layer.
 - hash_transfer_init_claims REQUIRED: Hash of the Transfer Initialization Claims
 received in the Transfer Proposal Message.
 
--Timestamp REQUIRED: timestamp referring to when
+- Timestamp REQUIRED: timestamp referring to when
 the Initialization Request Message was received.
 
 
@@ -755,9 +752,9 @@ Example: TBD.
 
 - version REQUIRED: SAT protocol Version (major, minor).
 
-- message_type REQUIRED:urn:ietf:satp:msgtype:init-reject-msg
+- message_type REQUIRED: rn:ietf:satp:msgtype:init-reject-msg
 
-- session_idREQUIRED: A unique identifier (UUIDv2) chosen by the
+- session_id REQUIRED: A unique identifier (UUIDv2) chosen by the
 client to identify the current session.
 
 - transferContext_id OPTIONAL: An optional identifier (UUIDv2) used to identify
@@ -805,7 +802,7 @@ Example: TBD.
 - hash_transfer_init_claims REQUIRED: Hash of the Transfer Initialization Claims
 received in the Transfer Proposal Message.
 
-- hash_prev_message REQUIRED. The hash of the last message, in this case the
+- hash_prev_message REQUIRED. The hash  of the last message, in this case the
 Transfer Proposal Receipt message.
 
 - client_transfer_number OPTIONAL. This is the transfer identification number
@@ -945,7 +942,7 @@ in this message prior to the next step.
 
 - lock_assertion_claim_format REQUIRED. The format of the claim.
 
-- lock_assertion_expiration REQUIRED.The duration of time of the lock or escrow upon the asset.
+- lock_assertion_expiration REQUIRED. The duration of time of the lock or escrow upon the asset.
 
 - hash_prev_message REQUIRED. The hash of the previous message.
 
@@ -999,7 +996,7 @@ This number is meaningful only to the client.
 
 
 
-# Commitment Preparation and Finalization(Stage 3)
+# Commitment Preparation and Finalization (Stage 3)
 {: #satp-phase3-sec}
 This section describes the transfer commitment agreement between the
 client (sender gateway) and the server (receiver gateway).
@@ -1097,7 +1094,7 @@ The purpose The purpose of this message is for the server to indicate to the cli
 
  - mint_assertion_claims REQUIRED. The mint assertion claim or statement by the server.
 
- - mint_assertion_format OPTIONAL.The format of the assertion payload.
+ - mint_assertion_format OPTIONAL. The format of the assertion payload.
 
  - hash_prev_message REQUIRED. The hash of previous message.
 
@@ -1142,7 +1139,7 @@ The message must be signed by the server.
 
  - burn_assertion_claim REQUIRED. The burn assertion signed claim or statement by the client.
 
- - burn_assertion_claim_format OPTIONAL.The format of the claim.
+ - burn_assertion_claim_format OPTIONAL. The format of the claim.
 
  - hash_prev_message REQUIRED. The hash of previous message.
 
@@ -1182,7 +1179,7 @@ The message must be signed by the server.
  - assignment_assertion_claim REQUIRED. The claim or statement by the server
  that the asset has been assigned by the server to the intended beneficiary.
 
- - assignment_assertion_claim_format OPTIONAL.The format of the claim.
+ - assignment_assertion_claim_format OPTIONAL. The format of the claim.
 
  - hash_prev_message REQUIRED. The hash of previous message.
 
@@ -1389,11 +1386,11 @@ struct {
  The SATP client and server (gateways) must share knowledge that
  the transfer connection is ending in order to avoid third party attacks.
 
- (a) close_notify:This alert notifies the recipient that the sender gateway
+ (a) close_notify: This alert notifies the recipient that the sender gateway
  will not send any more messages on this transfer connection.
  Any data received after a closure alert has been received MUST be ignored.
 
- (b) user_canceled:This alert notifies the recipient that the sender gateway
+ (b) user_canceled: This alert notifies the recipient that the sender gateway
  is canceling the transfer connection for some reason unrelated to a protocol failure.
 
 
@@ -1414,12 +1411,12 @@ When an error is detected by a SATP gateway, the detecting gateway sends a messa
  - connection_error: There is an error in the TLS session establishment
  (TLS error codes should be reported-up to gateway level)
 
- - bad_certificate:The gateway certificate was corrupt, contained signatures,
+ - bad_certificate: The gateway certificate was corrupt, contained signatures,
  that did not verify correctly, etc.
  (Some common TLS level errors: unsupported_certificate,
  certificate_revoked, certificate_expired, certificate_unknown, unknown_ca).
 
- - protocol_version_error:The SATP protocol version the peer
+ - protocol_version_error: The SATP protocol version the peer
  has attempted to negotiate is recognized but not supported.
 
  - (Others TBD)
@@ -1488,8 +1485,11 @@ should be considered for implementations of gateways.
  The following are the list of errors related to Commit Preparation:
 
  - [err_3.1.1] Badly formed message: wrong transaction ID.
+
  - [err_3.1.2] Badly formed message: mismatch hash value (i.e. from msg 2.6).
+
  - [err_3.1.3] Incorrect parameter.
+
  - [err_3.1.4] Message out of sequence.
 
 
@@ -1497,6 +1497,7 @@ should be considered for implementations of gateways.
 {: #errors-commit-prepare-ack}
 
  The following are the list of errors related to Commit Preparation Acknowledgement:
+
  - [err_3.2.1] Badly formed message: wrong transaction ID.
  - [err_3.2.2] Badly formed message: mismatch hash value.
  - [err_3.2.3] Incorrect parameter.
@@ -1507,20 +1508,30 @@ should be considered for implementations of gateways.
 {: #errors-commit-ready}
 
  The following are the list of errors related to Commit Ready:
+
  - [err_3.4.1] Badly formed message: wrong transaction ID.
+
  - [err_3.4.2] Badly formed message: mismatch hash value.
+
  - [err_3.4.3] Incorrect parameter.
+
  - [err_3.4.4] Message out of sequence (ACK mismatch).
 
 ## Commit Final Assertion errors
 {: #errors-commit-final-assertion}
 
  The following are the list of errors related to Commit Final Assertion:
+
  - [err_3.6.1] Badly formed message: badly formed Claim.
+
  - [err_3.6.2] Badly formed message: bad signature.
+
  - [err_3.6.3] Badly formed message: wrong transaction ID.
+
  - [err_3.6.4] Badly formed message: Mismatch hash values.
+
  - [err_3.6.5] Expired signing-key certificate.
+
  - [err_3.6.6] Expired Claim.
 
 

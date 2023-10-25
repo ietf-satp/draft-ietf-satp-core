@@ -3,12 +3,14 @@ name: "Update Editor's Copy"
 on:
   push:
     paths-ignore:
+    - figures/*
     - README.md
     - CONTRIBUTING.md
     - LICENSE.md
     - .gitignore
   pull_request:
     paths-ignore:
+    - figures/*
     - README.md
     - CONTRIBUTING.md
     - LICENSE.md

@@ -180,17 +180,17 @@ The protocol defines a number of API endpoints,resources and identifier definiti
              |  Client  |                | Off-net  |
              |   (App)  |                | Resource |
              +----------+                +----------+
-                  |                      |API Type-3|
+                  |                      |   API3   |
                   |                      +----------+
                   |                           ^
                   V                           |
              +----------+                     |
-             |API Type-1|                     |
+             |   API1   |                     |
   +------+   +----------+----+        +----+----------+   +------+
   |      |   |          |    |        |    |          |   |      |
-  | Net. |   | Gateway  |API |        |API | Gateway  |   | Net. |
-  | NW1  |---|    G1    |Type|<------>|Type|    G2    |---| NW2  |
-  |      |   |          | 2  |        | 2  |          |   |      |
+  | Net. |   | Gateway  |API2|        |API2| Gateway  |   | Net. |
+  | NW1  |---|    G1    |    |<------>|    |    G2    |---| NW2  |
+  |      |   |          |    |        |    |          |   |      |
   +------+   +----------+----+        +----+----------+   +------+
 
 ~~~
@@ -201,23 +201,23 @@ The protocol defines a number of API endpoints,resources and identifier definiti
 
 The model for SATP is shown in Figure 1.
 The model for SATP is shown in Figure 1.
-The Client (application) interacts with its local gateway (G1) over an interface (API Type-1) in order to provide instructions to the gateway with regards to actions to assets and related resources located in the local system or network (NW1).
+The Client (application) interacts with its local gateway (G1) over an interface (API1) in order to provide instructions to the gateway with regards to actions to assets and related resources located in the local system or network (NW1).
 
-Gateways interact with each other over a gateway interface (API Type-2). A given gateway may be required to access resources that are not located in network NW1 or network NW2. Access to these types of resources are performed over an off-network interface (API Type-3).
+Gateways interact with each other over a gateway interface (API2). A given gateway may be required to access resources that are not located in network NW1 or network NW2. Access to these types of resources are performed over an off-network interface (API3).
 
-## Types of APIs
+## Family of APIs
 {: #satp-apitypes}
 
 The following are the types of APIs in SATP:
 
-- Gateway APIs for client (API Type-1):
-This is the REST API that allows a Client (application) to interact with a local gateway and issue instructions for actions pertaining to resources accessible to the gateway.
+- Gateway APIs for client (API1):
+This is the API that allows a Client (application) to interact with a local gateway and issue instructions for actions pertaining to resources accessible to the gateway.
 
-- Gateway APIs for peer gateways (API Type-2):
-These are the REST APIs employed by two (2) peer gateways for performing unidirectional asset transfers.
+- Gateway APIs for peer gateways (API2):
+These are the APIs employed by two (2) peer gateways for performing unidirectional asset transfers.
 
-- APIs for validation of off-network resources (API Type-3):
-These are the REST APIs made available by a resource server (resource owner) that a gateway can use to access resources.
+- APIs for validation of off-network resources (API3):
+These are the APIs made available by a resource server (resource owner) that a gateway can use to access resources.
 
 The use of these APIs is dependent on the mode of access and the type of flow in question.
 
@@ -332,7 +332,9 @@ Specifies a resource held on the underlying network. This field must be meaningf
 ### Examples
 {: #satp-resource-example-sec}
 
-satpres://quant/api.gateway1.com/swift
+The following illustrates using example.com as the endpoint:
+
+satpres://example/api.gateway1.com/swift
 
 ## Digital Asset Resource Client Descriptors
 {: #satp-clientresource-descriptor-sec}
@@ -373,26 +375,28 @@ A locally unique (within the OU) identifier, which can identify the application,
 ### Examples
 {: #satp-client-resource-example-sec}
 
-satclient:quant/api.overledger.quant.com/research/luke.riley
+The following illustrates using example.com as the endpoint:
+
+satpclient:example/api.gatewayserver.example.com/research/luke.riley
 
 ## Gateway Level Access Control
 {: #satp-gateway-access-sec}
 
 Gateways can enforce access rules based on standard naming conventions using novel or existing mechanisms such as AuthZ protocols using the resource identifiers above, for example:
 
-satpclient://hsbc/api.overledger.hsbc.com/lending/eric.devloper
+satpclient:////mybank/api.gatewayserver.mybank.com/lending/eric.devloper
 
 can READ/WRITE
 
-satpres://quant/api.gateway1.com/tradelens
+satpres://example/api.gateway1.com/tradelens
 
 AND
 
-satpres://quant/api.gateway1.com/ripple
+satpres://example/api.gateway1.com/ripple
 
 These rules would allow a client so identified to access resources directly, for example:
 
-satpres://quant/api.gateway1.com/tradelens/xxxxxADDRESSxxxxx
+satpres://example/api.gateway1.com/tradelens/xxxxxADDRESSxxxxx
 
 This method allows resource owners to easily grant access to individuals, groups, and organizations. Individual gateway implementations may implement access controls, including subsetting and supersetting of applications or resources according to their own requirements.
 

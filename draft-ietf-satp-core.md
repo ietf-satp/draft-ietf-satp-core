@@ -463,6 +463,67 @@ Gateways MAY allow applications to discover resources they do not have access to
 Formal specification of supported resource discovery methods is out of scope of this document.
 
 
+# Overview of Message Flows
+{: #satp-flows-overview-section}
+
+The SATP message flows are logically divided into three (3) stages, with the preparatory stage denoted as Stage-0. How the tasks are achieved in Stage-0 is out of scope for the current document.
+
+The Stage-1 flows pertains to the initialization of the transfer between the two gateways.  
+
+After both gateways agree to commence the transfer at the start of Stage-2, the sending gateway G1 must deliver a signed assertion that it has performed the correct lock (burn) on the asset in network NW1. If that assertion is accepted by gateway G2, it must in return transmit a signed receipt to gateway G1 that it has created (minted) a temporary asset in NW2.
+
+The Stage-3 flows commits gateways G1 and G2 to the burn and mint in Stage-2. The reader is directed to [SATP-ARCH] for further discussion of this model.
+
+
+       App1  NW1          G1                     G2          NW2    App2
+      ..|.....|............|......................|............|.....|..
+        |     |            |       Stage 1        |            |     |
+        |     |            |                      |            |     |
+        |     |       (1.1)|--- Init. Request --->|            |     |
+        |     |            |                      |            |     |
+        |     |       (1.2)|<--- Init. Response---|            |     |
+        |     |            |                      |            |     |
+      ..|.....|............|......................|............|.....|..
+        |     |            |       Stage 2        |            |     |
+        |     |            |                      |            |     |
+        |     |       (2.1)|<--Transf. Commence-->|            |     |
+        |     |            |                      |            |     |
+        |     |       (2.2)|<--- ACK Commence --->|            |     |
+        |     |            |                      |            |     |
+        |     |            |                      |            |     |
+        |     |<---Lock----|(2.3)                 |            |     |
+        |     |            |                      |            |     |
+        |     |       (2.4)|--- Lock-Assertion--->|            |     |
+        |     |            |                      |            |     |
+        |     |            |                 (2.5)|----Bcast-->|     |
+        |     |            |                      |            |     |
+        |     |            |<--Assertion Receipt--|(2.6)       |     |
+        |     |            |                      |            |     |
+      ..|.....|............|......................|............|.....|..
+        |     |            |       Stage 3        |            |     |
+        |     |            |                      |            |     |
+        |     |       (3.1)|----Commit Prepare--->|            |     |
+        |     |            |                      |            |     |
+        |     |            |                 (3.2)|----Mint--->|     |
+        |     |            |                      |            |     |
+        |     |            |<--- Commit Ready ----|(3.3)       |     |
+        |     |            |                      |            |     |
+        |     |<---Burn----|(3.4)                 |            |     |
+        |     |            |                      |            |     |
+        |     |       (3.5)|---- Commit Final --->|            |     |
+        |     |            |                      |            |     |
+        |     |            |                 (3.6)|---Assign-->|     |
+        |     |            |                      |            |     |
+        |     |            |<-----ACK Final-------|(3.7)       |     |
+        |     |            |                      |            |     |
+        |     |            |                      |            |     |
+        |     |<---Bcast---|(3.8)                 |            |     |
+        |     |            |                      |            |     |
+        |     |       (3.9)|--Transfer Complete-->|            |     |
+      ..|.....|............|......................|............|.....|..
+
+
+
 # Identity and Asset Verification Flow (Stage 0)
 {: #satp-Stage0-section}
 

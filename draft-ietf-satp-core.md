@@ -76,7 +76,7 @@ normative:
 
 --- abstract
 
-This memo describes the Secure Asset Transfer (SAT) Protocol for digital assets. SAT is a protocol operating between two gateways that conducts the transfer of a digital asset from one gateway to another. The protocol establishes a secure channel between the endpoints and implements a 2-phase commit to ensure the properties of transfer atomicity, consistency, isolation and durability.
+This memo describes the Secure Asset Transfer (SAT) Protocol for digital assets. SAT is a protocol operating between two gateways that conducts the transfer of a digital asset from one gateway to another. The protocol establishes a secure channel between the endpoints and implements a 2-phase commit (2PC) to ensure the properties of transfer atomicity, consistency, isolation and durability.
 
 --- middle
 
@@ -240,17 +240,6 @@ This flow deals with the asset transfer and commitment establishment between two
 
 These flows will be discussed below.
 
-## Resources and Identifiers
-{: #satp-resources-ident}
-
-(a) Resource addressing for systems or networks, using the URL syntax.
-
-(b) Client identification based on the URN format. These identify clients (developers and applications) accessing resources, which in some cases require access authorization.
-
-(c) Protocol message family for negotiating authentication, authorization, and parameters for confidential channel establishment.
-
-(d) Resource discovery mechanism for developers and applications to discover resources hosted at a gateway. The gateway's response depends on the access level granted to the developer or application.
-
 
 # SATP Message Format, identifiers and Descriptors
 {: #satp-messages-identifiers}
@@ -260,7 +249,7 @@ These flows will be discussed below.
 
 This section describes:
 
-(i) The phases of SATP
+(i) The stages of SATP
 (ii) The format of SATP messages
 (iii) The format for resource descriptors
 (iv) A method for gateways to implement access controls
@@ -286,7 +275,7 @@ JSON format message, mandatory fields are:
 - Credential Block: Credential token, certificate, string.
 - Payload Profile: Asset profile and capabilities.
 - Application Profile: Vendor or application-specific profile.
-- Payload: Payload for POST, responses, and local networks, specific to the current SAT phase.
+- Payload: Payload for POST, responses, and local networks, specific to the current SAT stage.
 - Payload Hash: Hash of the current message payload.
 - Message signature: Gateway EDCSA signature over the message.
 
@@ -404,7 +393,7 @@ This method allows resource owners to easily grant access to individuals, groups
 
 {: #satp-negotiation-params-sec}
 
-We present the negotiation phase of the protocols and their parameters.
+We present the negotiation stage of the protocols and their parameters.
 
 ### TLS Established
 {: #satp-tls-Established-sec}
@@ -571,7 +560,7 @@ These artifacts are contained in the Transfer Initiation Claims.
 defined in RFC 2616 [RFC2616] for the endpoint.
 
  Clients (sender gateway) MAY use the HTTP GET or POST methods to send messages
-in this phase to the server (recipient gateway).
+in this stage to the server (recipient gateway).
 If using the HTTP GET method, the request parameters may be
 serialized using URI Query String Serialization.
 
@@ -937,7 +926,7 @@ The client makes a request (POST) to the Lock-Assertion Endpoint at the server.
  Gateways MUST support the use of the HTTP GET and POST methods
 defined in RFC 2616 [RFC2616] for the endpoint.
 
- Clients MAY use the HTTP GET or POST methods to send messages in this phase to the server.
+ Clients MAY use the HTTP GET or POST methods to send messages in this stage to the server.
 If using the HTTP GET method, the request parameters may be serialized
 using URI Query String Serialization.
 
@@ -1043,7 +1032,7 @@ This number is meaningful only to the client.
 This section describes the transfer commitment agreement between the
 client (sender gateway) and the server (receiver gateway).
 
-This phase must be completed within the time specified
+This stage must be completed within the time specified
 in the lock_assertion_expiration value in the lock-assertion message.
 
 In the following, the sender gateway takes the role of the client
@@ -1055,7 +1044,7 @@ The client makes a request (POST) to the Transfer Commitment endpoint at the ser
 Gateways MUST support the use of the HTTP GET and POST methods
 defined in RFC 2616 [RFC2616] for the endpoint.
 
-Clients MAY use the HTTP GET or POST methods to send messages in this phase to the server.
+Clients MAY use the HTTP GET or POST methods to send messages in this stage to the server.
 If using the HTTP GET method, the request parameters maybe serialized
 using URI Query String Serialization.
 
@@ -1349,7 +1338,7 @@ we focus on the primary-backup paradigm.
  it sends a RECOVER message to the counterparty gateway,
  informing them of its most recent state.
  The message contains various parameters such as the session ID,
- message type, SATP phase, sequence number,
+ message type, SATP stage, sequence number,
  a flag indicating if the sender is a backup gateway,
  the new public key if the sender is a backup,
  the timestamp of the last known log entry, and the sender's digital signature.

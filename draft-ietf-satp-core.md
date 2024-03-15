@@ -173,7 +173,9 @@ The following are some terminology used in the current document:
 
  The Secure Asset Transfer Protocol (SATP) is a gateway-to-gateway protocol used by a sender gateway with a recipient gateway to perform a unidirectional transfer of a digital asset.
 
-The protocol defines a number of API endpoints,resources and identifier definitions, and message flows corresponding to the asset transfer between the two gateways.
+The protocol defines a number of API endpoints, resources and identifier definitions, and message flows corresponding to the asset transfer between the two gateways.
+
+The current document pertains to the interaction between gateways through API2.
 
 ~~~
              +----------+                +----------+
@@ -247,39 +249,101 @@ These flows will be discussed below.
 ## Overview
 {: #satp-message-identifier-overview}
 
-This section describes:
+This section describes the stages of SATP, the format of the messages exchanged between two gateways and the format for resource descriptors.
 
-(i) The stages of SATP
-(ii) The format of SATP messages
-(iii) The format for resource descriptors
-(iv) A method for gateways to implement access controls
-(iv) Protocol for negotiating security capabilities
-(v) Discovery and accessing resources and provisions for backward compatibility with existing systems.
+The following lists all of the message payloads in SATP. The mandatory fields are determined by the message type exchanged between the two gateways (see Section 7).
 
-## SATP Message Format
+
+## SATP Message Format and Payloads
 {: #satp-message-format}
 
-SATP messages are exchanged between applications (clients) and gateways (servers). They include protocol negotiation and functional messages in JSON format with specific mandatory fields, supporting several authentication and authorization schemes, and allowing a free format field for plaintext or encrypted payloads directed at the gateway.
+SATP messages are exchanged between peer gateways, where depending on the message type one gateway may act as a client of the other (and vice versa).
 
-JSON format message, mandatory fields are:
 
-- Version: SATP protocol Version (major, minor).
-- Message Type: Type of request or response conveyed in this message.
-- Session ID: Unique identifier (UUIDv2) for a session between two gateways handling a unidirectional transfer.
-- Transfer-Context ID: Unique optional identifier (UUIDv2) representing the application layer context.
-- Sequence Number: Increasing counter uniquely representing a message from a session.
-- Resource URL: Location of the resource to be accessed.
-- Developer URN: Assertion of developer/application identity.
-- Action/Response: GET/POST and arguments (or Response Code).
-- Credential Profile: Type of authentication (e.g. SAML, OAuth, X.509).
-- Credential Block: Credential token, certificate, string.
-- Payload Profile: Asset profile and capabilities.
-- Application Profile: Vendor or application-specific profile.
-- Payload: Payload for POST, responses, and local networks, specific to the current SAT stage.
-- Payload Hash: Hash of the current message payload.
-- Message signature: Gateway EDCSA signature over the message.
+### Protocol version
+This refers to SATP protocol Version, encoded as "major.minor" (separated by a period symbol).
 
-Other attributes may exist for logging purposes.
+
+### Message Type
+This refers to the type of request or response to be conveyed in the message. 
+
+The possible values are:
+
+- transfer-init-request: Request to begin transfer parameter negotiations.
+
+- transfer-init-response: Response to the request for parameter negotiations.
+
+- transfer-commence-msg: Request to begin the commencement of the asset transfer.
+
+- ack-commence-msg: Response to accept to the commencement of the asset transfer.
+
+- lock-assert-msg: Sender gateway has performed the lock of the asset in the origin network.
+
+- assertion-receipt-msg: Receiver gateway acknowledges receiving of the signed lock-assert-msg.
+
+- commit-prepare-msg: Sender gateway requests the start of the commitment stage.
+
+- ack-prepare-msg: Receiver gateway acknowledges receiving the previous commit-prepare-msg and agrees to start the commitment stage.
+
+- commit-final-msg: Sender gateway has performed the extinguishment (burn) of the asset in the origin network.
+
+- ack-commit-final-msg: Receiver gateway acknowledges receiving of the signed commit-final-msg and has performed the asset creation and assignment in the destination network.
+
+- commit-transfer-complete-msg: Sender gateway indicates closure of the current transfer session.
+
+
+### Digital Asset Identifier
+
+This is the unique identifier (UUIDv2) that uniquely identifies the digital asset in the origin network which is to be transferred to the destination network.
+
+The digital asset identifier is a value that is derived by the applications utilized by the originator and the beneficiary prior to starting the asset transfer.
+
+The mechanism used to derive the digital asset identifier is outside the scope of the current document.
+
+
+### Session ID:
+
+This is the unique identifier (UUIDv2) representing a session between two gateways handling a single unidirectional transfer. This may be derived from the context-ID at the application level.
+
+
+### Transfer-Context ID
+
+This is the unqiue optional identifier (UUIDv2) representing the application layer context.
+
+
+Sequence Number: 
+
+This is an increasing counter uniquely representing a message from a session. This can be utilikzed used to assist the peer gateways when they are processing multiple simultaneous unrelated transfers.
+
+
+
+
+### Gateway Credential Type
+
+This is the type type of authentication mechanism supported by the gateway (e.g.  SAML, OAuth, X.509)
+
+
+### Gateway Credential 
+
+This payload is the actual credential of the gateway (token, certificate, string, etc.).
+
+
+### Payload Hash
+
+This is the hash of the current message payload.
+
+
+### Signature Algorithms Supported
+
+This is the list of digital signature algorithm supported by a gateway, with the base default being the NIST EDCSA standard.
+
+
+### Message Signature 
+
+This payload is the actual the EDCSA signature portion over a message.
+
+
+
 
 
 ## Digital Asset Resource Descriptors

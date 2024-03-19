@@ -1553,7 +1553,7 @@ Formal specification of supported resource discovery methods is out of scope of 
 
 
 # Appendix B: API3 Considerations
-{: #api1-consideration-section}
+{: #api3-consideration-section}
  In this section we discuss some considerations regarding the interaction between a gateway and an external resource or service provider through API3.
 
  

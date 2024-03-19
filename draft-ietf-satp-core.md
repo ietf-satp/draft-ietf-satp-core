@@ -346,113 +346,6 @@ This payload is the actual the ECDSA signature portion over a message.
 
 
 
-## Digital Asset Resource Descriptors
-{: #satp-resource-descriptor-sec}
-
-Resources are identified by URL [RFC1738]:
-
-- Type: `application/satres`
-- Access Protocol: SATP
-
-Data included in the URL:
-
-### Organization Identifier
-{: #satp-org-id-sec}
-
-This MAY be a Legal Entity Identifier (LEI) or another identifier linking resource ownership to a real-world entity. Any scheme for identifying gateway owners may be implemented (e.g., LEI directory, closed user group membership, SWIFT BIC, etc.).
-
-The developer or application MAY validate the identity with the issuing authority. The identifier is not a trusted identity but MAY be relied upon where trust has been established between the two parties (e.g., in a closed user group).
-
-The mechanisms to determine organization identifiers are out of scope for the current specification.
-
-### Gateway / Endpoint ID
-{: #satp-gateway-id-sec}
-
-FQDN of the SATP compliant gateway. Required to establish IP connectivity. This MUST resolve to a valid IP address.
-
-### Network or System Identifier
-{: #satp-dlt-id-sec}
-
-Specific to the gateway behind which the target network operates. This field is local to the gateway and is used to direct SATP interactions to the correct underlying network. This value may be alphanumeric or a hexadecimal value.
-
-For example: "tradelens-network", "EU-supply-chain".
-
-### Network Resource
-{: #satp-network-resource-sec}
-
-Specifies a resource held on the underlying network. This field must be meaningful to the network in question but is otherwise an arbitrary string. The underlying object it points to may be a network address, data block, transaction ID, alias, etc. or a future object type not yet defined.
-
-### Examples
-{: #satp-resource-example-sec}
-
-The following illustrates using example.com as the endpoint:
-
-satpres://example/api.gateway1.com/swift
-
-## Digital Asset Resource Client Descriptors
-{: #satp-clientresource-descriptor-sec}
-
-Resources are identified by URN as described below:
-- The type is new: application/satpclient
-
-The URN format does not imply availability of access protocol.
-
-Data included in the URN includes the following:
-
-### Organization Identifier
-{: #satp-client-org-id-sec}
-
-Legal Entity Identifier (LEI) or other identifier linking resource ownership to a real-world entity. Any scheme for identifying Gateway owners may be implemented (e.g. LEI directory, closed user group membership, BIC, etc.).
-
-The Gateway MAY validate the identity with the issuing authority. The identifier is not a trusted identity, but MAY be relied on where trust has been established between the two parties (e.g. in a closed user group).
-
-### Gateway / Endpoint ID
-{: #satp-client-gateway-id-sec}
-
-Applications which interact with multiple networks can operate in a mode whereby the application connects to its local gateway, which then forwards application traffic to local networks and to remote networks via other SATP gateways.
-
-Where this is the case, this field identifies the "home" gateway for this application. This may be required to carry out gateway to gateway handshaking and protocol negotiation, or for the server to look up use case specific data relating to the client.
-
-### Organizational Unit
-{: #satp-client-org-unit-sec}
-
-The organization unit within the organization that the client (application or developer) belongs to. This assertion should be backed up with authentication via the negotiated protocol.
-
-The purpose of this field is to allow gateways to maintain access control mapping between applications and resources that are independent of the authentication and authorization schemes used, supporting future changes and supporting counterparties that operate different schemes.
-
-### Name
-{: #satp-client-dlt-resource-sec}
-
-A locally unique (within the OU) identifier, which can identify the application, project, or individual developer responsible for this client connection. This is the most granular unit of access control, and gateways should ensure appropriate identifiers are used for the needs of the application or use case.
-
-### Examples
-{: #satp-client-resource-example-sec}
-
-The following illustrates using example.com as the endpoint:
-
-satpclient:example/api.gatewayserver.example.com/research/luke.riley
-
-## Gateway Level Access Control
-{: #satp-gateway-access-sec}
-
-Gateways can enforce access rules based on standard naming conventions using novel or existing mechanisms such as AuthZ protocols using the resource identifiers above, for example:
-
-satpclient:////mybank/api.gatewayserver.mybank.com/lending/eric.devloper
-
-can READ/WRITE
-
-satpres://example/api.gateway1.com/tradelens
-
-AND
-
-satpres://example/api.gateway1.com/ripple
-
-These rules would allow a client so identified to access resources directly, for example:
-
-satpres://example/api.gateway1.com/tradelens/xxxxxADDRESSxxxxx
-
-This method allows resource owners to easily grant access to individuals, groups, and organizations. Individual gateway implementations may implement access controls, including subsetting and supersetting of applications or resources according to their own requirements.
-
 ## Negotiation of Security Protocols and Parameters
 
 {: #satp-negotiation-params-sec}
@@ -494,30 +387,7 @@ Handshaking is complete at this point, and the client can send SAT messages to p
 
 The client and server must mutually agree on the asset type or profile that is the subject of the current transfer. The client provides the server with the asset identification number, or the server may provide the client with the asset identification numbers for the digital asset it supports. Formal specification of asset identification is outside the scope of this document. Globally numbering digital asset types or profiles is expected to be performed by a legally recognized entity.
 
-## Application Profile Negotiation
-{: #satp-application-profile-negotiation}
 
-Where an application relies on specific extensions for operation, these can be represented in an Application Profile. For example, a payments application that tracks payments using a cloud-based API and interacts only with gateways logging messages to that API can establish a resource profile as follows:
-
-    Application Name: TRACKER
-    X-Tracker_URL: https://api.tracker.com/updates
-    X-Tracking-Policy: Always
-
-As gateways implement this functionality, they support the TRACKER application profile, and the application is able to expand its reach by periodically polling for the availability of the profile.
-
-This is an intentionally generalized extension mechanism for application or vendor specific functionality.
-
-
-## Discovery of Digital Asset Resources
-{: #satp-resource-discovery-sec}
-
-Applications located outside a network or system SHOULD be able to discover which resources they are authorized to access in a network or system.
-
-Resource discovery is handled by the gateway in front of the network. For instance using a GETrequest against the gateway URL with no resource identifier could return a list of URLs available to the requester. This list issubject to the access controls above.
-
-Gateways MAY allow applications to discover resources they do not have access to. This should be indicated in the free text field, and gateways SHOULD implement a process for applications to request access.
-
-Formal specification of supported resource discovery methods is out of scope of this document.
 
 
 # Overview of Message Flows
@@ -1530,12 +1400,164 @@ As such, hardware hardening technologies and
 tamper-resistant crypto-processors (e.g. TPM, Secure Enclaves, SGX)
 should be considered for implementations of gateways.
 
+
+
 # IANA Consideration
 {: #satp-iana-Consideration}
 (TBD)
 
 
-# Appendix A: Error Types
+
+
+# Appendix A: API1 Considerations
+{: #api1-consideration-section}
+ In this section we discuss some considerations regarding the interaction between the Application and a Gateway through API1.
+
+ 
+## Digital Asset Resource Descriptors
+{: #satp-resource-descriptor-sec}
+
+Resources are identified by URL [RFC1738]:
+
+- Type: `application/satres`
+- Access Protocol: SATP
+
+Data included in the URL:
+
+### Organization Identifier
+{: #satp-org-id-sec}
+
+This MAY be a Legal Entity Identifier (LEI) or another identifier linking resource ownership to a real-world entity. Any scheme for identifying gateway owners may be implemented (e.g., LEI directory, closed user group membership, SWIFT BIC, etc.).
+
+The developer or application MAY validate the identity with the issuing authority. The identifier is not a trusted identity but MAY be relied upon where trust has been established between the two parties (e.g., in a closed user group).
+
+The mechanisms to determine organization identifiers are out of scope for the current specification.
+
+### Gateway / Endpoint ID
+{: #satp-gateway-id-sec}
+
+FQDN of the SATP compliant gateway. Required to establish IP connectivity. This MUST resolve to a valid IP address.
+
+### Network or System Identifier
+{: #satp-dlt-id-sec}
+
+Specific to the gateway behind which the target network operates. This field is local to the gateway and is used to direct SATP interactions to the correct underlying network. This value may be alphanumeric or a hexadecimal value.
+
+For example: "tradelens-network", "EU-supply-chain".
+
+### Network Resource
+{: #satp-network-resource-sec}
+
+Specifies a resource held on the underlying network. This field must be meaningful to the network in question but is otherwise an arbitrary string. The underlying object it points to may be a network address, data block, transaction ID, alias, etc. or a future object type not yet defined.
+
+### Examples
+{: #satp-resource-example-sec}
+
+The following illustrates using example.com as the endpoint:
+
+satpres://example/api.gateway1.com/swift
+
+## Digital Asset Resource Client Descriptors
+{: #satp-clientresource-descriptor-sec}
+
+Resources are identified by URN as described below:
+- The type is new: application/satpclient
+
+The URN format does not imply availability of access protocol.
+
+Data included in the URN includes the following:
+
+### Organization Identifier
+{: #satp-client-org-id-sec}
+
+Legal Entity Identifier (LEI) or other identifier linking resource ownership to a real-world entity. Any scheme for identifying Gateway owners may be implemented (e.g. LEI directory, closed user group membership, BIC, etc.).
+
+The Gateway MAY validate the identity with the issuing authority. The identifier is not a trusted identity, but MAY be relied on where trust has been established between the two parties (e.g. in a closed user group).
+
+### Gateway / Endpoint ID
+{: #satp-client-gateway-id-sec}
+
+Applications which interact with multiple networks can operate in a mode whereby the application connects to its local gateway, which then forwards application traffic to local networks and to remote networks via other SATP gateways.
+
+Where this is the case, this field identifies the "home" gateway for this application. This may be required to carry out gateway to gateway handshaking and protocol negotiation, or for the server to look up use case specific data relating to the client.
+
+### Organizational Unit
+{: #satp-client-org-unit-sec}
+
+The organization unit within the organization that the client (application or developer) belongs to. This assertion should be backed up with authentication via the negotiated protocol.
+
+The purpose of this field is to allow gateways to maintain access control mapping between applications and resources that are independent of the authentication and authorization schemes used, supporting future changes and supporting counterparties that operate different schemes.
+
+### Name
+{: #satp-client-dlt-resource-sec}
+
+A locally unique (within the OU) identifier, which can identify the application, project, or individual developer responsible for this client connection. This is the most granular unit of access control, and gateways should ensure appropriate identifiers are used for the needs of the application or use case.
+
+### Examples
+{: #satp-client-resource-example-sec}
+
+The following illustrates using example.com as the endpoint:
+
+satpclient:example/api.gatewayserver.example.com/research/luke.riley
+
+## Gateway Level Access Control
+{: #satp-gateway-access-sec}
+
+Gateways can enforce access rules based on standard naming conventions using novel or existing mechanisms such as AuthZ protocols using the resource identifiers above, for example:
+
+satpclient:////mybank/api.gatewayserver.mybank.com/lending/eric.devloper
+
+can READ/WRITE
+
+satpres://example/api.gateway1.com/tradelens
+
+AND
+
+satpres://example/api.gateway1.com/ripple
+
+These rules would allow a client so identified to access resources directly, for example:
+
+satpres://example/api.gateway1.com/tradelens/xxxxxADDRESSxxxxx
+
+This method allows resource owners to easily grant access to individuals, groups, and organizations. Individual gateway implementations may implement access controls, including subsetting and supersetting of applications or resources according to their own requirements.
+
+
+
+## Application Profile Negotiation
+{: #satp-application-profile-negotiation}
+
+Where an application relies on specific extensions for operation, these can be represented in an Application Profile. For example, a payments application that tracks payments using a cloud-based API and interacts only with gateways logging messages to that API can establish a resource profile as follows:
+
+    Application Name: TRACKER
+    X-Tracker_URL: https://api.tracker.com/updates
+    X-Tracking-Policy: Always
+
+As gateways implement this functionality, they support the TRACKER application profile, and the application is able to expand its reach by periodically polling for the availability of the profile.
+
+This is an intentionally generalized extension mechanism for application or vendor specific functionality.
+
+
+## Discovery of Digital Asset Resources
+{: #satp-resource-discovery-sec}
+
+Applications located outside a network or system SHOULD be able to discover which resources they are authorized to access in a network or system.
+
+Resource discovery is handled by the gateway in front of the network. For instance using a GETrequest against the gateway URL with no resource identifier could return a list of URLs available to the requester. This list issubject to the access controls above.
+
+Gateways MAY allow applications to discover resources they do not have access to. This should be indicated in the free text field, and gateways SHOULD implement a process for applications to request access.
+
+Formal specification of supported resource discovery methods is out of scope of this document.
+
+
+
+
+
+# Appendix B: API3 Considerations
+{: #api1-consideration-section}
+ In this section we discuss some considerations regarding the interaction between a gateway and an external resource or service provider through API3.
+
+ 
+# Appendix C: Error Types
 {: #error-types-section}
  The following lists the error associated with each message in SATP.
 

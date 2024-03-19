@@ -335,12 +335,12 @@ This is the hash of the current message payload.
 
 ### Signature Algorithms Supported
 
-This is the list of digital signature algorithm supported by a gateway, with the base default being the NIST EDCSA standard.
+This is the list of digital signature algorithm supported by a gateway, with the base default being the NIST ECDSA standard.
 
 
 ### Message Signature 
 
-This payload is the actual the EDCSA signature portion over a message.
+This payload is the actual the ECDSA signature portion over a message.
 
 
 

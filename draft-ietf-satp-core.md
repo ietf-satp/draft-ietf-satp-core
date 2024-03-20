@@ -181,23 +181,22 @@ The protocol defines a number of API endpoints, resources and identifier definit
 The current document pertains to the interaction between gateways through API2.
 
 ```
-             +----------+                +----------+
-             |  Client  |                | Off-net  |
-             |   (App)  |                | Resource |
-             +----------+                +----------+
-                  |                      |   API3   |
-                  |                      +----------+
-                  |                           ^
-                  V                           |
-             +----------+                     |
-             |   API1   |                     |
-  +------+   +----------+----+        +----+----------+   +------+
-  |      |   |          |    |        |    |          |   |      |
-  | Net. |   | Gateway  |API2|        |API2| Gateway  |   | Net. |
-  | NW1  |---|    G1    |    |<------>|    |    G2    |---| NW2  |
-  |      |   |          |    |        |    |          |   |      |
-  +------+   +----------+----+        +----+----------+   +------+
-
+                 +----------+                +----------+
+                 |  Client  |                | Off-net  |
+                 |   (App)  |                | Resource |
+                 +----------+                +----------+
+                      |                      |   API3   |
+                      |                      +----------+
+                      |                           ^
+                      V                           |
+                 +---------+                      |
+                 |   API1  |                      |
+       +-----+   +---------+----+        +----+---------+   +-----+
+       |     |   |         |    |        |    |         |   |     |
+       | Net.|   | Gateway |API2|        |API2| Gateway |   | Net.|
+       | NW1 |---|    G1   |    |<------>|    |    G2   |---| NW2 |
+       |     |   |         |    |        |    |         |   |     |
+       +-----+   +---------+----+        +----+---------+   +-----+
 ```
 
 {: #satp-fig-overview}
@@ -398,6 +397,7 @@ After both gateways agree to commence the transfer at the start of Stage-2, the 
 
 The Stage-3 flows commits gateways G1 and G2 to the burn and mint in Stage-2. The reader is directed to [SATP-ARCH] for further discussion of this model.
 
+```
        App1  NW1          G1                     G2          NW2    App2
       ..|.....|............|......................|............|.....|..
         |     |            |       Stage 1        |            |     |
@@ -444,6 +444,7 @@ The Stage-3 flows commits gateways G1 and G2 to the burn and mint in Stage-2. Th
         |     |            |                      |            |     |
         |     |       (3.9)|--Transfer Complete-->|            |     |
       ..|.....|............|......................|............|.....|..
+```
 
 # Identity and Asset Verification Flow (Stage 0)
 

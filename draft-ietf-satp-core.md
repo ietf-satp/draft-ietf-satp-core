@@ -16,7 +16,7 @@ pi:
 
 title: Secure Asset Transfer Protocol (SATP) Core
 abbrev: SATP Core
-docname: draft-ietf-satp-core-latest
+docname: draft-ietf-satp-core-03
 category: info
 
 ipr: trust200902
@@ -180,26 +180,23 @@ The protocol defines a number of API endpoints, resources and identifier definit
 
 The current document pertains to the interaction between gateways through API2.
 
-```
-             +----------+                +----------+
-             |  Client  |                | Off-net  |
-             |   (App)  |                | Resource |
-             +----------+                +----------+
-                  |                      |   API3   |
-                  |                      +----------+
-                  |                           ^
-                  V                           |
-             +----------+                     |
-             |   API1   |                     |
-  +------+   +----------+----+        +----+----------+   +------+
-  |      |   |          |    |        |    |          |   |      |
-  | Net. |   | Gateway  |API2|        |API2| Gateway  |   | Net. |
-  | NW1  |---|    G1    |    |<------>|    |    G2    |---| NW2  |
-  |      |   |          |    |        |    |          |   |      |
-  +------+   +----------+----+        +----+----------+   +------+
-
-```
-
+                  +----------+                +----------+
+                  |  Client  |                | Off-net  |
+                  |   (App)  |                | Resource |
+                  +----------+                +----------+
+                       |                      |   API3   |
+                       |                      +----------+
+                       |                           ^
+                       V                           |
+                  +---------+                      |
+                  |   API1  |                      |
+        +-----+   +---------+----+        +----+---------+   +-----+
+        |     |   |         |    |        |    |         |   |     |
+        | Net.|   | Gateway |API2|        |API2| Gateway |   | Net.|
+        | NW1 |---|    G1   |    |<------>|    |    G2   |---| NW2 |
+        |     |   |         |    |        |    |         |   |     |
+        +-----+   +---------+----+        +----+---------+   +-----+
+        
 {: #satp-fig-overview}
 
 ## SAT Model

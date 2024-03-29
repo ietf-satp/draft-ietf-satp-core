@@ -227,23 +227,25 @@ The following are the types of APIs in SATP:
 
 The use of these APIs is dependent on the mode of access and the type of flow in question.
 
-## Types of Flows
+## Stages of the Protocol
 
 {: #satp-flowtypes}
 
-The SAT protocol defines the following three (3) flows:
+The SAT protocol defines three (3) stages for a unidirectional asset transfer:
 
-- Transfer Initiation flow:
-  This flow deals with commencing a transfer from one gateway to another. Several tasks are involved, including (but not limited to):
+- Transfer Initiation stage (Stage-1):
+  These flows deals with commencing a transfer from one gateway to another. Several tasks are involved, including (but not limited to):
   (i) gateway identification and mutual authentication;
   (ii) exchange of asset type (definition) information;
   (iii) verification of the asset definition, and others.
 
-- Lock-Assertion flow:
-  This flow deals with the conveyance of signed assertions from the sender gateway to the receiver gateway regarding the locked status of an asset at the origin network.
+- Lock-Assertion stage (Stage-2):
+  These flows deals with the conveyance of signed assertions from the sender gateway to the receiver gateway regarding the locked status of an asset at the origin network.
 
-- Commitment Establishment flow:
-  This flow deals with the asset transfer and commitment establishment between two gateways.
+- Commitment Establishment stage (Stage-3):
+  These flowsdeals with the asset transfer and commitment establishment between two gateways.
+
+In order to clarify discussion, the interactions between the peer gateways prior to transfer initiation stage is referred to as the setup stage (Stage-0), which is outside the scope of the current specification.
 
 These flows will be discussed below.
 
@@ -255,9 +257,9 @@ These flows will be discussed below.
 
 {: #satp-message-identifier-overview}
 
-This section describes the stages of SATP, the format of the messages exchanged between two gateways and the format for resource descriptors.
+This section describes the SATP message-types, the format of the messages exchanged between two gateways, the format for resource descriptors and other related parameters.
 
-The following lists all of the message payloads in SATP. The mandatory fields are determined by the message type exchanged between the two gateways (see Section 7).
+The mandatory fields are determined by the message type exchanged between the two gateways (see Section 7).
 
 ## SATP Message Format and Payloads
 
@@ -275,9 +277,11 @@ This refers to the type of request or response to be conveyed in the message.
 
 The possible values are:
 
-- transfer-init-request: Request to begin transfer parameter negotiations.
+- transfer-proposal-msg: This is the transfer proposal message from the sender gateway carrying the set of proposed parameters for the transfer.
 
-- transfer-init-response: Response to the request for parameter negotiations.
+- proposal-receipt-msg: This is the signed receipt message indicating acceptance of the proposal by the receiver gateway.
+
+- proposal-counter-msg: This is a counteroffer message from the receiver gateway indicating an alternative proposal.
 
 - transfer-commence-msg: Request to begin the commencement of the asset transfer.
 
@@ -311,15 +315,15 @@ This is the unique identifier (UUIDv2) representing a session between two gatewa
 
 ### Transfer-Context ID
 
-This is the unqiue optional identifier (UUIDv2) representing the application layer context.
+This is the unique optional identifier (UUIDv2) representing the application layer context.
 
 Sequence Number:
 
-This is an increasing counter uniquely representing a message from a session. This can be utilikzed used to assist the peer gateways when they are processing multiple simultaneous unrelated transfers.
+This is an increasing counter uniquely representing a message from a session. This can be utilized to assist the peer gateways when they are processing multiple simultaneous unrelated transfers.
 
 ### Gateway Credential Type
 
-This is the type type of authentication mechanism supported by the gateway (e.g. SAML, OAuth, X.509)
+This is the type of authentication mechanism supported by the gateway (e.g. SAML, OAuth, X.509)
 
 ### Gateway Credential
 
@@ -341,9 +345,11 @@ This payload is the actual the ECDSA signature portion over a message.
 
 {: #satp-negotiation-params-sec}
 
-We present the negotiation stage of the protocols and their parameters.
+The peer gateways in SATP must establish a TLS session between them prior to starting the transfer initiation stage (Stage-0). The TLS session continues until the transfer is completed at the end of the commitment establishment stage (Stage-3).
 
-### TLS Established
+In the following, the sender gateway is referred to as the client while the received gateway as the server.
+
+### TLS Secure Channel Establishment
 
 {: #satp-tls-Established-sec}
 
@@ -353,13 +359,13 @@ TLS 1.2 or higher MUST be implemented to protect gateway communications. TLS 1.3
 
 {: #satp-client-offers-sec}
 
-Capability negotiation, similar to the Session Description Protocol [RFC5939], occurs prior to data exchange. Initially, the client (application) sends a JSON block containing acceptable credential schemes, such as OAuth2.0 or SAML, in the "Credential Scheme" field of the SATP message.
+The  client sends a JSON block containing the supported credential schemes, such as OAuth2.0 or SAML, in the "Credential Scheme" field of the SATP message.
 
 ### Server selects supported credential scheme
 
 {: #satp-server-selects-sec}
 
-The server (recipient Gateway) selects one acceptable credential scheme from the offered schemes, returning the selection in the "Credential Scheme" field of the SATP message. If no acceptable credential scheme was offered, an HTTP 511 "Network Authentication Required" error is returned in the Action/Response field of the SATP message.
+The server (recipient Gateway) selects one acceptable credential scheme from the offered schemes, returning the selection in the "Credential Scheme" field of the SATP message. If no acceptable credential scheme was offered, an HTTP 511 "Network Authentication Required" error is returned.
 
 ### Client asserts or proves identity
 
@@ -371,7 +377,7 @@ The details of the assertion/verification step are specific to the chosen creden
 
 {: #sequence-numbers-sec}
 
-Sequence numbers are used to allow the server to correctly order operations from the client. Some operations may be asynchronous, synchronous, or idempotent with duplicate requests handled differently according to the use case. The initial sequence number is proposed by the client (sender gateway) after credential verification is finalized. The server (recipient gateway) MUST respond with the same sequence number to indicate acceptance. The client increments the sequence number with each new request. Sequence numbers can be reused for retries in the event of a gateway timeout.
+Sequence numbers are used to allow the server to correctly order operations from the client. Some operations may be asynchronous, synchronous, or idempotent with duplicate requests handled differently according to the use case. The initial sequence number is proposed by the client (sender gateway) after credential verification is finalized. The server (receiver gateway) MUST respond with the same sequence number to indicate acceptance. The client increments the sequence number with each new request. Sequence numbers can be reused for retries in the event of a gateway timeout.
 
 ### Messages can now be exchanged
 
@@ -389,22 +395,26 @@ The client and server must mutually agree on the asset type or profile that is t
 
 {: #satp-flows-overview-section}
 
-The SATP message flows are logically divided into three (3) stages, with the preparatory stage denoted as Stage-0. How the tasks are achieved in Stage-0 is out of scope for the current document.
+The SATP message flows are logically divided into three (3) stages, with the preparatory stage denoted as Stage-0. How the tasks are achieved in Stage-0 is out of scope for the current specification.
 
 The Stage-1 flows pertains to the initialization of the transfer between the two gateways.
 
-After both gateways agree to commence the transfer at the start of Stage-2, the sending gateway G1 must deliver a signed assertion that it has performed the correct lock (burn) on the asset in network NW1. If that assertion is accepted by gateway G2, it must in return transmit a signed receipt to gateway G1 that it has created (minted) a temporary asset in NW2.
+After both gateways agree to commence the transfer at the start of Stage-2, the sender gateway G1 must deliver a signed assertion that it has performed the correct lock (burn) on the asset in origin network (NW1).
 
-The Stage-3 flows commits gateways G1 and G2 to the burn and mint in Stage-2. The reader is directed to [SATP-ARCH] for further discussion of this model.
+If that assertion is accepted by gateway G2, it must in return transmit a signed receipt to gateway G1 that it has created (minted) a temporary asset in destination network (NW2).
+
+The Stage-3 flows commits gateways G1 and G2 to the burn and mint in Stage-2.  The sender gateway G1 must make the lock on the asset in origin network NW1 to be permanent (burn). The receiver gateway G2 must assign (mint) the asset in the destination network NW2 to the correct beneficiary.
+
+The reader is directed to [SATP-ARCH] for further discussion of this model.
 
 ```
        App1  NW1          G1                     G2          NW2    App2
       ..|.....|............|......................|............|.....|..
         |     |            |       Stage 1        |            |     |
         |     |            |                      |            |     |
-        |     |       (1.1)|--- Init. Request --->|            |     |
+        |     |       (1.1)|--Transf. Proposal -->|            |     |
         |     |            |                      |            |     |
-        |     |       (1.2)|<--- Init. Response---|            |     |
+        |     |       (1.2)|<--Proposal Receipt---|            |     |
         |     |            |                      |            |     |
       ..|.....|............|......................|............|.....|..
         |     |            |       Stage 2        |            |     |
@@ -476,13 +486,15 @@ These are considered out of scope in the current specifications,
 and are assumed to have been successfully completed prior to
 the commencement of the transfer initiation flow.
 
-# Transfer Initiation and Commencement Flows (Stage 1)
+# Transfer Initiation Stage (Stage 1)
 
 {: #satp-stage1-section}
-This section describes the SATP Set-up stage,
-where a sender gateway interacts with a recipient gateway, proposing a session.
 
-These artifacts are contained in the Transfer Initiation Claims.
+This section describes the transfer initiation stage, where the sender gateway and the receiver gateway prepare for the start of the asset transfer.
+
+The sender gateway proposes the set of transfer parameters and asset-related artifacts for the transfer to the receiver gateway. These are contained in the Transfer Initiation Claims.
+
+If the receiver gateway accepts the proposal, it returns a signed receipt message for the proposal indicating it agrees to proceed to the next stage. If the receiver gateway rejects any parameters or artifacts in the proposal, it can provide a counteroffer to the sender gateway by responding with a proposal reject message carrying alternative parameters.
 
 Gateways MUST support the use of the HTTP GET and POST methods
 defined in RFC 2616 [RFC2616] for the endpoint.
@@ -491,11 +503,6 @@ Clients (sender gateway) MAY use the HTTP GET or POST methods to send messages
 in this stage to the server (recipient gateway).
 If using the HTTP GET method, the request parameters may be
 serialized using URI Query String Serialization.
-
-The client and server may be required to sign certain messages
-in order to provide standalone proof (for non-repudiation)
-independent of the secure channel between the client and server.
-This proof may be required for audit verifications (e.g. post-event).
 
 (NOTE: Flows occur over TLS. Nonces are not shown).
 
@@ -508,17 +515,17 @@ gateway) and the server (recipient gateway).
 
 The Transfer Initialization Claims consists of the following:
 
-- digital_asset_id: This is the globally unique identifier for the digital asset
+- digital_asset_id REQUIRED: This is the globally unique identifier for the digital asset
   located in the origin network.
 
-- asset_profile_id: This is the globally unique identifier for the asset-profile
+- asset_profile_id REQUIRED: This is the globally unique identifier for the asset-profile
   definition (document) on which the digital asset was issued.
 
-- verified_originator_entity_id: This is the identity data of the originator entity
+- verified_originator_entity_id REQUIRED: This is the identity data of the originator entity
   (person or organization) in the origin network.
   This information must be verified by the sender gateway.
 
-- verified_beneficiary_entity_id: This is the identity data of the beneficiary entity
+- verified_beneficiary_entity_id REQUIRED: This is the identity data of the beneficiary entity
   (person or organization) in the destination network.
   This information must be verified by the receiver gateway.
 
@@ -528,91 +535,67 @@ The Transfer Initialization Claims consists of the following:
 - beneficiary_pubkey REQUIRED. This is the public key of the beneficiary
   in the destination network.
 
+- sender_gateway_id REQUIRED.  This is the identifier of the sender gateway (client).
+
+- recipient_gateway_id REQUIRED.  This is the identifier of the receiver gateway (server).
+
 - sender_gateway_network_id REQUIRED. This is the identifier of the
   origin network or system behind the client.
 
 - recipient_gateway_network_id REQUIRED. This is the identifier of the destination
   network or system behind the server.
 
-- client_identity_pubkey REQUIRED. The public key of client who sent this message.
+- sender_gateway_identity_pubkey REQUIRED.  The public key of the sender gateway (client).
 
-- server_identity_pubkey REQUIRED. The public key of server for whom this message is intended.
+- receiver_gateway_identity_pubkey REQUIRED.  The public key of the receiver gateway (server).
 
-- sender_gateway_owner_id: This is the identity information of the owner or operator
+- sender_gateway_owner_id OPTIONAL: This is the identity information of the owner or operator
   of the sender gateway.
 
-- receiver_gateway_owner_id: This is the identity information of the owner or operator
+- receiver_gateway_owner_id OPTIONAL: This is the identity information of the owner or operator
   of the recipient gateway.
 
-## Conveyance of Network Capabilities and Parameters
+## Conveyance of Gateway and Network Capabilities
 
 {: #satp-stage1-conveyance}
 
-This is set of artifacts pertaining to the origin network behind
-the client (sender gateway) that MAY be communicated to the server (recipient gateway).
-A server may accept the asset-related claims but reject the
-transfer request based on parameters of the origin network.
+This is set of parameters pertaining to the origin network and the destination network, and the technical capabilities supported by the peer gateways.
 
-Some of these parameters maybe gateway-specific (e.g. chosen signature algorithm),
-while others are inherent in the origin network
-(e.g. lock type; average lock duration time; etc.).
+Some of network-specific parameters regarding the origin network may be relevant for a receiver gateways to evaluate its ability to process the proposed transfer.
+
+For example, the average duration of time of a lock to be held by a sender gateway may inform the receiver gateway about delay expectations.
 
 The network capabilities list is as follows:
 
-- sender_gateway_network_id REQUIRED.This is the identifier of the
-  origin network or system behind the client.
+- gateway_default_signature_algorithm REQUIRED: The default digital signature algorithm (algorithm-id) used by a gateway to sign claims.
 
-- signature_algorithm REQUIRED: The digital signature algorithm chosen
-  by the client (sender gateway) for signing claims.
+- gateway_supported_signature_algorithms OPTIONAL: The list of other digital signature algorithm (algorithm-id) supported by a gateway to sign claims
 
-- supported_signature_algorithm OPTIONAL: The list of algorithm-id that is
-  supported by the client from which the server MAY select.
+- network_lock_type REQUIRED: The default locking mechanism used by a network. These can be (i) timelock, (ii) hashlock, (iii) hashtimelock, and so on (TBD).
 
-- Lock_type REQUIRED: faucet, timelock, hashlock, hashtimelock,
-  multi-claim PC, destroy/burn (escrowed cross-claim).
+- network_lock_expiration_time REQUIRED: The duration of time (in seconds) for a lock to expire in the network.
 
-- Lock_expiration_time REQUIRED: when will the lock or escrow expire.
+- gateway_credential_profile REQUIRED: Specify type of auth (e.g., SAML, OAuth, X.509).
 
-- Permissions OPTIONAL: list of identities (public-keys or X.509
-  certificates) that can perform operations on the escrow or lock on
-  the asset in the origin network.
+- gateway_logging_profile REQUIRED: contains the profile regarding the logging procedure. Default is local store
 
-- developer_URN OPTIONAL: Assertion of developer / application identity.
-
-- credential_profile REQUIRED: Specify type of auth (e.g., SAML, OAuth, X.509).
-
-- application_profile OPTIONAL: Vendor or Application specific profile.
-
-- logging_profile REQUIRED: contains the profile regarding the logging procedure. Default is local store
-
-- Access_control_profile REQUIRED: the profile regarding the
-  confidentiality of the log entries being stored. Default is only
-  the gateway that created the logs can access them.
-
-- Subsequent calls OPTIONAL: details possible escrow actions.
-
-- History OPTIONAL: provides an history of the escrow, in case it
-  has previously been initialized.
+- gateway_access_control_profile REQUIRED: the profile regarding the confidentiality of the log entries being stored. Default is only the gateway that created the logs can access them.
 
 ## Transfer Proposal Message
 
 {: #satp-stage1-init-transfer-proposal}
 
-The purpose of this message is for the client to initiate an asset
-Transfer and propose the set of claims related to the asset to be transferred.
-This message must be signed by the client.
+The purpose of this message is for the sender gateway as the client to initiate an asset transfer session with the receiver gateway as the server.
 
-Depending on the proposal, multiple rounds of
-communication between the client and the server may occur.
+The client transmits a proposal message that carries the claims related to the asset to be transferred.  This message must be signed by the client.
 
-This message is sent from the client to the Transfer Initialization Endpoint
-at the server.
+This message is sent from the client to the Transfer Initialization Endpoint at the server.
 
 The parameters of this message consists of the following:
 
 - version REQUIRED: SAT protocol Version (major, minor).
 
-- message_type REQUIRED: urn:ietf:satp:msgtype:init-proposal-msg.
+- message_type REQUIRED: urn:ietf:satp:msgtype:transfer-proposal-msg .
 
 - session_id REQUIRED: A unique identifier (UUIDv2) chosen by the
   client to identify the current session.
@@ -653,7 +636,7 @@ The parameters of this message consists of the following:
 
 - version REQUIRED: SAT protocol Version (major, minor).
 
-- message_type REQUIRED: urn:ietf:satp:msgtype:init-receipt-msg
+- message_type REQUIRED: urn:ietf:satp:msgtype:proposal-receipt-msg.
 
 - session_id REQUIRED: A unique identifier (UUIDv2) chosen by the
   client to identify the current session.
@@ -669,23 +652,15 @@ The parameters of this message consists of the following:
 
 Example: TBD.
 
-## Transfer Proposal Reject and Conditional Reject Message
+## Transfer Counter Proposal Message
 
 {: #satp-stage1-init-reject-conditional}
 
-The purpose of this message is for the server to
-indicate a rejection or conditional rejection of
-the Transfer Initialization Claims.
-In the case of a conditional rejection, the server may propose
-a different set of claims (counter-proposal claims) to the client.
+The purpose of this message is for the server to respond with a counterproposal for one or more of the claims in the previous proposal message.
 
-If the server wishes to indicate a conditional rejection,
-the server MUST include a counter-proposal set of claims.
+If the server does not wish to proceed with the current transfer, the server MUST respond with an empty (blank) counter-proposal message.
 
-If the server does not wish to proceed, the server MUST include an empty (blank) counter-proposal.
-
-Depending on the proposal and counter-proposal,
-multiple rounds of communication between the client and the server may occur.
+Depending on the proposal and counter-proposal, multiple rounds of communication between the client and the server may occur.
 
 The message must be signed by the server.
 
@@ -695,7 +670,7 @@ The parameters of this message consists of the following:
 
 - version REQUIRED: SAT protocol Version (major, minor).
 
-- message_type REQUIRED: rn:ietf:satp:msgtype:init-reject-msg
+- message_type REQUIRED: rn:ietf:satp:msgtype:proposal-counter-msg.
 
 - session_id REQUIRED: A unique identifier (UUIDv2) chosen by the
   client to identify the current session.
@@ -714,6 +689,29 @@ The parameters of this message consists of the following:
 
 Example: TBD.
 
+# Lock Assertion Stage (Stage 2)
+
+{: #satp-stage2-section}
+
+The messages in this stage pertain to the sender gateway providing
+the recipient gateway with a signed assertion that the asset in the origin network
+has been locked or disabled and under the control of the sender gateway.
+
+In the following, the sender gateway takes the role of the client
+while the recipient gateway takes the role of the server.
+
+The flow follows a request-response model.
+The client makes a request (POST) to the Lock-Assertion Endpoint at the server.
+
+Gateways MUST support the use of the HTTP GET and POST methods
+defined in RFC 2616 [RFC2616] for the endpoint.
+
+Clients MAY use the HTTP GET or POST methods to send messages in this stage to the server.
+If using the HTTP GET method, the request parameters may be serialized
+using URI Query String Serialization.
+
+(NOTE: Flows occur over TLS. Nonces are not shown).
+
 ## Transfer Commence Message
 
 {: #satp-transfer-commence-sec}
@@ -722,7 +720,7 @@ the server that the client is ready to start the transfer of the
 digital asset. This message must be signed by the client.
 
 This message is sent by the client as a response to the Transfer Proposal Receipt Message previously
-receuved from the server.
+received from the server.
 
 This message is sent by the client to the Transfer Commence Endpoint at the server.
 
@@ -741,7 +739,7 @@ The parameters of this message consists of the following:
 - server_identity_pubkey REQUIRED. The public key of server for whom this message is intended.
 
 - hash_transfer_init_claims REQUIRED: Hash of the Transfer Initialization Claims
-  received in the Transfer Proposal Message.
+  in the Transfer Proposal message.
 
 - hash_prev_message REQUIRED. The hash of the last message, in this case the
   Transfer Proposal Receipt message.
@@ -814,30 +812,7 @@ The parameters of this message consists of the following:
 
 - server_signature REQUIRED. The digital signature of the server.
 
-An example of a success response could be as follows: (TBD)
-
-# Lock Assertion and Receipt (Stage 2)
-
-{: #satp-stage2-section}
-
-The messages in this stage pertain to the sender gateway providing
-the recipient gateway with a signed assertion that the asset in the origin network
-has been locked or disabled and under the control of the sender gateway.
-
-In the following, the sender gateway takes the role of the client
-while the recipient gateway takes the role of the server.
-
-The flow follows a request-response model.
-The client makes a request (POST) to the Lock-Assertion Endpoint at the server.
-
-Gateways MUST support the use of the HTTP GET and POST methods
-defined in RFC 2616 [RFC2616] for the endpoint.
-
-Clients MAY use the HTTP GET or POST methods to send messages in this stage to the server.
-If using the HTTP GET method, the request parameters may be serialized
-using URI Query String Serialization.
-
-(NOTE: Flows occur over TLS. Nonces are not shown).
+An example of a success response could be as follows: (TBD).
 
 ## Lock Assertion Message
 

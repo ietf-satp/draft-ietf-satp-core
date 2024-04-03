@@ -249,6 +249,18 @@ In order to clarify discussion, the interactions between the peer gateways prior
 
 These flows will be discussed below.
 
+## Gateway Cryptographic Keys
+
+SATP recognizes the following cryptographic keys which are intended for distinct purposes within the different stages of the protocol.
+
+- Gateway signature public key-pair: This is the key-pair utilized by a gateway to digitally sign assertions and receipts.
+
+- Gateway secure channel establishment public key-pair: This is the key-pair utilized by peer gateways to establish a secure channel (e.g. TLS) for a transfer session.
+
+- Gateway device-identity public key pair: This is the key-pair that identifies the unique hardware device underlying a gateway.
+
+- Gateway owner-identity public key pair: This is the key-pair that identifies the owner (e.g. legal entity) who is the legal owner of a gateway.
+ 
 # SATP Message Format, identifiers and Descriptors
 
 {: #satp-messages-identifiers}
@@ -456,7 +468,7 @@ The reader is directed to [SATP-ARCH] for further discussion of this model.
       ..|.....|............|......................|............|.....|..
 ```
 
-# Identity and Asset Verification Flow (Stage 0)
+# Identity and Asset Verification Stage (Stage 0)
 
 {: #satp-Stage0-section}
 
@@ -464,9 +476,7 @@ Prior to commencing the asset transfer from the sender gateway (client) to the r
 
 The verifications include, but not limited to, the following:
 
-- Gateway identity mutual verification:
-  This is the identity of the gateway at the protocol and network layer.
-  This may include validating the X509 certificates of the gateways.
+- Verification of the gateway signature public key: The sender gateway and receiver gateway must validate their respective signature public keys that will later be used to sign assertions and claims. This may include validating the X509 certificates of these keys.
 
 - Gateway owner verification:
   This is the verification of the identity (e.g. LEI) of the owners of the gateways.
@@ -535,9 +545,13 @@ The Transfer Initialization Claims consists of the following:
 - beneficiary_pubkey REQUIRED. This is the public key of the beneficiary
   in the destination network.
 
-- sender_gateway_id REQUIRED.  This is the identifier of the sender gateway (client).
+- sender_gateway_signature_public_key REQUIRED. This is the public key of the key-pair used by the sender gateway to sign assertions and receipts.
 
-- recipient_gateway_id REQUIRED.  This is the identifier of the receiver gateway (server).
+- receiver_gateway_signature_public_key REQUIRED. This is the public key of the key-pair used by the recevier gateway to sign assertions and receipts.
+
+- sender_gateway_id OPTIONAL.  This is the identifier of the sender gateway.
+
+- recipient_gateway_id OPTIONAL.  This is the identifier of the receiver gateway.
 
 - sender_gateway_network_id REQUIRED. This is the identifier of the
   origin network or system behind the client.
@@ -545,9 +559,9 @@ The Transfer Initialization Claims consists of the following:
 - recipient_gateway_network_id REQUIRED. This is the identifier of the destination
   network or system behind the server.
 
-- sender_gateway_identity_pubkey REQUIRED.  The public key of the sender gateway (client).
+- sender_gateway_device_identity_pubkey OPTIONAL.  The device public key of the sender gateway (client).
 
-- receiver_gateway_identity_pubkey REQUIRED.  The public key of the receiver gateway (server).
+- receiver_gateway_device_identity_pubkey OPTIONAL.  The device public key of the receiver gateway 
 
 - sender_gateway_owner_id OPTIONAL: This is the identity information of the owner or operator
   of the sender gateway.
@@ -610,10 +624,6 @@ The parameters of this message consists of the following:
 
 - network_capabilities_list REQUIRED: The set of origin network parameters reported by the client to the server.
 
-- client_identity_pubkey REQUIRED. The public key of client who sent this message.
-
-- server_identity_pubkey REQUIRED. The public key of server for whom this message is intended.
-
 - multiple_claims_allowed OPTIONAL: true/false.
 
 - multiple_cancels_allowed OPTIONAL: true/false.
@@ -670,7 +680,7 @@ The parameters of this message consists of the following:
 
 - version REQUIRED: SAT protocol Version (major, minor).
 
-- message_type REQUIRED: rn:ietf:satp:msgtype:proposal-counter-msg.
+- message_type REQUIRED: urn:ietf:satp:msgtype:proposal-counter-msg.
 
 - session_id REQUIRED: A unique identifier (UUIDv2) chosen by the
   client to identify the current session.
@@ -734,10 +744,6 @@ The parameters of this message consists of the following:
 - transferContext_id OPTIONAL: An optional identifier (UUIDv2)
   used to identify the current transfer session at the application layer.
 
-- client_identity_pubkey REQUIRED. The public key of client who sent this message.
-
-- server_identity_pubkey REQUIRED. The public key of server for whom this message is intended.
-
 - hash_transfer_init_claims REQUIRED: Hash of the Transfer Initialization Claims
   in the Transfer Proposal message.
 
@@ -800,10 +806,6 @@ The parameters of this message consists of the following:
 - transferContext_id OPTIONAL: An optional identifier (UUIDv2)
   used to identify the current transfer session at the application layer.
 
-- client_identity_pubkey REQUIRED. The client for whom this message is intended.
-
-- server_identity_pubkey REQUIRED. The server who sent this message.
-
 - hash_prev_message REQUIRED.The hash of the last message, in this case the
   the Transfer Commence Message.
 
@@ -843,10 +845,6 @@ The parameters of this message consists of the following:
 - transferContext_id OPTIONAL: An optional identifier (UUIDv2)
   used to identify the current transfer session at the application layer.
 
-- client_identity_pubkey REQUIRED. The client who sent this message.
-
-- server_identity_pubkey REQUIRED. The server for whom this message is intended.
-
 - lock_assertion_claim REQUIRED. The lock assertion claim or statement by the client.
 
 - lock_assertion_claim_format REQUIRED. The format of the claim.
@@ -882,10 +880,6 @@ The parameters of this message consists of the following:
 
 - transferContext_id OPTIONAL: An optional identifier (UUIDv2)
   used to identify the current transfer session at the application layer.
-
-- client_identity_pubkey REQUIRED. The client for whom this message is intended.
-
-- server_identity_pubkey REQUIRED. The server who sent this message.
 
 - hash_prev_message REQUIRED. The hash of previous message.
 
@@ -943,10 +937,6 @@ The parameters of this message consists of the following:
 - transferContext_id OPTIONAL: An optional identifier (UUIDv2)
   used to identify the current transfer session at the application layer.
 
-- client_identity_pubkey REQUIRED. The client who sent this message.
-
-- server_identity_pubkey REQUIRED. The server for whom this message is intended.
-
 - hash_prev_message REQUIRED. The hash of previous message.
 
 - client_transfer_number OPTIONAL.
@@ -977,10 +967,6 @@ The parameters of this message consists of the following:
 
 - transferContext_id OPTIONAL: An optional identifier (UUIDv2)
   used to identify the current transfer session at the application layer.
-
-- client_identity_pubkey REQUIRED. The client for whom this message is intended.
-
-- server_identity_pubkey REQUIRED. The server who sent this message.
 
 - mint_assertion_claims REQUIRED. The mint assertion claim or statement by the server.
 
@@ -1020,10 +1006,6 @@ The parameters of this message consists of the following:
 - transferContext_id OPTIONAL: An optional identifier (UUIDv2)
   used to identify the current transfer session at the application layer.
 
-- client_identity_pubkey REQUIRED. The client who sent this message.
-
-- server_identity_pubkey REQUIRED. The server for whom this message is intended.
-
 - burn_assertion_claim REQUIRED. The burn assertion signed claim or statement by the client.
 
 - burn_assertion_claim_format OPTIONAL. The format of the claim.
@@ -1056,10 +1038,6 @@ The parameters of this message consists of the following:
 
 - transferContext_id OPTIONAL: An optional identifier (UUIDv2)
   used to identify the current transfer session at the application layer.
-
-- client_identity_pubkey REQUIRED. The client for whom this message is intended..
-
-- server_identity_pubkey REQUIRED. The server who sent this message.
 
 - assignment_assertion_claim REQUIRED. The claim or statement by the server
   that the asset has been assigned by the server to the intended beneficiary.
@@ -1097,10 +1075,6 @@ The parameters of this message consists of the following:
 
 - transferContext_id OPTIONAL: An optional identifier (UUIDv2)
   used to identify the current transfer session at the application layer.
-
-- client_identity_pubkey REQUIRED. The client who sent this message.
-
-- server_identity_pubkey REQUIRED. The server for whom this message is intended.
 
 - hash_prev_message REQUIRED. The hash of previous message.
 

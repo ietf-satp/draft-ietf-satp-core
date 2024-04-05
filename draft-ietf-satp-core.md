@@ -1281,12 +1281,18 @@ should be considered for implementations of gateways.
 # IANA Consideration
 
 {: #satp-iana-Consideration}
+
 (TBD)
 
 # Appendix A: API1 Considerations
 
 {: #api1-consideration-section}
-In this section we discuss some considerations regarding the interaction between the Application and a Gateway through API1.
+
+Prior to entering Stage 1, the peer gateways are assumed to have established a number of parameters for the unidirectional transfer from the sender gateway to the receiver gateway.
+These parameters and asset-related artifacts are assumed to be provided to the gateway by the application through API1.
+
+A standardized definition for API1 at a gateway enables application vendors to interact with gateways over a stable interface, independent of the implementation of the gateway. 
+This write-once-deploy-everywhere approach reduces development costs and ensures a high degree of interoperability across different gateway implementations.
 
 ## Digital Asset Resource Descriptors
 
@@ -1294,10 +1300,10 @@ In this section we discuss some considerations regarding the interaction between
 
 Resources are identified by URL [RFC1738]:
 
-- Type: `application/satres`
+- Type: `application/satpres`
 - Access Protocol: SATP
 
-Data included in the URL:
+Data included in the URL are as follows.
 
 ### Organization Identifier
 
@@ -1321,7 +1327,7 @@ FQDN of the SATP compliant gateway. Required to establish IP connectivity. This 
 
 Specific to the gateway behind which the target network operates. This field is local to the gateway and is used to direct SATP interactions to the correct underlying network. This value may be alphanumeric or a hexadecimal value.
 
-For example: "tradelens-network", "EU-supply-chain".
+For example: "example-network", "EU-supply-chain".
 
 ### Network Resource
 
@@ -1347,7 +1353,7 @@ Resources are identified by URN as described below:
 
 The URN format does not imply availability of access protocol.
 
-Data included in the URN includes the following:
+Data included in the URN includes the following.
 
 ### Organization Identifier
 
@@ -1438,7 +1444,23 @@ Formal specification of supported resource discovery methods is out of scope of 
 # Appendix B: API3 Considerations
 
 {: #api3-consideration-section}
-In this section we discuss some considerations regarding the interaction between a gateway and an external resource or service provider through API3.
+
+Prior to commencing a transfer, gateways are assumed to perform the validation of 
+a number of asset-related parameters and actor-related attributes.
+For certain classes of assets, the owner (operator) of a gateway takes on legal and financial liabilities 
+when assisting in the transfer of a digital asset.
+As such, gateway system must not only validate these asset-related parameters and user attributes, 
+but it must also log these for regulatory compliance and post-event dispute resolution.
+
+For certain types of parameters (e.g. identity attributes),
+standard protocols have been defined and have broad deployment (e.g. X.509 CA/RA, OAuth2.0, OpenID-Connect).
+In these cases, the gateway operator should utilize as far as possible these existing standards.
+
+For payments using existing fiat denominations, standard protocols and APIs have also been defined
+and deployed broadly (e.g. Open Banking, ACH gateways, other card-payments APIs).
+
+For new types of digital assets (e.g. asset-referencing tokens or ART [MICA2013]) a receiver gateway may need to validate the relevant off-chain information regarding the underlying (physical) asset. 
+A standardized interface to these off-chain databases will be required.
 
 # Appendix C: Error Types
 

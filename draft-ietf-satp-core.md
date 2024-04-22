@@ -1294,7 +1294,7 @@ These parameters and asset-related artifacts are assumed to be provided to the g
 A standardized definition for API1 at a gateway enables application vendors to interact with gateways over a stable interface, independent of the implementation of the gateway. 
 This write-once-deploy-everywhere approach reduces development costs and ensures a high degree of interoperability across different gateway implementations.
 
-In order for client applications to interact with the SATP gateways, we propose the following set of resource Descriptors.
+In order for client applications to interact with the SATP gateways, we propose the following set of resource descriptors.
 
 ## SATP Gateway API1 Resource Descriptors
 

@@ -76,7 +76,7 @@ normative:
 
 --- abstract
 
-This memo describes the Secure Asset Transfer (SAT) Protocol for digital assets. SAT is a protocol operating between two gateways that conducts the transfer of a digital asset from one gateway to another. The protocol establishes a secure channel between the endpoints and implements a 2-phase commit (2PC) to ensure the properties of transfer atomicity, consistency, isolation and durability.
+This memo describes the Secure Asset Transfer (SAT) Protocol for digital assets. SAT is a protocol operating between two gateways that conducts the transfer of a digital asset from one gateway to another. The protocol establishes a secure channel between the endpoints and facilitates a 2-phase commit (2PC) to ensure the properties of transfer atomicity, consistency, isolation and durability.
 
 --- middle
 
@@ -90,9 +90,10 @@ Both the origin and destination networks are assumed to be opaque
 in the sense that the interior constructs of a given network
 is not read/write accessible to unauthorized entities.
 
-The protocol utilizes the asset burn-and-mint paradigm whereby the asset
-to be transferred is permanently disabled or destroyed (burned)
-at the origin network and is re-generated (minted) at the destination network.
+The protocol orchestrates an atomic update of ledgers on two networks for the
+purpose of moving an asset cliam on a ledger on one network to become an 
+asset claim on a ledger on a different network
+
 This is achieved through the coordinated actions of the peer gateways
 handling the unidirectional transfer at the respective networks.
 
@@ -103,15 +104,15 @@ in the origin and destination networks remain consistent,
 and that asset movements into (out of) networks via gateways can be accounted for.
 
 There are several desirable technical properties of the protocol.
-The protocol must ensure that the properties of atomicity, consistency,
-isolation, and durability (ACID) are satisfied.
+The protocol must allow that the properties of atomicity, consistency,
+isolation, and durability (ACID) can be satisfied.
 
 The requirement of consistency implies that the
 asset transfer protocol always leaves both networks
 in a consistent state (that the asset is located in
 one system/network only at any time).
 
-Atomicity means that the protocol must guarantee
+Atomicity means that the protocol must provide
 that either the transfer commits (completes) or entirely fails,
 where failure is taken to mean there is no change to the
 state of the asset in the origin (sender) network.
@@ -124,6 +125,11 @@ The property of durability means that once
 the transfer has been committed by both gateways,
 that this commitment must hold regardless of subsequent
 unavailability (e.g. crash) of the gateways implementing the SAT protocol.
+
+The protocol must also provide for a single unambiguous point of settlement
+finality to be declared where settlement finality is the point in time
+where the parties operating the protocol are legally committed to completing
+the ledger updates in the sender and recipient networks.
 
 All messages exchanged between gateways are assumed to run over TLS1.2,
 and the endpoints at the respective gateways are associated with
@@ -238,6 +244,9 @@ The SAT protocol defines three (3) stages for a unidirectional asset transfer:
   (i) gateway identification and mutual authentication;
   (ii) exchange of asset type (definition) information;
   (iii) verification of the asset definition, and others.
+  (iv) conveyance of proposal from the sender gateway to the receiver gateway
+  (v) acceptance or rejection of the proposal
+  (vi) transfer commence (or abandon). Sender gateway initiates or aboandons the proposal  
 
 - Lock-Assertion stage (Stage-2):
   These flows deals with the conveyance of signed assertions from the sender gateway to the receiver gateway regarding the locked status of an asset at the origin network.
@@ -294,8 +303,12 @@ The possible values are:
 - proposal-receipt-msg: This is the signed receipt message indicating acceptance of the proposal by the receiver gateway.
 
 - proposal-counter-msg: This is a counteroffer message from the receiver gateway indicating an alternative proposal.
+  
+- proposal-accept-msg: This is a message from the receiver gateway indicating that they accept the proposal
 
-- transfer-commence-msg: Request to begin the commencement of the asset transfer.
+- proposal-reject-msg: This is a message from the receiver gateway indicating that they reject the proposal
+
+- transfer-commence-msg: Request from the sender gateway to begin the commencement (or abandonment) of the asset transfer.
 
 - ack-commence-msg: Response to accept to the commencement of the asset transfer.
 
@@ -411,11 +424,13 @@ The SATP message flows are logically divided into three (3) stages, with the pre
 
 The Stage-1 flows pertains to the initialization of the transfer between the two gateways.
 
-After both gateways agree to commence the transfer at the start of Stage-2, the sender gateway G1 must deliver a signed assertion that it has performed the correct lock (burn) on the asset in origin network (NW1).
+After the receiving gateway agrees to the proposal the sending gateway must commence or abandon the transfer at the end of Stage-1 by sending a Transfer Commence message.  The transfer commence message may contain a settlement finality indicator denoting whether the parties are legally bound to proceed.  The transfer commence message should also contain a lock-assertion indicator denoting whether the sending gatweay needs to send a lock assertion before the gateways proceed to commit the updates 
 
-If that assertion is accepted by gateway G2, it must in return transmit a signed receipt to gateway G1 that it has created (minted) a temporary asset in destination network (NW2).
+If lock assetion is specified the sender gateway G1 must deliver a signed assertion that a lock has been created in origin network (NW1).
 
-The Stage-3 flows commits gateways G1 and G2 to the burn and mint in Stage-2.  The sender gateway G1 must make the lock on the asset in origin network NW1 to be permanent (burn). The receiver gateway G2 must assign (mint) the asset in the destination network NW2 to the correct beneficiary.
+If that assertion is accepted by gateway G2, it must in return transmit a signed receipt to gateway G1 that provision has been made to update the ledger in destination network (NW2).
+
+The Stage-3 flows commits gateways G1 and G2 to the ledger updates.  
 
 The reader is directed to [SATP-ARCH] for further discussion of this model.
 
@@ -428,41 +443,37 @@ The reader is directed to [SATP-ARCH] for further discussion of this model.
         |     |            |                      |            |     |
         |     |       (1.2)|<--Proposal Receipt---|            |     |
         |     |            |                      |            |     |
+        |     |       (1.3)|<--Proposal Accept----|            |     |
+        |     |       (1.3)|<--or Proposal Reject-|            |     |
+        |     |            |                      |            |     |
+        |     |       (1.4)|<--Transf. Commence-->|            |     |
+        |     |            |                      |            |     |
+        |     |       (1.5)|<--- ACK Commence --->|            |     |
+        |     |            |                      |            |     |
       ..|.....|............|......................|............|.....|..
         |     |            |       Stage 2        |            |     |
         |     |            |                      |            |     |
-        |     |       (2.1)|<--Transf. Commence-->|            |     |
         |     |            |                      |            |     |
-        |     |       (2.2)|<--- ACK Commence --->|            |     |
+        |     |       (2.1)|--- Lock-Assertion--->|            |     |
         |     |            |                      |            |     |
         |     |            |                      |            |     |
-        |     |<---Lock----|(2.3)                 |            |     |
-        |     |            |                      |            |     |
-        |     |       (2.4)|--- Lock-Assertion--->|            |     |
-        |     |            |                      |            |     |
-        |     |            |                 (2.5)|----Bcast-->|     |
-        |     |            |                      |            |     |
-        |     |            |<--Assertion Receipt--|(2.6)       |     |
+        |     |            |<--Assertion Receipt--|(2.4)       |     |
         |     |            |                      |            |     |
       ..|.....|............|......................|............|.....|..
         |     |            |       Stage 3        |            |     |
         |     |            |                      |            |     |
         |     |       (3.1)|----Commit Prepare--->|            |     |
         |     |            |                      |            |     |
-        |     |            |                 (3.2)|----Mint--->|     |
         |     |            |                      |            |     |
         |     |            |<--- Commit Ready ----|(3.3)       |     |
         |     |            |                      |            |     |
-        |     |<---Burn----|(3.4)                 |            |     |
         |     |            |                      |            |     |
         |     |       (3.5)|---- Commit Final --->|            |     |
         |     |            |                      |            |     |
-        |     |            |                 (3.6)|---Assign-->|     |
         |     |            |                      |            |     |
         |     |            |<-----ACK Final-------|(3.7)       |     |
         |     |            |                      |            |     |
         |     |            |                      |            |     |
-        |     |<---Bcast---|(3.8)                 |            |     |
         |     |            |                      |            |     |
         |     |       (3.9)|--Transfer Complete-->|            |     |
       ..|.....|............|......................|............|.....|..
@@ -496,15 +507,32 @@ These are considered out of scope in the current specifications,
 and are assumed to have been successfully completed prior to
 the commencement of the transfer initiation flow.
 
+# Overview of Identities involved in the Flows
+
+{: #satp-Identities-section}
+
+This section describes the identities that may need to be asserted within the messages defined below
+
+Sending Network Actor - the actor on the sending network that has the authority to make the neccessary changes on the sending network
+Receiving Network Actor - the actor on the receiving network that has the authority to make the neccessary changes on the receiving network
+Sending Network Benefical Owner - the beneficial owner of the claim (asset) on the sending network
+Receiving Network Benefical Owner - the beneficial owner of the claim (asset) to be established on the recieving network
+Sending Gateway - The gateway connected to the sending network.  Also referred to as the client
+Receiving Gateway - The gateway connected to the receiving network. Also referred to as the server
+
+Each of the identities must have a public key.  Where neccessary, the identity must be verifiable.
+
 # Transfer Initiation Stage (Stage 1)
 
 {: #satp-stage1-section}
 
 This section describes the transfer initiation stage, where the sender gateway and the receiver gateway prepare for the start of the asset transfer.
 
-The sender gateway proposes the set of transfer parameters and asset-related artifacts for the transfer to the receiver gateway. These are contained in the Transfer Initiation Claims.
+The sender gateway proposes the set of transfer parameters and asset-related artifacts for the transfer to the receiver gateway. These are contained in the Transfer Initiation Claims. Any signed assertions or claims must be signed Sending Network Actor. The claims may also be signed by the Sending Network Beneficial Owner.
 
-If the receiver gateway accepts the proposal, it returns a signed receipt message for the proposal indicating it agrees to proceed to the next stage. If the receiver gateway rejects any parameters or artifacts in the proposal, it can provide a counteroffer to the sender gateway by responding with a proposal reject message carrying alternative parameters.
+If the receiver gateway accepts the proposal, it returns a signed a proposal acceptance message indicating it agrees to proceed to the next stage. The signature must be that of the Receiving Network Actor.  The claims may also be signed by the Receiving Network Benefical Owner.
+
+If the receiver gateway rejects any parameters or artifacts in the proposal, it returns a signed proposal rejection message. The signature must be that of Receiving Network Actor. It may also be signed by the Receivng Network Benefical Owner.
 
 Gateways MUST support the use of the HTTP GET and POST methods
 defined in RFC 2616 [RFC2616] for the endpoint.
@@ -531,27 +559,25 @@ The Transfer Initialization Claims consists of the following:
 - asset_profile_id REQUIRED: This is the globally unique identifier for the asset-profile
   definition (document) on which the digital asset was issued.
 
-- verified_originator_entity_id REQUIRED: This is the identity data of the originator entity
-  (person or organization) in the origin network.
+- verified_sending_network_actor_id REQUIRED: This is the identity data of the originator entity
+  (person or organization) in the origin network. Includes public key.
+  This information must be verified by the sender gateway.
+  
+- verified_sending_network_beneficiary_id REQUIRED: This is the identity data of the beneficiary entity
+  (person or organization) in the origin network. Includes public key.
   This information must be verified by the sender gateway.
 
-- verified_beneficiary_entity_id REQUIRED: This is the identity data of the beneficiary entity
-  (person or organization) in the destination network.
+- verified_receiving_network_actor_id REQUIRED: This is the identity data of the actor 
+  (person or organization) in the receiving network. Includes public key.
   This information must be verified by the receiver gateway.
 
-- originator_pubkey REQUIRED. This is the public key of the asset owner (originator)
-  in the origin network or system.
+- verified_receiving_network_beneficiary_id REQUIRED: This is the identity data of the beneficiary entity
+  (person or organization) in the destination network. Includes public key.
+  This information must be verified by the receiver gateway.
 
-- beneficiary_pubkey REQUIRED. This is the public key of the beneficiary
-  in the destination network.
+- sender_gateway_signature_id REQUIRED. This is the id and public key of the key-pair used by the sender gateway to sign assertions and receipts.
 
-- sender_gateway_signature_public_key REQUIRED. This is the public key of the key-pair used by the sender gateway to sign assertions and receipts.
-
-- receiver_gateway_signature_public_key REQUIRED. This is the public key of the key-pair used by the recevier gateway to sign assertions and receipts.
-
-- sender_gateway_id OPTIONAL.  This is the identifier of the sender gateway.
-
-- recipient_gateway_id OPTIONAL.  This is the identifier of the receiver gateway.
+- receiver_gateway_signature_id REQUIRED. This is the id and public key of the key-pair used by the recevier gateway to sign assertions and receipts.
 
 - sender_gateway_network_id REQUIRED. This is the identifier of the
   origin network or system behind the client.
@@ -634,9 +660,7 @@ The parameters of this message consists of the following:
 
 {: #satp-stage1-init-receipt}
 
-The purpose of this message is for the server to indicate explicit
-acceptance of the Transfer Initialization Claims
-in the transfer proposal message.
+The purpose of this message is for the server to indicate receipt of the Transfer Initialization Claims
 
 The message must be signed by the server.
 
@@ -662,25 +686,22 @@ The parameters of this message consists of the following:
 
 Example: TBD.
 
-## Transfer Counter Proposal Message
+## Transfer Proposal Accept Message
 
-{: #satp-stage1-init-reject-conditional}
+{: #satp-stage1-init-accept}
 
-The purpose of this message is for the server to respond with a counterproposal for one or more of the claims in the previous proposal message.
+The purpose of this message is for the receiving network actor to indicate explicit
+acceptance of the Transfer Initialization Claims in the transfer proposal message.
 
-If the server does not wish to proceed with the current transfer, the server MUST respond with an empty (blank) counter-proposal message.
+The message must be signed by the receiving network actor.
 
-Depending on the proposal and counter-proposal, multiple rounds of communication between the client and the server may occur.
-
-The message must be signed by the server.
-
-The message is sent from the server to the Transfer Proposal Endpoint at the client.
+The message is sent from the client to the Transfer Proposal Endpoint at the server.
 
 The parameters of this message consists of the following:
 
 - version REQUIRED: SAT protocol Version (major, minor).
 
-- message_type REQUIRED: urn:ietf:satp:msgtype:proposal-counter-msg.
+- message_type REQUIRED: urn:ietf:satp:msgtype:proposal-accept-msg.
 
 - session_id REQUIRED: A unique identifier (UUIDv2) chosen by the
   client to identify the current session.
@@ -691,36 +712,41 @@ The parameters of this message consists of the following:
 - hash_transfer_init_claims REQUIRED: Hash of the Transfer Initialization Claims
   received in the Transfer Proposal Message.
 
-- transfer_init_counter_claims: The set of artifacts and parameters as the
-  counter-proposal to the client.
-
 - Timestamp REQUIRED: timestamp referring to when
   the Initialization Request Message was received.
 
 Example: TBD.
 
-# Lock Assertion Stage (Stage 2)
+## Transfer Proposal Reject Message
 
-{: #satp-stage2-section}
+{: #satp-stage1-init-reject}
 
-The messages in this stage pertain to the sender gateway providing
-the recipient gateway with a signed assertion that the asset in the origin network
-has been locked or disabled and under the control of the sender gateway.
+The purpose of this message is for the receiving network actor to indicate explicit
+rejection of the Transfer Initialization Claims in the transfer proposal message.
 
-In the following, the sender gateway takes the role of the client
-while the recipient gateway takes the role of the server.
+The message must be signed by the receiving network actor.
 
-The flow follows a request-response model.
-The client makes a request (POST) to the Lock-Assertion Endpoint at the server.
+The message is sent from the client to the Transfer Proposal Endpoint at the server.
 
-Gateways MUST support the use of the HTTP GET and POST methods
-defined in RFC 2616 [RFC2616] for the endpoint.
+The parameters of this message consists of the following:
 
-Clients MAY use the HTTP GET or POST methods to send messages in this stage to the server.
-If using the HTTP GET method, the request parameters may be serialized
-using URI Query String Serialization.
+- version REQUIRED: SAT protocol Version (major, minor).
 
-(NOTE: Flows occur over TLS. Nonces are not shown).
+- message_type REQUIRED: urn:ietf:satp:msgtype:proposal-reject-msg.
+
+- session_id REQUIRED: A unique identifier (UUIDv2) chosen by the
+  client to identify the current session.
+
+- transferContext_id OPTIONAL: An optional identifier (UUIDv2) used to identify
+  the current transfer session at the application layer.
+
+- hash_transfer_init_claims REQUIRED: Hash of the Transfer Initialization Claims
+  received in the Transfer Proposal Message.
+
+- Timestamp REQUIRED: timestamp referring to when
+  the Initialization Request Message was received.
+
+Example: TBD.
 
 ## Transfer Commence Message
 
@@ -729,8 +755,7 @@ The purpose of this message is for the client to signal to
 the server that the client is ready to start the transfer of the
 digital asset. This message must be signed by the client.
 
-This message is sent by the client as a response to the Transfer Proposal Receipt Message previously
-received from the server.
+This message is sent by the client to indicate that the transfer should commence.
 
 This message is sent by the client to the Transfer Commence Endpoint at the server.
 
@@ -746,6 +771,15 @@ The parameters of this message consists of the following:
 
 - hash_transfer_init_claims REQUIRED: Hash of the Transfer Initialization Claims
   in the Transfer Proposal message.
+  
+- proof_manifest REQUIRED: A collection of signed assertions that provide proof that
+  the transfer is agreed
+
+- settlement_finality_flag OPTIONAL: True if the generation of this message indicates
+  a legal obligation to proceed.  False if the transfer is allowed to fail in the subsequent phases.
+
+- lock_assertion_indicator OPTIONAL:  True if the receiving network will require a lock_assertion
+  from the sending network before proceeding to commit
 
 - hash_prev_message REQUIRED. The hash of the last message, in this case the
   Transfer Proposal Receipt message.
@@ -775,11 +809,14 @@ For example, the client makes the following HTTP request using TLS
 "client_identity_pubkey":"fgH654tgeryuryuy",
 "server_identity_pubkey":"dFgdfgdfgt43tetr535teyrfge4t54334",
 "transfer_init_claims":"nbvcwertyhgfdsertyhgf2h3v4bd3v21",
+"settlement_finality_flag":true,
+"lock_assertion_indicator":false,
 "hash_prev_message":"DRvfrb654vgreDerverv654nhRbvder4",
 "client_transfer_number":"ji9876543ewdfgh",
 "client_signature":"fdw34567uyhgfer45"
 }
 
+(NEEDS UPDATING)
 
 ```
 
@@ -815,6 +852,32 @@ The parameters of this message consists of the following:
 - server_signature REQUIRED. The digital signature of the server.
 
 An example of a success response could be as follows: (TBD).
+
+
+# Lock Assertion Stage (Stage 2)
+
+{: #satp-stage2-section}
+
+The messages in this stage pertain to the sender gateway providing
+the recipient gateway with a signed assertion that the asset in the origin network
+has been locked or disabled and under the control of the sender gateway.
+
+In the following, the sender gateway takes the role of the client
+while the recipient gateway takes the role of the server.
+
+The flow follows a request-response model.
+The client makes a request (POST) to the Lock-Assertion Endpoint at the server.
+
+Gateways MUST support the use of the HTTP GET and POST methods
+defined in RFC 2616 [RFC2616] for the endpoint.
+
+Clients MAY use the HTTP GET or POST methods to send messages in this stage to the server.
+If using the HTTP GET method, the request parameters may be serialized
+using URI Query String Serialization.
+
+(NOTE: Flows occur over TLS. Nonces are not shown).
+
+
 
 ## Lock Assertion Message
 

@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-09T00:29:21.934962+00:00",
+  "timestamp": "2024-05-12T00:32:39.068739+00:00",
   "repo": "ietf-satp/draft-ietf-satp-core",
   "labels": [
     {
@@ -515,6 +515,131 @@
         }
       ],
       "reviews": []
+    },
+    {
+      "number": 18,
+      "id": "PR_kwDOKkmiaM5vHlMu",
+      "title": "Update draft-ietf-satp-core.md",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/18",
+      "state": "OPEN",
+      "author": "anthonyc0603",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-05-10T17:02:34Z",
+      "updatedAt": "2024-05-11T10:02:19Z",
+      "baseRepository": "ietf-satp/draft-ietf-satp-core",
+      "baseRefName": "main",
+      "baseRefOid": "ab7fc735f3b029bc380b96ca566ff8ad91da9ac1",
+      "headRepository": "anthonyc0603/draft-ietf-satp-core",
+      "headRefName": "patch-1",
+      "headRefOid": "45a9ab68468a259f8c9a2749c4f8c6ad746664f4",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKkmiaM56Qldz",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "RafaelAPB",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Anthony, thank you for your contribution. While there are some good ideas and suggestions (namely the introduction of a proof manifesto and payload), there are some concerns that need to be addressed prior to merging. See my comments below.",
+          "createdAt": "2024-05-11T09:53:03Z",
+          "updatedAt": "2024-05-11T10:02:19Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "This is not correct; SATP implements a variant of 2PC",
+              "createdAt": "2024-05-11T09:53:04Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 17,
+              "body": "typo on \"cliam\". I tend to agree with this more general description, but at the same time, I am reluctant of allowing the developer to implement ANY type of bridge. This has to be discussed within the group.",
+              "createdAt": "2024-05-11T09:54:03Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 29,
+              "body": "This is not correct; SATP ensures those properties",
+              "createdAt": "2024-05-11T09:54:32Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 30,
+              "body": "This is not correct; SATP ensures those properties",
+              "createdAt": "2024-05-11T09:55:01Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 38,
+              "body": "This is not correct; SATP ensures those properties",
+              "createdAt": "2024-05-11T09:55:05Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 60,
+              "body": "This seems reasonable, but it seems to me this is stage 0, which is currently out of scope. This has to be discussed within the group",
+              "createdAt": "2024-05-11T09:55:47Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 83,
+              "body": "See comments above",
+              "createdAt": "2024-05-11T09:56:04Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 86,
+              "body": "See comments above",
+              "createdAt": "2024-05-11T09:56:08Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 150,
+              "body": "This section is not necessary, as those parties are identified in the glossary (first part of the spec)",
+              "createdAt": "2024-05-11T09:56:44Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 171,
+              "body": "We do not have the notion of Sending network actor. These terms are subsumed by the notion of \"gateway client\", which is the gateway application responsible for managing the \"actors\"",
+              "createdAt": "2024-05-11T09:57:57Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 176,
+              "body": "There are new terms introduced here. If the group agrees to include them, they need to be introduced in the glossary.",
+              "createdAt": "2024-05-11T09:58:44Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 209,
+              "body": "See comments above",
+              "createdAt": "2024-05-11T09:58:55Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 340,
+              "body": "I think this is a good idea; we (should) include the type of proof along with the proof payload as part of the receipt",
+              "createdAt": "2024-05-11T10:00:42Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 343,
+              "body": "I don't understand the need for this parameter",
+              "createdAt": "2024-05-11T10:01:10Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

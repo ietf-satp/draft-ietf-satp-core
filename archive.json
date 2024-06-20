@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-06-18T00:31:42.243556+00:00",
+  "timestamp": "2024-06-20T00:30:46.616477+00:00",
   "repo": "ietf-satp/draft-ietf-satp-core",
   "labels": [
     {
@@ -528,7 +528,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-05-10T17:02:34Z",
-      "updatedAt": "2024-05-11T10:02:19Z",
+      "updatedAt": "2024-06-18T13:55:37Z",
       "baseRepository": "ietf-satp/draft-ietf-satp-core",
       "baseRefName": "main",
       "baseRefOid": "ab7fc735f3b029bc380b96ca566ff8ad91da9ac1",
@@ -636,6 +636,226 @@
               "body": "I don't understand the need for this parameter",
               "createdAt": "2024-05-11T10:01:10Z",
               "updatedAt": "2024-05-11T10:02:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5-rUj1",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-18T11:39:14Z",
+          "updatedAt": "2024-06-18T11:39:14Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "Agree. \r\n\r\nThe gateway is the term that the WG uses for the construct containing endpoint that is the execution point for 2PC flows with liveliness.\r\n\r\nThe term \u201cfacilitates\u201d means something behind the gateway is the execution point of the 2PC.  But this is just wordsmithing and pushing the problem back to some other construct\r\n",
+              "createdAt": "2024-06-18T11:39:14Z",
+              "updatedAt": "2024-06-18T11:39:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5-rZDf",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-18T11:49:07Z",
+          "updatedAt": "2024-06-18T11:49:07Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "The SATP protocol must cover the scenarios where the networks are closed/private.  The signed claims is techno-legal mechanism to ensure that the gateways are performing burning/minting, without any way of verifying if that has been done (because the ledgers are closed/private).\r\n\r\nThis is akin to a distributed database, where the main coordinator database deletes a record XYZ and then sends a message (claim) to the other N remote databases to delete (create) a record whose recordID is XYZ.\r\n\r\nThere no way that the coordinator database can see into the other N remote databases (to see if all of them have been honest and have performed the task. Its only later when there is inconsistencies across these databases that the issue will be detected.\r\n",
+              "createdAt": "2024-06-18T11:49:07Z",
+              "updatedAt": "2024-06-18T11:49:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5-rZTV",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-18T11:49:40Z",
+          "updatedAt": "2024-06-18T11:49:40Z",
+          "comments": [
+            {
+              "originalPosition": 29,
+              "body": "Agree with Rafael.",
+              "createdAt": "2024-06-18T11:49:40Z",
+              "updatedAt": "2024-06-18T11:49:40Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5-rZbs",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-18T11:49:56Z",
+          "updatedAt": "2024-06-18T11:49:56Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "Agree with Rafael.",
+              "createdAt": "2024-06-18T11:49:56Z",
+              "updatedAt": "2024-06-18T11:49:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5-raL_",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-18T11:51:32Z",
+          "updatedAt": "2024-06-18T11:51:32Z",
+          "comments": [
+            {
+              "originalPosition": 30,
+              "body": "Agree with Rafael. The point of SATP is is that it is the endpoint that must implement ACID.",
+              "createdAt": "2024-06-18T11:51:32Z",
+              "updatedAt": "2024-06-18T11:51:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5-rdR3",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-18T11:57:51Z",
+          "updatedAt": "2024-06-18T11:57:51Z",
+          "comments": [
+            {
+              "originalPosition": 83,
+              "body": "The notion of \u201csettlement finality indicator\u201d is out of scope for SATP.  I think this is part of the context establishment in Stage 0 between the user applications App1 and App2. The users are assumed to already have a legal agreement to engage with each other and transfer assets.\r\n\r\nSATP is a simple unidirectional transfer protocol that implements 2PC. It is not an entire settlement finality mechanism, which may include other networks that deal with payments (e.g. the Delivery-versus-Payment use cases).\r\n",
+              "createdAt": "2024-06-18T11:57:51Z",
+              "updatedAt": "2024-06-18T11:57:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5-reTc",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-18T11:59:57Z",
+          "updatedAt": "2024-06-18T11:59:58Z",
+          "comments": [
+            {
+              "originalPosition": 171,
+              "body": "@Agree with Rafael.  For the 2PC commitment flows, the gateway is the actor.  The Originator could be viewed as a sending-actor that may utilize other actors (e.g. escrow entities), but that is out of scope for SATP.",
+              "createdAt": "2024-06-18T11:59:58Z",
+              "updatedAt": "2024-06-18T11:59:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5-rgvG",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-18T12:05:01Z",
+          "updatedAt": "2024-06-18T12:05:01Z",
+          "comments": [
+            {
+              "originalPosition": 176,
+              "body": "This is an overkill in wordsmithing.  The term Originator and Beneficiary is already defined in FATF Recommendation No16.  We do not want to invent our own terms.\r\n\r\nUsing 4 words (e.g. Receiving Network Beneficial Owner) just to say \u201cBeneficiary\u201d (who is assumed to be in NW2 ) is much simpler.\r\n",
+              "createdAt": "2024-06-18T12:05:01Z",
+              "updatedAt": "2024-06-18T12:05:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5-sdbI",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-18T13:49:32Z",
+          "updatedAt": "2024-06-18T13:49:32Z",
+          "comments": [
+            {
+              "originalPosition": 60,
+              "body": "This set of task are part of Stage-0, so it is out of scope for Core.",
+              "createdAt": "2024-06-18T13:49:32Z",
+              "updatedAt": "2024-06-18T13:49:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5-seY7",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-18T13:51:01Z",
+          "updatedAt": "2024-06-18T13:51:01Z",
+          "comments": [
+            {
+              "originalPosition": 150,
+              "body": "Identities and identity verification is Stage-0 (i.e. out of scope).",
+              "createdAt": "2024-06-18T13:51:01Z",
+              "updatedAt": "2024-06-18T13:51:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5-shiA",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-18T13:55:37Z",
+          "updatedAt": "2024-06-18T13:55:37Z",
+          "comments": [
+            {
+              "originalPosition": 340,
+              "body": "In draft core-04 the set of items that is assumed to be gained from Stage-0 is listed in Section 7.1 (Transfer Initialization Claims). \r\n\r\nThe Stage-1 Commence message carries a hash of these agreed claims:\r\nhash_transfer_init_claims REQUIRED: Hash of the Transfer Initialization Claims in the Transfer Proposal message.",
+              "createdAt": "2024-06-18T13:55:37Z",
+              "updatedAt": "2024-06-18T13:55:37Z"
             }
           ]
         }

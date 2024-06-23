@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-06-20T00:30:46.616477+00:00",
+  "timestamp": "2024-06-23T00:33:59.005200+00:00",
   "repo": "ietf-satp/draft-ietf-satp-core",
   "labels": [
     {
@@ -528,7 +528,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-05-10T17:02:34Z",
-      "updatedAt": "2024-06-18T13:55:37Z",
+      "updatedAt": "2024-06-20T12:56:20Z",
       "baseRepository": "ietf-satp/draft-ietf-satp-core",
       "baseRefName": "main",
       "baseRefOid": "ab7fc735f3b029bc380b96ca566ff8ad91da9ac1",
@@ -856,6 +856,46 @@
               "body": "In draft core-04 the set of items that is assumed to be gained from Stage-0 is listed in Section 7.1 (Transfer Initialization Claims). \r\n\r\nThe Stage-1 Commence message carries a hash of these agreed claims:\r\nhash_transfer_init_claims REQUIRED: Hash of the Transfer Initialization Claims in the Transfer Proposal message.",
               "createdAt": "2024-06-18T13:55:37Z",
               "updatedAt": "2024-06-18T13:55:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5--oq_",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-20T12:54:51Z",
+          "updatedAt": "2024-06-20T12:54:51Z",
+          "comments": [
+            {
+              "originalPosition": 209,
+              "body": "Thanks Anthony. Good point - we need a verified ID.",
+              "createdAt": "2024-06-20T12:54:51Z",
+              "updatedAt": "2024-06-20T12:54:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5--phL",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-20T12:56:20Z",
+          "updatedAt": "2024-06-20T12:56:20Z",
+          "comments": [
+            {
+              "originalPosition": 343,
+              "body": "I think the settlement_finality requirement needs to be communicated in Stage-0.  This is because SATP-Core only runs between the endpoints at the gateways.  It cannot \"see\" beyond the 2PC flow.",
+              "createdAt": "2024-06-20T12:56:20Z",
+              "updatedAt": "2024-06-20T12:56:20Z"
             }
           ]
         }

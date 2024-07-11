@@ -183,14 +183,14 @@ The current document pertains to the interaction between gateways through API2.
 ```
                  +----------+                +----------+
                  |  Client  |                | Off-net  |
-                 |   (App)  |                | Resource |
-                 +----------+                +----------+
-                      |                      |   API3   |
-                      |                      +----------+
-                      |                           ^
-                      V                           |
-                 +---------+                      |
-                 |   API1  |                      |
+          ------ |   (App)  |                | Resource |
+          |      +----------+                +----------+
+          |           |                      |   API3   |
+          |           |                      +----------+
+          |           |                           ^
+          |           V                           |
+          |      +---------+                      |
+          V      |   API1  |                      |
        +-----+   +---------+----+        +----+---------+   +-----+
        |     |   |         |    |        |    |         |   |     |
        | Net.|   | Gateway |API2|        |API2| Gateway |   | Net.|
@@ -315,19 +315,19 @@ The possible values are:
 
 ### Digital Asset Identifier
 
-This is the unique identifier (UUIDv2) that uniquely identifies the digital asset in the origin network which is to be transferred to the destination network.
+This is the unique identifier (e.g. UUIDv2) that uniquely identifies the digital asset in the origin network which is to be transferred to the destination network.
 
 The digital asset identifier is a value that is derived by the applications utilized by the originator and the beneficiary prior to starting the asset transfer.
 
 The mechanism used to derive the digital asset identifier is outside the scope of the current document.
 
+### Transfer-Context ID:
+
+This is the unique immutable identifier (e.g. UUIDv2) representing the application layer context of a single unidirectional transfer. The transfer-context is a complex data structure (e.g. in JSON format) that contains all information related to a SATP execution instance. Examples of information contained in a transfer-context may include identifiers of sessions, gateways, networks or assets related to the specific SATP execution instance. Typically, a transfer-context may be retrieved from a Registry via an API3 call
+
 ### Session ID:
 
-This is the unique identifier (UUIDv2) representing a session between two gateways handling a single unidirectional transfer. This may be derived from the context-ID at the application level.
-
-### Transfer-Context ID
-
-This is the unique optional identifier (UUIDv2) representing the application layer context.
+This is the unique identifier (e.g. UUIDv2) representing a session between two gateways handling a single unidirectional transfer. This may be derived from the Transfer-Context ID at the application level. There may be several session IDs related to a SATP execution instance. Only one Session ID may be active for a given SATP execution instance. Session IDs may be stored in the transfer-context for audit trail purposes.
 
 Sequence Number:
 
@@ -611,10 +611,10 @@ The parameters of this message consists of the following:
 
 - message_type REQUIRED: urn:ietf:satp:msgtype:transfer-proposal-msg .
 
-- session_id REQUIRED: A unique identifier (UUIDv2) chosen by the
+- session_id REQUIRED: A unique identifier (e.g. UUIDv2) chosen by the
   client to identify the current session.
 
-- transferContext_id OPTIONAL: An optional identifier (UUIDv2) used to identify
+- transferContext_id REQUIRED: A unique identifier (e.g. UUIDv2) used to identify
   the current transfer session at the application layer.
 
 - transfer_init_claims: The set of artifacts and parameters as the basis
@@ -648,10 +648,10 @@ The parameters of this message consists of the following:
 
 - message_type REQUIRED: urn:ietf:satp:msgtype:proposal-receipt-msg.
 
-- session_id REQUIRED: A unique identifier (UUIDv2) chosen by the
+- session_id REQUIRED: A unique identifier (e.g. UUIDv2) chosen by the
   client to identify the current session.
 
-- transferContext_id OPTIONAL: An optional identifier (UUIDv2) used to identify
+- transferContext_id REQUIRED: A unique identifier (e.g. UUIDv2) used to identify
   the current transfer session at the application layer.
 
 - hash_transfer_init_claims REQUIRED: Hash of the Transfer Initialization Claims
@@ -682,10 +682,10 @@ The parameters of this message consists of the following:
 
 - message_type REQUIRED: urn:ietf:satp:msgtype:proposal-counter-msg.
 
-- session_id REQUIRED: A unique identifier (UUIDv2) chosen by the
+- session_id REQUIRED: A unique identifier (e.g. UUIDv2) chosen by the
   client to identify the current session.
 
-- transferContext_id OPTIONAL: An optional identifier (UUIDv2) used to identify
+- transferContext_id REQUIRED: A unique identifier (e.g. UUIDv2) used to identify
   the current transfer session at the application layer.
 
 - hash_transfer_init_claims REQUIRED: Hash of the Transfer Initialization Claims
@@ -738,10 +738,10 @@ The parameters of this message consists of the following:
 
 - message_type REQUIRED. MUST be the value urn:ietf:satp:msgtype:transfer-commence-msg.
 
-- session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+- session_id REQUIRED: A unique identifier (e.g. UUIDv2) chosen earlier
   by client in the Initialization Request Message.
 
-- transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+- transferContext_id REQUIRED: A unique identifier (e.g. UUIDv2)
   used to identify the current transfer session at the application layer.
 
 - hash_transfer_init_claims REQUIRED: Hash of the Transfer Initialization Claims
@@ -800,10 +800,10 @@ The parameters of this message consists of the following:
 
 - message_type REQUIRED urn:ietf:satp:msgtype:ack-commence-msg
 
-- session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+- session_id REQUIRED: A unique identifier (e.g. UUIDv2) chosen earlier
   by client in the Initialization Request Message.
 
-- transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+- transferContext_id REQUIRED: A unique identifier (e.g. UUIDv2)
   used to identify the current transfer session at the application layer.
 
 - hash_prev_message REQUIRED.The hash of the last message, in this case the
@@ -839,10 +839,10 @@ The parameters of this message consists of the following:
 
 - message_type REQUIRED urn:ietf:satp:msgtype:lock-assert-msg.
 
-- session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+- session_id REQUIRED: A unique identifier (e.g. UUIDv2) chosen earlier
   by client in the Initialization Request Message.
 
-- transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+- transferContext_id REQUIRED: A unique identifier (e.g. UUIDv2)
   used to identify the current transfer session at the application layer.
 
 - lock_assertion_claim REQUIRED. The lock assertion claim or statement by the client.
@@ -875,10 +875,10 @@ The parameters of this message consists of the following:
 
 - message_type REQUIRED urn:ietf:satp:msgtype:assertion-receipt-msg.
 
-- session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+- session_id REQUIRED: A unique identifier (e.g. UUIDv2) chosen earlier
   by client in the Initialization Request Message.
 
-- transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+- transferContext_id REQUIRED: A unique identifier (e.g. UUIDv2)
   used to identify the current transfer session at the application layer.
 
 - hash_prev_message REQUIRED. The hash of previous message.
@@ -931,10 +931,10 @@ The parameters of this message consists of the following:
 
 - message_type REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-prepare-msg
 
-- session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+- session_id REQUIRED: A unique identifier (e.g. UUIDv2) chosen earlier
   by client in the Initialization Request Message.
 
-- transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+- transferContext_id REQUIRED: A unique identifier (e.g. UUIDv2)
   used to identify the current transfer session at the application layer.
 
 - hash_prev_message REQUIRED. The hash of previous message.
@@ -962,10 +962,10 @@ The parameters of this message consists of the following:
 
 - message_type REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-ready-msg.
 
-- session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+- session_id REQUIRED: A unique identifier (e.g. UUIDv2) chosen earlier
   by client in the Initialization Request Message.
 
-- transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+- transferContext_id REQUIRED: A unique identifier (e.g. UUIDv2)
   used to identify the current transfer session at the application layer.
 
 - mint_assertion_claims REQUIRED. The mint assertion claim or statement by the server.
@@ -1000,10 +1000,10 @@ The parameters of this message consists of the following:
 
 - message_type REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-final-msg.
 
-- session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+- session_id REQUIRED: A unique identifier (e.g. UUIDv2) chosen earlier
   by client in the Initialization Request Message.
 
-- transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+- transferContext_id REQUIRED: A unique identifier (e.g. UUIDv2)
   used to identify the current transfer session at the application layer.
 
 - burn_assertion_claim REQUIRED. The burn assertion signed claim or statement by the client.
@@ -1033,10 +1033,10 @@ The parameters of this message consists of the following:
 
 - message_type REQUIRED. It MUST be the value urn:ietf:satp:msgtype:ack-commit-final-msg.
 
-- session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+- session_id REQUIRED: A unique identifier (e.g. UUIDv2) chosen earlier
   by client in the Initialization Request Message.
 
-- transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+- transferContext_id REQUIRED: A unique identifier (e.g. UUIDv2)
   used to identify the current transfer session at the application layer.
 
 - assignment_assertion_claim REQUIRED. The claim or statement by the server
@@ -1070,10 +1070,10 @@ The parameters of this message consists of the following:
 
 - message_type REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-transfer-complete-msg.
 
-- session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+- session_id REQUIRED: A unique identifier (e.g. UUIDv2) chosen earlier
   by client in the Initialization Request Message.
 
-- transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+- transferContext_id REQUIRED: A unique identifier (e.g. UUIDv2)
   used to identify the current transfer session at the application layer.
 
 - hash_prev_message REQUIRED. The hash of previous message.

@@ -293,7 +293,7 @@ The possible values are:
 
 - proposal-receipt-msg: This is the signed receipt message indicating acceptance of the proposal by the receiver gateway.
 
-- proposal-counter-msg: This is a counteroffer message from the receiver gateway indicating an alternative proposal.
+- proposal-reject-msg: This is an explicit reject message from the receiver gateway, indicating a rejection of the proposal and an immediate session termination.
 
 - transfer-commence-msg: Request to begin the commencement of the asset transfer.
 
@@ -662,15 +662,14 @@ The parameters of this message consists of the following:
 
 Example: TBD.
 
-## Transfer Counter Proposal Message
+## Transfer Proposal Reject Message
 
-{: #satp-stage1-init-reject-conditional}
+{: #satp-stage1-init-reject}
 
-The purpose of this message is for the server to respond with a counterproposal for one or more of the claims in the previous proposal message.
-
-If the server does not wish to proceed with the current transfer, the server MUST respond with an empty (blank) counter-proposal message.
-
-Depending on the proposal and counter-proposal, multiple rounds of communication between the client and the server may occur.
+The purpose of this message is for the server to indicate explicit
+rejection of the Transfer Initialization Claims
+in the transfer proposal message.
+A reject message is taken to mean an immediate termination of the session.
 
 The message must be signed by the server.
 
@@ -680,7 +679,7 @@ The parameters of this message consists of the following:
 
 - version REQUIRED: SAT protocol Version (major, minor).
 
-- message_type REQUIRED: urn:ietf:satp:msgtype:proposal-counter-msg.
+- message_type REQUIRED: urn:ietf:satp:msgtype:proposal-reject-msg.
 
 - session_id REQUIRED: A unique identifier (e.g. UUIDv2) chosen by the
   client to identify the current session.
@@ -690,9 +689,6 @@ The parameters of this message consists of the following:
 
 - hash_transfer_init_claims REQUIRED: Hash of the Transfer Initialization Claims
   received in the Transfer Proposal Message.
-
-- transfer_init_counter_claims: The set of artifacts and parameters as the
-  counter-proposal to the client.
 
 - Timestamp REQUIRED: timestamp referring to when
   the Initialization Request Message was received.

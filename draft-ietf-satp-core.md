@@ -426,23 +426,22 @@ The reader is directed to [SATP-ARCH] for further discussion of this model.
         |     |            |                      |            |     |
         |     |       (1.1)|--Transf. Proposal -->|            |     |
         |     |            |                      |            |     |
-        |     |       (1.2)|<--Proposal Receipt---|            |     |
+        |     |            |<--Proposal Receipt---|(1.2)       |     |
+        |     |            |                      |            |     |
+        |     |       (1.3)|<--Transf. Commence-->|            |     |
+        |     |            |                      |            |     |
+        |     |            |<--- ACK Commence --->|(1.4)       |     |
         |     |            |                      |            |     |
       ..|.....|............|......................|............|.....|..
         |     |            |       Stage 2        |            |     |
         |     |            |                      |            |     |
-        |     |       (2.1)|<--Transf. Commence-->|            |     |
+        |     |<---Lock----|(2.1)                 |            |     |
         |     |            |                      |            |     |
-        |     |       (2.2)|<--- ACK Commence --->|            |     |
+        |     |       (2.2)|--- Lock-Assertion--->|            |     |
         |     |            |                      |            |     |
+        |     |            |                 (2.3)|----Bcast-->|     |
         |     |            |                      |            |     |
-        |     |<---Lock----|(2.3)                 |            |     |
-        |     |            |                      |            |     |
-        |     |       (2.4)|--- Lock-Assertion--->|            |     |
-        |     |            |                      |            |     |
-        |     |            |                 (2.5)|----Bcast-->|     |
-        |     |            |                      |            |     |
-        |     |            |<--Assertion Receipt--|(2.6)       |     |
+        |     |            |<--Assertion Receipt--|(2.4)       |     |
         |     |            |                      |            |     |
       ..|.....|............|......................|............|.....|..
         |     |            |       Stage 3        |            |     |

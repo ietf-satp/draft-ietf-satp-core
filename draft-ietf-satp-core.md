@@ -695,29 +695,6 @@ The parameters of this message consists of the following:
 
 Example: TBD.
 
-# Lock Assertion Stage (Stage 2)
-
-{: #satp-stage2-section}
-
-The messages in this stage pertain to the sender gateway providing
-the recipient gateway with a signed assertion that the asset in the origin network
-has been locked or disabled and under the control of the sender gateway.
-
-In the following, the sender gateway takes the role of the client
-while the recipient gateway takes the role of the server.
-
-The flow follows a request-response model.
-The client makes a request (POST) to the Lock-Assertion Endpoint at the server.
-
-Gateways MUST support the use of the HTTP GET and POST methods
-defined in RFC 2616 [RFC2616] for the endpoint.
-
-Clients MAY use the HTTP GET or POST methods to send messages in this stage to the server.
-If using the HTTP GET method, the request parameters may be serialized
-using URI Query String Serialization.
-
-(NOTE: Flows occur over TLS. Nonces are not shown).
-
 ## Transfer Commence Message
 
 {: #satp-transfer-commence-sec}
@@ -811,6 +788,29 @@ The parameters of this message consists of the following:
 - server_signature REQUIRED. The digital signature of the server.
 
 An example of a success response could be as follows: (TBD).
+
+# Lock Assertion Stage (Stage 2)
+
+{: #satp-stage2-section}
+
+The messages in this stage pertain to the sender gateway providing
+the recipient gateway with a signed assertion that the asset in the origin network
+has been locked or disabled and under the control of the sender gateway.
+
+In the following, the sender gateway takes the role of the client
+while the recipient gateway takes the role of the server.
+
+The flow follows a request-response model.
+The client makes a request (POST) to the Lock-Assertion Endpoint at the server.
+
+Gateways MUST support the use of the HTTP GET and POST methods
+defined in RFC 2616 [RFC2616] for the endpoint.
+
+Clients MAY use the HTTP GET or POST methods to send messages in this stage to the server.
+If using the HTTP GET method, the request parameters may be serialized
+using URI Query String Serialization.
+
+(NOTE: Flows occur over TLS. Nonces are not shown).
 
 ## Lock Assertion Message
 

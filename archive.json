@@ -1,0 +1,990 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2024-07-16T00:32:25.670015+00:00",
+  "repo": "ietf-satp/draft-ietf-satp-core",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 1,
+      "id": "I_kwDOKkmiaM500uxD",
+      "title": "test issue",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/1",
+      "state": "OPEN",
+      "author": "RafaelAPB",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "test issue #1",
+      "createdAt": "2023-10-24T19:57:47Z",
+      "updatedAt": "2023-10-24T19:57:47Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 12,
+      "id": "I_kwDOKkmiaM6E_dMA",
+      "title": "Add reference to architecture draft",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/12",
+      "state": "OPEN",
+      "author": "RafaelAPB",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Add a reference to the blockchain interoperability architecture draft.\r\n\r\nRaised by Martin Gfeller <mgf=40acm.org@dmarc.ietf.org>",
+      "createdAt": "2024-04-08T13:27:03Z",
+      "updatedAt": "2024-04-08T13:27:03Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 13,
+      "id": "I_kwDOKkmiaM6E_eno",
+      "title": "Refine Client application definition",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/13",
+      "state": "OPEN",
+      "author": "RafaelAPB",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Refine Client application definition.\r\n\r\nMartin Gfeller <mgf=40acm.org@dmarc.ietf.org> said \"Do we need to say what we want to achieve with the application? Simply interacting\u00a0could mean anything. As the introduction mentions only gateways, this is the first time \"application\" is used.\"\r\n\r\nWe should make it clearer that the client application implements the end-user business logic (that requires interoperability) and interacts with a gateway via API1.",
+      "createdAt": "2024-04-08T13:29:36Z",
+      "updatedAt": "2024-04-08T13:29:36Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 14,
+      "id": "I_kwDOKkmiaM6E_hww",
+      "title": "Problems raised by Martin G.",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/14",
+      "state": "OPEN",
+      "author": "RafaelAPB",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fix grammar/typos/references:\r\n\r\n---\r\n\u00a0 \u00a0 Claim Type:\r\n\r\n\u00a0 \u00a0 \u00a0 \u00a0 Stipulates that JWT above is just one option. Perhaps always have \"X type\" before \"X\";\r\n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0i.e., \"claim type\" before \"claim\"\r\n---\u00a0\r\n\u00a0 \u00a0 Network:\r\n\u00a0 \u00a0 \u00a0 \u00a0 Might be worthwhile to define\u00a0network.\r\n\r\n---\r\n\u00a0 \u00a0 When do we speak about SAT and when about SATP?\r\n\u00a0 \u00a0\r\n\u00a0 \u00a0 \u00a0 \u00a0 I think the model is for the protocol, so SATP Model, not SAT Model.\r\n\u00a0 \u00a0\r\n\u00a0 \u00a0 local gateway\r\n\u00a0 \u00a0\r\n\u00a0 \u00a0 \u00a0 \u00a0 \"local\" is understandable, but not actually defined. As the application is defined\u00a0\r\n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0to interact with a gateway, a gateway is always \"local\" from the perspective of\r\n\u00a0 \u00a0 \u00a0 \u00a0 the application.\r\n\u00a0 \u00a0 \u00a0 \u00a04.2 SAT Model\r\n\r\n\u00a0 \u00a0 When do we speak about SAT and when about SATP?\r\n\u00a0 \u00a0\r\n\u00a0 \u00a0 \u00a0 \u00a0 I think the model is for the protocol, so SATP Model, not SAT Model.\r\n\u00a0 \u00a0\r\n\u00a0 \u00a0 local gateway\r\n\u00a0 \u00a0\r\n\u00a0 \u00a0 \u00a0 \u00a0 \"local\" is understandable, but not actually defined. As the application is defined\u00a0\r\n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0to interact with a gateway, a gateway is always \"local\" from the perspective of\r\n\u00a0 \u00a0 \u00a0 \u00a0 the application.\r\n\r\n ---\r\n\r\n4.7.2 Message Type\r\n\r\n\u00a0 \u00a0 Inconsistent style - drop the \u00a0\"This is the \"\r\n\u00a0 \u00a0\r\n4.7.3 Digital Asset Identifier\r\n\r\n\u00a0 \u00a0 unique identifier (UUIDv2) that uniquely identifies\r\n\u00a0 \u00a0\r\n\u00a0 \u00a0 \u00a0 \u00a0 unique, more unique, most unique? :-)\r\n\u00a0 \u00a0\r\n\u00a0 \u00a0 application of the beneficiary\r\n\u00a0 \u00a0\r\n\u00a0 \u00a0 \u00a0 \u00a0 This is the first time the application in NW2 is mentioned in an active role - in\u00a0\r\n\u00a0 \u00a0 \u00a0 \u00a0 the document above\u00a0this point, I understood that while the NW2 and GW2 are involved,\r\n\u00a0 \u00a0 \u00a0 \u00a0 the application of the beneficiary is not actively involved.\r\n\u00a0 \u00a0 \u00a0 \u00a0\r\n4.7.4 Session ID: (delete the \":\")\r\n\r\n\u00a0 \u00a0 \u00a0 \u00a0 Was the Context-Id introduced? Yes, but below. Somewhat circular. Same problem\r\n\u00a0 \u00a0 \u00a0 \u00a0 noted in Architecture document.\r\n\u00a0 \u00a0\r\n4.7.5 Transfer-Context ID\r\n\r\n\u00a0 \u00a0 \u00a0 \u00a0 Is the \"Sequence Number\" part of the Transfer-Context ID, or a possible implementation,\r\n\u00a0 \u00a0 \u00a0 \u00a0 or something additional?\r\n\r\n4.7.8.\u00a0 Payload Hash\r\n\r\n\u00a0 \u00a0 \u00a0 \u00a0 Is the algo to be used intentionally left open?\r\n\u00a0 \u00a0\r\n\r\n4.8 \u00a0Negotiation of Security Protocols and Parameters\r\n\r\n\u00a0 \u00a0 transfer initiation stage (Stage-0)\r\n\u00a0 \u00a0\r\n\u00a0 \u00a0 \u00a0 \u00a0 Isn't that Stage-1, according to 4.4?\r\n\u00a0 \u00a0 \u00a0 \u00a0\r\n7-9: Stages\r\n\r\n\u00a0 \u00a0 Do we need to repeat the use of HTTP GET and POST - until the parenthetical remark\u00a0\r\n\u00a0 \u00a0 about the TLS nonce for each Stage?\r\n\u00a0 \u00a0\r\n10.2\r\n\r\n\u00a0 \u00a0 \u00a0 \u00a0 The purpose The purpose\r\n\u00a0 \u00a0\r\n\u00a0 \u00a0 Repeated.\r\n\u00a0 \u00a0\r\n17.2 Informative References\r\n\r\n\u00a0 \u00a0 Wouldn't including references to the SATP Architecture and Use Cases documents be good?\r\n\u00a0 \u00a0\r\n\u00a0 \u00a0",
+      "createdAt": "2024-04-08T13:35:05Z",
+      "updatedAt": "2024-04-08T13:35:05Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 15,
+      "id": "I_kwDOKkmiaM6E_p4w",
+      "title": "Problems raised by Denis A.",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/15",
+      "state": "OPEN",
+      "author": "RafaelAPB",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I believe UUIDv2 is too restrictive. I would suggest we mention a more technology-neutral formulation, e.g. that digital asset identifiers should be globally unique and let the implementors decide how the digital asset identifiers could be defined",
+      "createdAt": "2024-04-08T13:48:39Z",
+      "updatedAt": "2024-04-08T13:48:39Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 17,
+      "id": "I_kwDOKkmiaM6G4LgC",
+      "title": "Potential solution to fix whitespace trailing problems on PRs",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/17",
+      "state": "OPEN",
+      "author": "RafaelAPB",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "By [Carsten Bormann <cabo@tzi.org>](mailto:cabo@tzi.org), via mailing list:\r\n\r\n> However, note that EditorConfig also acts upon the yaml definition at the beginning of the draft,\r\n\r\nI don\u2019t know why this happens (would need to look at the editorconfig setup), but you probably don\u2019t need a\r\n\r\npi:\r\n\r\nsubtree in the YAML any more.\r\n\r\nJust replace that (and the \u201cstand_alone: yes\u201d) by\r\n\r\nv: 3\r\n\r\n",
+      "createdAt": "2024-04-25T07:22:26Z",
+      "updatedAt": "2024-04-25T07:22:26Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 2,
+      "id": "PR_kwDOKkmiaM5pSQf6",
+      "title": "Update draft-ietf-satp-core.md",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/2",
+      "state": "MERGED",
+      "author": "findthomas",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Edits following review by Wes.",
+      "createdAt": "2024-03-11T18:23:48Z",
+      "updatedAt": "2024-03-11T19:40:34Z",
+      "baseRepository": "ietf-satp/draft-ietf-satp-core",
+      "baseRefName": "main",
+      "baseRefOid": "dc41e9ede921f5658375c327c57e63768064da28",
+      "headRepository": "ietf-satp/draft-ietf-satp-core",
+      "headRefName": "findthomas-patch-1",
+      "headRefOid": "3862db7637b10b0fb23b058e60db7193efa75992",
+      "closedAt": "2024-03-11T19:40:26Z",
+      "mergedAt": "2024-03-11T19:40:26Z",
+      "mergedBy": "findthomas",
+      "mergeCommit": {
+        "oid": "f8a2e401b8028030b4bc650f0a6cf05d92234a19"
+      },
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "2nd set of fixes.",
+          "createdAt": "2024-03-11T19:40:33Z",
+          "updatedAt": "2024-03-11T19:40:33Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOKkmiaM5pS0qx",
+      "title": "Update draft-ietf-satp-core.md",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/3",
+      "state": "MERGED",
+      "author": "findthomas",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Added flow diagram as requested by Wes.",
+      "createdAt": "2024-03-11T19:37:33Z",
+      "updatedAt": "2024-03-11T19:40:11Z",
+      "baseRepository": "ietf-satp/draft-ietf-satp-core",
+      "baseRefName": "main",
+      "baseRefOid": "dc41e9ede921f5658375c327c57e63768064da28",
+      "headRepository": "ietf-satp/draft-ietf-satp-core",
+      "headRefName": "findthomas-patch-2",
+      "headRefOid": "a9813d08f8678882458908fc713e3950c80db9f0",
+      "closedAt": "2024-03-11T19:39:55Z",
+      "mergedAt": "2024-03-11T19:39:55Z",
+      "mergedBy": "findthomas",
+      "mergeCommit": {
+        "oid": "972cd76b4c0bf510447b8e1bbc39d3db28e2cb90"
+      },
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "First set of fixes.",
+          "createdAt": "2024-03-11T19:40:11Z",
+          "updatedAt": "2024-03-11T19:40:11Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDOKkmiaM5pZeTY",
+      "title": "Update draft-ietf-satp-core.md",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/4",
+      "state": "MERGED",
+      "author": "findthomas",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Replaced \"phase\" with \"Stage\" to be consistent with the rest of the document and SATP-Arch (e.g. Stage-1, Stage-2, Stage-3).\r\n\r\nRemoved Section 4.5 as recommendation from Wes.  The section was mostly informative.",
+      "createdAt": "2024-03-12T15:47:55Z",
+      "updatedAt": "2024-03-12T16:43:40Z",
+      "baseRepository": "ietf-satp/draft-ietf-satp-core",
+      "baseRefName": "main",
+      "baseRefOid": "f8a2e401b8028030b4bc650f0a6cf05d92234a19",
+      "headRepository": "ietf-satp/draft-ietf-satp-core",
+      "headRefName": "findthomas-patch-3",
+      "headRefOid": "ed99bb6396d585fde1c9f3739b54142798d0ca5d",
+      "closedAt": "2024-03-12T15:49:18Z",
+      "mergedAt": "2024-03-12T15:49:18Z",
+      "mergedBy": "findthomas",
+      "mergeCommit": {
+        "oid": "780fd74ac93d6a1eae22dddcaeb0d9940898d691"
+      },
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Word fixes and removal of Section 4.5.",
+          "createdAt": "2024-03-12T15:49:59Z",
+          "updatedAt": "2024-03-12T15:49:59Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKkmiaM5zIjl-",
+          "commit": {
+            "abbreviatedOid": "ed99bb6"
+          },
+          "author": "alexchiriac",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "LGTM!",
+          "createdAt": "2024-03-12T16:43:40Z",
+          "updatedAt": "2024-03-12T16:43:40Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOKkmiaM5qGc2G",
+      "title": "Update draft-ietf-satp-core.md",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/5",
+      "state": "MERGED",
+      "author": "findthomas",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-19T14:47:49Z",
+      "updatedAt": "2024-03-19T16:34:08Z",
+      "baseRepository": "ietf-satp/draft-ietf-satp-core",
+      "baseRefName": "main",
+      "baseRefOid": "7ba34eaf9661d8c1063a123762a707ac41edbe85",
+      "headRepository": "ietf-satp/draft-ietf-satp-core",
+      "headRefName": "findthomas-patch-4",
+      "headRefOid": "90acbb5b7c7682d1c0c85d25aefe48b049112211",
+      "closedAt": "2024-03-19T16:33:42Z",
+      "mergedAt": "2024-03-19T16:33:42Z",
+      "mergedBy": "findthomas",
+      "mergeCommit": {
+        "oid": "e67c84c91ae276fc70b80734522c2b41633c00c4"
+      },
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Moved text about API1 and API3 to the Appendix section.\r\n",
+          "createdAt": "2024-03-19T16:34:07Z",
+          "updatedAt": "2024-03-19T16:34:07Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOKkmiaM5qINnT",
+      "title": "Update draft-ietf-satp-core.md",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/6",
+      "state": "MERGED",
+      "author": "findthomas",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-19T18:27:48Z",
+      "updatedAt": "2024-03-19T18:28:47Z",
+      "baseRepository": "ietf-satp/draft-ietf-satp-core",
+      "baseRefName": "main",
+      "baseRefOid": "e67c84c91ae276fc70b80734522c2b41633c00c4",
+      "headRepository": "ietf-satp/draft-ietf-satp-core",
+      "headRefName": "findthomas-patch-5",
+      "headRefOid": "94162eb3f230fdea0d3e3e4438781c201800dcc8",
+      "closedAt": "2024-03-19T18:28:46Z",
+      "mergedAt": "2024-03-19T18:28:46Z",
+      "mergedBy": "findthomas",
+      "mergeCommit": {
+        "oid": "d01682181b24b6db6eebad09abd6e54056aa77fc"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOKkmiaM5qOMAE",
+      "title": "Update draft-ietf-satp-core.md",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/7",
+      "state": "CLOSED",
+      "author": "findthomas",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixed Figure 1 that was too wide.",
+      "createdAt": "2024-03-20T13:26:11Z",
+      "updatedAt": "2024-03-20T17:26:18Z",
+      "baseRepository": "ietf-satp/draft-ietf-satp-core",
+      "baseRefName": "main",
+      "baseRefOid": "76316b0520a5c5a1670cf8f53256e41f46570657",
+      "headRepository": "ietf-satp/draft-ietf-satp-core",
+      "headRefName": "findthomas-patch-6",
+      "headRefOid": "8978930dadba641debe57449860436c80167c3af",
+      "closedAt": "2024-03-20T17:26:18Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOKkmiaM5qPEQx",
+      "title": "Update draft-ietf-satp-core.md",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/8",
+      "state": "MERGED",
+      "author": "findthomas",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Corrected Figure 1.\r\nAdded quotes to block figure area.",
+      "createdAt": "2024-03-20T15:12:01Z",
+      "updatedAt": "2024-03-20T17:26:11Z",
+      "baseRepository": "ietf-satp/draft-ietf-satp-core",
+      "baseRefName": "main",
+      "baseRefOid": "76316b0520a5c5a1670cf8f53256e41f46570657",
+      "headRepository": "ietf-satp/draft-ietf-satp-core",
+      "headRefName": "findthomas-patch-7",
+      "headRefOid": "04d90929d27b5cf91ee170071c05cb1039c7f6b9",
+      "closedAt": "2024-03-20T17:26:11Z",
+      "mergedAt": "2024-03-20T17:26:11Z",
+      "mergedBy": "RafaelAPB",
+      "mergeCommit": {
+        "oid": "9565d4a4dfbaa32a984bae105ae35c30cf059f1d"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 9,
+      "id": "PR_kwDOKkmiaM5rLzoB",
+      "title": "Update draft-ietf-satp-core.md",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/9",
+      "state": "MERGED",
+      "author": "findthomas",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Corrected message types.",
+      "createdAt": "2024-03-29T16:39:46Z",
+      "updatedAt": "2024-03-29T16:44:25Z",
+      "baseRepository": "ietf-satp/draft-ietf-satp-core",
+      "baseRefName": "main",
+      "baseRefOid": "9565d4a4dfbaa32a984bae105ae35c30cf059f1d",
+      "headRepository": "ietf-satp/draft-ietf-satp-core",
+      "headRefName": "findthomas-patch-8",
+      "headRefOid": "c642b4a778fcdc1543e31a5ffe3bf577a7a11941",
+      "closedAt": "2024-03-29T16:44:25Z",
+      "mergedAt": "2024-03-29T16:44:25Z",
+      "mergedBy": "findthomas",
+      "mergeCommit": {
+        "oid": "9caa9ad9bece603006b8c97b4aedd32fe0bdc90d"
+      },
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Corrected SATP message types. ",
+          "createdAt": "2024-03-29T16:44:18Z",
+          "updatedAt": "2024-03-29T16:44:18Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDOKkmiaM5rnMyG",
+      "title": "Update draft-ietf-satp-core.md",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/10",
+      "state": "MERGED",
+      "author": "findthomas",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "(a) Defined the keys used by gateways (Section 4.5).\r\n\r\n(b) Removal of duplicated client pub key and server pub key in each message (when it was already shared in Stage 1).",
+      "createdAt": "2024-04-03T19:35:40Z",
+      "updatedAt": "2024-04-05T13:22:01Z",
+      "baseRepository": "ietf-satp/draft-ietf-satp-core",
+      "baseRefName": "main",
+      "baseRefOid": "9caa9ad9bece603006b8c97b4aedd32fe0bdc90d",
+      "headRepository": "ietf-satp/draft-ietf-satp-core",
+      "headRefName": "findthomas-patch-9",
+      "headRefOid": "e7773d8b685329c9310668ef45c50108fa291ac8",
+      "closedAt": "2024-04-05T13:22:01Z",
+      "mergedAt": "2024-04-05T13:22:01Z",
+      "mergedBy": "findthomas",
+      "mergeCommit": {
+        "oid": "9a8ade04e1ebf684567beb611c02e9ef908554aa"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 11,
+      "id": "PR_kwDOKkmiaM5r2OAp",
+      "title": "Update draft-ietf-satp-core.md",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/11",
+      "state": "MERGED",
+      "author": "findthomas",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Added text in Appendix regarding API3.",
+      "createdAt": "2024-04-05T13:44:25Z",
+      "updatedAt": "2024-04-05T13:45:08Z",
+      "baseRepository": "ietf-satp/draft-ietf-satp-core",
+      "baseRefName": "main",
+      "baseRefOid": "9a8ade04e1ebf684567beb611c02e9ef908554aa",
+      "headRepository": "ietf-satp/draft-ietf-satp-core",
+      "headRefName": "findthomas-patch-10",
+      "headRefOid": "1d981e9a0c4cf461cc3861bbe4a3a5d8574e3948",
+      "closedAt": "2024-04-05T13:45:08Z",
+      "mergedAt": "2024-04-05T13:45:08Z",
+      "mergedBy": "findthomas",
+      "mergeCommit": {
+        "oid": "2e8c06735b64bbdd3ea3626361dd1c9cd1b2e3cb"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 16,
+      "id": "PR_kwDOKkmiaM5tX7P3",
+      "title": "API1 Review",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/16",
+      "state": "MERGED",
+      "author": "alexchiriac",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- change specific API1 protocol back to HTTP\r\n- propose OAuth2.0 as the authentication mechanism for API1 clients\r\n- clarify examples\r\n\r\nAfter merging this PR, I will add a section for Considerations on Smart Contract Networks. In that section, I will mention that a smart contract to represent the asset on the destination network needs to be deployed before the client application starts an asset transfer.",
+      "createdAt": "2024-04-22T16:21:37Z",
+      "updatedAt": "2024-04-22T17:37:19Z",
+      "baseRepository": "ietf-satp/draft-ietf-satp-core",
+      "baseRefName": "main",
+      "baseRefOid": "2e1e280aff9fe50a471e55f69cba077fd470f980",
+      "headRepository": "ietf-satp/draft-ietf-satp-core",
+      "headRefName": "feat/api1-review",
+      "headRefOid": "f491e39450bf8155be88d26865cb82b3e16bfc0c",
+      "closedAt": "2024-04-22T17:36:52Z",
+      "mergedAt": "2024-04-22T17:36:52Z",
+      "mergedBy": "findthomas",
+      "mergeCommit": {
+        "oid": "ab7fc735f3b029bc380b96ca566ff8ad91da9ac1"
+      },
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "(from Alex)",
+          "createdAt": "2024-04-22T17:37:18Z",
+          "updatedAt": "2024-04-22T17:37:18Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 18,
+      "id": "PR_kwDOKkmiaM5vHlMu",
+      "title": "Update draft-ietf-satp-core.md",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/18",
+      "state": "OPEN",
+      "author": "anthonyc0603",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-05-10T17:02:34Z",
+      "updatedAt": "2024-06-20T12:56:20Z",
+      "baseRepository": "ietf-satp/draft-ietf-satp-core",
+      "baseRefName": "main",
+      "baseRefOid": "ab7fc735f3b029bc380b96ca566ff8ad91da9ac1",
+      "headRepository": "anthonyc0603/draft-ietf-satp-core",
+      "headRefName": "patch-1",
+      "headRefOid": "45a9ab68468a259f8c9a2749c4f8c6ad746664f4",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKkmiaM56Qldz",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "RafaelAPB",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Anthony, thank you for your contribution. While there are some good ideas and suggestions (namely the introduction of a proof manifesto and payload), there are some concerns that need to be addressed prior to merging. See my comments below.",
+          "createdAt": "2024-05-11T09:53:03Z",
+          "updatedAt": "2024-05-11T10:02:19Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "This is not correct; SATP implements a variant of 2PC",
+              "createdAt": "2024-05-11T09:53:04Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 17,
+              "body": "typo on \"cliam\". I tend to agree with this more general description, but at the same time, I am reluctant of allowing the developer to implement ANY type of bridge. This has to be discussed within the group.",
+              "createdAt": "2024-05-11T09:54:03Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 29,
+              "body": "This is not correct; SATP ensures those properties",
+              "createdAt": "2024-05-11T09:54:32Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 30,
+              "body": "This is not correct; SATP ensures those properties",
+              "createdAt": "2024-05-11T09:55:01Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 38,
+              "body": "This is not correct; SATP ensures those properties",
+              "createdAt": "2024-05-11T09:55:05Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 60,
+              "body": "This seems reasonable, but it seems to me this is stage 0, which is currently out of scope. This has to be discussed within the group",
+              "createdAt": "2024-05-11T09:55:47Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 83,
+              "body": "See comments above",
+              "createdAt": "2024-05-11T09:56:04Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 86,
+              "body": "See comments above",
+              "createdAt": "2024-05-11T09:56:08Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 150,
+              "body": "This section is not necessary, as those parties are identified in the glossary (first part of the spec)",
+              "createdAt": "2024-05-11T09:56:44Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 171,
+              "body": "We do not have the notion of Sending network actor. These terms are subsumed by the notion of \"gateway client\", which is the gateway application responsible for managing the \"actors\"",
+              "createdAt": "2024-05-11T09:57:57Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 176,
+              "body": "There are new terms introduced here. If the group agrees to include them, they need to be introduced in the glossary.",
+              "createdAt": "2024-05-11T09:58:44Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 209,
+              "body": "See comments above",
+              "createdAt": "2024-05-11T09:58:55Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 340,
+              "body": "I think this is a good idea; we (should) include the type of proof along with the proof payload as part of the receipt",
+              "createdAt": "2024-05-11T10:00:42Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            },
+            {
+              "originalPosition": 343,
+              "body": "I don't understand the need for this parameter",
+              "createdAt": "2024-05-11T10:01:10Z",
+              "updatedAt": "2024-05-11T10:02:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5-rUj1",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-18T11:39:14Z",
+          "updatedAt": "2024-06-18T11:39:14Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "Agree. \r\n\r\nThe gateway is the term that the WG uses for the construct containing endpoint that is the execution point for 2PC flows with liveliness.\r\n\r\nThe term \u201cfacilitates\u201d means something behind the gateway is the execution point of the 2PC.  But this is just wordsmithing and pushing the problem back to some other construct\r\n",
+              "createdAt": "2024-06-18T11:39:14Z",
+              "updatedAt": "2024-06-18T11:39:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5-rZDf",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-18T11:49:07Z",
+          "updatedAt": "2024-06-18T11:49:07Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "The SATP protocol must cover the scenarios where the networks are closed/private.  The signed claims is techno-legal mechanism to ensure that the gateways are performing burning/minting, without any way of verifying if that has been done (because the ledgers are closed/private).\r\n\r\nThis is akin to a distributed database, where the main coordinator database deletes a record XYZ and then sends a message (claim) to the other N remote databases to delete (create) a record whose recordID is XYZ.\r\n\r\nThere no way that the coordinator database can see into the other N remote databases (to see if all of them have been honest and have performed the task. Its only later when there is inconsistencies across these databases that the issue will be detected.\r\n",
+              "createdAt": "2024-06-18T11:49:07Z",
+              "updatedAt": "2024-06-18T11:49:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5-rZTV",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-18T11:49:40Z",
+          "updatedAt": "2024-06-18T11:49:40Z",
+          "comments": [
+            {
+              "originalPosition": 29,
+              "body": "Agree with Rafael.",
+              "createdAt": "2024-06-18T11:49:40Z",
+              "updatedAt": "2024-06-18T11:49:40Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5-rZbs",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-18T11:49:56Z",
+          "updatedAt": "2024-06-18T11:49:56Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "Agree with Rafael.",
+              "createdAt": "2024-06-18T11:49:56Z",
+              "updatedAt": "2024-06-18T11:49:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5-raL_",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-18T11:51:32Z",
+          "updatedAt": "2024-06-18T11:51:32Z",
+          "comments": [
+            {
+              "originalPosition": 30,
+              "body": "Agree with Rafael. The point of SATP is is that it is the endpoint that must implement ACID.",
+              "createdAt": "2024-06-18T11:51:32Z",
+              "updatedAt": "2024-06-18T11:51:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5-rdR3",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-18T11:57:51Z",
+          "updatedAt": "2024-06-18T11:57:51Z",
+          "comments": [
+            {
+              "originalPosition": 83,
+              "body": "The notion of \u201csettlement finality indicator\u201d is out of scope for SATP.  I think this is part of the context establishment in Stage 0 between the user applications App1 and App2. The users are assumed to already have a legal agreement to engage with each other and transfer assets.\r\n\r\nSATP is a simple unidirectional transfer protocol that implements 2PC. It is not an entire settlement finality mechanism, which may include other networks that deal with payments (e.g. the Delivery-versus-Payment use cases).\r\n",
+              "createdAt": "2024-06-18T11:57:51Z",
+              "updatedAt": "2024-06-18T11:57:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5-reTc",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-18T11:59:57Z",
+          "updatedAt": "2024-06-18T11:59:58Z",
+          "comments": [
+            {
+              "originalPosition": 171,
+              "body": "@Agree with Rafael.  For the 2PC commitment flows, the gateway is the actor.  The Originator could be viewed as a sending-actor that may utilize other actors (e.g. escrow entities), but that is out of scope for SATP.",
+              "createdAt": "2024-06-18T11:59:58Z",
+              "updatedAt": "2024-06-18T11:59:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5-rgvG",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-18T12:05:01Z",
+          "updatedAt": "2024-06-18T12:05:01Z",
+          "comments": [
+            {
+              "originalPosition": 176,
+              "body": "This is an overkill in wordsmithing.  The term Originator and Beneficiary is already defined in FATF Recommendation No16.  We do not want to invent our own terms.\r\n\r\nUsing 4 words (e.g. Receiving Network Beneficial Owner) just to say \u201cBeneficiary\u201d (who is assumed to be in NW2 ) is much simpler.\r\n",
+              "createdAt": "2024-06-18T12:05:01Z",
+              "updatedAt": "2024-06-18T12:05:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5-sdbI",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-18T13:49:32Z",
+          "updatedAt": "2024-06-18T13:49:32Z",
+          "comments": [
+            {
+              "originalPosition": 60,
+              "body": "This set of task are part of Stage-0, so it is out of scope for Core.",
+              "createdAt": "2024-06-18T13:49:32Z",
+              "updatedAt": "2024-06-18T13:49:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5-seY7",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-18T13:51:01Z",
+          "updatedAt": "2024-06-18T13:51:01Z",
+          "comments": [
+            {
+              "originalPosition": 150,
+              "body": "Identities and identity verification is Stage-0 (i.e. out of scope).",
+              "createdAt": "2024-06-18T13:51:01Z",
+              "updatedAt": "2024-06-18T13:51:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5-shiA",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-18T13:55:37Z",
+          "updatedAt": "2024-06-18T13:55:37Z",
+          "comments": [
+            {
+              "originalPosition": 340,
+              "body": "In draft core-04 the set of items that is assumed to be gained from Stage-0 is listed in Section 7.1 (Transfer Initialization Claims). \r\n\r\nThe Stage-1 Commence message carries a hash of these agreed claims:\r\nhash_transfer_init_claims REQUIRED: Hash of the Transfer Initialization Claims in the Transfer Proposal message.",
+              "createdAt": "2024-06-18T13:55:37Z",
+              "updatedAt": "2024-06-18T13:55:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5--oq_",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-20T12:54:51Z",
+          "updatedAt": "2024-06-20T12:54:51Z",
+          "comments": [
+            {
+              "originalPosition": 209,
+              "body": "Thanks Anthony. Good point - we need a verified ID.",
+              "createdAt": "2024-06-20T12:54:51Z",
+              "updatedAt": "2024-06-20T12:54:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM5--phL",
+          "commit": {
+            "abbreviatedOid": "45a9ab6"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-20T12:56:20Z",
+          "updatedAt": "2024-06-20T12:56:20Z",
+          "comments": [
+            {
+              "originalPosition": 343,
+              "body": "I think the settlement_finality requirement needs to be communicated in Stage-0.  This is because SATP-Core only runs between the endpoints at the gateways.  It cannot \"see\" beyond the 2PC flow.",
+              "createdAt": "2024-06-20T12:56:20Z",
+              "updatedAt": "2024-06-20T12:56:20Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "id": "PR_kwDOKkmiaM51HQ7A",
+      "title": "Update draft-ietf-satp-core.md",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/19",
+      "state": "MERGED",
+      "author": "davrilio",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Update figure in section 4.1. adding a dependency from client to network\r\n\r\nmodified definitions of transfer context ID and Session ID\r\n\r\nmoved sequence number definition from transfer context ID definition to Session ID definition\r\n\r\nmade transferContext a Required field in all messages",
+      "createdAt": "2024-07-11T15:37:58Z",
+      "updatedAt": "2024-07-11T18:55:43Z",
+      "baseRepository": "ietf-satp/draft-ietf-satp-core",
+      "baseRefName": "main",
+      "baseRefOid": "ab7fc735f3b029bc380b96ca566ff8ad91da9ac1",
+      "headRepository": "ietf-satp/draft-ietf-satp-core",
+      "headRefName": "davrilio-patch-1",
+      "headRefOid": "5838d1598b1cf1ccac2d63fa5d85648bc478b54b",
+      "closedAt": "2024-07-11T18:55:37Z",
+      "mergedAt": "2024-07-11T18:55:37Z",
+      "mergedBy": "findthomas",
+      "mergeCommit": {
+        "oid": "331ab22e7e2da0f081a3ac10e54fe8bb8657ec1d"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKkmiaM6Bgc4u",
+          "commit": {
+            "abbreviatedOid": "5838d15"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-11T18:47:49Z",
+          "updatedAt": "2024-07-11T18:47:49Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "id": "PR_kwDOKkmiaM51Ufju",
+      "title": "Update draft-ietf-satp-core.md",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/20",
+      "state": "MERGED",
+      "author": "findthomas",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Corrected flow diagram (to match latest Architecture draft)",
+      "createdAt": "2024-07-14T15:14:22Z",
+      "updatedAt": "2024-07-14T15:18:05Z",
+      "baseRepository": "ietf-satp/draft-ietf-satp-core",
+      "baseRefName": "main",
+      "baseRefOid": "e02233b01b765e987247b4cb4812474aa90a2577",
+      "headRepository": "ietf-satp/draft-ietf-satp-core",
+      "headRefName": "findthomas-patch-11",
+      "headRefOid": "9099c9215e19e38ba844eacefab25e8ebec03bf7",
+      "closedAt": "2024-07-14T15:18:01Z",
+      "mergedAt": "2024-07-14T15:18:01Z",
+      "mergedBy": "findthomas",
+      "mergeCommit": {
+        "oid": "56a365a94709d1d16b77071fce860d11b2ae2c6c"
+      },
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Corrected flow diagram (to match latest Architecture draft)",
+          "createdAt": "2024-07-14T15:14:38Z",
+          "updatedAt": "2024-07-14T15:14:38Z"
+        },
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Corrected flow diagram (to match latest Architecture draft)",
+          "createdAt": "2024-07-14T15:18:04Z",
+          "updatedAt": "2024-07-14T15:18:04Z"
+        }
+      ],
+      "reviews": []
+    }
+  ]
+}

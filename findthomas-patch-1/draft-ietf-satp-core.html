@@ -1,0 +1,3210 @@
+<!DOCTYPE html>
+<html lang="en" class="Internet-Draft">
+<head>
+<meta charset="utf-8">
+<meta content="Common,Latin" name="scripts">
+<meta content="initial-scale=1.0" name="viewport">
+<title>Secure Asset Transfer Protocol (SATP) Core</title>
+<meta content="Martin Hargreaves" name="author">
+<meta content="Thomas Hardjono" name="author">
+<meta content="Rafael Belchior" name="author">
+<meta content="
+       This memo describes the Secure Asset Transfer (SAT) Protocol for digital assets. SAT is a protocol operating between two gateways that conducts the transfer of a digital asset from one gateway to another. The protocol establishes a secure channel between the endpoints and implements a 2-phase commit to ensure the properties of transfer atomicity, consistency, isolation and durability. 
+    " name="description">
+<meta content="xml2rfc 3.20.0" name="generator">
+<meta content="Internet-Draft" name="keyword">
+<meta content="draft-ietf-satp-core-latest" name="ietf.draft">
+<!-- Generator version information:
+  xml2rfc 3.20.0
+    Python 3.11.8
+    ConfigArgParse 1.7
+    google-i18n-address 3.1.0
+    intervaltree 3.1.0
+    Jinja2 3.1.2
+    lxml 4.9.3
+    platformdirs 4.2.0
+    pycountry 22.3.5
+    PyYAML 6.0.1
+    requests 2.31.0
+    setuptools 68.2.2
+    six 1.16.0
+    wcwidth 0.2.13
+-->
+<link href="draft-ietf-satp-core.xml" rel="alternate" type="application/rfc+xml">
+<link href="#copyright" rel="license">
+<style type="text/css">@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-cyrillic.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-cyrillic.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Lora SemiBold'), local('Lora-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-semibold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Cabin Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Cabin Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Cabin Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Oxygen Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Oxygen Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  color-scheme: light dark;
+  --background-color: #fff;
+  --text-color: #222;
+  --title-color: #191919;
+  --link-color: #2a6496;
+  --highlight-color: #f9f9f9;
+  --line-color: #eee;
+  --pilcrow-weak: #ddd;
+  --pilcrow-strong: #bbb;
+  --small-font-size: 14.5px;
+  --font-mono: 'Oxygen Mono', monospace;
+  scrollbar-color: #bbb #eee;
+}
+body {
+  max-width: 600px;
+  margin: 75px auto;
+  padding: 0 5px;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  font: 16px/22px "Lora", serif;
+  scroll-behavior: smooth;
+}
+
+.ears {
+  display: none;
+}
+
+/* headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Cabin Condensed", sans-serif;
+  font-weight: 600;
+  margin: 0.8em 0 0.3em;
+  font-size-adjust: 0.5;
+  color: var(--title-color);
+}
+h1#title {
+  font-size: 32px;
+  line-height: 40px;
+  clear: both;
+}
+h1#title, h1#rfcnum {
+  margin: 1.5em 0 0.2em;
+}
+h1#rfcnum + h1#title {
+  margin: 0.2em 0;
+}
+
+h1, h2, h3 {
+  font-size: 22px;
+  line-height: 27px;
+}
+h4, h5, h6 {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+/* general structure */
+.author {
+  padding-bottom: 0.3em;
+}
+#abstract+p {
+  font-size: 18px;
+  line-height: 24px;
+}
+#abstract+p code, #abstract+p samp, #abstract+p tt {
+  font-size: 16px;
+  line-height: 0;
+}
+
+p {
+  padding: 0;
+  margin: 0.5em 0;
+  text-align: left;
+}
+div {
+  margin: 0;
+}
+.alignRight.art-text {
+  background-color: var(--highlight-color);
+  border: 1px solid var(--line-color);
+  border-radius: 3px;
+  padding: 0.5em 1em 0;
+  margin-bottom: 0.5em;
+}
+.alignRight.art-text pre {
+  padding: 0;
+  width: auto;
+}
+.alignRight {
+  margin: 1em 0;
+}
+.alignRight > *:first-child {
+  border: none;
+  margin: 0;
+  float: right;
+  clear: both;
+}
+.alignRight > *:nth-child(2) {
+  clear: both;
+  display: block;
+  border: none;
+}
+svg {
+  display: block;
+}
+/* font-family isn't space-separated, but =~ will have to do */
+svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
+  font-family: var(--font-mono);
+}
+.alignCenter.art-text {
+  background-color: var(--highlight-color);
+  border: 1px solid var(--line-color);
+  border-radius: 3px;
+  padding: 0.5em 1em 0;
+  margin-bottom: 0.5em;
+}
+.alignCenter.art-text pre {
+  padding: 0;
+  width: auto;
+}
+.alignCenter {
+  margin: 1em 0;
+}
+.alignCenter > *:first-child {
+  border: none;
+  /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
+     support flexbox yet.
+  */
+  display: table;
+  margin: 0 auto;
+}
+
+/* lists */
+ol, ul {
+  padding: 0;
+  margin: 0 0 0.5em 2em;
+}
+:is(ol, ul) :is(ol, ul) {
+  margin-left: 1em;
+}
+li {
+  margin: 0 0 0.25em 0;
+}
+.ulCompact li {
+  margin: 0;
+}
+ul.empty, .ulEmpty {
+  list-style-type: none;
+}
+ul.empty li, .ulEmpty li {
+  margin-top: 0.5em;
+}
+:is(ul, ol).compact, .ulCompact, .olCompact {
+  line-height: 1;
+  margin: 0 0 0 2em;
+}
+
+/* definition lists */
+dl {
+  clear: left;
+  --indent: 3ch;
+  /* --indent: attr(indent ch); not supported in any browser, but we can dream */
+}
+dl.olPercent {
+  --indent: 5ch;
+}
+dl > dt {
+  float: left;
+  margin-right: 2ch;
+  min-width: 8ch;
+}
+dl.dlNewline > dt {
+  float: none;
+}
+dl > dd {
+  margin-bottom: .8em;
+  margin-left: var(--indent) !important; /* stupid element overrides */
+  min-height: 2ex;
+}
+dl.olPercent > dt {
+  min-width: calc(var(--indent) - 2ch);
+}
+:is(dl.compact, .dlCompact) > dd {
+  margin-bottom: 0;
+}
+:is(dl.compact, .dlCompact) > dd > :is(:first-child, .break:first-child + *) {
+  margin-top: 0;
+}
+:is(dl.compact, .dlCompact) > dd > :is(:last-child) {
+  margin-bottom: 0;
+}
+dl > dd > dl {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+}
+:is(dd, span).break {
+  display: none;
+}
+
+/* links */
+a, a[href].selfRef:hover {
+  text-decoration: none;
+}
+a[href] {
+  color: var(--link-color);
+}
+a[href].selfRef, .iref + a[href].internal {
+  color: var(--text-color);
+}
+a[href]:hover {
+  text-decoration: underline;
+}
+a[href].selfRef:hover {
+  background-color: var(--highlight-color);
+}
+a.xref:is(.cite, .auto), :is(#status-of-memo, #copyright) a {
+  white-space: nowrap;
+}
+
+/* Figures */
+tt, code, pre {
+  background-color: var(--highlight-color);
+  font: 14px/22px var(--font-mono);
+}
+tt, code {
+  /* changing the font for inline elements leads to different ascender
+     and descender heights; as we want to retain baseline alignment,
+     remove leading to avoid altering the final height of lines
+     note: this fails if these blocks take an entire line,
+     a different solution would be great */
+  line-height: 0;
+}
+:is(h1, h2, h3, h4, h5, h6) :is(tt, code) {
+  font-size: 84%;
+}
+pre {
+  border: 1px solid var(--line-color);
+  font-size: 13.5px;
+  line-height: 16px;
+  letter-spacing: -0.2px;
+  margin: 5px;
+  padding: 5px;
+}
+img {
+  max-width: 100%;
+}
+figure {
+  margin: 0.5em 0;
+  padding: 0;
+}
+figure blockquote {
+  margin: 0.8em 0.4em 0.4em;
+}
+figcaption, caption {
+  font-style: italic;
+  margin: 0.5em 1.5em;
+  text-align: left;
+}
+@media screen {
+  /* Auto-collapse boilerplate. */
+  :is(#status-of-memo, #copyright) p {
+    margin: -2px 0;
+    max-height: 0;
+    transition: max-height 2s ease, margin 0.5s ease 0.5s;
+    overflow: hidden;
+  }
+  :is(#status-of-memo, #copyright):hover p,
+  :is(#status-of-memo, #copyright) h2:target ~ p {
+    margin: 0.5em 0;
+    max-height: 500px;
+    overflow: auto;
+  }
+  pre, svg {
+    display: inline-block;
+    overflow-x: auto;
+  }
+  pre {
+    max-width: 100%;
+    width: calc(100% - 22px - 1em);
+  }
+  svg {
+    max-width: calc(100% - 22px - 1em);
+  }
+  figure pre {
+    display: block;
+    width: calc(100% - 25px);
+  }
+  :is(pre, svg) + .pilcrow {
+    display: inline-block;
+    vertical-align: text-bottom;
+    padding-bottom: 8px;
+  }
+}
+
+/* aside, blockquote */
+aside, blockquote {
+  margin-left: 0;
+  padding: 0 2em;
+  font-style: italic;
+}
+blockquote {
+  margin: 1em 0;
+}
+cite {
+  display: block;
+  text-align: right;
+  font-style: italic;
+}
+
+/* tables */
+table {
+  max-width: 100%;
+  margin: 0 0 1em;
+  border-collapse: collapse;
+}
+table.right {
+  margin-left: auto;
+}
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+table.left {
+  margin-right: auto;
+}
+thead, tbody {
+  border: 1px solid var(--line-color);
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 5px 10px;
+}
+th {
+  background-color: var(--line-color);
+}
+:is(tr:nth-child(2n), thead+tbody > tr:nth-child(2n+1)) > td {
+  background-color: var(--background-color);
+}
+:is(tr:nth-child(2n+1), thead+tbody > tr:nth-child(2n)) > td {
+  background-color: var(--highlight-color);
+}
+table caption {
+  margin: 0;
+  padding: 3px 0 3px 1em;
+}
+table p {
+  margin: 0;
+}
+
+/* pilcrow */
+a.pilcrow {
+  margin-left: 3px;
+  opacity: 0.2;
+  user-select: none;
+}
+a.pilcrow[href] { color: var(--pilcrow-weak); }
+a.pilcrow[href]:hover { text-decoration: none; }
+@media not print {
+  :hover > a.pilcrow {
+    opacity: 1;
+  }
+  a.pilcrow[href]:hover {
+    color: var(--pilcrow-strong);
+    background-color: transparent;
+  }
+}
+@media print {
+  a.pilcrow {
+    display: none;
+  }
+}
+
+/* misc */
+hr {
+  border: 0;
+  border-top: 1px solid var(--line-color);
+}
+.bcp14 {
+  font-variant: small-caps;
+  font-weight: 600;
+  font-size: var(--small-font-size);
+}
+.role {
+  font-variant: all-small-caps;
+}
+sub, sup {
+  line-height: 1;
+  font-size: 80%;
+}
+
+/* info block */
+#identifiers {
+  margin: 0;
+  font-size: var(--small-font-size);
+  line-height: 18px;
+  --identifier-width: 15ch;
+}
+#identifiers dt {
+  width: var(--identifier-width);
+  min-width: var(--identifier-width);
+  clear: left;
+  float: left;
+  text-align: right;
+  margin-right: 1ch;
+}
+#identifiers dd {
+  margin: 0;
+  margin-left: calc(1em + var(--identifier-width)) !important;
+  min-width: 5em;
+}
+#identifiers .authors .author {
+  display: inline-block;
+  margin-right: 1.5em;
+}
+#identifiers .authors .org {
+  font-style: italic;
+}
+
+/* The prepared/rendered info at the very bottom of the page */
+.docInfo {
+  color: #999;
+  font-size: 0.9em;
+  font-style: italic;
+  margin-top: 2em;
+}
+.docInfo .prepared {
+  float: left;
+}
+.docInfo .prepared {
+  float: right;
+}
+
+/* table of contents */
+#toc {
+  padding: 0.75em 0 2em 0;
+  margin-bottom: 1em;
+}
+#toc nav ul {
+  margin: 0 0.5em 0 0;
+  padding: 0;
+  list-style: none;
+}
+#toc nav li {
+  line-height: 1.3em;
+  margin: 2px 0;
+  padding-left: 1.2em;
+  text-indent: -1.2em;
+}
+#toc a.xref {
+  white-space: normal;
+}
+/* references */
+.references dt {
+  text-align: right;
+  font-weight: bold;
+  min-width: 10ch;
+  margin-right: 1.5ch;
+}
+.references dt:target::before {
+  content: "⇒";
+  width: 15px;
+  margin: 0 10px 0 -25px;
+}
+.references dd {
+  margin-left: 12ch !important;
+  overflow: auto;
+}
+
+.refInstance {
+  margin-bottom: 1.25em;
+}
+
+.references .ascii {
+  margin-bottom: 0.25em;
+}
+
+/* index */
+#rfc\.index\.index + ul {
+  margin-left: 0;
+}
+
+/* authors */
+address.vcard {
+  font-style: normal;
+  margin: 1em 0;
+}
+address.vcard .nameRole {
+  font-weight: 700;
+  margin-left: 0;
+}
+address.vcard .label {
+  margin: 0.5em 0;
+}
+address.vcard .type {
+  display: none;
+}
+.alternative-contact {
+  margin: 1.5em 0 1em;
+}
+hr.addr {
+  border-top: 1px dashed;
+  margin: 0;
+  color: #ddd;
+  max-width: calc(100% - 16px);
+}
+@media (min-width: 500px) {
+  #authors-addresses > section {
+    column-count: 2;
+    column-gap: 20px;
+  }
+  #authors-addresses > section > h2 {
+    column-span: all;
+  }
+  /* hack for break-inside: avoid-column */
+  #authors-addresses address {
+    display: inline-block;
+    break-inside: avoid-column;
+  }
+}
+
+.rfcEditorRemove p:first-of-type {
+  font-style: italic;
+}
+.cref {
+  background-color: rgba(249, 232, 105, 0.3);
+  padding: 2px 4px;
+}
+.crefSource {
+  font-style: italic;
+}
+/* alternative layout for smaller screens */
+@media screen and (max-width: 929px) {
+  #toc {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    padding: 1px 0 0 0;
+    margin: 0;
+    border-bottom: 1px solid #ccc;
+    opacity: 0.6;
+  }
+  #toc.active {
+      opacity: 1;
+  }
+  #toc h2 {
+    margin: 0;
+    padding: 2px 0 2px 6px;
+    padding-right: 1em;
+    font-size: 18px;
+    line-height: 24px;
+    min-width: 190px;
+    text-align: right;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+  }
+  #toc h2::before { /* css hamburger */
+    float: right;
+    position: relative;
+    width: 1em;
+    height: 1px;
+    left: -164px;
+    margin: 8px 0 0 0;
+    background: white none repeat scroll 0 0;
+    box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+    content: "";
+  }
+  #toc nav {
+    display: none;
+    background-color: var(--background-color);
+    padding: 0.5em 1em 1em;
+    overflow: auto;
+    overscroll-behavior: contain;
+    height: calc(100vh - 48px);
+    border-left: 1px solid #ddd;
+  }
+  #toc.active nav {
+    display: block;
+  }
+  /* Make the collapsed ToC header render white on gray also when it's a link */
+  #toc h2 a,
+  #toc h2 a:link,
+  #toc h2 a:focus,
+  #toc h2 a:hover,
+  #toc a.toplink,
+  #toc a.toplink:hover {
+    color: white;
+    background-color: #444;
+    text-decoration: none;
+  }
+  #toc a.toplink {
+    margin-top: 2px;
+  }
+}
+
+/* alternative layout for wide screens */
+@media screen and (min-width: 930px) {
+  body {
+    padding-right: 360px;
+    padding-right: calc(min(180px + 20%, 500px));
+  }
+  #toc {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    right: calc(50vw - 480px);
+    width: 312px;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+  }
+  #toc h2 {
+    margin: 0;
+    padding: 0.25em 1em 1em 0;
+  }
+  #toc nav {
+    display: block;
+    height: calc(90vh - 84px);
+    bottom: 0;
+    padding: 0.5em 0 2em;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+  #toc nav > ul  {
+    margin-bottom: 2em;
+  }
+  #toc ul {
+    margin: 0 0 0 4px;
+    font-size: var(--small-font-size);
+  }
+  #toc ul :is(p, li) {
+    margin: 2px 0;
+    line-height: 22px;
+  }
+  img { /* future proofing */
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* pagination */
+@media print {
+  body {
+    width: 100%;
+  }
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+  #n-copyright-notice {
+    border-bottom: none;
+  }
+  #toc, #n-introduction {
+    page-break-before: always;
+  }
+  #toc {
+    border-top: none;
+    padding-top: 0;
+  }
+  figure, pre, .vcard {
+    page-break-inside: avoid;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  :is(h2, h3, h4, h5, h6)+*, dd {
+    page-break-before: avoid;
+  }
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 10pt;
+  }
+  table {
+    border: 1px solid #ddd;
+  }
+  td {
+    border-top: 1px solid #ddd;
+  }
+  .toplink {
+    display: none;
+  }
+}
+
+@page :first {
+  padding-top: 0;
+  @top-left {
+    content: normal;
+    border: none;
+  }
+  @top-center {
+    content: normal;
+    border: none;
+  }
+  @top-right {
+    content: normal;
+    border: none;
+  }
+}
+
+@page {
+  size: A4;
+  margin-bottom: 45mm;
+  padding-top: 20px;
+}
+
+/* Changes introduced to fix issues found during implementation */
+
+/* Separate body from document info even without intervening H1 */
+section {
+  clear: both;
+}
+
+/* Top align author divs, to avoid names without organization dropping level with org names */
+.author {
+  vertical-align: top;
+}
+
+/* Style section numbers with more space between number and title */
+.section-number {
+  padding-right: 0.5em;
+}
+
+/* Add styling for a link in the ToC that points to the top of the document */
+a.toplink {
+  float: right;
+  margin: 8px 0.5em 0;
+}
+
+/* Provide styling for table cell text alignment */
+table .text-left {
+  text-align: left;
+}
+table .text-center {
+  text-align: center;
+}
+table .text-right {
+  text-align: right;
+}
+
+/* Make the alternative author contact information look less like just another
+   author, and group it closer with the primary author contact information */
+.alternative-contact {
+  margin: 0.5em 0 0.25em 0;
+}
+address .non-ascii {
+  margin: 0 0 0 2em;
+}
+
+/* With it being possible to set tables with alignment
+  left, center, and right, { width: 100%; } does not make sense */
+table {
+  width: auto;
+}
+
+/* Avoid reference text that sits in a block with very wide left margin,
+   because of a long floating dt label.*/
+.references dd {
+  overflow: visible;
+}
+
+/* Control caption placement */
+caption {
+  caption-side: bottom;
+}
+
+/* Limit the width of the author address vcard, so names in right-to-left
+   script don't end up on the other side of the page. */
+
+address.vcard {
+  max-width: 20em;
+  margin-right: auto;
+}
+
+/* For address alignment dependent on LTR or RTL scripts */
+address div.left {
+  text-align: left;
+}
+address div.right {
+  text-align: right;
+}
+
+/* Dark mode. */
+@media (prefers-color-scheme: dark) {
+:root {
+  --background-color: #121212;
+  --text-color: #f0f0f0;
+  --title-color: #fff;
+  --link-color: #4da4f0;
+  --highlight-color: #282828;
+  --line-color: #444;
+  --pilcrow-weak: #444;
+  --pilcrow-strong: #666;
+  scrollbar-color: #777 #333;
+}
+}
+
+/* SVG Trick: a prefix match works because only black and white are allowed */
+svg :is([stroke="black"], [stroke^="#000"]) {
+  stroke: var(--text-color);
+}
+svg :is([stroke="white"], [stroke^="#fff"]) {
+  stroke: var(--background-color);
+}
+svg :is([fill="black"], [fill^="#000"], :not([fill])) {
+  fill: var(--text-color);
+}
+svg :is([fill="white"], [fill^="#fff"]) {
+  fill: var(--background-color);
+}
+</style>
+
+</head>
+<body class="xml2rfc">
+<table class="ears">
+<thead><tr>
+<td class="left">Internet-Draft</td>
+<td class="center">SATP Core</td>
+<td class="right">March 2024</td>
+</tr></thead>
+<tfoot><tr>
+<td class="left">Hargreaves, et al.</td>
+<td class="center">Expires 12 September 2024</td>
+<td class="right">[Page]</td>
+</tr></tfoot>
+</table>
+<div id="external-metadata" class="document-information"></div>
+<div id="internal-metadata" class="document-information">
+<dl id="identifiers">
+<dt class="label-workgroup">Workgroup:</dt>
+<dd class="workgroup">Secure Asset Transfer Protocol</dd>
+<dt class="label-internet-draft">Internet-Draft:</dt>
+<dd class="internet-draft">draft-ietf-satp-core-latest</dd>
+<dt class="label-published">Published:</dt>
+<dd class="published">
+<time datetime="2024-03-11" class="published">11 March 2024</time>
+    </dd>
+<dt class="label-intended-status">Intended Status:</dt>
+<dd class="intended-status">Informational</dd>
+<dt class="label-expires">Expires:</dt>
+<dd class="expires"><time datetime="2024-09-12">12 September 2024</time></dd>
+<dt class="label-authors">Authors:</dt>
+<dd class="authors">
+<div class="author">
+      <div class="author-name">M. Hargreaves</div>
+<div class="org">Quant Network</div>
+</div>
+<div class="author">
+      <div class="author-name">T. Hardjono</div>
+<div class="org">MIT</div>
+</div>
+<div class="author">
+      <div class="author-name">R. Belchior</div>
+<div class="org">INESC-ID, Técnico Lisboa, Blockdaemon</div>
+</div>
+</dd>
+</dl>
+</div>
+<h1 id="title">Secure Asset Transfer Protocol (SATP) Core</h1>
+<section id="section-abstract">
+      <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
+<p id="section-abstract-1">This memo describes the Secure Asset Transfer (SAT) Protocol for digital assets. SAT is a protocol operating between two gateways that conducts the transfer of a digital asset from one gateway to another. The protocol establishes a secure channel between the endpoints and implements a 2-phase commit to ensure the properties of transfer atomicity, consistency, isolation and durability.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+</section>
+<section class="note rfcEditorRemove" id="section-note.1">
+      <h2 id="name-about-this-document">
+<a href="#name-about-this-document" class="section-name selfRef">About This Document</a>
+      </h2>
+<p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
+<p id="section-note.1-2">
+        The latest revision of this draft can be found at <span><a href="https://ietf-satp.github.io/draft-ietf-satp-core/draft-ietf-satp-core.html">https://ietf-satp.github.io/draft-ietf-satp-core/draft-ietf-satp-core.html</a></span>.
+        Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-ietf-satp-core/">https://datatracker.ietf.org/doc/draft-ietf-satp-core/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+<p id="section-note.1-3">
+        Discussion of this document takes place on the
+        Secure Asset Transfer Protocol Working Group mailing list (<span><a href="mailto:sat@ietf.org">mailto:sat@ietf.org</a></span>),
+        which is archived at <span><a href="https://mailarchive.ietf.org/arch/browse/sat/">https://mailarchive.ietf.org/arch/browse/sat/</a></span>.
+        Subscribe at <span><a href="https://www.ietf.org/mailman/listinfo/sat/">https://www.ietf.org/mailman/listinfo/sat/</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+<p id="section-note.1-4">Source for this draft and an issue tracker can be found at
+        <span><a href="https://github.com/ietf-satp/draft-ietf-satp-core">https://github.com/ietf-satp/draft-ietf-satp-core</a></span>.<a href="#section-note.1-4" class="pilcrow">¶</a></p>
+</section>
+<div id="status-of-memo">
+<section id="section-boilerplate.1">
+        <h2 id="name-status-of-this-memo">
+<a href="#name-status-of-this-memo" class="section-name selfRef">Status of This Memo</a>
+        </h2>
+<p id="section-boilerplate.1-1">
+        This Internet-Draft is submitted in full conformance with the
+        provisions of BCP 78 and BCP 79.<a href="#section-boilerplate.1-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-2">
+        Internet-Drafts are working documents of the Internet Engineering Task
+        Force (IETF). Note that other groups may also distribute working
+        documents as Internet-Drafts. The list of current Internet-Drafts is
+        at <span><a href="https://datatracker.ietf.org/drafts/current/">https://datatracker.ietf.org/drafts/current/</a></span>.<a href="#section-boilerplate.1-2" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-3">
+        Internet-Drafts are draft documents valid for a maximum of six months
+        and may be updated, replaced, or obsoleted by other documents at any
+        time. It is inappropriate to use Internet-Drafts as reference
+        material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-4">
+        This Internet-Draft will expire on 12 September 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="copyright">
+<section id="section-boilerplate.2">
+        <h2 id="name-copyright-notice">
+<a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
+        </h2>
+<p id="section-boilerplate.2-1">
+            Copyright (c) 2024 IETF Trust and the persons identified as the
+            document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.2-2">
+            This document is subject to BCP 78 and the IETF Trust's Legal
+            Provisions Relating to IETF Documents
+            (<span><a href="https://trustee.ietf.org/license-info">https://trustee.ietf.org/license-info</a></span>) in effect on the date of
+            publication of this document. Please review these documents
+            carefully, as they describe your rights and restrictions with
+            respect to this document. Code Components extracted from this
+            document must include Revised BSD License text as described in
+            Section 4.e of the Trust Legal Provisions and are provided without
+            warranty as described in the Revised BSD License.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="toc">
+<section id="section-toc.1">
+        <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
+<a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
+        </h2>
+<nav class="toc"><ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
+            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
+            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-conventions-used-in-this-do" class="internal xref">Conventions used in this document</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
+            <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-terminology" class="internal xref">Terminology</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-the-secure-asset-transfer-p" class="internal xref">The Secure Asset Transfer Protocol</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
+                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-overview" class="internal xref">Overview</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
+                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-sat-model" class="internal xref">SAT Model</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
+                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-family-of-apis" class="internal xref">Family of APIs</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.4">
+                <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="auto internal xref">4.4</a>.  <a href="#name-types-of-flows" class="internal xref">Types of Flows</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.5">
+                <p id="section-toc.1-1.4.2.5.1"><a href="#section-4.5" class="auto internal xref">4.5</a>.  <a href="#name-resources-and-identifiers" class="internal xref">Resources and Identifiers</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-satp-message-format-identif" class="internal xref">SATP Message Format, identifiers and Descriptors</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-overview-2" class="internal xref">Overview</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-satp-message-format" class="internal xref">SATP Message Format</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
+                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-digital-asset-resource-desc" class="internal xref">Digital Asset Resource Descriptors</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3.2.1">
+                    <p id="section-toc.1-1.5.2.3.2.1.1"><a href="#section-5.3.1" class="auto internal xref">5.3.1</a>.  <a href="#name-organization-identifier" class="internal xref">Organization Identifier</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3.2.2">
+                    <p id="section-toc.1-1.5.2.3.2.2.1"><a href="#section-5.3.2" class="auto internal xref">5.3.2</a>.  <a href="#name-gateway-endpoint-id" class="internal xref">Gateway / Endpoint ID</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3.2.3">
+                    <p id="section-toc.1-1.5.2.3.2.3.1"><a href="#section-5.3.3" class="auto internal xref">5.3.3</a>.  <a href="#name-network-or-system-identifie" class="internal xref">Network or System Identifier</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3.2.4">
+                    <p id="section-toc.1-1.5.2.3.2.4.1"><a href="#section-5.3.4" class="auto internal xref">5.3.4</a>.  <a href="#name-network-resource" class="internal xref">Network Resource</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3.2.5">
+                    <p id="section-toc.1-1.5.2.3.2.5.1"><a href="#section-5.3.5" class="auto internal xref">5.3.5</a>.  <a href="#name-examples" class="internal xref">Examples</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4">
+                <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-digital-asset-resource-clie" class="internal xref">Digital Asset Resource Client Descriptors</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4.2.1">
+                    <p id="section-toc.1-1.5.2.4.2.1.1"><a href="#section-5.4.1" class="auto internal xref">5.4.1</a>.  <a href="#name-organization-identifier-2" class="internal xref">Organization Identifier</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4.2.2">
+                    <p id="section-toc.1-1.5.2.4.2.2.1"><a href="#section-5.4.2" class="auto internal xref">5.4.2</a>.  <a href="#name-gateway-endpoint-id-2" class="internal xref">Gateway / Endpoint ID</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4.2.3">
+                    <p id="section-toc.1-1.5.2.4.2.3.1"><a href="#section-5.4.3" class="auto internal xref">5.4.3</a>.  <a href="#name-organizational-unit" class="internal xref">Organizational Unit</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4.2.4">
+                    <p id="section-toc.1-1.5.2.4.2.4.1"><a href="#section-5.4.4" class="auto internal xref">5.4.4</a>.  <a href="#name-name" class="internal xref">Name</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4.2.5">
+                    <p id="section-toc.1-1.5.2.4.2.5.1"><a href="#section-5.4.5" class="auto internal xref">5.4.5</a>.  <a href="#name-examples-2" class="internal xref">Examples</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5">
+                <p id="section-toc.1-1.5.2.5.1"><a href="#section-5.5" class="auto internal xref">5.5</a>.  <a href="#name-gateway-level-access-contro" class="internal xref">Gateway Level Access Control</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.6">
+                <p id="section-toc.1-1.5.2.6.1"><a href="#section-5.6" class="auto internal xref">5.6</a>.  <a href="#name-negotiation-of-security-pro" class="internal xref">Negotiation of Security Protocols and Parameters</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.6.2.1">
+                    <p id="section-toc.1-1.5.2.6.2.1.1"><a href="#section-5.6.1" class="auto internal xref">5.6.1</a>.  <a href="#name-tls-established" class="internal xref">TLS Established</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.6.2.2">
+                    <p id="section-toc.1-1.5.2.6.2.2.1"><a href="#section-5.6.2" class="auto internal xref">5.6.2</a>.  <a href="#name-client-offers-supported-cre" class="internal xref">Client offers supported credential schemes</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.6.2.3">
+                    <p id="section-toc.1-1.5.2.6.2.3.1"><a href="#section-5.6.3" class="auto internal xref">5.6.3</a>.  <a href="#name-server-selects-supported-cr" class="internal xref">Server selects supported credential scheme</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.6.2.4">
+                    <p id="section-toc.1-1.5.2.6.2.4.1"><a href="#section-5.6.4" class="auto internal xref">5.6.4</a>.  <a href="#name-client-asserts-or-proves-id" class="internal xref">Client asserts or proves identity</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.6.2.5">
+                    <p id="section-toc.1-1.5.2.6.2.5.1"><a href="#section-5.6.5" class="auto internal xref">5.6.5</a>.  <a href="#name-sequence-numbers-initialize" class="internal xref">Sequence numbers initialized</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.6.2.6">
+                    <p id="section-toc.1-1.5.2.6.2.6.1"><a href="#section-5.6.6" class="auto internal xref">5.6.6</a>.  <a href="#name-messages-can-now-be-exchang" class="internal xref">Messages can now be exchanged</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.7">
+                <p id="section-toc.1-1.5.2.7.1"><a href="#section-5.7" class="auto internal xref">5.7</a>.  <a href="#name-asset-profile-identificatio" class="internal xref">Asset Profile Identification</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.8">
+                <p id="section-toc.1-1.5.2.8.1"><a href="#section-5.8" class="auto internal xref">5.8</a>.  <a href="#name-application-profile-negotia" class="internal xref">Application Profile Negotiation</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.9">
+                <p id="section-toc.1-1.5.2.9.1"><a href="#section-5.9" class="auto internal xref">5.9</a>.  <a href="#name-discovery-of-digital-asset-" class="internal xref">Discovery of Digital Asset Resources</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-identity-and-asset-verifica" class="internal xref">Identity and Asset Verification Flow (Stage 0)</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-transfer-initiation-and-com" class="internal xref">Transfer Initiation and Commencement Flows (Stage 1)</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
+                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-transfer-initialization-cla" class="internal xref">Transfer Initialization Claims</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
+                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-conveyance-of-network-capab" class="internal xref">Conveyance of Network Capabilities and Parameters</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3">
+                <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="auto internal xref">7.3</a>.  <a href="#name-transfer-proposal-message" class="internal xref">Transfer Proposal Message</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.4">
+                <p id="section-toc.1-1.7.2.4.1"><a href="#section-7.4" class="auto internal xref">7.4</a>.  <a href="#name-transfer-proposal-receipt-m" class="internal xref">Transfer Proposal Receipt Message</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.5">
+                <p id="section-toc.1-1.7.2.5.1"><a href="#section-7.5" class="auto internal xref">7.5</a>.  <a href="#name-transfer-proposal-reject-an" class="internal xref">Transfer Proposal Reject and Conditional Reject Message</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.6">
+                <p id="section-toc.1-1.7.2.6.1"><a href="#section-7.6" class="auto internal xref">7.6</a>.  <a href="#name-transfer-commence-message" class="internal xref">Transfer Commence Message</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.7">
+                <p id="section-toc.1-1.7.2.7.1"><a href="#section-7.7" class="auto internal xref">7.7</a>.  <a href="#name-commence-response-message-a" class="internal xref">Commence Response Message (ACK-Commence)</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-lock-assertion-and-receipt-" class="internal xref">Lock Assertion and Receipt (Stage 2)</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
+                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-lock-assertion-message" class="internal xref">Lock Assertion Message</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
+                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-lock-assertion-receipt-mess" class="internal xref">Lock Assertion Receipt Message</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-commitment-preparation-and-" class="internal xref">Commitment Preparation and Finalization (Stage 3)</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
+                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-commit-preparation-message-" class="internal xref">Commit Preparation Message (Commit-Prepare)</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
+                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-commit-ready-message-commit" class="internal xref">Commit Ready Message (Commit-Ready)</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3">
+                <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="auto internal xref">9.3</a>.  <a href="#name-commit-final-assertion-mess" class="internal xref">Commit Final Assertion Message (Commit-Final)</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.4">
+                <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="auto internal xref">9.4</a>.  <a href="#name-commit-final-acknowledgemen" class="internal xref">Commit-Final Acknowledgement Receipt Message (ACK-Final-Receipt)</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.5">
+                <p id="section-toc.1-1.9.2.5.1"><a href="#section-9.5" class="auto internal xref">9.5</a>.  <a href="#name-transfer-complete-message" class="internal xref">Transfer Complete Message</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-satp-session-resumption" class="internal xref">SATP Session Resumption</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
+                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="auto internal xref">10.1</a>.  <a href="#name-primary-backup-session-resu" class="internal xref">Primary-Backup Session Resumption</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2">
+                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="auto internal xref">10.2</a>.  <a href="#name-recovery-messages" class="internal xref">Recovery Messages</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
+            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-error-messages" class="internal xref">Error Messages</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.1">
+                <p id="section-toc.1-1.11.2.1.1"><a href="#section-11.1" class="auto internal xref">11.1</a>.  <a href="#name-closure-alerts" class="internal xref">Closure Alerts</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.2">
+                <p id="section-toc.1-1.11.2.2.1"><a href="#section-11.2" class="auto internal xref">11.2</a>.  <a href="#name-error-alerts" class="internal xref">Error Alerts</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
+            <p id="section-toc.1-1.12.1"><a href="#section-12" class="auto internal xref">12</a>. <a href="#name-security-consideration" class="internal xref">Security Consideration</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
+            <p id="section-toc.1-1.13.1"><a href="#section-13" class="auto internal xref">13</a>. <a href="#name-iana-consideration" class="internal xref">IANA Consideration</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14">
+            <p id="section-toc.1-1.14.1"><a href="#section-14" class="auto internal xref">14</a>. <a href="#name-appendix-a-error-types" class="internal xref">Appendix A: Error Types</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14.2.1">
+                <p id="section-toc.1-1.14.2.1.1"><a href="#section-14.1" class="auto internal xref">14.1</a>.  <a href="#name-transfer-commence-and-respo" class="internal xref">Transfer Commence and Response errors</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14.2.2">
+                <p id="section-toc.1-1.14.2.2.1"><a href="#section-14.2" class="auto internal xref">14.2</a>.  <a href="#name-lock-assertion-errors" class="internal xref">Lock Assertion errors</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14.2.3">
+                <p id="section-toc.1-1.14.2.3.1"><a href="#section-14.3" class="auto internal xref">14.3</a>.  <a href="#name-lock-assertion-receipt-erro" class="internal xref">Lock Assertion Receipt errors</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14.2.4">
+                <p id="section-toc.1-1.14.2.4.1"><a href="#section-14.4" class="auto internal xref">14.4</a>.  <a href="#name-commit-preparation-errors" class="internal xref">Commit Preparation errors</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14.2.5">
+                <p id="section-toc.1-1.14.2.5.1"><a href="#section-14.5" class="auto internal xref">14.5</a>.  <a href="#name-commit-preparation-acknowle" class="internal xref">Commit Preparation Acknowledgement errors</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14.2.6">
+                <p id="section-toc.1-1.14.2.6.1"><a href="#section-14.6" class="auto internal xref">14.6</a>.  <a href="#name-commit-ready-errors" class="internal xref">Commit Ready errors</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14.2.7">
+                <p id="section-toc.1-1.14.2.7.1"><a href="#section-14.7" class="auto internal xref">14.7</a>.  <a href="#name-commit-final-assertion-erro" class="internal xref">Commit Final Assertion errors</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15">
+            <p id="section-toc.1-1.15.1"><a href="#section-15" class="auto internal xref">15</a>. <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.1">
+                <p id="section-toc.1-1.15.2.1.1"><a href="#section-15.1" class="auto internal xref">15.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.2">
+                <p id="section-toc.1-1.15.2.2.1"><a href="#section-15.2" class="auto internal xref">15.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.16">
+            <p id="section-toc.1-1.16.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+</li>
+        </ul>
+</nav>
+</section>
+</div>
+<div id="introduction">
+<section id="section-1">
+      <h2 id="name-introduction">
+<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
+      </h2>
+<p id="section-1-1">This memo proposes a secure asset transfer protocol (SATP) that is intended to be deployed between two gateway endpoints to transfer a digital asset from an origin network to a destination network.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">Both the origin and destination networks are assumed to be opaque
+ in the sense that the interior constructs of a given network
+ is not read/write accessible to unauthorized entities.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">The protocol utilizes the asset burn-and-mint paradigm whereby the asset
+ to be transferred is permanently disabled or destroyed (burned)
+ at the origin network and is re-generated (minted) at the destination network.
+ This is achieved through the coordinated actions of the peer gateways
+ handling the unidirectional transfer at the respective networks.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">A gateway is assumed to be trusted to perform the tasks involved in the asset transfer.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-5">The overall aim of the protocol is to ensure that the state of assets
+ in the origin and destination networks remain consistent,
+ and that asset movements into (out of) networks via gateways can be accounted for.<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-6">There are several desirable technical properties of the protocol.
+ The protocol must ensure that the properties of atomicity, consistency,
+ isolation, and durability (ACID) are satisfied.<a href="#section-1-6" class="pilcrow">¶</a></p>
+<p id="section-1-7">The requirement of consistency implies that the
+ asset transfer protocol always leaves both networks
+ in a consistent state (that the asset is located in
+ one system/network only at any time).<a href="#section-1-7" class="pilcrow">¶</a></p>
+<p id="section-1-8">Atomicity means that the protocol must guarantee
+ that either the transfer commits (completes) or entirely fails,
+ where failure is taken to mean there is no change to the
+ state of the asset in the origin (sender) network.<a href="#section-1-8" class="pilcrow">¶</a></p>
+<p id="section-1-9">The property of isolation means that while a transfer
+ is occurring to a digital asset from an origin network,
+ no other state changes can occur to the asset.<a href="#section-1-9" class="pilcrow">¶</a></p>
+<p id="section-1-10">The property of durability means that once
+ the transfer has been committed by both gateways,
+ that this commitment must hold regardless of subsequent
+ unavailability (e.g. crash) of the gateways implementing the SAT protocol.<a href="#section-1-10" class="pilcrow">¶</a></p>
+<p id="section-1-11">All messages exchanged between gateways are assumed to run over TLS1.2,
+ and the endpoints at the respective gateways are associated with
+ a certificate indicating the legal owner (or operator) of the gateway.<a href="#section-1-11" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="conventions">
+<section id="section-2">
+      <h2 id="name-conventions-used-in-this-do">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-conventions-used-in-this-do" class="section-name selfRef">Conventions used in this document</a>
+      </h2>
+<p id="section-2-1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+"SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL"
+in this document are to be interpreted as described in RFC 2119 <span>[<a href="#REQ-LEVEL" class="cite xref">REQ-LEVEL</a>]</span>.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-2">In this document, these words will appear with that interpretation
+only when in ALL CAPS. Lower case uses of these words are not to be
+interpreted as carrying significance described in RFC 2119.<a href="#section-2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="terminology">
+<section id="section-3">
+      <h2 id="name-terminology">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-terminology" class="section-name selfRef">Terminology</a>
+      </h2>
+<p id="section-3-1">The following are some terminology used in the current document:<a href="#section-3-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3-2.1">
+          <p id="section-3-2.1.1">Client application: This is the application employed by a user
+ to interact with a gateway.<a href="#section-3-2.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-3-2.2">
+          <p id="section-3-2.2.1">Gateway: The computer system functionally capable of acting
+ as a gateway in an asset transfer.<a href="#section-3-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-3-2.3">
+          <p id="section-3-2.3.1">Sender gateway: The gateway that initiates a unidirectional asset transfer.<a href="#section-3-2.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-3-2.4">
+          <p id="section-3-2.4.1">Recipient gateway: The gateway that is the recipient side of
+ a unidirectional asset transfer.<a href="#section-3-2.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-3-2.5">
+          <p id="section-3-2.5.1">Claim: An assertion made by an Entity <span>[<a href="#JWT" class="cite xref">JWT</a>]</span>.<a href="#section-3-2.5.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-3-2.6">
+          <p id="section-3-2.6.1">Claim Type: Syntax used for representing a Claim Value <span>[<a href="#JWT" class="cite xref">JWT</a>]</span>.<a href="#section-3-2.6.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-3-2.7">
+          <p id="section-3-2.7.1">Gateway Claim: An assertion made by a Gateway regarding the status or
+ condition of resources (e.g. assets, public keys, etc.)
+ accessible to that gateway (e.g. within its network or system).<a href="#section-3-2.7.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+</section>
+</div>
+<div id="satp-protocol">
+<section id="section-4">
+      <h2 id="name-the-secure-asset-transfer-p">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-the-secure-asset-transfer-p" class="section-name selfRef">The Secure Asset Transfer Protocol</a>
+      </h2>
+<div id="satp-overview">
+<section id="section-4.1">
+        <h3 id="name-overview">
+<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-overview" class="section-name selfRef">Overview</a>
+        </h3>
+<p id="section-4.1-1">The Secure Asset Transfer Protocol (SATP) is a gateway-to-gateway protocol used by a sender gateway with a recipient gateway to perform a unidirectional transfer of a digital asset.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1-2">The protocol defines a number of API endpoints,resources and identifier definitions, and message flows corresponding to the asset transfer between the two gateways.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
+<div id="satp-fig-overview">
+<figure id="figure-1">
+          <div class="alignLeft art-text artwork" id="section-4.1-3.1">
+<pre>
+             +----------+                +----------+
+             |  Client  |                | Off-net  |
+             |   (App)  |                | Resource |
+             +----------+                +----------+
+                  |                      |   API3   |
+                  |                      +----------+
+                  |                           ^
+                  V                           |
+             +----------+                     |
+             |   API1   |                     |
+  +------+   +----------+----+        +----+----------+   +------+
+  |      |   |          |    |        |    |          |   |      |
+  | Net. |   | Gateway  |API2|        |API2| Gateway  |   | Net. |
+  | NW1  |---|    G1    |    |&lt;------&gt;|    |    G2    |---| NW2  |
+  |      |   |          |    |        |    |          |   |      |
+  +------+   +----------+----+        +----+----------+   +------+
+
+</pre>
+</div>
+<figcaption><a href="#figure-1" class="selfRef">Figure 1</a></figcaption></figure>
+</div>
+</section>
+</div>
+<div id="satp-model">
+<section id="section-4.2">
+        <h3 id="name-sat-model">
+<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-sat-model" class="section-name selfRef">SAT Model</a>
+        </h3>
+<p id="section-4.2-1">The model for SATP is shown in Figure 1.
+The model for SATP is shown in Figure 1.
+The Client (application) interacts with its local gateway (G1) over an interface (API1) in order to provide instructions to the gateway with regards to actions to assets and related resources located in the local system or network (NW1).<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.2-2">Gateways interact with each other over a gateway interface (API2). A given gateway may be required to access resources that are not located in network NW1 or network NW2. Access to these types of resources are performed over an off-network interface (API3).<a href="#section-4.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="satp-apitypes">
+<section id="section-4.3">
+        <h3 id="name-family-of-apis">
+<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-family-of-apis" class="section-name selfRef">Family of APIs</a>
+        </h3>
+<p id="section-4.3-1">The following are the types of APIs in SATP:<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.3-2.1">
+            <p id="section-4.3-2.1.1">Gateway APIs for client (API1):
+This is the API that allows a Client (application) to interact with a local gateway and issue instructions for actions pertaining to resources accessible to the gateway.<a href="#section-4.3-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-4.3-2.2">
+            <p id="section-4.3-2.2.1">Gateway APIs for peer gateways (API2):
+These are the APIs employed by two (2) peer gateways for performing unidirectional asset transfers.<a href="#section-4.3-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-4.3-2.3">
+            <p id="section-4.3-2.3.1">APIs for validation of off-network resources (API3):
+These are the APIs made available by a resource server (resource owner) that a gateway can use to access resources.<a href="#section-4.3-2.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-4.3-3">The use of these APIs is dependent on the mode of access and the type of flow in question.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="satp-flowtypes">
+<section id="section-4.4">
+        <h3 id="name-types-of-flows">
+<a href="#section-4.4" class="section-number selfRef">4.4. </a><a href="#name-types-of-flows" class="section-name selfRef">Types of Flows</a>
+        </h3>
+<p id="section-4.4-1">The SAT protocol defines the following three (3) flows:<a href="#section-4.4-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.4-2.1">
+            <p id="section-4.4-2.1.1">Transfer Initiation flow:
+This flow deals with commencing a transfer from one gateway to another. Several tasks are involved, including (but not limited to):
+(i) gateway identification and mutual authentication;
+(ii) exchange of asset type (definition) information;
+(iii) verification of the asset definition, and others.<a href="#section-4.4-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-4.4-2.2">
+            <p id="section-4.4-2.2.1">Lock-Assertion flow:
+This flow deals with the conveyance of signed assertions from the sender gateway to the receiver gateway regarding the locked status of an asset at the origin network.<a href="#section-4.4-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-4.4-2.3">
+            <p id="section-4.4-2.3.1">Commitment Establishment flow:
+This flow deals with the asset transfer and commitment establishment between two gateways.<a href="#section-4.4-2.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-4.4-3">These flows will be discussed below.<a href="#section-4.4-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="satp-resources-ident">
+<section id="section-4.5">
+        <h3 id="name-resources-and-identifiers">
+<a href="#section-4.5" class="section-number selfRef">4.5. </a><a href="#name-resources-and-identifiers" class="section-name selfRef">Resources and Identifiers</a>
+        </h3>
+<p id="section-4.5-1">(a) Resource addressing for systems or networks, using the URL syntax.<a href="#section-4.5-1" class="pilcrow">¶</a></p>
+<p id="section-4.5-2">(b) Client identification based on the URN format. These identify clients (developers and applications) accessing resources, which in some cases require access authorization.<a href="#section-4.5-2" class="pilcrow">¶</a></p>
+<p id="section-4.5-3">(c) Protocol message family for negotiating authentication, authorization, and parameters for confidential channel establishment.<a href="#section-4.5-3" class="pilcrow">¶</a></p>
+<p id="section-4.5-4">(d) Resource discovery mechanism for developers and applications to discover resources hosted at a gateway. The gateway's response depends on the access level granted to the developer or application.<a href="#section-4.5-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="satp-messages-identifiers">
+<section id="section-5">
+      <h2 id="name-satp-message-format-identif">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-satp-message-format-identif" class="section-name selfRef">SATP Message Format, identifiers and Descriptors</a>
+      </h2>
+<div id="satp-message-identifier-overview">
+<section id="section-5.1">
+        <h3 id="name-overview-2">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-overview-2" class="section-name selfRef">Overview</a>
+        </h3>
+<p id="section-5.1-1">This section describes:<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-2">(i) The phases of SATP
+(ii) The format of SATP messages
+(iii) The format for resource descriptors
+(iv) A method for gateways to implement access controls
+(iv) Protocol for negotiating security capabilities
+(v) Discovery and accessing resources and provisions for backward compatibility with existing systems.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="satp-message-format">
+<section id="section-5.2">
+        <h3 id="name-satp-message-format">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-satp-message-format" class="section-name selfRef">SATP Message Format</a>
+        </h3>
+<p id="section-5.2-1">SATP messages are exchanged between applications (clients) and gateways (servers). They include protocol negotiation and functional messages in JSON format with specific mandatory fields, supporting several authentication and authorization schemes, and allowing a free format field for plaintext or encrypted payloads directed at the gateway.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">JSON format message, mandatory fields are:<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2-3.1">
+            <p id="section-5.2-3.1.1">Version: SATP protocol Version (major, minor).<a href="#section-5.2-3.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-3.2">
+            <p id="section-5.2-3.2.1">Message Type: Type of request or response conveyed in this message.<a href="#section-5.2-3.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-3.3">
+            <p id="section-5.2-3.3.1">Session ID: Unique identifier (UUIDv2) for a session between two gateways handling a unidirectional transfer.<a href="#section-5.2-3.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-3.4">
+            <p id="section-5.2-3.4.1">Transfer-Context ID: Unique optional identifier (UUIDv2) representing the application layer context.<a href="#section-5.2-3.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-3.5">
+            <p id="section-5.2-3.5.1">Sequence Number: Increasing counter uniquely representing a message from a session.<a href="#section-5.2-3.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-3.6">
+            <p id="section-5.2-3.6.1">Resource URL: Location of the resource to be accessed.<a href="#section-5.2-3.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-3.7">
+            <p id="section-5.2-3.7.1">Developer URN: Assertion of developer/application identity.<a href="#section-5.2-3.7.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-3.8">
+            <p id="section-5.2-3.8.1">Action/Response: GET/POST and arguments (or Response Code).<a href="#section-5.2-3.8.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-3.9">
+            <p id="section-5.2-3.9.1">Credential Profile: Type of authentication (e.g. SAML, OAuth, X.509).<a href="#section-5.2-3.9.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-3.10">
+            <p id="section-5.2-3.10.1">Credential Block: Credential token, certificate, string.<a href="#section-5.2-3.10.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-3.11">
+            <p id="section-5.2-3.11.1">Payload Profile: Asset profile and capabilities.<a href="#section-5.2-3.11.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-3.12">
+            <p id="section-5.2-3.12.1">Application Profile: Vendor or application-specific profile.<a href="#section-5.2-3.12.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-3.13">
+            <p id="section-5.2-3.13.1">Payload: Payload for POST, responses, and local networks, specific to the current SAT phase.<a href="#section-5.2-3.13.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-3.14">
+            <p id="section-5.2-3.14.1">Payload Hash: Hash of the current message payload.<a href="#section-5.2-3.14.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-3.15">
+            <p id="section-5.2-3.15.1">Message signature: Gateway EDCSA signature over the message.<a href="#section-5.2-3.15.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-5.2-4">Other attributes may exist for logging purposes.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="satp-resource-descriptor-sec">
+<section id="section-5.3">
+        <h3 id="name-digital-asset-resource-desc">
+<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-digital-asset-resource-desc" class="section-name selfRef">Digital Asset Resource Descriptors</a>
+        </h3>
+<p id="section-5.3-1">Resources are identified by URL [RFC1738]:<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.3-2.1">
+            <p id="section-5.3-2.1.1">Type: <code>application/satres</code><a href="#section-5.3-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.3-2.2">
+            <p id="section-5.3-2.2.1">Access Protocol: SATP<a href="#section-5.3-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-5.3-3">Data included in the URL:<a href="#section-5.3-3" class="pilcrow">¶</a></p>
+<div id="satp-org-id-sec">
+<section id="section-5.3.1">
+          <h4 id="name-organization-identifier">
+<a href="#section-5.3.1" class="section-number selfRef">5.3.1. </a><a href="#name-organization-identifier" class="section-name selfRef">Organization Identifier</a>
+          </h4>
+<p id="section-5.3.1-1">This MAY be a Legal Entity Identifier (LEI) or another identifier linking resource ownership to a real-world entity. Any scheme for identifying gateway owners may be implemented (e.g., LEI directory, closed user group membership, SWIFT BIC, etc.).<a href="#section-5.3.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.3.1-2">The developer or application MAY validate the identity with the issuing authority. The identifier is not a trusted identity but MAY be relied upon where trust has been established between the two parties (e.g., in a closed user group).<a href="#section-5.3.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.3.1-3">The mechanisms to determine organization identifiers are out of scope for the current specification.<a href="#section-5.3.1-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="satp-gateway-id-sec">
+<section id="section-5.3.2">
+          <h4 id="name-gateway-endpoint-id">
+<a href="#section-5.3.2" class="section-number selfRef">5.3.2. </a><a href="#name-gateway-endpoint-id" class="section-name selfRef">Gateway / Endpoint ID</a>
+          </h4>
+<p id="section-5.3.2-1">FQDN of the SATP compliant gateway. Required to establish IP connectivity. This MUST resolve to a valid IP address.<a href="#section-5.3.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="satp-dlt-id-sec">
+<section id="section-5.3.3">
+          <h4 id="name-network-or-system-identifie">
+<a href="#section-5.3.3" class="section-number selfRef">5.3.3. </a><a href="#name-network-or-system-identifie" class="section-name selfRef">Network or System Identifier</a>
+          </h4>
+<p id="section-5.3.3-1">Specific to the gateway behind which the target network operates. This field is local to the gateway and is used to direct SATP interactions to the correct underlying network. This value may be alphanumeric or a hexadecimal value.<a href="#section-5.3.3-1" class="pilcrow">¶</a></p>
+<p id="section-5.3.3-2">For example: "tradelens-network", "EU-supply-chain".<a href="#section-5.3.3-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="satp-network-resource-sec">
+<section id="section-5.3.4">
+          <h4 id="name-network-resource">
+<a href="#section-5.3.4" class="section-number selfRef">5.3.4. </a><a href="#name-network-resource" class="section-name selfRef">Network Resource</a>
+          </h4>
+<p id="section-5.3.4-1">Specifies a resource held on the underlying network. This field must be meaningful to the network in question but is otherwise an arbitrary string. The underlying object it points to may be a network address, data block, transaction ID, alias, etc. or a future object type not yet defined.<a href="#section-5.3.4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="satp-resource-example-sec">
+<section id="section-5.3.5">
+          <h4 id="name-examples">
+<a href="#section-5.3.5" class="section-number selfRef">5.3.5. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
+          </h4>
+<p id="section-5.3.5-1">The following illustrates using example.com as the endpoint:<a href="#section-5.3.5-1" class="pilcrow">¶</a></p>
+<p id="section-5.3.5-2">satpres://example/api.gateway1.com/swift<a href="#section-5.3.5-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="satp-clientresource-descriptor-sec">
+<section id="section-5.4">
+        <h3 id="name-digital-asset-resource-clie">
+<a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-digital-asset-resource-clie" class="section-name selfRef">Digital Asset Resource Client Descriptors</a>
+        </h3>
+<p id="section-5.4-1">Resources are identified by URN as described below:
+- The type is new: application/satpclient<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+<p id="section-5.4-2">The URN format does not imply availability of access protocol.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
+<p id="section-5.4-3">Data included in the URN includes the following:<a href="#section-5.4-3" class="pilcrow">¶</a></p>
+<div id="satp-client-org-id-sec">
+<section id="section-5.4.1">
+          <h4 id="name-organization-identifier-2">
+<a href="#section-5.4.1" class="section-number selfRef">5.4.1. </a><a href="#name-organization-identifier-2" class="section-name selfRef">Organization Identifier</a>
+          </h4>
+<p id="section-5.4.1-1">Legal Entity Identifier (LEI) or other identifier linking resource ownership to a real-world entity. Any scheme for identifying Gateway owners may be implemented (e.g. LEI directory, closed user group membership, BIC, etc.).<a href="#section-5.4.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.4.1-2">The Gateway MAY validate the identity with the issuing authority. The identifier is not a trusted identity, but MAY be relied on where trust has been established between the two parties (e.g. in a closed user group).<a href="#section-5.4.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="satp-client-gateway-id-sec">
+<section id="section-5.4.2">
+          <h4 id="name-gateway-endpoint-id-2">
+<a href="#section-5.4.2" class="section-number selfRef">5.4.2. </a><a href="#name-gateway-endpoint-id-2" class="section-name selfRef">Gateway / Endpoint ID</a>
+          </h4>
+<p id="section-5.4.2-1">Applications which interact with multiple networks can operate in a mode whereby the application connects to its local gateway, which then forwards application traffic to local networks and to remote networks via other SATP gateways.<a href="#section-5.4.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.4.2-2">Where this is the case, this field identifies the "home" gateway for this application. This may be required to carry out gateway to gateway handshaking and protocol negotiation, or for the server to look up use case specific data relating to the client.<a href="#section-5.4.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="satp-client-org-unit-sec">
+<section id="section-5.4.3">
+          <h4 id="name-organizational-unit">
+<a href="#section-5.4.3" class="section-number selfRef">5.4.3. </a><a href="#name-organizational-unit" class="section-name selfRef">Organizational Unit</a>
+          </h4>
+<p id="section-5.4.3-1">The organization unit within the organization that the client (application or developer) belongs to. This assertion should be backed up with authentication via the negotiated protocol.<a href="#section-5.4.3-1" class="pilcrow">¶</a></p>
+<p id="section-5.4.3-2">The purpose of this field is to allow gateways to maintain access control mapping between applications and resources that are independent of the authentication and authorization schemes used, supporting future changes and supporting counterparties that operate different schemes.<a href="#section-5.4.3-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="satp-client-dlt-resource-sec">
+<section id="section-5.4.4">
+          <h4 id="name-name">
+<a href="#section-5.4.4" class="section-number selfRef">5.4.4. </a><a href="#name-name" class="section-name selfRef">Name</a>
+          </h4>
+<p id="section-5.4.4-1">A locally unique (within the OU) identifier, which can identify the application, project, or individual developer responsible for this client connection. This is the most granular unit of access control, and gateways should ensure appropriate identifiers are used for the needs of the application or use case.<a href="#section-5.4.4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="satp-client-resource-example-sec">
+<section id="section-5.4.5">
+          <h4 id="name-examples-2">
+<a href="#section-5.4.5" class="section-number selfRef">5.4.5. </a><a href="#name-examples-2" class="section-name selfRef">Examples</a>
+          </h4>
+<p id="section-5.4.5-1">The following illustrates using example.com as the endpoint:<a href="#section-5.4.5-1" class="pilcrow">¶</a></p>
+<p id="section-5.4.5-2">satpclient:example/api.gatewayserver.example.com/research/luke.riley<a href="#section-5.4.5-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="satp-gateway-access-sec">
+<section id="section-5.5">
+        <h3 id="name-gateway-level-access-contro">
+<a href="#section-5.5" class="section-number selfRef">5.5. </a><a href="#name-gateway-level-access-contro" class="section-name selfRef">Gateway Level Access Control</a>
+        </h3>
+<p id="section-5.5-1">Gateways can enforce access rules based on standard naming conventions using novel or existing mechanisms such as AuthZ protocols using the resource identifiers above, for example:<a href="#section-5.5-1" class="pilcrow">¶</a></p>
+<p id="section-5.5-2">satpclient:////mybank/api.gatewayserver.mybank.com/lending/eric.devloper<a href="#section-5.5-2" class="pilcrow">¶</a></p>
+<p id="section-5.5-3">can READ/WRITE<a href="#section-5.5-3" class="pilcrow">¶</a></p>
+<p id="section-5.5-4">satpres://example/api.gateway1.com/tradelens<a href="#section-5.5-4" class="pilcrow">¶</a></p>
+<p id="section-5.5-5">AND<a href="#section-5.5-5" class="pilcrow">¶</a></p>
+<p id="section-5.5-6">satpres://example/api.gateway1.com/ripple<a href="#section-5.5-6" class="pilcrow">¶</a></p>
+<p id="section-5.5-7">These rules would allow a client so identified to access resources directly, for example:<a href="#section-5.5-7" class="pilcrow">¶</a></p>
+<p id="section-5.5-8">satpres://example/api.gateway1.com/tradelens/xxxxxADDRESSxxxxx<a href="#section-5.5-8" class="pilcrow">¶</a></p>
+<p id="section-5.5-9">This method allows resource owners to easily grant access to individuals, groups, and organizations. Individual gateway implementations may implement access controls, including subsetting and supersetting of applications or resources according to their own requirements.<a href="#section-5.5-9" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="negotiation-of-security-protocols-and-parameters">
+<section id="section-5.6">
+        <h3 id="name-negotiation-of-security-pro">
+<a href="#section-5.6" class="section-number selfRef">5.6. </a><a href="#name-negotiation-of-security-pro" class="section-name selfRef">Negotiation of Security Protocols and Parameters</a>
+        </h3>
+<div id="satp-negotiation-params-sec">
+<p id="section-5.6-1">We present the negotiation phase of the protocols and their parameters.<a href="#section-5.6-1" class="pilcrow">¶</a></p>
+</div>
+<div id="satp-tls-Established-sec">
+<section id="section-5.6.1">
+          <h4 id="name-tls-established">
+<a href="#section-5.6.1" class="section-number selfRef">5.6.1. </a><a href="#name-tls-established" class="section-name selfRef">TLS Established</a>
+          </h4>
+<p id="section-5.6.1-1">TLS 1.2 or higher MUST be implemented to protect gateway communications. TLS 1.3 or higher SHOULD be implemented where both gateways support TLS 1.3 or higher.<a href="#section-5.6.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="satp-client-offers-sec">
+<section id="section-5.6.2">
+          <h4 id="name-client-offers-supported-cre">
+<a href="#section-5.6.2" class="section-number selfRef">5.6.2. </a><a href="#name-client-offers-supported-cre" class="section-name selfRef">Client offers supported credential schemes</a>
+          </h4>
+<p id="section-5.6.2-1">Capability negotiation, similar to the Session Description Protocol <span>[<a href="#RFC5939" class="cite xref">RFC5939</a>]</span>, occurs prior to data exchange. Initially, the client (application) sends a JSON block containing acceptable credential schemes, such as OAuth2.0 or SAML, in the "Credential Scheme" field of the SATP message.<a href="#section-5.6.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="satp-server-selects-sec">
+<section id="section-5.6.3">
+          <h4 id="name-server-selects-supported-cr">
+<a href="#section-5.6.3" class="section-number selfRef">5.6.3. </a><a href="#name-server-selects-supported-cr" class="section-name selfRef">Server selects supported credential scheme</a>
+          </h4>
+<p id="section-5.6.3-1">The server (recipient Gateway) selects one acceptable credential scheme from the offered schemes, returning the selection in the "Credential Scheme" field of the SATP message. If no acceptable credential scheme was offered, an HTTP 511 "Network Authentication Required" error is returned in the Action/Response field of the SATP message.<a href="#section-5.6.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="client-procedure-sec">
+<section id="section-5.6.4">
+          <h4 id="name-client-asserts-or-proves-id">
+<a href="#section-5.6.4" class="section-number selfRef">5.6.4. </a><a href="#name-client-asserts-or-proves-id" class="section-name selfRef">Client asserts or proves identity</a>
+          </h4>
+<p id="section-5.6.4-1">The details of the assertion/verification step are specific to the chosen credential scheme and are outside the scope of this document.<a href="#section-5.6.4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sequence-numbers-sec">
+<section id="section-5.6.5">
+          <h4 id="name-sequence-numbers-initialize">
+<a href="#section-5.6.5" class="section-number selfRef">5.6.5. </a><a href="#name-sequence-numbers-initialize" class="section-name selfRef">Sequence numbers initialized</a>
+          </h4>
+<p id="section-5.6.5-1">Sequence numbers are used to allow the server to correctly order operations from the client. Some operations may be asynchronous, synchronous, or idempotent with duplicate requests handled differently according to the use case. The initial sequence number is proposed by the client (sender gateway) after credential verification is finalized. The server (recipient gateway) MUST respond with the same sequence number to indicate acceptance. The client increments the sequence number with each new request. Sequence numbers can be reused for retries in the event of a gateway timeout.<a href="#section-5.6.5-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="satp-msg-exchnge-sec">
+<section id="section-5.6.6">
+          <h4 id="name-messages-can-now-be-exchang">
+<a href="#section-5.6.6" class="section-number selfRef">5.6.6. </a><a href="#name-messages-can-now-be-exchang" class="section-name selfRef">Messages can now be exchanged</a>
+          </h4>
+<p id="section-5.6.6-1">Handshaking is complete at this point, and the client can send SAT messages to perform actions on resources, which MAY reference the SAT Payload field.<a href="#section-5.6.6-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="satp-asset-profile-negotiation">
+<section id="section-5.7">
+        <h3 id="name-asset-profile-identificatio">
+<a href="#section-5.7" class="section-number selfRef">5.7. </a><a href="#name-asset-profile-identificatio" class="section-name selfRef">Asset Profile Identification</a>
+        </h3>
+<p id="section-5.7-1">The client and server must mutually agree on the asset type or profile that is the subject of the current transfer. The client provides the server with the asset identification number, or the server may provide the client with the asset identification numbers for the digital asset it supports. Formal specification of asset identification is outside the scope of this document. Globally numbering digital asset types or profiles is expected to be performed by a legally recognized entity.<a href="#section-5.7-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="satp-application-profile-negotiation">
+<section id="section-5.8">
+        <h3 id="name-application-profile-negotia">
+<a href="#section-5.8" class="section-number selfRef">5.8. </a><a href="#name-application-profile-negotia" class="section-name selfRef">Application Profile Negotiation</a>
+        </h3>
+<p id="section-5.8-1">Where an application relies on specific extensions for operation, these can be represented in an Application Profile. For example, a payments application that tracks payments using a cloud-based API and interacts only with gateways logging messages to that API can establish a resource profile as follows:<a href="#section-5.8-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.8-2">
+<pre>
+Application Name: TRACKER
+X-Tracker_URL: https://api.tracker.com/updates
+X-Tracking-Policy: Always
+</pre><a href="#section-5.8-2" class="pilcrow">¶</a>
+</div>
+<p id="section-5.8-3">As gateways implement this functionality, they support the TRACKER application profile, and the application is able to expand its reach by periodically polling for the availability of the profile.<a href="#section-5.8-3" class="pilcrow">¶</a></p>
+<p id="section-5.8-4">This is an intentionally generalized extension mechanism for application or vendor specific functionality.<a href="#section-5.8-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="satp-resource-discovery-sec">
+<section id="section-5.9">
+        <h3 id="name-discovery-of-digital-asset-">
+<a href="#section-5.9" class="section-number selfRef">5.9. </a><a href="#name-discovery-of-digital-asset-" class="section-name selfRef">Discovery of Digital Asset Resources</a>
+        </h3>
+<p id="section-5.9-1">Applications located outside a network or system SHOULD be able to discover which resources they are authorized to access in a network or system.<a href="#section-5.9-1" class="pilcrow">¶</a></p>
+<p id="section-5.9-2">Resource discovery is handled by the gateway in front of the network. For instance using a GETrequest against the gateway URL with no resource identifier could return a list of URLs available to the requester. This list issubject to the access controls above.<a href="#section-5.9-2" class="pilcrow">¶</a></p>
+<p id="section-5.9-3">Gateways MAY allow applications to discover resources they do not have access to. This should be indicated in the free text field, and gateways SHOULD implement a process for applications to request access.<a href="#section-5.9-3" class="pilcrow">¶</a></p>
+<p id="section-5.9-4">Formal specification of supported resource discovery methods is out of scope of this document.<a href="#section-5.9-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="satp-Stage0-section">
+<section id="section-6">
+      <h2 id="name-identity-and-asset-verifica">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-identity-and-asset-verifica" class="section-name selfRef">Identity and Asset Verification Flow (Stage 0)</a>
+      </h2>
+<p id="section-6-1">Prior to commencing the asset transfer from the sender gateway (client) to the recipient gateway (server), both gateways must perform a number of verifications steps. The types of information required by both the sender and recipient are use-case dependent and asset-type dependent.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-2">The verifications include, but not limited to, the following:<a href="#section-6-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6-3.1">
+          <p id="section-6-3.1.1">Gateway identity mutual verification:
+This is the identity of the gateway at the protocol and network layer.
+This may include validating the X509 certificates of the gateways.<a href="#section-6-3.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-6-3.2">
+          <p id="section-6-3.2.1">Gateway owner verification:
+This is the verification of the identity (e.g. LEI) of the owners of the gateways.<a href="#section-6-3.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-6-3.3">
+          <p id="section-6-3.3.1">Gateway device and state validation:
+This is the device attestation evidence [RATS]
+that a gateway must collect and convey to each other,
+where a verifier is assumed to be available to decode,
+parse and appraise the evidence.<a href="#section-6-3.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-6-3.4">
+          <p id="section-6-3.4.1">Originator and beneficiary identity verification:
+This is the identity and public-key of the entity (originator)
+in the origin network seeking to transfer the asset to
+another entity (beneficiary) in the destination network.<a href="#section-6-3.4.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-6-4">These are considered out of scope in the current specifications,
+ and are assumed to have been successfully completed prior to
+ the commencement of the transfer initiation flow.<a href="#section-6-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="satp-stage1-section">
+<section id="section-7">
+      <h2 id="name-transfer-initiation-and-com">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-transfer-initiation-and-com" class="section-name selfRef">Transfer Initiation and Commencement Flows (Stage 1)</a>
+      </h2>
+<p id="section-7-1">This section describes the SATP Set-up stage,
+where a sender gateway interacts with a recipient gateway, proposing a session.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-2">These artifacts are contained in the Transfer Initiation Claims.<a href="#section-7-2" class="pilcrow">¶</a></p>
+<p id="section-7-3">Gateways MUST support the use of the HTTP GET and POST methods
+defined in RFC 2616 [RFC2616] for the endpoint.<a href="#section-7-3" class="pilcrow">¶</a></p>
+<p id="section-7-4">Clients (sender gateway) MAY use the HTTP GET or POST methods to send messages
+in this phase to the server (recipient gateway).
+If using the HTTP GET method, the request parameters may be
+serialized using URI Query String Serialization.<a href="#section-7-4" class="pilcrow">¶</a></p>
+<p id="section-7-5">The client and server may be required to sign certain messages
+in order to provide standalone proof (for non-repudiation)
+independent of the secure channel between the client and server.
+This proof may be required for audit verifications (e.g. post-event).<a href="#section-7-5" class="pilcrow">¶</a></p>
+<p id="section-7-6">(NOTE: Flows occur over TLS. Nonces are not shown).<a href="#section-7-6" class="pilcrow">¶</a></p>
+<div id="satp-stage1-init-claims">
+<section id="section-7.1">
+        <h3 id="name-transfer-initialization-cla">
+<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-transfer-initialization-cla" class="section-name selfRef">Transfer Initialization Claims</a>
+        </h3>
+<p id="section-7.1-1">This is set of artifacts pertaining to the asset that
+ must be agreed upon between the client (sender
+gateway) and the server (recipient gateway).<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<p id="section-7.1-2">The Transfer Initialization Claims consists of the following:<a href="#section-7.1-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.1-3.1">
+            <p id="section-7.1-3.1.1">digital_asset_id: This is the globally unique identifier for the digital asset
+located in the origin network.<a href="#section-7.1-3.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.1-3.2">
+            <p id="section-7.1-3.2.1">asset_profile_id: This is the globally unique identifier for the asset-profile
+definition (document) on which the digital asset was issued.<a href="#section-7.1-3.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.1-3.3">
+            <p id="section-7.1-3.3.1">verified_originator_entity_id: This is the identity data of the originator entity
+(person or organization) in the origin network.
+This information must be verified by the sender gateway.<a href="#section-7.1-3.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.1-3.4">
+            <p id="section-7.1-3.4.1">verified_beneficiary_entity_id: This is the identity data of the beneficiary entity
+(person or organization) in the destination network.
+This information must be verified by the receiver gateway.<a href="#section-7.1-3.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.1-3.5">
+            <p id="section-7.1-3.5.1">originator_pubkey REQUIRED. This is the public key of the asset owner (originator)
+in the origin network or system.<a href="#section-7.1-3.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.1-3.6">
+            <p id="section-7.1-3.6.1">beneficiary_pubkey REQUIRED. This is the public key of the beneficiary
+in the destination network.<a href="#section-7.1-3.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.1-3.7">
+            <p id="section-7.1-3.7.1">sender_gateway_network_id REQUIRED. This is the identifier of the
+origin network or system behind the client.<a href="#section-7.1-3.7.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.1-3.8">
+            <p id="section-7.1-3.8.1">recipient_gateway_network_id REQUIRED. This is the identifier of the destination
+network or system behind the server.<a href="#section-7.1-3.8.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.1-3.9">
+            <p id="section-7.1-3.9.1">client_identity_pubkey REQUIRED. The public key of client who sent this message.<a href="#section-7.1-3.9.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.1-3.10">
+            <p id="section-7.1-3.10.1">server_identity_pubkey REQUIRED. The public key of server for whom this message is intended.<a href="#section-7.1-3.10.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.1-3.11">
+            <p id="section-7.1-3.11.1">sender_gateway_owner_id: This is the identity information of the owner or operator
+of the sender gateway.<a href="#section-7.1-3.11.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.1-3.12">
+            <p id="section-7.1-3.12.1">receiver_gateway_owner_id: This is the identity information of the owner or operator
+of the recipient gateway.<a href="#section-7.1-3.12.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="satp-stage1-conveyance">
+<section id="section-7.2">
+        <h3 id="name-conveyance-of-network-capab">
+<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-conveyance-of-network-capab" class="section-name selfRef">Conveyance of Network Capabilities and Parameters</a>
+        </h3>
+<p id="section-7.2-1">This is set of artifacts pertaining to the origin network behind
+ the client (sender gateway) that MAY be communicated to the server (recipient gateway).
+ A server may accept the asset-related claims but reject the
+ transfer request based on parameters of the origin network.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+<p id="section-7.2-2">Some of these parameters maybe gateway-specific (e.g. chosen signature algorithm),
+ while others are inherent in the origin network
+ (e.g. lock type; average lock duration time; etc.).<a href="#section-7.2-2" class="pilcrow">¶</a></p>
+<p id="section-7.2-3">The network capabilities list is as follows:
+- sender_gateway_network_id REQUIRED.This is the identifier of the
+origin network or system behind the client.<a href="#section-7.2-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.2-4.1">
+            <p id="section-7.2-4.1.1">signature_algorithm REQUIRED: The digital signature algorithm chosen
+by the client (sender gateway) for signing claims.<a href="#section-7.2-4.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-4.2">
+            <p id="section-7.2-4.2.1">supported_signature_algorithm OPTIONAL: The list of algorithm-id that is
+supported by the client from which the server MAY select.<a href="#section-7.2-4.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-4.3">
+            <p id="section-7.2-4.3.1">Lock_type REQUIRED: faucet, timelock, hashlock, hashtimelock,
+multi-claim PC, destroy/burn (escrowed cross-claim).<a href="#section-7.2-4.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-4.4">
+            <p id="section-7.2-4.4.1">Lock_expiration_time REQUIRED: when will the lock or escrow expire.<a href="#section-7.2-4.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-4.5">
+            <p id="section-7.2-4.5.1">Permissions OPTIONAL: list of identities (public-keys or X.509
+certificates) that can perform operations on the escrow or lock on
+the asset in the origin network.<a href="#section-7.2-4.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-4.6">
+            <p id="section-7.2-4.6.1">developer_URN OPTIONAL: Assertion of developer / application identity.<a href="#section-7.2-4.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-4.7">
+            <p id="section-7.2-4.7.1">credential_profile REQUIRED: Specify type of auth (e.g., SAML, OAuth, X.509).<a href="#section-7.2-4.7.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-4.8">
+            <p id="section-7.2-4.8.1">application_profile OPTIONAL: Vendor or Application specific profile.<a href="#section-7.2-4.8.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-4.9">
+            <p id="section-7.2-4.9.1">logging_profile REQUIRED: contains the profile regarding the logging procedure. Default is local store<a href="#section-7.2-4.9.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-4.10">
+            <p id="section-7.2-4.10.1">Access_control_profile REQUIRED: the profile regarding the
+confidentiality of the log entries being stored. Default is only
+the gateway that created the logs can access them.<a href="#section-7.2-4.10.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-4.11">
+            <p id="section-7.2-4.11.1">Subsequent calls OPTIONAL: details possible escrow actions.<a href="#section-7.2-4.11.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-4.12">
+            <p id="section-7.2-4.12.1">History OPTIONAL: provides an history of the escrow, in case it
+has previously been initialized.<a href="#section-7.2-4.12.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="satp-stage1-init-transfer-proposal">
+<section id="section-7.3">
+        <h3 id="name-transfer-proposal-message">
+<a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-transfer-proposal-message" class="section-name selfRef">Transfer Proposal Message</a>
+        </h3>
+<p id="section-7.3-1">The purpose of this message is for the client to initiate an asset
+Transfer and propose the set of claims related to the asset to be transferred.
+This message must be signed by the client.<a href="#section-7.3-1" class="pilcrow">¶</a></p>
+<p id="section-7.3-2">Depending on the proposal, multiple rounds of
+ communication between the client and the server may occur.<a href="#section-7.3-2" class="pilcrow">¶</a></p>
+<p id="section-7.3-3">This message is sent from the client to the Transfer Initialization Endpoint
+ at the server.<a href="#section-7.3-3" class="pilcrow">¶</a></p>
+<p id="section-7.3-4">The parameters of this message consists of the following:<a href="#section-7.3-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-5.1">
+            <p id="section-7.3-5.1.1">version REQUIRED: SAT protocol Version (major, minor).<a href="#section-7.3-5.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.3-5.2">
+            <p id="section-7.3-5.2.1">message_type REQUIRED: urn:ietf:satp:msgtype:init-proposal-msg.<a href="#section-7.3-5.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.3-5.3">
+            <p id="section-7.3-5.3.1">session_id REQUIRED: A unique identifier (UUIDv2) chosen by the
+client to identify the current session.<a href="#section-7.3-5.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.3-5.4">
+            <p id="section-7.3-5.4.1">transferContext_id OPTIONAL: An optional identifier (UUIDv2) used to identify
+the current transfer session at the application layer.<a href="#section-7.3-5.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.3-5.5">
+            <p id="section-7.3-5.5.1">transfer_init_claims: The set of artifacts and parameters as the basis
+for the current transfer.<a href="#section-7.3-5.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.3-5.6">
+            <p id="section-7.3-5.6.1">transfer_init_claims_format OPTIONAL: The format of the transfer initialization claims.<a href="#section-7.3-5.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.3-5.7">
+            <p id="section-7.3-5.7.1">network_capabilities_list REQUIRED: The set of origin network parameters reported by the client to the server.<a href="#section-7.3-5.7.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.3-5.8">
+            <p id="section-7.3-5.8.1">client_identity_pubkey REQUIRED. The public key of client who sent this message.<a href="#section-7.3-5.8.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.3-5.9">
+            <p id="section-7.3-5.9.1">server_identity_pubkey REQUIRED. The public key of server for whom this message is intended.<a href="#section-7.3-5.9.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.3-5.10">
+            <p id="section-7.3-5.10.1">multiple_claims_allowed OPTIONAL: true/false.<a href="#section-7.3-5.10.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.3-5.11">
+            <p id="section-7.3-5.11.1">multiple_cancels_allowed OPTIONAL: true/false.<a href="#section-7.3-5.11.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.3-5.12">
+            <p id="section-7.3-5.12.1">client signature REQUIRED: The client's signature over the message.<a href="#section-7.3-5.12.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="satp-stage1-init-receipt">
+<section id="section-7.4">
+        <h3 id="name-transfer-proposal-receipt-m">
+<a href="#section-7.4" class="section-number selfRef">7.4. </a><a href="#name-transfer-proposal-receipt-m" class="section-name selfRef">Transfer Proposal Receipt Message</a>
+        </h3>
+<p id="section-7.4-1">The purpose of this message is for the server to indicate explicit
+ acceptance of the Transfer Initialization Claims
+ in the transfer proposal message.<a href="#section-7.4-1" class="pilcrow">¶</a></p>
+<p id="section-7.4-2">The message must be signed by the server.<a href="#section-7.4-2" class="pilcrow">¶</a></p>
+<p id="section-7.4-3">The message is sent from the server to the Transfer Proposal Endpoint at the client.<a href="#section-7.4-3" class="pilcrow">¶</a></p>
+<p id="section-7.4-4">The parameters of this message consists of the following:<a href="#section-7.4-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.4-5.1">
+            <p id="section-7.4-5.1.1">version REQUIRED: SAT protocol Version (major, minor).<a href="#section-7.4-5.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.4-5.2">
+            <p id="section-7.4-5.2.1">message_type REQUIRED: urn:ietf:satp:msgtype:init-receipt-msg<a href="#section-7.4-5.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.4-5.3">
+            <p id="section-7.4-5.3.1">session_id REQUIRED: A unique identifier (UUIDv2) chosen by the
+client to identify the current session.<a href="#section-7.4-5.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.4-5.4">
+            <p id="section-7.4-5.4.1">transferContext_id OPTIONAL: An optional identifier (UUIDv2) used to identify
+the current transfer session at the application layer.<a href="#section-7.4-5.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.4-5.5">
+            <p id="section-7.4-5.5.1">hash_transfer_init_claims REQUIRED: Hash of the Transfer Initialization Claims
+received in the Transfer Proposal Message.<a href="#section-7.4-5.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.4-5.6">
+            <p id="section-7.4-5.6.1">Timestamp REQUIRED: timestamp referring to when
+the Initialization Request Message was received.<a href="#section-7.4-5.6.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-7.4-6">Example: TBD.<a href="#section-7.4-6" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="satp-stage1-init-reject-conditional">
+<section id="section-7.5">
+        <h3 id="name-transfer-proposal-reject-an">
+<a href="#section-7.5" class="section-number selfRef">7.5. </a><a href="#name-transfer-proposal-reject-an" class="section-name selfRef">Transfer Proposal Reject and Conditional Reject Message</a>
+        </h3>
+<p id="section-7.5-1">The purpose of this message is for the server to
+ indicate a rejection or conditional rejection of
+ the Transfer Initialization Claims.
+ In the case of a conditional rejection, the server may propose
+ a different set of claims (counter-proposal claims) to the client.<a href="#section-7.5-1" class="pilcrow">¶</a></p>
+<p id="section-7.5-2">If the server wishes to indicate a conditional rejection,
+ the server MUST include a counter-proposal set of claims.<a href="#section-7.5-2" class="pilcrow">¶</a></p>
+<p id="section-7.5-3">If the server does not wish to proceed, the server MUST include an empty (blank) counter-proposal.<a href="#section-7.5-3" class="pilcrow">¶</a></p>
+<p id="section-7.5-4">Depending on the proposal and counter-proposal,
+ multiple rounds of communication between the client and the server may occur.<a href="#section-7.5-4" class="pilcrow">¶</a></p>
+<p id="section-7.5-5">The message must be signed by the server.<a href="#section-7.5-5" class="pilcrow">¶</a></p>
+<p id="section-7.5-6">The message is sent from the server to the Transfer Proposal Endpoint at the client.<a href="#section-7.5-6" class="pilcrow">¶</a></p>
+<p id="section-7.5-7">The parameters of this message consists of the following:<a href="#section-7.5-7" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.5-8.1">
+            <p id="section-7.5-8.1.1">version REQUIRED: SAT protocol Version (major, minor).<a href="#section-7.5-8.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.5-8.2">
+            <p id="section-7.5-8.2.1">message_type REQUIRED: rn:ietf:satp:msgtype:init-reject-msg<a href="#section-7.5-8.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.5-8.3">
+            <p id="section-7.5-8.3.1">session_id REQUIRED: A unique identifier (UUIDv2) chosen by the
+client to identify the current session.<a href="#section-7.5-8.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.5-8.4">
+            <p id="section-7.5-8.4.1">transferContext_id OPTIONAL: An optional identifier (UUIDv2) used to identify
+the current transfer session at the application layer.<a href="#section-7.5-8.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.5-8.5">
+            <p id="section-7.5-8.5.1">hash_transfer_init_claims REQUIRED: Hash of the Transfer Initialization Claims
+received in the Transfer Proposal Message.<a href="#section-7.5-8.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.5-8.6">
+            <p id="section-7.5-8.6.1">transfer_init_counter_claims: The set of artifacts and parameters as the
+counter-proposal to the client.<a href="#section-7.5-8.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.5-8.7">
+            <p id="section-7.5-8.7.1">Timestamp REQUIRED: timestamp referring to when
+the Initialization Request Message was received.<a href="#section-7.5-8.7.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-7.5-9">Example: TBD.<a href="#section-7.5-9" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="satp-transfer-commence-sec">
+<section id="section-7.6">
+        <h3 id="name-transfer-commence-message">
+<a href="#section-7.6" class="section-number selfRef">7.6. </a><a href="#name-transfer-commence-message" class="section-name selfRef">Transfer Commence Message</a>
+        </h3>
+<p id="section-7.6-1">The purpose of this message is for the client to signal to
+ the server that the client is ready to start the transfer of the
+ digital asset. This message must be signed by the client.<a href="#section-7.6-1" class="pilcrow">¶</a></p>
+<p id="section-7.6-2">This message is sent by the client as a response to the Transfer Proposal Receipt Message previously
+ receuved from the server.<a href="#section-7.6-2" class="pilcrow">¶</a></p>
+<p id="section-7.6-3">This message is sent by the client to the Transfer Commence Endpoint at the server.<a href="#section-7.6-3" class="pilcrow">¶</a></p>
+<p id="section-7.6-4">The parameters of this message consists of the following:<a href="#section-7.6-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.6-5.1">
+            <p id="section-7.6-5.1.1">message_type REQUIRED. MUST be the value urn:ietf:satp:msgtype:transfer-commence-msg.<a href="#section-7.6-5.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.6-5.2">
+            <p id="section-7.6-5.2.1">session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+ by client in the Initialization Request Message.<a href="#section-7.6-5.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.6-5.3">
+            <p id="section-7.6-5.3.1">transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+ used to identify the current transfer session at the application layer.<a href="#section-7.6-5.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.6-5.4">
+            <p id="section-7.6-5.4.1">client_identity_pubkey REQUIRED. The public key of client who sent this message.<a href="#section-7.6-5.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.6-5.5">
+            <p id="section-7.6-5.5.1">server_identity_pubkey REQUIRED. The public key of server for whom this message is intended.<a href="#section-7.6-5.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.6-5.6">
+            <p id="section-7.6-5.6.1">hash_transfer_init_claims REQUIRED: Hash of the Transfer Initialization Claims
+received in the Transfer Proposal Message.<a href="#section-7.6-5.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.6-5.7">
+            <p id="section-7.6-5.7.1">hash_prev_message REQUIRED. The hash  of the last message, in this case the
+Transfer Proposal Receipt message.<a href="#section-7.6-5.7.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.6-5.8">
+            <p id="section-7.6-5.8.1">client_transfer_number OPTIONAL. This is the transfer identification number
+chosen by the client. This number is meaningful only the client.<a href="#section-7.6-5.8.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.6-5.9">
+            <p id="section-7.6-5.9.1">client_signature REQUIRED. The digital signature of the client.<a href="#section-7.6-5.9.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-7.6-6">For example, the client makes the following HTTP request using TLS
+ (with extra line breaks for display purposes only):<a href="#section-7.6-6" class="pilcrow">¶</a></p>
+<div id="transfer-commence-sec-example">
+<figure id="figure-2">
+          <div class="alignLeft art-text artwork" id="section-7.6-7.1">
+<pre>
+ POST /token HTTP/1.1
+ Host: server.example.com
+ Authorization: Basic awHCaGRSa3F0MzpnWDFmQmF0M2ZG
+ Content-Type: application/x-www-form-urlencoded
+
+{
+"message_type": "urn:ietf:satp:msgtype:transfer-commence-msg",
+"session_id":"9097hkstgkjvVbNH",
+"originator_pubkey":"zGy89097hkbfgkjvVbNH",
+"beneficiary_pubkey": "mBGHJjjuijh67yghb",
+"sender_net_system": "originNETsystem",
+"recipient_net_system":"recipientNETsystem",
+"client_identity_pubkey":"fgH654tgeryuryuy",
+"server_identity_pubkey":"dFgdfgdfgt43tetr535teyrfge4t54334",
+"transfer_init_claims":"nbvcwertyhgfdsertyhgf2h3v4bd3v21",
+"hash_prev_message":"DRvfrb654vgreDerverv654nhRbvder4",
+"client_transfer_number":"ji9876543ewdfgh",
+"client_signature":"fdw34567uyhgfer45"
+}
+
+
+</pre>
+</div>
+<figcaption><a href="#figure-2" class="selfRef">Figure 2</a></figcaption></figure>
+</div>
+</section>
+</div>
+<div id="satp-transfer-commence-resp-sec">
+<section id="section-7.7">
+        <h3 id="name-commence-response-message-a">
+<a href="#section-7.7" class="section-number selfRef">7.7. </a><a href="#name-commence-response-message-a" class="section-name selfRef">Commence Response Message (ACK-Commence)</a>
+        </h3>
+<p id="section-7.7-1">The purpose of this message is for the server to indicate agreement
+to proceed with the asset transfer, based on the artifacts
+found in the previous Transfer Proposal Message.<a href="#section-7.7-1" class="pilcrow">¶</a></p>
+<p id="section-7.7-2">This message is sent by the server to the Transfer Commence Endpoint at the client.<a href="#section-7.7-2" class="pilcrow">¶</a></p>
+<p id="section-7.7-3">The message must be signed by the server.<a href="#section-7.7-3" class="pilcrow">¶</a></p>
+<p id="section-7.7-4">The parameters of this message consists of the following:<a href="#section-7.7-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.7-5.1">
+            <p id="section-7.7-5.1.1">message_type REQUIRED urn:ietf:satp:msgtype:ack-commence-msg<a href="#section-7.7-5.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.7-5.2">
+            <p id="section-7.7-5.2.1">session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+ by client in the Initialization Request Message.<a href="#section-7.7-5.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.7-5.3">
+            <p id="section-7.7-5.3.1">transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+ used to identify the current transfer session at the application layer.<a href="#section-7.7-5.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.7-5.4">
+            <p id="section-7.7-5.4.1">client_identity_pubkey REQUIRED. The client for whom this message is intended.<a href="#section-7.7-5.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.7-5.5">
+            <p id="section-7.7-5.5.1">server_identity_pubkey REQUIRED. The server who sent this message.<a href="#section-7.7-5.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.7-5.6">
+            <p id="section-7.7-5.6.1">hash_prev_message REQUIRED.The hash of the last message, in this case the
+the Transfer Commence Message.<a href="#section-7.7-5.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.7-5.7">
+            <p id="section-7.7-5.7.1">server_transfer_number OPTIONAL. This is the transfer identification number
+chosen by the server. This number is meaningful only to the server.<a href="#section-7.7-5.7.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.7-5.8">
+            <p id="section-7.7-5.8.1">server_signature REQUIRED. The digital signature of the server.<a href="#section-7.7-5.8.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-7.7-6">An example of a success response could be as follows: (TBD)<a href="#section-7.7-6" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="satp-stage2-section">
+<section id="section-8">
+      <h2 id="name-lock-assertion-and-receipt-">
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-lock-assertion-and-receipt-" class="section-name selfRef">Lock Assertion and Receipt (Stage 2)</a>
+      </h2>
+<p id="section-8-1">The messages in this stage pertain to the sender gateway providing
+the recipient gateway with a signed assertion that the asset in the origin network
+has been locked or disabled and under the control of the sender gateway.<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-8-2">In the following, the sender gateway takes the role of the client
+while the recipient gateway takes the role of the server.<a href="#section-8-2" class="pilcrow">¶</a></p>
+<p id="section-8-3">The flow follows a request-response model.
+The client makes a request (POST) to the Lock-Assertion Endpoint at the server.<a href="#section-8-3" class="pilcrow">¶</a></p>
+<p id="section-8-4">Gateways MUST support the use of the HTTP GET and POST methods
+defined in RFC 2616 [RFC2616] for the endpoint.<a href="#section-8-4" class="pilcrow">¶</a></p>
+<p id="section-8-5">Clients MAY use the HTTP GET or POST methods to send messages in this phase to the server.
+If using the HTTP GET method, the request parameters may be serialized
+using URI Query String Serialization.<a href="#section-8-5" class="pilcrow">¶</a></p>
+<p id="section-8-6">(NOTE: Flows occur over TLS. Nonces are not shown).<a href="#section-8-6" class="pilcrow">¶</a></p>
+<div id="satp-lock-assertion-message-sec">
+<section id="section-8.1">
+        <h3 id="name-lock-assertion-message">
+<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-lock-assertion-message" class="section-name selfRef">Lock Assertion Message</a>
+        </h3>
+<p id="section-8.1-1">The purpose of this message is for the client (sender gateway) to
+convey a signed claim to the server (receiver gateway) declaring that the asset in
+question has been locked or escrowed by the client in the origin
+network (e.g. to prevent double spending).<a href="#section-8.1-1" class="pilcrow">¶</a></p>
+<p id="section-8.1-2">The format of the claim is dependent on the network or system
+of the client and is outside the scope of this specification.<a href="#section-8.1-2" class="pilcrow">¶</a></p>
+<p id="section-8.1-3">This message is sent from the client to the Lock Assertion Endpoint at the server.<a href="#section-8.1-3" class="pilcrow">¶</a></p>
+<p id="section-8.1-4">The server must validate the claims (payload)
+in this message prior to the next step.<a href="#section-8.1-4" class="pilcrow">¶</a></p>
+<p id="section-8.1-5">The message must be signed by the client.<a href="#section-8.1-5" class="pilcrow">¶</a></p>
+<p id="section-8.1-6">The parameters of this message consists of the following:<a href="#section-8.1-6" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-8.1-7.1">
+            <p id="section-8.1-7.1.1">message_type REQUIRED urn:ietf:satp:msgtype:lock-assert-msg.<a href="#section-8.1-7.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.1-7.2">
+            <p id="section-8.1-7.2.1">session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+ by client in the Initialization Request Message.<a href="#section-8.1-7.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.1-7.3">
+            <p id="section-8.1-7.3.1">transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+ used to identify the current transfer session at the application layer.<a href="#section-8.1-7.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.1-7.4">
+            <p id="section-8.1-7.4.1">client_identity_pubkey REQUIRED. The client who sent this message.<a href="#section-8.1-7.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.1-7.5">
+            <p id="section-8.1-7.5.1">server_identity_pubkey REQUIRED. The server for whom this message is intended.<a href="#section-8.1-7.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.1-7.6">
+            <p id="section-8.1-7.6.1">lock_assertion_claim REQUIRED. The lock assertion claim or statement by the client.<a href="#section-8.1-7.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.1-7.7">
+            <p id="section-8.1-7.7.1">lock_assertion_claim_format REQUIRED. The format of the claim.<a href="#section-8.1-7.7.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.1-7.8">
+            <p id="section-8.1-7.8.1">lock_assertion_expiration REQUIRED. The duration of time of the lock or escrow upon the asset.<a href="#section-8.1-7.8.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.1-7.9">
+            <p id="section-8.1-7.9.1">hash_prev_message REQUIRED. The hash of the previous message.<a href="#section-8.1-7.9.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.1-7.10">
+            <p id="section-8.1-7.10.1">client_transfer_number OPTIONAL. This is the
+transfer identification number chosen by the client.
+This number is meaningful only to the client.<a href="#section-8.1-7.10.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.1-7.11">
+            <p id="section-8.1-7.11.1">client_signature REQUIRED. The digital signature of the client.<a href="#section-8.1-7.11.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="satp-lock-assertion-receipt-section">
+<section id="section-8.2">
+        <h3 id="name-lock-assertion-receipt-mess">
+<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-lock-assertion-receipt-mess" class="section-name selfRef">Lock Assertion Receipt Message</a>
+        </h3>
+<p id="section-8.2-1">The purpose of this message is for the server (receiver gateway)
+ to indicate acceptance of the claim(s) in the lock-assertion message
+ delivered by the client (sender gateway) in the previous message.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
+<p id="section-8.2-2">This message is sent from the server to the Assertion Receipt Endpoint
+ at the client.<a href="#section-8.2-2" class="pilcrow">¶</a></p>
+<p id="section-8.2-3">The message must be signed by the server.<a href="#section-8.2-3" class="pilcrow">¶</a></p>
+<p id="section-8.2-4">The parameters of this message consists of the following:<a href="#section-8.2-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-8.2-5.1">
+            <p id="section-8.2-5.1.1">message_type REQUIRED urn:ietf:satp:msgtype:assertion-receipt-msg.<a href="#section-8.2-5.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.2-5.2">
+            <p id="section-8.2-5.2.1">session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+ by client in the Initialization Request Message.<a href="#section-8.2-5.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.2-5.3">
+            <p id="section-8.2-5.3.1">transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+ used to identify the current transfer session at the application layer.<a href="#section-8.2-5.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.2-5.4">
+            <p id="section-8.2-5.4.1">client_identity_pubkey REQUIRED. The client for whom this message is intended.<a href="#section-8.2-5.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.2-5.5">
+            <p id="section-8.2-5.5.1">server_identity_pubkey REQUIRED. The server who sent this message.<a href="#section-8.2-5.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.2-5.6">
+            <p id="section-8.2-5.6.1">hash_prev_message REQUIRED. The hash of previous message.<a href="#section-8.2-5.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.2-5.7">
+            <p id="section-8.2-5.7.1">server_transfer_number OPTIONAL. This is the transfer identification number chosen by the server.
+ This number is meaningful only to the server.<a href="#section-8.2-5.7.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.2-5.8">
+            <p id="section-8.2-5.8.1">server_signature REQUIRED. The digital signature of the server.<a href="#section-8.2-5.8.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+</section>
+</div>
+<div id="satp-phase3-sec">
+<section id="section-9">
+      <h2 id="name-commitment-preparation-and-">
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-commitment-preparation-and-" class="section-name selfRef">Commitment Preparation and Finalization (Stage 3)</a>
+      </h2>
+<p id="section-9-1">This section describes the transfer commitment agreement between the
+client (sender gateway) and the server (receiver gateway).<a href="#section-9-1" class="pilcrow">¶</a></p>
+<p id="section-9-2">This phase must be completed within the time specified
+in the lock_assertion_expiration value in the lock-assertion message.<a href="#section-9-2" class="pilcrow">¶</a></p>
+<p id="section-9-3">In the following, the sender gateway takes the role of the client
+while the recipient gateway takes the role of the server.<a href="#section-9-3" class="pilcrow">¶</a></p>
+<p id="section-9-4">The flow follows a request-response model.
+The client makes a request (POST) to the Transfer Commitment endpoint at the server.<a href="#section-9-4" class="pilcrow">¶</a></p>
+<p id="section-9-5">Gateways MUST support the use of the HTTP GET and POST methods
+defined in RFC 2616 [RFC2616] for the endpoint.<a href="#section-9-5" class="pilcrow">¶</a></p>
+<p id="section-9-6">Clients MAY use the HTTP GET or POST methods to send messages in this phase to the server.
+If using the HTTP GET method, the request parameters maybe serialized
+using URI Query String Serialization.<a href="#section-9-6" class="pilcrow">¶</a></p>
+<p id="section-9-7">The client and server may be required to sign certain messages
+in order to provide standalone proof (for non-repudiation) independent of the
+secure channel between the client and server.
+This proof maybe required for audit verifications post-event.<a href="#section-9-7" class="pilcrow">¶</a></p>
+<p id="section-9-8">(NOTE: Flows occur over TLS. Nonces are not shown).<a href="#section-9-8" class="pilcrow">¶</a></p>
+<div id="satp-commit-preparation-message-sec">
+<section id="section-9.1">
+        <h3 id="name-commit-preparation-message-">
+<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-commit-preparation-message-" class="section-name selfRef">Commit Preparation Message (Commit-Prepare)</a>
+        </h3>
+<p id="section-9.1-1">The purpose of this message is for the client to indicate
+ its readiness to begin the commitment of the transfer.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
+<p id="section-9.1-2">This message is sent from the client to the Commit Prepare Endpoint at the server.<a href="#section-9.1-2" class="pilcrow">¶</a></p>
+<p id="section-9.1-3">The message must be signed by the client.<a href="#section-9.1-3" class="pilcrow">¶</a></p>
+<p id="section-9.1-4">The parameters of this message consists of the following:<a href="#section-9.1-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-9.1-5.1">
+            <p id="section-9.1-5.1.1">message_type REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-prepare-msg<a href="#section-9.1-5.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.1-5.2">
+            <p id="section-9.1-5.2.1">session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+ by client in the Initialization Request Message.<a href="#section-9.1-5.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.1-5.3">
+            <p id="section-9.1-5.3.1">transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+ used to identify the current transfer session at the application layer.<a href="#section-9.1-5.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.1-5.4">
+            <p id="section-9.1-5.4.1">client_identity_pubkey REQUIRED. The client who sent this message.<a href="#section-9.1-5.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.1-5.5">
+            <p id="section-9.1-5.5.1">server_identity_pubkey REQUIRED. The server for whom this message is intended.<a href="#section-9.1-5.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.1-5.6">
+            <p id="section-9.1-5.6.1">hash_prev_message REQUIRED. The hash of previous message.<a href="#section-9.1-5.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.1-5.7">
+            <p id="section-9.1-5.7.1">client_transfer_number OPTIONAL.
+ This is the transfer identification number chosen by the client.
+ This number is meaningful only the client.<a href="#section-9.1-5.7.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.1-5.8">
+            <p id="section-9.1-5.8.1">client_signature REQUIRED. The digital signature of the client.<a href="#section-9.1-5.8.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="satp-commit-ready-section">
+<section id="section-9.2">
+        <h3 id="name-commit-ready-message-commit">
+<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-commit-ready-message-commit" class="section-name selfRef">Commit Ready Message (Commit-Ready)</a>
+        </h3>
+<p id="section-9.2-1">The purpose The purpose of this message is for the server to indicate to the client that:
+ (i) the server has created (minted) an equivalent asset in the destination
+ network;
+ (ii) that the newly minted asset has been self-assigned to the server;
+ and (iii) that the server is ready to proceed to the next step.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
+<p id="section-9.2-2">This message is sent from the server to the Commit Ready Endpoint at the client.<a href="#section-9.2-2" class="pilcrow">¶</a></p>
+<p id="section-9.2-3">The message must be signed by the server.<a href="#section-9.2-3" class="pilcrow">¶</a></p>
+<p id="section-9.2-4">The parameters of this message consists of the following:<a href="#section-9.2-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-9.2-5.1">
+            <p id="section-9.2-5.1.1">message_type REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-ready-msg.<a href="#section-9.2-5.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.2-5.2">
+            <p id="section-9.2-5.2.1">session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+ by client in the Initialization Request Message.<a href="#section-9.2-5.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.2-5.3">
+            <p id="section-9.2-5.3.1">transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+ used to identify the current transfer session at the application layer.<a href="#section-9.2-5.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.2-5.4">
+            <p id="section-9.2-5.4.1">client_identity_pubkey REQUIRED. The client for whom this message is intended.<a href="#section-9.2-5.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.2-5.5">
+            <p id="section-9.2-5.5.1">server_identity_pubkey REQUIRED. The server who sent this message.<a href="#section-9.2-5.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.2-5.6">
+            <p id="section-9.2-5.6.1">mint_assertion_claims REQUIRED. The mint assertion claim or statement by the server.<a href="#section-9.2-5.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.2-5.7">
+            <p id="section-9.2-5.7.1">mint_assertion_format OPTIONAL. The format of the assertion payload.<a href="#section-9.2-5.7.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.2-5.8">
+            <p id="section-9.2-5.8.1">hash_prev_message REQUIRED. The hash of previous message.<a href="#section-9.2-5.8.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.2-5.9">
+            <p id="section-9.2-5.9.1">server_transfer_number OPTIONAL.
+ This is the transfer identification number chosen by the server.
+ This number is meaningful only the server.<a href="#section-9.2-5.9.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.2-5.10">
+            <p id="section-9.2-5.10.1">server_signature REQUIRED. The digital signature of the server.<a href="#section-9.2-5.10.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="satp-commit-final-message-section">
+<section id="section-9.3">
+        <h3 id="name-commit-final-assertion-mess">
+<a href="#section-9.3" class="section-number selfRef">9.3. </a><a href="#name-commit-final-assertion-mess" class="section-name selfRef">Commit Final Assertion Message (Commit-Final)</a>
+        </h3>
+<p id="section-9.3-1">The purpose of this message is for the client to indicate to the server
+that the client (sender gateway) has completed the extinguishment (burn)
+of the asset in the origin network.<a href="#section-9.3-1" class="pilcrow">¶</a></p>
+<p id="section-9.3-2">The message must contain standalone claims related
+ to the extinguishment of the asset by the client.
+ The standalone claim must be signed by the client.<a href="#section-9.3-2" class="pilcrow">¶</a></p>
+<p id="section-9.3-3">This message is sent from the client to the Commit Final Assertion Endpoint at the server.<a href="#section-9.3-3" class="pilcrow">¶</a></p>
+<p id="section-9.3-4">The message must be signed by the server.<a href="#section-9.3-4" class="pilcrow">¶</a></p>
+<p id="section-9.3-5">The parameters of this message consists of the following:<a href="#section-9.3-5" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-9.3-6.1">
+            <p id="section-9.3-6.1.1">message_type REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-final-msg.<a href="#section-9.3-6.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.3-6.2">
+            <p id="section-9.3-6.2.1">session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+ by client in the Initialization Request Message.<a href="#section-9.3-6.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.3-6.3">
+            <p id="section-9.3-6.3.1">transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+ used to identify the current transfer session at the application layer.<a href="#section-9.3-6.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.3-6.4">
+            <p id="section-9.3-6.4.1">client_identity_pubkey REQUIRED. The client who sent this message.<a href="#section-9.3-6.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.3-6.5">
+            <p id="section-9.3-6.5.1">server_identity_pubkey REQUIRED. The server for whom this message is intended.<a href="#section-9.3-6.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.3-6.6">
+            <p id="section-9.3-6.6.1">burn_assertion_claim REQUIRED. The burn assertion signed claim or statement by the client.<a href="#section-9.3-6.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.3-6.7">
+            <p id="section-9.3-6.7.1">burn_assertion_claim_format OPTIONAL. The format of the claim.<a href="#section-9.3-6.7.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.3-6.8">
+            <p id="section-9.3-6.8.1">hash_prev_message REQUIRED. The hash of previous message.<a href="#section-9.3-6.8.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.3-6.9">
+            <p id="section-9.3-6.9.1">client_transfer_number OPTIONAL.
+ This is the transfer identification number chosen by the client.
+ This number is meaningful only the client.<a href="#section-9.3-6.9.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.3-6.10">
+            <p id="section-9.3-6.10.1">client_signature REQUIRED. The digital signature of the client.<a href="#section-9.3-6.10.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="satp--final-ack-section">
+<section id="section-9.4">
+        <h3 id="name-commit-final-acknowledgemen">
+<a href="#section-9.4" class="section-number selfRef">9.4. </a><a href="#name-commit-final-acknowledgemen" class="section-name selfRef">Commit-Final Acknowledgement Receipt Message (ACK-Final-Receipt)</a>
+        </h3>
+<p id="section-9.4-1">The purpose of this message is to indicate to the client that the server has
+ completed the assignment of the newly minted asset to
+ the intended beneficiary at the destination network.<a href="#section-9.4-1" class="pilcrow">¶</a></p>
+<p id="section-9.4-2">This message is sent from the server to the Commit Final Receipt Endpoint at the client.<a href="#section-9.4-2" class="pilcrow">¶</a></p>
+<p id="section-9.4-3">The message must be signed by the server.<a href="#section-9.4-3" class="pilcrow">¶</a></p>
+<p id="section-9.4-4">The parameters of this message consists of the following:<a href="#section-9.4-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-9.4-5.1">
+            <p id="section-9.4-5.1.1">message_type REQUIRED. It MUST be the value urn:ietf:satp:msgtype:ack-commit-final-msg.<a href="#section-9.4-5.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.4-5.2">
+            <p id="section-9.4-5.2.1">session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+ by client in the Initialization Request Message.<a href="#section-9.4-5.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.4-5.3">
+            <p id="section-9.4-5.3.1">transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+ used to identify the current transfer session at the application layer.<a href="#section-9.4-5.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.4-5.4">
+            <p id="section-9.4-5.4.1">client_identity_pubkey REQUIRED. The client for whom this message is intended..<a href="#section-9.4-5.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.4-5.5">
+            <p id="section-9.4-5.5.1">server_identity_pubkey REQUIRED. The server who sent this message.<a href="#section-9.4-5.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.4-5.6">
+            <p id="section-9.4-5.6.1">assignment_assertion_claim REQUIRED. The claim or statement by the server
+ that the asset has been assigned by the server to the intended beneficiary.<a href="#section-9.4-5.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.4-5.7">
+            <p id="section-9.4-5.7.1">assignment_assertion_claim_format OPTIONAL. The format of the claim.<a href="#section-9.4-5.7.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.4-5.8">
+            <p id="section-9.4-5.8.1">hash_prev_message REQUIRED. The hash of previous message.<a href="#section-9.4-5.8.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.4-5.9">
+            <p id="section-9.4-5.9.1">server_transfer_number OPTIONAL.
+ This is the transfer identification number chosen by the server.
+ This number is meaningful only the server.<a href="#section-9.4-5.9.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.4-5.10">
+            <p id="section-9.4-5.10.1">server_signature REQUIRED. The digital signature of the server.<a href="#section-9.4-5.10.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="satp-transfer-complete-message-section">
+<section id="section-9.5">
+        <h3 id="name-transfer-complete-message">
+<a href="#section-9.5" class="section-number selfRef">9.5. </a><a href="#name-transfer-complete-message" class="section-name selfRef">Transfer Complete Message</a>
+        </h3>
+<p id="section-9.5-1">The purpose of this message is for the client to indicate to the server that
+ the asset transer session (identified by session_id)
+ has been completed and that no further messages are to be
+ expected from the client in regards to this transfer instance.<a href="#section-9.5-1" class="pilcrow">¶</a></p>
+<p id="section-9.5-2">The message closes the first message of Stage 2 (Transfer Commence Message).<a href="#section-9.5-2" class="pilcrow">¶</a></p>
+<p id="section-9.5-3">This message is sent from the client to the Transfer Complete Endpoint at the server.<a href="#section-9.5-3" class="pilcrow">¶</a></p>
+<p id="section-9.5-4">The message must be signed by the client.<a href="#section-9.5-4" class="pilcrow">¶</a></p>
+<p id="section-9.5-5">The parameters of this message consists of the following:<a href="#section-9.5-5" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-9.5-6.1">
+            <p id="section-9.5-6.1.1">message_type REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-transfer-complete-msg.<a href="#section-9.5-6.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.5-6.2">
+            <p id="section-9.5-6.2.1">session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
+ by client in the Initialization Request Message.<a href="#section-9.5-6.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.5-6.3">
+            <p id="section-9.5-6.3.1">transferContext_id OPTIONAL: An optional identifier (UUIDv2)
+ used to identify the current transfer session at the application layer.<a href="#section-9.5-6.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.5-6.4">
+            <p id="section-9.5-6.4.1">client_identity_pubkey REQUIRED. The client who sent this message.<a href="#section-9.5-6.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.5-6.5">
+            <p id="section-9.5-6.5.1">server_identity_pubkey REQUIRED. The server for whom this message is intended.<a href="#section-9.5-6.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.5-6.6">
+            <p id="section-9.5-6.6.1">hash_prev_message REQUIRED. The hash of previous message.<a href="#section-9.5-6.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.5-6.7">
+            <p id="section-9.5-6.7.1">hash_transfer_commence REQUIRED. The hash of the Transfer Commence message
+ at the start of Stage 2.<a href="#section-9.5-6.7.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.5-6.8">
+            <p id="section-9.5-6.8.1">client_transfer_number OPTIONAL.
+ This is the transfer identification number chosen by the client.
+ This number is meaningful only the client.<a href="#section-9.5-6.8.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-9.5-6.9">
+            <p id="section-9.5-6.9.1">client_signature REQUIRED. The digital signature of the client.<a href="#section-9.5-6.9.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+</section>
+</div>
+<div id="satp-session-resume-section">
+<section id="section-10">
+      <h2 id="name-satp-session-resumption">
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-satp-session-resumption" class="section-name selfRef">SATP Session Resumption</a>
+      </h2>
+<p id="section-10-1">This section answers the question how can a backup gateway build trust
+with the counter party gateway to resume the execution of the protocol,
+in the presence of errors and crashes?<a href="#section-10-1" class="pilcrow">¶</a></p>
+<p id="section-10-2">Gateways may enter faulty state at any time while execution the protocol.
+The faulty state can manifest itself by incorrect behavior,
+leading to gateways emitting alerts and errors.<a href="#section-10-2" class="pilcrow">¶</a></p>
+<p id="section-10-3">In some instances, gateways may crash.
+We employ either the primary-backup or self-healing paradigm,
+meaning that the crashed gateway will eventually be replaced
+by a functioning one, or recover, respectively.<a href="#section-10-3" class="pilcrow">¶</a></p>
+<p id="section-10-4">When a crash occurs, we initiate a recovery procedure by
+the backup gateway or the recovered gateway, as defined in the
+crash recovery draft <span>[<a href="#I-D.draft-belchior-satp-gateway-recovery" class="cite xref">I-D.draft-belchior-satp-gateway-recovery</a>]</span>.
+In either case, if the recovery happenswithin a time period defined as max_timeout (in Stage 2), the recovered gateway triggers a session resumption.
+The schema and order of the recovered messages is specified in the crash recovery draft.<a href="#section-10-4" class="pilcrow">¶</a></p>
+<p id="section-10-5">In the case where there is no answer from the gateway within the specified max_timeout,
+the counter-party gateway rollbacks the process until that stage.
+Upon recovery, the crashed gateway learns that the counterparty gateway
+has initated a rollback, and it proceeds accordingly (by also initating a rollback).
+Note that rollbacks can also happen in case of unresolved errors.<a href="#section-10-5" class="pilcrow">¶</a></p>
+<p id="section-10-6">The non-crashed gateway that conducts the rollback tries to communicate
+with the crashed gateway from time to time (self healing) or to contact
+the backup gateways (primary-backup).
+In any case, and upon the completion of a rollback,
+the non-crashed gateway sends a ROLLBACK message
+to the recovered gateway to notify that a rollback happened.
+The recovered gateway should answer with ROLLBACK-ACK.<a href="#section-10-6" class="pilcrow">¶</a></p>
+<p id="section-10-7">Since the self-healing recovery process does not require
+changes to the protocol (since from the counterparty gateway perspective,
+the sender gateway is just taking longer than normal;
+there are no new actions done or logs recorded),
+we focus on the primary-backup paradigm.<a href="#section-10-7" class="pilcrow">¶</a></p>
+<div id="satp-session-resume-section-pb">
+<section id="section-10.1">
+        <h3 id="name-primary-backup-session-resu">
+<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-primary-backup-session-resu" class="section-name selfRef">Primary-Backup Session Resumption</a>
+        </h3>
+<p id="section-10.1-1">Upon a gateway recovering using primary-backup,
+ a new gateway (recovered gateway) takes over the crashed gateway.
+ The counter-party gateway assures that the recovered gateway
+ is legitimate (according to the crash recovery specification).<a href="#section-10.1-1" class="pilcrow">¶</a></p>
+<p id="section-10.1-2">After the recovery, the gateways exchange information about
+ their current view of the protocol, since the crashed gateway
+ may have been in the middle of executing the protocol when it crashed.<a href="#section-10.1-2" class="pilcrow">¶</a></p>
+<p id="section-10.1-3">After that, the gateways agree on the current state of the protocol.<a href="#section-10.1-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="satp-session-resume-recovery-msg">
+<section id="section-10.2">
+        <h3 id="name-recovery-messages">
+<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-recovery-messages" class="section-name selfRef">Recovery Messages</a>
+        </h3>
+<p id="section-10.2-1">We have omitted the logging procedure (only focusing the different messages).
+ As defined in the crash recovery draft <span>[<a href="#I-D.draft-belchior-satp-gateway-recovery" class="cite xref">I-D.draft-belchior-satp-gateway-recovery</a>]</span>,
+ there are a set of messages that are exchanged between the recovered
+ gateway and counterparty gateway:<a href="#section-10.2-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-10.2-2.1">
+            <p id="section-10.2-2.1.1">RECOVER: when a gateway crashes and recovers,
+ it sends a RECOVER message to the counterparty gateway,
+ informing them of its most recent state.
+ The message contains various parameters such as the session ID,
+ message type, SATP phase, sequence number,
+ a flag indicating if the sender is a backup gateway,
+ the new public key if the sender is a backup,
+ the timestamp of the last known log entry, and the sender's digital signature.<a href="#section-10.2-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-10.2-2.2">
+            <p id="section-10.2-2.2.1">RECOVER-UPDATE: Upon receiving the RECOVER message,
+ the counterparty gateway sends a RECOVER-UPDATE message.
+ This message carries the difference between the log entry
+ corresponding to the received sequence number from the
+ recovered gateway and the latest sequence number
+ (corresponding to the latest log entry).
+ The message includes parameters such as the session ID, message type,
+ the hash of the previous message, the list of log messages that
+ the recovered gateway needs to update, and the sender's digital signature.<a href="#section-10.2-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-10.2-2.3">
+            <p id="section-10.2-2.3.1">RECOVER-SUCCESS: The recovered gateway responds with
+ a RECOVER-SUCCESS message if its logs have been successfully updated.
+ If there are inconsistencies detected,
+ the recovered gateway initiates a dispute with a RECOVER-DISPUTE message.
+ The message parameters include session ID, message type,
+ the hash of the previous message, a boolean indicating success,
+ a list of hashes of log entries that were appended to the
+ recovered gateway log, and the sender's digital signature.<a href="#section-10.2-2.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-10.2-3">In case the recovery procedure has failed and a rollback process
+ is needed, the following messages are used:<a href="#section-10.2-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-10.2-4.1">
+            <p id="section-10.2-4.1.1">ROLLBACK: A gateway that initiates a rollback sends a ROLLBACK message.
+ The message parameters include session ID, message type,
+ a boolean indicating success, a list of actions performed
+ to rollback a state (e.g., UNLOCK, BURN), a list of proofs
+ specific to the DLT [SATP], and the sender's digital signature.<a href="#section-10.2-4.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-10.2-4.2">
+            <p id="section-10.2-4.2.1">ROLLBACK-ACK: Upon successful rollback, the counterparty
+ gateway sends a ROLLBACK-ACK message to the recovered gateway acknowledging
+ that the rollback has been performed successfully.
+ The message parameters are similar to those of the ROLLBACK message.<a href="#section-10.2-4.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+</section>
+</div>
+<div id="satp-alert-error-messages">
+<section id="section-11">
+      <h2 id="name-error-messages">
+<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-error-messages" class="section-name selfRef">Error Messages</a>
+      </h2>
+<p id="section-11-1">SATP SATP distinguishes between
+application driven closures (terminations) and
+those caused by errors at the SATP protocol level.<a href="#section-11-1" class="pilcrow">¶</a></p>
+<p id="section-11-2">The list of errors and desciption can be found in the Appendix.<a href="#section-11-2" class="pilcrow">¶</a></p>
+<div id="fig-error-format">
+<figure id="figure-3">
+        <div class="alignLeft art-text artwork" id="section-11-3.1">
+<pre>
+enum { session_closure(1), nonfatal_error (2) fatal_error(3), (255) } AlertLevel;
+
+enum {
+ close_notify(0),
+ bad_certificate(42),
+ unsupported_certificate(43),
+ certificate_revoked(44),
+ certificate_expired(45),
+ certificate_unknown(46),
+ illegal_parameter(47),
+ TBD
+ (255)
+} AlertDescription;
+
+struct {
+ AlertLevel level;
+ AlertDescription description;
+} Alert;
+</pre>
+</div>
+<figcaption><a href="#figure-3" class="selfRef">Figure 3</a></figcaption></figure>
+</div>
+<div id="satp-closure-alerts-section">
+<section id="section-11.1">
+        <h3 id="name-closure-alerts">
+<a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-closure-alerts" class="section-name selfRef">Closure Alerts</a>
+        </h3>
+<p id="section-11.1-1">The SATP client and server (gateways) must share knowledge that
+ the transfer connection is ending in order to avoid third party attacks.<a href="#section-11.1-1" class="pilcrow">¶</a></p>
+<p id="section-11.1-2">(a) close_notify: This alert notifies the recipient that the sender gateway
+ will not send any more messages on this transfer connection.
+ Any data received after a closure alert has been received MUST be ignored.<a href="#section-11.1-2" class="pilcrow">¶</a></p>
+<p id="section-11.1-3">(b) user_canceled: This alert notifies the recipient that the sender gateway
+ is canceling the transfer connection for some reason unrelated to a protocol failure.<a href="#section-11.1-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="error-alerts-section">
+<section id="section-11.2">
+        <h3 id="name-error-alerts">
+<a href="#section-11.2" class="section-number selfRef">11.2. </a><a href="#name-error-alerts" class="section-name selfRef">Error Alerts</a>
+        </h3>
+<p id="section-11.2-1">When an error is detected by a SATP gateway, the detecting gateway sends a message to its peer.<a href="#section-11.2-1" class="pilcrow">¶</a></p>
+<p id="section-11.2-2">Upon transmission or receipt of a fatal alert message, both gateways MUST immediately close the connection.
+ Whenever a SATP implementation encounters a fatal error condition,
+ it SHOULD send an appropriate fatal alert and
+ MUST close the connection without sending or receiving any additional data.<a href="#section-11.2-2" class="pilcrow">¶</a></p>
+<p id="section-11.2-3">The following error alerts are defined:<a href="#section-11.2-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-11.2-4.1">
+            <p id="section-11.2-4.1.1">connection_error: There is an error in the TLS session establishment
+ (TLS error codes should be reported-up to gateway level)<a href="#section-11.2-4.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-11.2-4.2">
+            <p id="section-11.2-4.2.1">bad_certificate: The gateway certificate was corrupt, contained signatures,
+ that did not verify correctly, etc.
+ (Some common TLS level errors: unsupported_certificate,
+ certificate_revoked, certificate_expired, certificate_unknown, unknown_ca).<a href="#section-11.2-4.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-11.2-4.3">
+            <p id="section-11.2-4.3.1">protocol_version_error: The SATP protocol version the peer
+ has attempted to negotiate is recognized but not supported.<a href="#section-11.2-4.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-11.2-4.4">
+            <p id="section-11.2-4.4.1">(Others TBD)<a href="#section-11.2-4.4.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+</section>
+</div>
+<div id="satp-Security-Consideration">
+<section id="section-12">
+      <h2 id="name-security-consideration">
+<a href="#section-12" class="section-number selfRef">12. </a><a href="#name-security-consideration" class="section-name selfRef">Security Consideration</a>
+      </h2>
+<p id="section-12-1">Gateways are of particular interest to attackers because
+they are a kind of end-to-end pipeline that enable the transferral of
+digital assets to external networks or systems.
+Thus, attacking a gateway may be attractive to attackers instead of
+the network behind a gateway.<a href="#section-12-1" class="pilcrow">¶</a></p>
+<p id="section-12-2">As such, hardware hardening technologies and
+tamper-resistant crypto-processors (e.g. TPM, Secure Enclaves, SGX)
+should be considered for implementations of gateways.<a href="#section-12-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="satp-iana-Consideration">
+<section id="section-13">
+      <h2 id="name-iana-consideration">
+<a href="#section-13" class="section-number selfRef">13. </a><a href="#name-iana-consideration" class="section-name selfRef">IANA Consideration</a>
+      </h2>
+<p id="section-13-1">(TBD)<a href="#section-13-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="error-types-section">
+<section id="section-14">
+      <h2 id="name-appendix-a-error-types">
+<a href="#section-14" class="section-number selfRef">14. </a><a href="#name-appendix-a-error-types" class="section-name selfRef">Appendix A: Error Types</a>
+      </h2>
+<p id="section-14-1">The following lists the error associated with each message in SATP.<a href="#section-14-1" class="pilcrow">¶</a></p>
+<p id="section-14-2">(Note: these have been laid out for convenience, and may be grouped together more efficiently later).<a href="#section-14-2" class="pilcrow">¶</a></p>
+<div id="errors-transfer-commence">
+<section id="section-14.1">
+        <h3 id="name-transfer-commence-and-respo">
+<a href="#section-14.1" class="section-number selfRef">14.1. </a><a href="#name-transfer-commence-and-respo" class="section-name selfRef">Transfer Commence and Response errors</a>
+        </h3>
+<p id="section-14.1-1">The following are the list of errors related to Transfer Commence and Response:<a href="#section-14.1-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-14.1-2.1">
+            <p id="section-14.1-2.1.1">err_2.1: Badly formed message.<a href="#section-14.1-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.1-2.2">
+            <p id="section-14.1-2.2.1">err_2.2: Incorrect parameter.<a href="#section-14.1-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.1-2.3">
+            <p id="section-14.1-2.3.1">err_2.3: ACK mismatch.<a href="#section-14.1-2.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="errors-lock-assertion">
+<section id="section-14.2">
+        <h3 id="name-lock-assertion-errors">
+<a href="#section-14.2" class="section-number selfRef">14.2. </a><a href="#name-lock-assertion-errors" class="section-name selfRef">Lock Assertion errors</a>
+        </h3>
+<p id="section-14.2-1">The following are the list of errors related to Lock Assertion:<a href="#section-14.2-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-14.2-2.1">
+            <p id="section-14.2-2.1.1">err_2.4.1: Badly formed message: badly formed Claim.<a href="#section-14.2-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.2-2.2">
+            <p id="section-14.2-2.2.1">err_2.4.2: Badly formed message: bad signature.<a href="#section-14.2-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.2-2.3">
+            <p id="section-14.2-2.3.1">err_2.4.3: Badly formed message: wrong transaction ID.<a href="#section-14.2-2.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.2-2.4">
+            <p id="section-14.2-2.4.1">err_2.4.4: Badly formed message: Mismatch hash values.<a href="#section-14.2-2.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.2-2.5">
+            <p id="section-14.2-2.5.1">err_2.4.5: Expired signing-key certificate.<a href="#section-14.2-2.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.2-2.6">
+            <p id="section-14.2-2.6.1">err_2.4.6: Expired Claim.<a href="#section-14.2-2.6.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="errors-lock-assertion-receipt">
+<section id="section-14.3">
+        <h3 id="name-lock-assertion-receipt-erro">
+<a href="#section-14.3" class="section-number selfRef">14.3. </a><a href="#name-lock-assertion-receipt-erro" class="section-name selfRef">Lock Assertion Receipt errors</a>
+        </h3>
+<p id="section-14.3-1">The following are the list of errors related to Lock Assertion Receipt:<a href="#section-14.3-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-14.3-2.1">
+            <p id="section-14.3-2.1.1">err_2.6.1: Badly formed message: badly formed Claim.<a href="#section-14.3-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.3-2.2">
+            <p id="section-14.3-2.2.1">err_2.6.2: Badly formed message: bad signature.<a href="#section-14.3-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.3-2.3">
+            <p id="section-14.3-2.3.1">err_2.6.3: Badly formed message: wrong transaction ID.<a href="#section-14.3-2.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.3-2.4">
+            <p id="section-14.3-2.4.1">err_2.6.4: Badly formed message: Mismatch hash values.<a href="#section-14.3-2.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.3-2.5">
+            <p id="section-14.3-2.5.1">err_2.6.5: Expired signing-key certificate.<a href="#section-14.3-2.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.3-2.6">
+            <p id="section-14.3-2.6.1">err_2.6.6: Expired Claim.<a href="#section-14.3-2.6.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="errors-commit-prepare">
+<section id="section-14.4">
+        <h3 id="name-commit-preparation-errors">
+<a href="#section-14.4" class="section-number selfRef">14.4. </a><a href="#name-commit-preparation-errors" class="section-name selfRef">Commit Preparation errors</a>
+        </h3>
+<p id="section-14.4-1">The following are the list of errors related to Commit Preparation:<a href="#section-14.4-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-14.4-2.1">
+            <p id="section-14.4-2.1.1">err_3.1.1: Badly formed message: wrong transaction ID.<a href="#section-14.4-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.4-2.2">
+            <p id="section-14.4-2.2.1">err_3.1.2: Badly formed message: mismatch hash value (i.e. from msg 2.6).<a href="#section-14.4-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.4-2.3">
+            <p id="section-14.4-2.3.1">err_3.1.3: Incorrect parameter.<a href="#section-14.4-2.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.4-2.4">
+            <p id="section-14.4-2.4.1">err_3.1.4: Message out of sequence.<a href="#section-14.4-2.4.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="errors-commit-prepare-ack">
+<section id="section-14.5">
+        <h3 id="name-commit-preparation-acknowle">
+<a href="#section-14.5" class="section-number selfRef">14.5. </a><a href="#name-commit-preparation-acknowle" class="section-name selfRef">Commit Preparation Acknowledgement errors</a>
+        </h3>
+<p id="section-14.5-1">The following are the list of errors related to Commit Preparation Acknowledgement:<a href="#section-14.5-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-14.5-2.1">
+            <p id="section-14.5-2.1.1">err_3.2.1: Badly formed message: wrong transaction ID.<a href="#section-14.5-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.5-2.2">
+            <p id="section-14.5-2.2.1">err_3.2.2: Badly formed message: mismatch hash value.<a href="#section-14.5-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.5-2.3">
+            <p id="section-14.5-2.3.1">err_3.2.3: Incorrect parameter.<a href="#section-14.5-2.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.5-2.4">
+            <p id="section-14.5-2.4.1">err_3.2.4: Message out of sequence.<a href="#section-14.5-2.4.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="errors-commit-ready">
+<section id="section-14.6">
+        <h3 id="name-commit-ready-errors">
+<a href="#section-14.6" class="section-number selfRef">14.6. </a><a href="#name-commit-ready-errors" class="section-name selfRef">Commit Ready errors</a>
+        </h3>
+<p id="section-14.6-1">The following are the list of errors related to Commit Ready:<a href="#section-14.6-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-14.6-2.1">
+            <p id="section-14.6-2.1.1">err_3.4.1: Badly formed message: wrong transaction ID.<a href="#section-14.6-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.6-2.2">
+            <p id="section-14.6-2.2.1">err_3.4.2: Badly formed message: mismatch hash value.<a href="#section-14.6-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.6-2.3">
+            <p id="section-14.6-2.3.1">err_3.4.3: Incorrect parameter.<a href="#section-14.6-2.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.6-2.4">
+            <p id="section-14.6-2.4.1">err_3.4.4: Message out of sequence (ACK mismatch).<a href="#section-14.6-2.4.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="errors-commit-final-assertion">
+<section id="section-14.7">
+        <h3 id="name-commit-final-assertion-erro">
+<a href="#section-14.7" class="section-number selfRef">14.7. </a><a href="#name-commit-final-assertion-erro" class="section-name selfRef">Commit Final Assertion errors</a>
+        </h3>
+<p id="section-14.7-1">The following are the list of errors related to Commit Final Assertion:<a href="#section-14.7-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-14.7-2.1">
+            <p id="section-14.7-2.1.1">err_3.6.1: Badly formed message: badly formed Claim.<a href="#section-14.7-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.7-2.2">
+            <p id="section-14.7-2.2.1">err_3.6.2: Badly formed message: bad signature.<a href="#section-14.7-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.7-2.3">
+            <p id="section-14.7-2.3.1">err_3.6.3: Badly formed message: wrong transaction ID.<a href="#section-14.7-2.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.7-2.4">
+            <p id="section-14.7-2.4.1">err_3.6.4: Badly formed message: Mismatch hash values.<a href="#section-14.7-2.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.7-2.5">
+            <p id="section-14.7-2.5.1">err_3.6.5: Expired signing-key certificate.<a href="#section-14.7-2.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-14.7-2.6">
+            <p id="section-14.7-2.6.1">err_3.6.6: Expired Claim.<a href="#section-14.7-2.6.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+</section>
+</div>
+<section id="section-15">
+      <h2 id="name-references">
+<a href="#section-15" class="section-number selfRef">15. </a><a href="#name-references" class="section-name selfRef">References</a>
+      </h2>
+<div id="sec-normative-references">
+<section id="section-15.1">
+        <h3 id="name-normative-references">
+<a href="#section-15.1" class="section-number selfRef">15.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+        </h3>
+<dl class="references">
+<dt id="JWT">[JWT]</dt>
+        <dd>
+<span class="refAuthor">Jones, M.</span>, <span class="refAuthor">Bradley, J.</span>, and <span class="refAuthor">N. Sakimura</span>, <span class="refTitle">"JSON Web Token (JWT)"</span>, <span class="seriesInfo">RFC 7519</span>, <span class="seriesInfo">DOI 10.17487/RFC7519</span>, <time datetime="2015-05" class="refDate">May 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7519">https://www.rfc-editor.org/rfc/rfc7519</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="REQ-LEVEL">[REQ-LEVEL]</dt>
+      <dd>
+<span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
+<div id="sec-informative-references">
+<section id="section-15.2">
+        <h3 id="name-informative-references">
+<a href="#section-15.2" class="section-number selfRef">15.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
+<dt id="I-D.draft-belchior-satp-gateway-recovery">[I-D.draft-belchior-satp-gateway-recovery]</dt>
+        <dd>
+<span class="refAuthor">Belchior, R.</span>, <span class="refAuthor">Correia, M.</span>, <span class="refAuthor">Augusto, A.</span>, and <span class="refAuthor">T. Hardjono</span>, <span class="refTitle">"Secure Asset Transfer Protocol (SATP) Gateway Crash Recovery Mechanism"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-belchior-satp-gateway-recovery-01</span>, <time datetime="2024-01-29" class="refDate">29 January 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-belchior-satp-gateway-recovery-01">https://datatracker.ietf.org/doc/html/draft-belchior-satp-gateway-recovery-01</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="NIST">[NIST]</dt>
+        <dd>
+<span class="refAuthor">Yaga, D.</span>, <span class="refAuthor">Mell, P.</span>, <span class="refAuthor">Roby, N.</span>, and <span class="refAuthor">K. Scarfone</span>, <span class="refTitle">"NIST Blockchain Technology Overview (NISTR-8202)"</span>, <time datetime="2018-10" class="refDate">October 2018</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.IR.8202">https://doi.org/10.6028/NIST.IR.8202</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5939">[RFC5939]</dt>
+      <dd>
+<span class="refAuthor">Andreasen, F.</span>, <span class="refTitle">"Session Description Protocol (SDP) Capability Negotiation"</span>, <time datetime="2010-09" class="refDate">September 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5939">https://www.rfc-editor.org/info/rfc5939</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
+</section>
+<div id="authors-addresses">
+<section id="appendix-A">
+      <h2 id="name-authors-addresses">
+<a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
+      </h2>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Martin Hargreaves</span></div>
+<div dir="auto" class="left"><span class="org">Quant Network</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:martin.hargreaves@quant.network" class="email">martin.hargreaves@quant.network</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Thomas Hardjono</span></div>
+<div dir="auto" class="left"><span class="org">MIT</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:hardjono@mit.edu" class="email">hardjono@mit.edu</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Rafael Belchior</span></div>
+<div dir="auto" class="left"><span class="org">INESC-ID, Técnico Lisboa, Blockdaemon</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:rafael.belchior@tecnico.ulisboa.pt" class="email">rafael.belchior@tecnico.ulisboa.pt</a>
+</div>
+</address>
+</section>
+</div>
+<script>const toc = document.getElementById("toc");
+toc.querySelector("h2").addEventListener("click", e => {
+  toc.classList.toggle("active");
+});
+toc.querySelector("nav").addEventListener("click", e => {
+  toc.classList.remove("active");
+});
+</script>
+</body>
+</html>

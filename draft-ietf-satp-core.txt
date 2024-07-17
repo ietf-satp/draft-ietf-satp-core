@@ -5,10 +5,10 @@
 Secure Asset Transfer Protocol                             M. Hargreaves
 Internet-Draft                                             Quant Network
 Intended status: Informational                               T. Hardjono
-Expires: 30 September 2024                                           MIT
-                                                             R. Belchior
-                                   INESC-ID, Técnico Lisboa, Blockdaemon
-                                                           29 March 2024
+Expires: 18 January 2025                                             MIT
+                                                          V. Ramakrishna
+                                                                     IBM
+                                                            17 July 2024
 
 
                Secure Asset Transfer Protocol (SATP) Core
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 September 2024.
+   This Internet-Draft will expire on 18 January 2025.
 
 Copyright Notice
 
@@ -82,14 +82,15 @@ Table of Contents
      4.2.  SAT Model
      4.3.  Family of APIs
      4.4.  Stages of the Protocol
+     4.5.  Gateway Cryptographic Keys
    5.  SATP Message Format, identifiers and Descriptors
      5.1.  Overview
      5.2.  SATP Message Format and Payloads
        5.2.1.  Protocol version
        5.2.2.  Message Type
        5.2.3.  Digital Asset Identifier
-       5.2.4.  Session ID:
-       5.2.5.  Transfer-Context ID
+       5.2.4.  Transfer-Context ID:
+       5.2.5.  Session ID:
        5.2.6.  Gateway Credential Type
        5.2.7.  Gateway Credential
        5.2.8.  Payload Hash
@@ -104,18 +105,18 @@ Table of Contents
        5.3.6.  Messages can now be exchanged
      5.4.  Asset Profile Identification
    6.  Overview of Message Flows
-   7.  Identity and Asset Verification Flow (Stage 0)
+   7.  Identity and Asset Verification Stage (Stage 0)
    8.  Transfer Initiation Stage (Stage 1)
      8.1.  Transfer Initialization Claims
      8.2.  Conveyance of Gateway and Network Capabilities
      8.3.  Transfer Proposal Message
      8.4.  Transfer Proposal Receipt Message
-     8.5.  Transfer Counter Proposal Message
+     8.5.  Transfer Proposal Reject Message
+     8.6.  Transfer Commence Message
+     8.7.  Commence Response Message (ACK-Commence)
    9.  Lock Assertion Stage (Stage 2)
-     9.1.  Transfer Commence Message
-     9.2.  Commence Response Message (ACK-Commence)
-     9.3.  Lock Assertion Message
-     9.4.  Lock Assertion Receipt Message
+     9.1.  Lock Assertion Message
+     9.2.  Lock Assertion Receipt Message
    10. Commitment Preparation and Finalization (Stage 3)
      10.1.  Commit Preparation Message (Commit-Prepare)
      10.2.  Commit Ready Message (Commit-Ready)
@@ -132,21 +133,16 @@ Table of Contents
    13. Security Consideration
    14. IANA Consideration
    15. Appendix A: API1 Considerations
-     15.1.  Digital Asset Resource Descriptors
-       15.1.1.  Organization Identifier
-       15.1.2.  Gateway / Endpoint ID
-       15.1.3.  Network or System Identifier
-       15.1.4.  Network Resource
-       15.1.5.  Examples
-     15.2.  Digital Asset Resource Client Descriptors
-       15.2.1.  Organization Identifier
-       15.2.2.  Gateway / Endpoint ID
-       15.2.3.  Organizational Unit
-       15.2.4.  Name
-       15.2.5.  Examples
-     15.3.  Gateway Level Access Control
-     15.4.  Application Profile Negotiation
-     15.5.  Discovery of Digital Asset Resources
+     15.1.  SATP Gateway API1 Resource Descriptors
+       15.1.1.  Gateway / Endpoint ID
+       15.1.2.  Network or System Identifier
+       15.1.3.  API Network Resource
+       15.1.4.  Examples
+     15.2.  API1 Client Descriptors
+     15.3.  Gateway Level Authentication
+     15.4.  Gateway Level Authorization
+     15.5.  Application Profile Negotiation
+     15.6.  Discovery of Digital Asset Resources
    16. Appendix B: API3 Considerations
    17. Appendix C: Error Types
      17.1.  Transfer Commence and Response errors
@@ -262,13 +258,13 @@ Table of Contents
    The current document pertains to the interaction between gateways
    through API2.
 
-   +----------+ +----------+ | Client | | Off-net | | (App) | |
-   Resource | +----------+ +----------+ | | API3 | | +----------+ | ^
-   V | +---------+ | | API1 | | +-----+ +---------+----+
-   +----+---------+ +-----+ | | | | | | | | | | | Net.| |
-   Gateway |API2| |API2| Gateway | | Net.| | NW1 |---| G1 | |<------>| |
-   G2 |---| NW2 | | | | | | | | | | | +-----+ +---------+----+
-   +----+---------+ +-----+
+   +----------+ +----------+ | Client | | Off-net | ------ | (App) | |
+   Resource | | +----------+ +----------+ | | | API3 | | |
+   +----------+ | | ^ | V | | +---------+ | V | API1 | | +-----+
+   +---------+----+ +----+---------+ +-----+ | | | | | | | | | | |
+   Net.| | Gateway |API2| |API2| Gateway | | Net.| | NW1 |---|
+   G1 | |<------>| | G2 |---| NW2 | | | | | | | | | | | +-----+
+   +---------+----+ +----+---------+ +-----+
 
 4.2.  SAT Model
 
@@ -331,6 +327,25 @@ Table of Contents
 
    These flows will be discussed below.
 
+4.5.  Gateway Cryptographic Keys
+
+   SATP recognizes the following cryptographic keys which are intended
+   for distinct purposes within the different stages of the protocol.
+
+   *  Gateway signature public key-pair: This is the key-pair utilized
+      by a gateway to digitally sign assertions and receipts.
+
+   *  Gateway secure channel establishment public key-pair: This is the
+      key-pair utilized by peer gateways to establish a secure channel
+      (e.g.  TLS) for a transfer session.
+
+   *  Gateway device-identity public key pair: This is the key-pair that
+      identifies the unique hardware device underlying a gateway.
+
+   *  Gateway owner-identity public key pair: This is the key-pair that
+      identifies the owner (e.g. legal entity) who is the legal owner of
+      a gateway.
+
 5.  SATP Message Format, identifiers and Descriptors
 
 5.1.  Overview
@@ -367,8 +382,9 @@ Table of Contents
    *  proposal-receipt-msg: This is the signed receipt message
       indicating acceptance of the proposal by the receiver gateway.
 
-   *  proposal-counter-msg: This is a counteroffer message from the
-      receiver gateway indicating an alternative proposal.
+   *  proposal-reject-msg: This is an explicit reject message from the
+      receiver gateway, indicating a rejection of the proposal and an
+      immediate session termination.
 
    *  transfer-commence-msg: Request to begin the commencement of the
       asset transfer.
@@ -401,9 +417,9 @@ Table of Contents
 
 5.2.3.  Digital Asset Identifier
 
-   This is the unique identifier (UUIDv2) that uniquely identifies the
-   digital asset in the origin network which is to be transferred to the
-   destination network.
+   This is the unique identifier (e.g.  UUIDv2) that uniquely identifies
+   the digital asset in the origin network which is to be transferred to
+   the destination network.
 
    The digital asset identifier is a value that is derived by the
    applications utilized by the originator and the beneficiary prior to
@@ -412,16 +428,26 @@ Table of Contents
    The mechanism used to derive the digital asset identifier is outside
    the scope of the current document.
 
-5.2.4.  Session ID:
+5.2.4.  Transfer-Context ID:
 
-   This is the unique identifier (UUIDv2) representing a session between
-   two gateways handling a single unidirectional transfer.  This may be
-   derived from the context-ID at the application level.
+   This is the unique immutable identifier (e.g.  UUIDv2) representing
+   the application layer context of a single unidirectional transfer.
+   The transfer-context is a complex data structure (e.g. in JSON
+   format) that contains all information related to a SATP execution
+   instance.  Examples of information contained in a transfer-context
+   may include identifiers of sessions, gateways, networks or assets
+   related to the specific SATP execution instance.  Typically, a
+   transfer-context may be retrieved from a Registry via an API3 call
 
-5.2.5.  Transfer-Context ID
+5.2.5.  Session ID:
 
-   This is the unique optional identifier (UUIDv2) representing the
-   application layer context.
+   This is the unique identifier (e.g.  UUIDv2) representing a session
+   between two gateways handling a single unidirectional transfer.  This
+   may be derived from the Transfer-Context ID at the application level.
+   There may be several session IDs related to a SATP execution
+   instance.  Only one Session ID may be active for a given SATP
+   execution instance.  Session IDs may be stored in the transfer-
+   context for audit trail purposes.
 
    Sequence Number:
 
@@ -548,15 +574,16 @@ Table of Contents
    App1 NW1 G1 G2 NW2 App2
    ..|.....|............|......................|............|.....|..
     | | | Stage 1 | | | | | | | | | | | (1.1)|--Transf.  Proposal
-   -->| | | | | | | | | | | (1.2)|<--Proposal
-   Receipt---| | | | | | | | |
+   -->| | | | | | | | | | | |<--Proposal
+   Receipt---|(1.2) | | | | | | | | | | (1.3)|<--Transf.
+   Commence-->| | | | | | | | | | | |<--- ACK Commence
+   --->|(1.4) | | | | | | | |
    ..|.....|............|......................|............|.....|..
-    | | | Stage 2 | | | | | | | | | | | (2.1)|<--Transf.
-   Commence-->| | | | | | | | | | | (2.2)|<--- ACK Commence --->| | | | 
-   | | | | | | | | | | | | |<---Lock----|(2.3) | | | | | | | | | | |
-   (2.4)|--- Lock-Assertion--->| | | | | | | | | | | |
-   (2.5)|----Bcast-->| | | | | | | | | | |<--Assertion
-   Receipt--|(2.6) | | | | | | | |
+    | | | Stage
+   2 | | | | | | | | | | |<---Lock----|(2.1) | | | | | | | | | | |
+   (2.2)|--- Lock-Assertion--->| | | | | | | | | | | |
+   (2.3)|----Bcast-->| | | | | | | | | | |<--Assertion
+   Receipt--|(2.4) | | | | | | | |
    ..|.....|............|......................|............|.....|..
     | | | Stage 3 | | | | | | | | | | | (3.1)|----Commit
    Prepare--->| | | | | | | | | | | |
@@ -568,7 +595,7 @@ Table of Contents
    |(3.8) | | | | | | | | | | | (3.9)|--Transfer Complete-->| | |
    ..|.....|............|......................|............|.....|..
 
-7.  Identity and Asset Verification Flow (Stage 0)
+7.  Identity and Asset Verification Stage (Stage 0)
 
    Prior to commencing the asset transfer from the sender gateway
    (client) to the recipient gateway (server), both gateways must
@@ -578,9 +605,11 @@ Table of Contents
 
    The verifications include, but not limited to, the following:
 
-   *  Gateway identity mutual verification: This is the identity of the
-      gateway at the protocol and network layer.  This may include
-      validating the X509 certificates of the gateways.
+   *  Verification of the gateway signature public key: The sender
+      gateway and receiver gateway must validate their respective
+      signature public keys that will later be used to sign assertions
+      and claims.  This may include validating the X509 certificates of
+      these keys.
 
    *  Gateway owner verification: This is the verification of the
       identity (e.g.  LEI) of the owners of the gateways.
@@ -656,11 +685,19 @@ Table of Contents
    *  beneficiary_pubkey REQUIRED.  This is the public key of the
       beneficiary in the destination network.
 
-   *  sender_gateway_id REQUIRED.  This is the identifier of the sender
-      gateway (client).
+   *  sender_gateway_signature_public_key REQUIRED.  This is the public
+      key of the key-pair used by the sender gateway to sign assertions
+      and receipts.
 
-   *  recipient_gateway_id REQUIRED.  This is the identifier of the
-      receiver gateway (server).
+   *  receiver_gateway_signature_public_key REQUIRED.  This is the
+      public key of the key-pair used by the recevier gateway to sign
+      assertions and receipts.
+
+   *  sender_gateway_id OPTIONAL.  This is the identifier of the sender
+      gateway.
+
+   *  recipient_gateway_id OPTIONAL.  This is the identifier of the
+      receiver gateway.
 
    *  sender_gateway_network_id REQUIRED.  This is the identifier of the
       origin network or system behind the client.
@@ -668,11 +705,11 @@ Table of Contents
    *  recipient_gateway_network_id REQUIRED.  This is the identifier of
       the destination network or system behind the server.
 
-   *  sender_gateway_identity_pubkey REQUIRED.  The public key of the
-      sender gateway (client).
+   *  sender_gateway_device_identity_pubkey OPTIONAL.  The device public
+      key of the sender gateway (client).
 
-   *  receiver_gateway_identity_pubkey REQUIRED.  The public key of the
-      receiver gateway (server).
+   *  receiver_gateway_device_identity_pubkey OPTIONAL.  The device
+      public key of the receiver gateway
 
    *  sender_gateway_owner_id OPTIONAL: This is the identity information
       of the owner or operator of the sender gateway.
@@ -741,11 +778,12 @@ Table of Contents
    *  message_type REQUIRED: urn:ietf:satp:msgtype:transfer-proposal-msg
       .
 
-   *  session_id REQUIRED: A unique identifier (UUIDv2) chosen by the
-      client to identify the current session.
+   *  session_id REQUIRED: A unique identifier (e.g.  UUIDv2) chosen by
+      the client to identify the current session.
 
-   *  transferContext_id OPTIONAL: An optional identifier (UUIDv2) used
-      to identify the current transfer session at the application layer.
+   *  transferContext_id REQUIRED: A unique identifier (e.g.  UUIDv2)
+      used to identify the current transfer session at the application
+      layer.
 
    *  transfer_init_claims: The set of artifacts and parameters as the
       basis for the current transfer.
@@ -755,12 +793,6 @@ Table of Contents
 
    *  network_capabilities_list REQUIRED: The set of origin network
       parameters reported by the client to the server.
-
-   *  client_identity_pubkey REQUIRED.  The public key of client who
-      sent this message.
-
-   *  server_identity_pubkey REQUIRED.  The public key of server for
-      whom this message is intended.
 
    *  multiple_claims_allowed OPTIONAL: true/false.
 
@@ -786,11 +818,12 @@ Table of Contents
 
    *  message_type REQUIRED: urn:ietf:satp:msgtype:proposal-receipt-msg.
 
-   *  session_id REQUIRED: A unique identifier (UUIDv2) chosen by the
-      client to identify the current session.
+   *  session_id REQUIRED: A unique identifier (e.g.  UUIDv2) chosen by
+      the client to identify the current session.
 
-   *  transferContext_id OPTIONAL: An optional identifier (UUIDv2) used
-      to identify the current transfer session at the application layer.
+   *  transferContext_id REQUIRED: A unique identifier (e.g.  UUIDv2)
+      used to identify the current transfer session at the application
+      layer.
 
    *  hash_transfer_init_claims REQUIRED: Hash of the Transfer
       Initialization Claims received in the Transfer Proposal Message.
@@ -800,17 +833,12 @@ Table of Contents
 
    Example: TBD.
 
-8.5.  Transfer Counter Proposal Message
+8.5.  Transfer Proposal Reject Message
 
-   The purpose of this message is for the server to respond with a
-   counterproposal for one or more of the claims in the previous
-   proposal message.
-
-   If the server does not wish to proceed with the current transfer, the
-   server MUST respond with an empty (blank) counter-proposal message.
-
-   Depending on the proposal and counter-proposal, multiple rounds of
-   communication between the client and the server may occur.
+   The purpose of this message is for the server to indicate explicit
+   rejection of the Transfer Initialization Claims in the transfer
+   proposal message.  A reject message is taken to mean an immediate
+   termination of the session.
 
    The message must be signed by the server.
 
@@ -821,48 +849,24 @@ Table of Contents
 
    *  version REQUIRED: SAT protocol Version (major, minor).
 
-   *  message_type REQUIRED: rn:ietf:satp:msgtype:proposal-counter-msg.
+   *  message_type REQUIRED: urn:ietf:satp:msgtype:proposal-reject-msg.
 
-   *  session_id REQUIRED: A unique identifier (UUIDv2) chosen by the
-      client to identify the current session.
+   *  session_id REQUIRED: A unique identifier (e.g.  UUIDv2) chosen by
+      the client to identify the current session.
 
-   *  transferContext_id OPTIONAL: An optional identifier (UUIDv2) used
-      to identify the current transfer session at the application layer.
+   *  transferContext_id REQUIRED: A unique identifier (e.g.  UUIDv2)
+      used to identify the current transfer session at the application
+      layer.
 
    *  hash_transfer_init_claims REQUIRED: Hash of the Transfer
       Initialization Claims received in the Transfer Proposal Message.
-
-   *  transfer_init_counter_claims: The set of artifacts and parameters
-      as the counter-proposal to the client.
 
    *  Timestamp REQUIRED: timestamp referring to when the Initialization
       Request Message was received.
 
    Example: TBD.
 
-9.  Lock Assertion Stage (Stage 2)
-
-   The messages in this stage pertain to the sender gateway providing
-   the recipient gateway with a signed assertion that the asset in the
-   origin network has been locked or disabled and under the control of
-   the sender gateway.
-
-   In the following, the sender gateway takes the role of the client
-   while the recipient gateway takes the role of the server.
-
-   The flow follows a request-response model.  The client makes a
-   request (POST) to the Lock-Assertion Endpoint at the server.
-
-   Gateways MUST support the use of the HTTP GET and POST methods
-   defined in RFC 2616 [RFC2616] for the endpoint.
-
-   Clients MAY use the HTTP GET or POST methods to send messages in this
-   stage to the server.  If using the HTTP GET method, the request
-   parameters may be serialized using URI Query String Serialization.
-
-   (NOTE: Flows occur over TLS.  Nonces are not shown).
-
-9.1.  Transfer Commence Message
+8.6.  Transfer Commence Message
 
    The purpose of this message is for the client to signal to the server
    that the client is ready to start the transfer of the digital asset.
@@ -879,17 +883,12 @@ Table of Contents
    *  message_type REQUIRED.  MUST be the value
       urn:ietf:satp:msgtype:transfer-commence-msg.
 
-   *  session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
-      by client in the Initialization Request Message.
+   *  session_id REQUIRED: A unique identifier (e.g.  UUIDv2) chosen
+      earlier by client in the Initialization Request Message.
 
-   *  transferContext_id OPTIONAL: An optional identifier (UUIDv2) used
-      to identify the current transfer session at the application layer.
-
-   *  client_identity_pubkey REQUIRED.  The public key of client who
-      sent this message.
-
-   *  server_identity_pubkey REQUIRED.  The public key of server for
-      whom this message is intended.
+   *  transferContext_id REQUIRED: A unique identifier (e.g.  UUIDv2)
+      used to identify the current transfer session at the application
+      layer.
 
    *  hash_transfer_init_claims REQUIRED: Hash of the Transfer
       Initialization Claims in the Transfer Proposal message.
@@ -926,7 +925,7 @@ Table of Contents
 
    ```
 
-9.2.  Commence Response Message (ACK-Commence)
+8.7.  Commence Response Message (ACK-Commence)
 
    The purpose of this message is for the server to indicate agreement
    to proceed with the asset transfer, based on the artifacts found in
@@ -941,17 +940,12 @@ Table of Contents
 
    *  message_type REQUIRED urn:ietf:satp:msgtype:ack-commence-msg
 
-   *  session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
-      by client in the Initialization Request Message.
+   *  session_id REQUIRED: A unique identifier (e.g.  UUIDv2) chosen
+      earlier by client in the Initialization Request Message.
 
-   *  transferContext_id OPTIONAL: An optional identifier (UUIDv2) used
-      to identify the current transfer session at the application layer.
-
-   *  client_identity_pubkey REQUIRED.  The client for whom this message
-      is intended.
-
-   *  server_identity_pubkey REQUIRED.  The server who sent this
-      message.
+   *  transferContext_id REQUIRED: A unique identifier (e.g.  UUIDv2)
+      used to identify the current transfer session at the application
+      layer.
 
    *  hash_prev_message REQUIRED.The hash of the last message, in this
       case the the Transfer Commence Message.
@@ -964,7 +958,29 @@ Table of Contents
 
    An example of a success response could be as follows: (TBD).
 
-9.3.  Lock Assertion Message
+9.  Lock Assertion Stage (Stage 2)
+
+   The messages in this stage pertain to the sender gateway providing
+   the recipient gateway with a signed assertion that the asset in the
+   origin network has been locked or disabled and under the control of
+   the sender gateway.
+
+   In the following, the sender gateway takes the role of the client
+   while the recipient gateway takes the role of the server.
+
+   The flow follows a request-response model.  The client makes a
+   request (POST) to the Lock-Assertion Endpoint at the server.
+
+   Gateways MUST support the use of the HTTP GET and POST methods
+   defined in RFC 2616 [RFC2616] for the endpoint.
+
+   Clients MAY use the HTTP GET or POST methods to send messages in this
+   stage to the server.  If using the HTTP GET method, the request
+   parameters may be serialized using URI Query String Serialization.
+
+   (NOTE: Flows occur over TLS.  Nonces are not shown).
+
+9.1.  Lock Assertion Message
 
    The purpose of this message is for the client (sender gateway) to
    convey a signed claim to the server (receiver gateway) declaring that
@@ -986,17 +1002,12 @@ Table of Contents
 
    *  message_type REQUIRED urn:ietf:satp:msgtype:lock-assert-msg.
 
-   *  session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
-      by client in the Initialization Request Message.
+   *  session_id REQUIRED: A unique identifier (e.g.  UUIDv2) chosen
+      earlier by client in the Initialization Request Message.
 
-   *  transferContext_id OPTIONAL: An optional identifier (UUIDv2) used
-      to identify the current transfer session at the application layer.
-
-   *  client_identity_pubkey REQUIRED.  The client who sent this
-      message.
-
-   *  server_identity_pubkey REQUIRED.  The server for whom this message
-      is intended.
+   *  transferContext_id REQUIRED: A unique identifier (e.g.  UUIDv2)
+      used to identify the current transfer session at the application
+      layer.
 
    *  lock_assertion_claim REQUIRED.  The lock assertion claim or
       statement by the client.
@@ -1014,7 +1025,7 @@ Table of Contents
 
    *  client_signature REQUIRED.  The digital signature of the client.
 
-9.4.  Lock Assertion Receipt Message
+9.2.  Lock Assertion Receipt Message
 
    The purpose of this message is for the server (receiver gateway) to
    indicate acceptance of the claim(s) in the lock-assertion message
@@ -1029,17 +1040,12 @@ Table of Contents
 
    *  message_type REQUIRED urn:ietf:satp:msgtype:assertion-receipt-msg.
 
-   *  session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
-      by client in the Initialization Request Message.
+   *  session_id REQUIRED: A unique identifier (e.g.  UUIDv2) chosen
+      earlier by client in the Initialization Request Message.
 
-   *  transferContext_id OPTIONAL: An optional identifier (UUIDv2) used
-      to identify the current transfer session at the application layer.
-
-   *  client_identity_pubkey REQUIRED.  The client for whom this message
-      is intended.
-
-   *  server_identity_pubkey REQUIRED.  The server who sent this
-      message.
+   *  transferContext_id REQUIRED: A unique identifier (e.g.  UUIDv2)
+      used to identify the current transfer session at the application
+      layer.
 
    *  hash_prev_message REQUIRED.  The hash of previous message.
 
@@ -1092,17 +1098,12 @@ Table of Contents
    *  message_type REQUIRED.  It MUST be the value
       urn:ietf:satp:msgtype:commit-prepare-msg
 
-   *  session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
-      by client in the Initialization Request Message.
+   *  session_id REQUIRED: A unique identifier (e.g.  UUIDv2) chosen
+      earlier by client in the Initialization Request Message.
 
-   *  transferContext_id OPTIONAL: An optional identifier (UUIDv2) used
-      to identify the current transfer session at the application layer.
-
-   *  client_identity_pubkey REQUIRED.  The client who sent this
-      message.
-
-   *  server_identity_pubkey REQUIRED.  The server for whom this message
-      is intended.
+   *  transferContext_id REQUIRED: A unique identifier (e.g.  UUIDv2)
+      used to identify the current transfer session at the application
+      layer.
 
    *  hash_prev_message REQUIRED.  The hash of previous message.
 
@@ -1130,17 +1131,12 @@ Table of Contents
    *  message_type REQUIRED.  It MUST be the value
       urn:ietf:satp:msgtype:commit-ready-msg.
 
-   *  session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
-      by client in the Initialization Request Message.
+   *  session_id REQUIRED: A unique identifier (e.g.  UUIDv2) chosen
+      earlier by client in the Initialization Request Message.
 
-   *  transferContext_id OPTIONAL: An optional identifier (UUIDv2) used
-      to identify the current transfer session at the application layer.
-
-   *  client_identity_pubkey REQUIRED.  The client for whom this message
-      is intended.
-
-   *  server_identity_pubkey REQUIRED.  The server who sent this
-      message.
+   *  transferContext_id REQUIRED: A unique identifier (e.g.  UUIDv2)
+      used to identify the current transfer session at the application
+      layer.
 
    *  mint_assertion_claims REQUIRED.  The mint assertion claim or
       statement by the server.
@@ -1176,17 +1172,12 @@ Table of Contents
    *  message_type REQUIRED.  It MUST be the value
       urn:ietf:satp:msgtype:commit-final-msg.
 
-   *  session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
-      by client in the Initialization Request Message.
+   *  session_id REQUIRED: A unique identifier (e.g.  UUIDv2) chosen
+      earlier by client in the Initialization Request Message.
 
-   *  transferContext_id OPTIONAL: An optional identifier (UUIDv2) used
-      to identify the current transfer session at the application layer.
-
-   *  client_identity_pubkey REQUIRED.  The client who sent this
-      message.
-
-   *  server_identity_pubkey REQUIRED.  The server for whom this message
-      is intended.
+   *  transferContext_id REQUIRED: A unique identifier (e.g.  UUIDv2)
+      used to identify the current transfer session at the application
+      layer.
 
    *  burn_assertion_claim REQUIRED.  The burn assertion signed claim or
       statement by the client.
@@ -1217,17 +1208,12 @@ Table of Contents
    *  message_type REQUIRED.  It MUST be the value
       urn:ietf:satp:msgtype:ack-commit-final-msg.
 
-   *  session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
-      by client in the Initialization Request Message.
+   *  session_id REQUIRED: A unique identifier (e.g.  UUIDv2) chosen
+      earlier by client in the Initialization Request Message.
 
-   *  transferContext_id OPTIONAL: An optional identifier (UUIDv2) used
-      to identify the current transfer session at the application layer.
-
-   *  client_identity_pubkey REQUIRED.  The client for whom this message
-      is intended..
-
-   *  server_identity_pubkey REQUIRED.  The server who sent this
-      message.
+   *  transferContext_id REQUIRED: A unique identifier (e.g.  UUIDv2)
+      used to identify the current transfer session at the application
+      layer.
 
    *  assignment_assertion_claim REQUIRED.  The claim or statement by
       the server that the asset has been assigned by the server to the
@@ -1264,17 +1250,12 @@ Table of Contents
    *  message_type REQUIRED.  It MUST be the value
       urn:ietf:satp:msgtype:commit-transfer-complete-msg.
 
-   *  session_id REQUIRED: A unique identifier (UUIDv2) chosen earlier
-      by client in the Initialization Request Message.
+   *  session_id REQUIRED: A unique identifier (e.g.  UUIDv2) chosen
+      earlier by client in the Initialization Request Message.
 
-   *  transferContext_id OPTIONAL: An optional identifier (UUIDv2) used
-      to identify the current transfer session at the application layer.
-
-   *  client_identity_pubkey REQUIRED.  The client who sent this
-      message.
-
-   *  server_identity_pubkey REQUIRED.  The server for whom this message
-      is intended.
+   *  transferContext_id REQUIRED: A unique identifier (e.g.  UUIDv2)
+      used to identify the current transfer session at the application
+      layer.
 
    *  hash_prev_message REQUIRED.  The hash of previous message.
 
@@ -1469,49 +1450,44 @@ Table of Contents
 
 15.  Appendix A: API1 Considerations
 
-   In this section we discuss some considerations regarding the
-   interaction between the Application and a Gateway through API1.
+   Prior to entering Stage 1, the peer gateways are assumed to have
+   established a number of parameters for the unidirectional transfer
+   from the sender gateway to the receiver gateway.  These parameters
+   and asset-related artifacts are assumed to be provided to the gateway
+   by the client application that would be requesting the transfer
+   through API1.
 
-15.1.  Digital Asset Resource Descriptors
+   A standardized definition for API1 at a gateway enables application
+   vendors to interact with gateways over a stable interface,
+   independent of the implementation of the gateway.  This write-once-
+   deploy-everywhere approach reduces development costs and ensures a
+   high degree of interoperability across different gateway
+   implementations.
 
-   Resources are identified by URL [RFC1738]:
+   In order for client applications to interact with the SATP gateways,
+   we propose the following set of resource descriptors.
 
-   *  Type: application/satres
+15.1.  SATP Gateway API1 Resource Descriptors
 
-   *  Access Protocol: SATP
+   Gateway resources are identified by URL [RFC1738].
 
-   Data included in the URL:
+   Data included in the URL are as follows.
 
-15.1.1.  Organization Identifier
-
-   This MAY be a Legal Entity Identifier (LEI) or another identifier
-   linking resource ownership to a real-world entity.  Any scheme for
-   identifying gateway owners may be implemented (e.g., LEI directory,
-   closed user group membership, SWIFT BIC, etc.).
-
-   The developer or application MAY validate the identity with the
-   issuing authority.  The identifier is not a trusted identity but MAY
-   be relied upon where trust has been established between the two
-   parties (e.g., in a closed user group).
-
-   The mechanisms to determine organization identifiers are out of scope
-   for the current specification.
-
-15.1.2.  Gateway / Endpoint ID
+15.1.1.  Gateway / Endpoint ID
 
    FQDN of the SATP compliant gateway.  Required to establish IP
    connectivity.  This MUST resolve to a valid IP address.
 
-15.1.3.  Network or System Identifier
+15.1.2.  Network or System Identifier
 
    Specific to the gateway behind which the target network operates.
    This field is local to the gateway and is used to direct SATP
    interactions to the correct underlying network.  This value may be
    alphanumeric or a hexadecimal value.
 
-   For example: "tradelens-network", "EU-supply-chain".
+   For example: "example-network", "ethereum-mainnet".
 
-15.1.4.  Network Resource
+15.1.3.  API Network Resource
 
    Specifies a resource held on the underlying network.  This field must
    be meaningful to the network in question but is otherwise an
@@ -1519,101 +1495,43 @@ Table of Contents
    network address, data block, transaction ID, alias, etc. or a future
    object type not yet defined.
 
-15.1.5.  Examples
+15.1.4.  Examples
 
-   The following illustrates using example.com as the endpoint:
+   The following example illustrates using the satp-api1.example.com
+   domain name, "example-network" as the network identifier and "asset-
+   transfers" as the resource. 87152a29-f43a-4da6-a6bd-8ba2b7adf14c is
+   the Session ID corresponding to this example asset transfer.
 
-   satpres://example/api.gateway1.com/swift
+   https://satp-api1.example.com/example-network/asset-
+   transfers/87152a29-f43a-4da6-a6bd-8ba2b7adf14c
 
-15.2.  Digital Asset Resource Client Descriptors
+   The next example uses satp-api1.example.com as the domain name,
+   "ethereum-mainnet" as the network identifier and "assets" as the
+   resource.  The asset identifier here is a composite made up from the
+   smart contract Id itself (0xc0cf5b82ae2352303b2ea02c3be88e23f2594171)
+   together with the tokenId (22700080087) from the state data that the
+   smart contract saves.
 
-   Resources are identified by URN as described below:
+   https://satp-api1.example.com/ethereum-mainnet/
+   assets/0xc0cf5b82ae2352303b2ea02c3be88e23f2594171?a=22700080087
 
-   *  The type is new: application/satpclient
+15.2.  API1 Client Descriptors
 
-   The URN format does not imply availability of access protocol.
+15.3.  Gateway Level Authentication
 
-   Data included in the URN includes the following:
+   We propose that SATP Gateway API1 providers employ the Autho2.0
+   authentication scheme [RFC6749].  This would ensure enough
+   flexibility for the API1 provider while also providing a consistent
+   model for client application developers to adopt, regardless of the
+   underlying SATP Gateway implementation.
 
-15.2.1.  Organization Identifier
+15.4.  Gateway Level Authorization
 
-   Legal Entity Identifier (LEI) or other identifier linking resource
-   ownership to a real-world entity.  Any scheme for identifying Gateway
-   owners may be implemented (e.g.  LEI directory, closed user group
-   membership, BIC, etc.).
+   Gateways can enforce access rules based on the access token they
+   receive through Auth2.0.  API1 providers can assign roles to specific
+   Auth2.0 clientIds depending on business requirements.
 
-   The Gateway MAY validate the identity with the issuing authority.
-   The identifier is not a trusted identity, but MAY be relied on where
-   trust has been established between the two parties (e.g. in a closed
-   user group).
-
-15.2.2.  Gateway / Endpoint ID
-
-   Applications which interact with multiple networks can operate in a
-   mode whereby the application connects to its local gateway, which
-   then forwards application traffic to local networks and to remote
-   networks via other SATP gateways.
-
-   Where this is the case, this field identifies the "home" gateway for
-   this application.  This may be required to carry out gateway to
-   gateway handshaking and protocol negotiation, or for the server to
-   look up use case specific data relating to the client.
-
-15.2.3.  Organizational Unit
-
-   The organization unit within the organization that the client
-   (application or developer) belongs to.  This assertion should be
-   backed up with authentication via the negotiated protocol.
-
-   The purpose of this field is to allow gateways to maintain access
-   control mapping between applications and resources that are
-   independent of the authentication and authorization schemes used,
-   supporting future changes and supporting counterparties that operate
-   different schemes.
-
-15.2.4.  Name
-
-   A locally unique (within the OU) identifier, which can identify the
-   application, project, or individual developer responsible for this
-   client connection.  This is the most granular unit of access control,
-   and gateways should ensure appropriate identifiers are used for the
-   needs of the application or use case.
-
-15.2.5.  Examples
-
-   The following illustrates using example.com as the endpoint:
-
-   satpclient:example/api.gatewayserver.example.com/research/luke.riley
-
-15.3.  Gateway Level Access Control
-
-   Gateways can enforce access rules based on standard naming
-   conventions using novel or existing mechanisms such as AuthZ
-   protocols using the resource identifiers above, for example:
-
-   satpclient:////mybank/api.gatewayserver.mybank.com/lending/
-   eric.devloper
-
-   can READ/WRITE
-
-   satpres://example/api.gateway1.com/tradelens
-
-   AND
-
-   satpres://example/api.gateway1.com/ripple
-
-   These rules would allow a client so identified to access resources
-   directly, for example:
-
-   satpres://example/api.gateway1.com/tradelens/xxxxxADDRESSxxxxx
-
-   This method allows resource owners to easily grant access to
-   individuals, groups, and organizations.  Individual gateway
-   implementations may implement access controls, including subsetting
-   and supersetting of applications or resources according to their own
-   requirements.
-
-15.4.  Application Profile Negotiation
+15.5.  Application Profile Negotiation
 
    Where an application relies on specific extensions for operation,
    these can be represented in an Application Profile.  For example, a
@@ -1632,16 +1550,17 @@ Table of Contents
    This is an intentionally generalized extension mechanism for
    application or vendor specific functionality.
 
-15.5.  Discovery of Digital Asset Resources
+15.6.  Discovery of Digital Asset Resources
 
-   Applications located outside a network or system SHOULD be able to
-   discover which resources they are authorized to access in a network
-   or system.
+   Client applications can be located both within the digital asset
+   network or outside the network.  Applications located outside a
+   network or system SHOULD be able to discover which resources they are
+   authorized to access.
 
    Resource discovery is handled by the gateway in front of the network.
-   For instance using a GETrequest against the gateway URL with no
+   For instance using a GET request against the gateway URL with no
    resource identifier could return a list of URLs available to the
-   requester.  This list issubject to the access controls above.
+   requester.  This list is subject to the access controls above.
 
    Gateways MAY allow applications to discover resources they do not
    have access to.  This should be indicated in the free text field, and
@@ -1653,9 +1572,28 @@ Table of Contents
 
 16.  Appendix B: API3 Considerations
 
-   In this section we discuss some considerations regarding the
-   interaction between a gateway and an external resource or service
-   provider through API3.
+   Prior to commencing a transfer, gateways are assumed to perform the
+   validation of a number of asset-related parameters and actor-related
+   attributes.  For certain classes of assets, the owner (operator) of a
+   gateway takes on legal and financial liabilities when assisting in
+   the transfer of a digital asset.  As such, gateway system must not
+   only validate these asset-related parameters and user attributes, but
+   it must also log these for regulatory compliance and post-event
+   dispute resolution.
+
+   For certain types of parameters (e.g. identity attributes), standard
+   protocols have been defined and have broad deployment (e.g.  X.509
+   CA/RA, OAuth2.0, OpenID-Connect).  In these cases, the gateway
+   operator should utilize as far as possible these existing standards.
+
+   For payments using existing fiat denominations, standard protocols
+   and APIs have also been defined and deployed broadly (e.g.  Open
+   Banking, ACH gateways, other card-payments APIs).
+
+   For new types of digital assets (e.g. asset-referencing tokens or ART
+   [MICA2013]) a receiver gateway may need to validate the relevant off-
+   chain information regarding the underlying (physical) asset.  A
+   standardized interface to these off-chain databases will be required.
 
 17.  Appendix C: Error Types
 
@@ -1807,6 +1745,6 @@ Authors' Addresses
    Email: hardjono@mit.edu
 
 
-   Rafael Belchior
-   INESC-ID, Técnico Lisboa, Blockdaemon
-   Email: rafael.belchior@tecnico.ulisboa.pt
+   Venkatraman Ramakrishna
+   IBM
+   Email: vramakr2@in.ibm.com

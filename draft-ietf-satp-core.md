@@ -1,4 +1,5 @@
 ---
+
 stand_alone: yes
 pi:
   rfcedstyle: yes
@@ -265,7 +266,9 @@ SATP recognizes the following cryptographic keys which are intended for distinct
 - Gateway device-identity public key pair: This is the key-pair that identifies the unique hardware device underlying a gateway.
 
 - Gateway owner-identity public key pair: This is the key-pair that identifies the owner (e.g. legal entity) who is the legal owner of a gateway.
- 
+
+
+
 # SATP Message Format, identifiers and Descriptors
 
 {: #satp-messages-identifiers}
@@ -376,7 +379,7 @@ TLS 1.2 or higher MUST be implemented to protect gateway communications. TLS 1.3
 
 {: #satp-client-offers-sec}
 
-The  client sends a JSON block containing the supported credential schemes, such as OAuth2.0 or SAML, in the "Credential Scheme" field of the SATP message.
+The client sends a JSON block containing the supported credential schemes, such as OAuth2.0 or SAML, in the "Credential Scheme" field of the SATP message.
 
 ### Server selects supported credential scheme
 
@@ -420,7 +423,7 @@ After both gateways agree to commence the transfer at the start of Stage-2, the 
 
 If that assertion is accepted by gateway G2, it must in return transmit a signed receipt to gateway G1 that it has created (minted) a temporary asset in destination network (NW2).
 
-The Stage-3 flows commits gateways G1 and G2 to the burn and mint in Stage-2.  The sender gateway G1 must make the lock on the asset in origin network NW1 to be permanent (burn). The receiver gateway G2 must assign (mint) the asset in the destination network NW2 to the correct beneficiary.
+The Stage-3 flows commits gateways G1 and G2 to the burn and mint in Stage-2. The sender gateway G1 must make the lock on the asset in origin network NW1 to be permanent (burn). The receiver gateway G2 must assign (mint) the asset in the destination network NW2 to the correct beneficiary.
 
 The reader is directed to [SATP-ARCH] for further discussion of this model.
 
@@ -553,9 +556,9 @@ The Transfer Initialization Claims consists of the following:
 
 - receiver_gateway_signature_public_key REQUIRED. This is the public key of the key-pair used by the recevier gateway to sign assertions and receipts.
 
-- sender_gateway_id OPTIONAL.  This is the identifier of the sender gateway.
+- sender_gateway_id OPTIONAL. This is the identifier of the sender gateway.
 
-- recipient_gateway_id OPTIONAL.  This is the identifier of the receiver gateway.
+- recipient_gateway_id OPTIONAL. This is the identifier of the receiver gateway.
 
 - sender_gateway_network_id REQUIRED. This is the identifier of the
   origin network or system behind the client.
@@ -563,9 +566,9 @@ The Transfer Initialization Claims consists of the following:
 - recipient_gateway_network_id REQUIRED. This is the identifier of the destination
   network or system behind the server.
 
-- sender_gateway_device_identity_pubkey OPTIONAL.  The device public key of the sender gateway (client).
+- sender_gateway_device_identity_pubkey OPTIONAL. The device public key of the sender gateway (client).
 
-- receiver_gateway_device_identity_pubkey OPTIONAL.  The device public key of the receiver gateway 
+- receiver_gateway_device_identity_pubkey OPTIONAL. The device public key of the receiver gateway
 
 - sender_gateway_owner_id OPTIONAL: This is the identity information of the owner or operator
   of the sender gateway.
@@ -605,7 +608,7 @@ The network capabilities list is as follows:
 
 The purpose of this message is for the sender gateway as the client to initiate an asset transfer session with the receiver gateway as the server.
 
-The client transmits a proposal message that carries the claims related to the asset to be transferred.  This message must be signed by the client.
+The client transmits a proposal message that carries the claims related to the asset to be transferred. This message must be signed by the client.
 
 This message is sent from the client to the Transfer Initialization Endpoint at the server.
 
@@ -1380,11 +1383,11 @@ Formal specification of supported resource discovery methods is out of scope of 
 
 {: #api3-consideration-section}
 
-Prior to commencing a transfer, gateways are assumed to perform the validation of 
+Prior to commencing a transfer, gateways are assumed to perform the validation of
 a number of asset-related parameters and actor-related attributes.
-For certain classes of assets, the owner (operator) of a gateway takes on legal and financial liabilities 
+For certain classes of assets, the owner (operator) of a gateway takes on legal and financial liabilities
 when assisting in the transfer of a digital asset.
-As such, gateway system must not only validate these asset-related parameters and user attributes, 
+As such, gateway system must not only validate these asset-related parameters and user attributes,
 but it must also log these for regulatory compliance and post-event dispute resolution.
 
 For certain types of parameters (e.g. identity attributes),
@@ -1394,7 +1397,7 @@ In these cases, the gateway operator should utilize as far as possible these exi
 For payments using existing fiat denominations, standard protocols and APIs have also been defined
 and deployed broadly (e.g. Open Banking, ACH gateways, other card-payments APIs).
 
-For new types of digital assets (e.g. asset-referencing tokens or ART [MICA2013]) a receiver gateway may need to validate the relevant off-chain information regarding the underlying (physical) asset. 
+For new types of digital assets (e.g. asset-referencing tokens or ART [MICA2013]) a receiver gateway may need to validate the relevant off-chain information regarding the underlying (physical) asset.
 A standardized interface to these off-chain databases will be required.
 
 # Appendix C: Error Types

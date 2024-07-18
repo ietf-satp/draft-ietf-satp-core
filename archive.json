@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-16T00:32:25.670015+00:00",
+  "timestamp": "2024-07-18T00:31:55.864183+00:00",
   "repo": "ietf-satp/draft-ietf-satp-core",
   "labels": [
     {
@@ -87,16 +87,31 @@
       "id": "I_kwDOKkmiaM6E_eno",
       "title": "Refine Client application definition",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/13",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "RafaelAPB",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Refine Client application definition.\r\n\r\nMartin Gfeller <mgf=40acm.org@dmarc.ietf.org> said \"Do we need to say what we want to achieve with the application? Simply interacting\u00a0could mean anything. As the introduction mentions only gateways, this is the first time \"application\" is used.\"\r\n\r\nWe should make it clearer that the client application implements the end-user business logic (that requires interoperability) and interacts with a gateway via API1.",
       "createdAt": "2024-04-08T13:29:36Z",
-      "updatedAt": "2024-04-08T13:29:36Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2024-07-17T19:37:41Z",
+      "closedAt": "2024-07-17T19:37:36Z",
+      "comments": [
+        {
+          "author": "RafaelAPB",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Migrated to the responsible draft repo https://github.com/ietf-satp/draft-augusto-api1/issues/1",
+          "createdAt": "2024-07-17T19:37:36Z",
+          "updatedAt": "2024-07-17T19:37:36Z"
+        },
+        {
+          "author": "RafaelAPB",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Migrated to the responsible draft repo https://github.com/ietf-satp/draft-augusto-api1/issues/1",
+          "createdAt": "2024-07-17T19:37:40Z",
+          "updatedAt": "2024-07-17T19:37:40Z"
+        }
+      ]
     },
     {
       "number": 14,
@@ -521,25 +536,33 @@
       "id": "PR_kwDOKkmiaM5vHlMu",
       "title": "Update draft-ietf-satp-core.md",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/18",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "anthonyc0603",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-05-10T17:02:34Z",
-      "updatedAt": "2024-06-20T12:56:20Z",
+      "updatedAt": "2024-07-16T12:08:58Z",
       "baseRepository": "ietf-satp/draft-ietf-satp-core",
       "baseRefName": "main",
       "baseRefOid": "ab7fc735f3b029bc380b96ca566ff8ad91da9ac1",
       "headRepository": "anthonyc0603/draft-ietf-satp-core",
       "headRefName": "patch-1",
       "headRefOid": "45a9ab68468a259f8c9a2749c4f8c6ad746664f4",
-      "closedAt": null,
+      "closedAt": "2024-07-16T12:08:11Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We will consider this contribution for future discussions.",
+          "createdAt": "2024-07-16T12:08:57Z",
+          "updatedAt": "2024-07-16T12:08:57Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOKkmiaM56Qldz",
@@ -984,6 +1007,34 @@
           "updatedAt": "2024-07-14T15:18:04Z"
         }
       ],
+      "reviews": []
+    },
+    {
+      "number": 21,
+      "id": "PR_kwDOKkmiaM51r2bK",
+      "title": "chore: fix whitespaces",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/21",
+      "state": "MERGED",
+      "author": "RafaelAPB",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-07-17T19:41:49Z",
+      "updatedAt": "2024-07-17T19:46:21Z",
+      "baseRepository": "ietf-satp/draft-ietf-satp-core",
+      "baseRefName": "main",
+      "baseRefOid": "fa21c29c72d525b5485ba50c872f026de88308a8",
+      "headRepository": "ietf-satp/draft-ietf-satp-core",
+      "headRefName": "fix-lint",
+      "headRefOid": "ef851fc255dda077055d9db9804675dc095f5f79",
+      "closedAt": "2024-07-17T19:46:21Z",
+      "mergedAt": "2024-07-17T19:46:21Z",
+      "mergedBy": "RafaelAPB",
+      "mergeCommit": {
+        "oid": "d7ebfddd2f772809f6e96e07c4db7ddbfedf2d54"
+      },
+      "comments": [],
       "reviews": []
     }
   ]

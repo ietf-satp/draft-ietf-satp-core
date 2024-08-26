@@ -266,13 +266,12 @@ The SAT protocol defines three (3) stages for a unidirectional asset transfer. T
   (iii) verification of the asset definition, and others.
 
 - Lock-Assertion stage (Stage-2):
-  These flows deal with the conveyance of signed assertions from the sender gateway to the receiver gateway
-  regarding the locked status of an asset at the origin asset network.
+  These flows deal with the conveyance of signed assertions from the sender gateway to the receiver gateway regarding the locked status of an asset at the origin network.
 
 - Commitment Preparation and Finalization stage (Stage-3):
   These flows deal with the asset transfer and commitment establishment between two gateways.
 
-In order to clarify discussion, the interactions between the peer gateways prior to transfer initiation stage is referred to as the setup stage (Stage-0), which is outside the scope of the current specification.
+In order to clarify discussion, the interactions between the peer gateways prior to the transfer initiation stage is referred to as the setup stage (Stage-0), which is outside the scope of the current specification.
 
 The Stage-1, Stage-2 and Stage-3 flows will be discussed below.
 
@@ -324,11 +323,11 @@ The possible values are:
 
 - transfer-commence-msg: Request to begin the commencement of the asset transfer.
 
-- ack-commence-msg: Response to accept to the commencement of the asset transfer.
+- ack-commence-msg: Response to accept the commencement of the asset transfer.
 
 - lock-assert-msg: Sender gateway has performed the lock of the asset in the origin network.
 
-- assertion-receipt-msg: Receiver gateway acknowledges receiving of the signed lock-assert-msg.
+- assertion-receipt-msg: Receiver gateway acknowledges receiving the signed lock-assert-msg.
 
 - commit-prepare-msg: Sender gateway requests the start of the commitment stage.
 
@@ -336,7 +335,7 @@ The possible values are:
 
 - commit-final-msg: Sender gateway has performed the extinguishment (burn) of the asset in the origin network.
 
-- ack-commit-final-msg: Receiver gateway acknowledges receiving of the signed commit-final-msg and has performed the asset creation and assignment in the destination network.
+- ack-commit-final-msg: Receiver gateway acknowledges receiving the signed commit-final-msg and has performed the asset creation and assignment in the destination network.
 
 - commit-transfer-complete-msg: Sender gateway indicates closure of the current transfer session.
 
@@ -440,7 +439,7 @@ The client and server must mutually agree on the asset type or profile that is t
 
 {: #satp-flows-overview-section}
 
-The SATP message flows are logically divided into three (3) stages {{ARCH}}, with the preparatory stage denoted as Stage-0. How the tasks are achieved in Stage-0 is out of scope for the current specification.
+The SATP message flows are logically divided into three (3) stages {{ARCH}}, with the preparatory stage denoted as Stage-0. How the tasks are achieved in Stage-0 is out of the scope of the current specification.
 
 The Stage-1 flows pertains to the initialization of the transfer between the two gateways.
 
@@ -448,7 +447,7 @@ After both gateways agree to commence the transfer at the start of Stage-2, the 
 
 If that assertion is accepted by gateway G2, it must in return transmit a signed receipt to gateway G1 that it has created (minted) a temporary asset in destination network (NW2).
 
-The Stage-3 flows commits gateways G1 and G2 to the burn and mint in Stage-2. The sender gateway G1 must make the lock on the asset in origin network NW1 to be permanent (burn). The receiver gateway G2 must assign (mint) the asset in the destination network NW2 to the correct beneficiary.
+The Stage-3 flows commit gateways G1 and G2 to the burn and mint in Stage-2. The sender gateway G1 must make the lock on the asset in the origin network NW1 to be permanent (burn). The receiver gateway G2 must assign (mint) the asset in the destination network NW2 to the correct beneficiary.
 
 The reader is directed to {{ARCH}} for further discussion of this model.
 
@@ -505,7 +504,7 @@ The reader is directed to {{ARCH}} for further discussion of this model.
 {: #satp-Stage0-section}
 
 Prior to commencing the asset transfer from the sender gateway (client) to the recipient gateway (server),
-both gateways must perform a number of verifications steps.
+both gateways must perform a number of verification steps.
 The types of information required by both the sender and recipient are use-case dependent and asset-type dependent.
 
 The verifications include, but not limited to, the following:
@@ -558,7 +557,7 @@ This is set of artifacts pertaining to the asset that
 must be agreed upon between the client (sender
 gateway) and the server (recipient gateway).
 
-The Transfer Initialization Claims consists of the following:
+The Transfer Initialization Claims consist of the following:
 
 - digitalAssetId REQUIRED: This is the globally unique identifier for the digital asset
   located in the origin network.
@@ -633,7 +632,7 @@ Here is an example representation in JSON format:
 
 This is set of parameters pertaining to the origin network and the destination network, and the technical capabilities supported by the peer gateways.
 
-Some of network-specific parameters regarding the origin network may be relevant for a receiver gateways to evaluate its ability to process the proposed transfer.
+Some network-specific parameters regarding the origin network may be relevant for a receiver gateway to evaluate its ability to process the proposed transfer.
 
 For example, the average duration of time of a lock to be held by a sender gateway may inform the receiver gateway about delay expectations.
 
@@ -677,11 +676,11 @@ The client transmits a proposal message that carries the claims related to the a
 
 This message is sent from the client to the Transfer Initialization Endpoint at the server.
 
-The parameters of this message consists of the following:
+The parameters of this message consist of the following:
 
 - version REQUIRED: SAT protocol Version (major, minor).
 
-- messageType REQUIRED: urn:ietf:satp:msgtype:transfer-proposal-msg .
+- messageType REQUIRED: urn:ietf:satp:msgtype:transfer-proposal-msg.
 
 - sessionId REQUIRED: A unique identifier (e.g. UUIDv4) chosen by the
   client to identify the current session.
@@ -747,7 +746,7 @@ The message must be signed by the server.
 
 The message is sent from the server to the Transfer Proposal Endpoint at the client.
 
-The parameters of this message consists of the following:
+The parameters of this message consist of the following:
 
 - version REQUIRED: SAT protocol Version (major, minor).
 
@@ -792,7 +791,7 @@ The message must be signed by the server.
 
 The message is sent from the server to the Transfer Proposal Endpoint at the client.
 
-The parameters of this message consists of the following:
+The parameters of this message consist of the following:
 
 - version REQUIRED: SAT protocol Version (major, minor).
 
@@ -836,7 +835,7 @@ received from the server.
 
 This message is sent by the client to the Transfer Commence Endpoint at the server.
 
-The parameters of this message consists of the following:
+The parameters of this message consist of the following:
 
 - messageType REQUIRED. MUST be the value urn:ietf:satp:msgtype:transfer-commence-msg.
 
@@ -881,11 +880,12 @@ This message is sent by the server to the Transfer Commence Endpoint at the clie
 The message must be signed by the server.
 
 The parameters of this message consist of the following:
+The parameters of this message consist of the following:
 
 - messageType REQUIRED urn:ietf:satp:msgtype:ack-commence-msg
 
 - sessionId REQUIRED: A unique identifier (e.g. UUIDv4) chosen earlier
-  by client in the Initialization Request Message.
+  by the client in the Initialization Request Message.
 
 - transferContextId REQUIRED: A unique identifier (e.g. UUIDv4)
   used to identify the current transfer session at the application layer.
@@ -902,7 +902,7 @@ An example of a success response could be as follows: (TBD).
 {: #satp-stage2-section}
 
 The messages in this stage pertain to the sender gateway providing
-the recipient gateway with a signed assertion that the asset in the origin asset network
+the recipient gateway with a signed assertion that the asset in the origin network
 has been locked or disabled and under the control of the sender gateway.
 
 In the following, the sender gateway takes the role of the client
@@ -927,7 +927,7 @@ using URI Query String Serialization.
 The purpose of this message is for the client (sender gateway) to
 convey a signed claim to the server (receiver gateway) declaring that the asset in
 question has been locked or escrowed by the client in the origin
-network (e.g. to prevent double spending).
+network (e.g. to prevent double-spending).
 
 The format of the claim is dependent on the network or system
 of the client and is outside the scope of this specification.
@@ -939,21 +939,21 @@ in this message prior to the next step.
 
 The message must be signed by the client.
 
-The parameters of this message consists of the following:
+The parameters of this message consist of the following:
 
 - messageType REQUIRED urn:ietf:satp:msgtype:lock-assert-msg.
 
 - sessionId REQUIRED: A unique identifier (e.g. UUIDv4) chosen earlier
-  by client in the Initialization Request Message.
+  by the client in the Initialization Request Message.
 
 - transferContextId REQUIRED: A unique identifier (e.g. UUIDv4)
   used to identify the current transfer session at the application layer.
 
-- lock_assertion_claim REQUIRED. The lock assertion claim or statement by the client.
+- lockAssertionClaim REQUIRED. The lock assertion claim or statement by the client.
 
-- lock_assertion_claim_format REQUIRED. The format of the claim.
+- lockAssertionClaimFormat REQUIRED. The format of the claim.
 
-- lock_assertion_expiration REQUIRED. The duration of time of the lock or escrow upon the asset.
+- lockAssertionExpiration REQUIRED. The duration of time of the lock or escrow upon the asset.
 
 - hashPrevMessage REQUIRED. The hash of the previous message.
 
@@ -971,17 +971,17 @@ at the client.
 
 The message must be signed by the server.
 
-The parameters of this message consists of the following:
+The parameters of this message consist of the following:
 
 - messageType REQUIRED urn:ietf:satp:msgtype:assertion-receipt-msg.
 
 - sessionId REQUIRED: A unique identifier (e.g. UUIDv4) chosen earlier
-  by client in the Initialization Request Message.
+  by the client in the Initialization Request Message.
 
 - transferContextId REQUIRED: A unique identifier (e.g. UUIDv4)
   used to identify the current transfer session at the application layer.
 
-- hashPrevMessage REQUIRED. The hash of previous message.
+- hashPrevMessage REQUIRED. The hash of the previous message.
 
 - serverSignature REQUIRED. The digital signature of the server.
 
@@ -992,7 +992,7 @@ This section describes the transfer commitment agreement between the
 client (sender gateway) and the server (receiver gateway).
 
 This stage must be completed within the time specified
-in the lock_assertion_expiration value in the lock-assertion message.
+in the lockAssertionExpiration value in the lock-assertion message.
 
 In the following, the sender gateway takes the role of the client
 while the recipient gateway takes the role of the server.
@@ -1004,13 +1004,13 @@ Gateways MUST support the use of the HTTP GET and POST methods
 defined in RFC 2616 [RFC2616] for the endpoint.
 
 Clients MAY use the HTTP GET or POST methods to send messages in this stage to the server.
-If using the HTTP GET method, the request parameters maybe serialized
+If using the HTTP GET method, the request parameters may be serialized
 using URI Query String Serialization.
 
 The client and server may be required to sign certain messages
 in order to provide standalone proof (for non-repudiation) independent of the
 secure channel between the client and server.
-This proof maybe required for audit verifications post-event.
+This proof may be required for audit verifications post-event.
 
 (NOTE: Flows occur over TLS. Nonces are not shown).
 
@@ -1024,17 +1024,17 @@ This message is sent from the client to the Commit Prepare Endpoint at the serve
 
 The message must be signed by the client.
 
-The parameters of this message consists of the following:
+The parameters of this message consist of the following:
 
 - messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-prepare-msg
 
 - sessionId REQUIRED: A unique identifier (e.g. UUIDv4) chosen earlier
-  by client in the Initialization Request Message.
+  by the client in the Initialization Request Message.
 
 - transferContextId REQUIRED: A unique identifier (e.g. UUIDv4)
   used to identify the current transfer session at the application layer.
 
-- hashPrevMessage REQUIRED. The hash of previous message.
+- hashPrevMessage REQUIRED. The hash of the previous message.
 
 - clientSignature REQUIRED. The digital signature of the client.
 
@@ -1051,11 +1051,11 @@ This message is sent from the server to the Commit Ready Endpoint at the client.
 
 The message must be signed by the server.
 
-The parameters of this message consists of the following:
+The parameters of this message consist of the following:
 
 - messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-ready-msg.
 
-- sessionId REQUIRED: A unique identifier (e.g. UUIDv4) chosen earlier
+- sessionId REQUIRED: A unique identifier (e.g. UUIDv2) chosen earlier
   by client in the Initialization Request Message.
 
 - transferContextId REQUIRED: A unique identifier (e.g. UUIDv4)
@@ -1065,7 +1065,7 @@ The parameters of this message consists of the following:
 
 - mintAssertionFormat OPTIONAL. The format of the assertion payload.
 
-- hashPrevMessage REQUIRED. The hash of previous message.
+- hashPrevMessage REQUIRED. The hash of the previous message.
 
 - serverSignature REQUIRED. The digital signature of the server.
 
@@ -1085,12 +1085,12 @@ This message is sent from the client to the Commit Final Assertion Endpoint at t
 
 The message must be signed by the server.
 
-The parameters of this message consists of the following:
+The parameters of this message consist of the following:
 
 - messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-final-msg.
 
 - sessionId REQUIRED: A unique identifier (e.g. UUIDv4) chosen earlier
-  by client in the Initialization Request Message.
+  by the client in the Initialization Request Message.
 
 - transferContextId REQUIRED: A unique identifier (e.g. UUIDv4)
   used to identify the current transfer session at the application layer.
@@ -1099,7 +1099,7 @@ The parameters of this message consists of the following:
 
 - burnAssertionClaimFormat OPTIONAL. The format of the claim.
 
-- hashPrevMessage REQUIRED. The hash of previous message.
+- hashPrevMessage REQUIRED. The hash of the previous message.
 
 - clientSignature REQUIRED. The digital signature of the client.
 
@@ -1114,11 +1114,11 @@ This message is sent from the server to the Commit Final Receipt Endpoint at the
 
 The message must be signed by the server.
 
-The parameters of this message consists of the following:
+The parameters of this message consist of the following:
 
 - messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:ack-commit-final-msg.
 
-- sessionId REQUIRED: A unique identifier (e.g. UUIDv4) chosen earlier
+- sessionId REQUIRED: A unique identifier (e.g. UUIDv2) chosen earlier
   by client in the Initialization Request Message.
 
 - transferContextId REQUIRED: A unique identifier (e.g. UUIDv4)
@@ -1129,7 +1129,7 @@ The parameters of this message consists of the following:
 
 - assignmentAssertionClaimFormat OPTIONAL. The format of the claim.
 
-- hashPrevMessage REQUIRED. The hash of previous message.
+- hashPrevMessage REQUIRED. The hash of the previous message.
 
 - serverSignature REQUIRED. The digital signature of the server.
 
@@ -1137,8 +1137,8 @@ The parameters of this message consists of the following:
 
 {: #satp-transfer-complete-message-section}
 The purpose of this message is for the client to indicate to the server that
-the asset transer session (identified by sessionId)
-has been completed and that no further messages are to be
+the asset transfer session (identified by sessionId)
+has been completed and no further messages are to be
 expected from the client in regards to this transfer instance.
 
 The message closes the first message of Stage 2 (Transfer Commence Message).
@@ -1147,17 +1147,17 @@ This message is sent from the client to the Transfer Complete Endpoint at the se
 
 The message must be signed by the client.
 
-The parameters of this message consists of the following:
+The parameters of this message consist of the following:
 
 - messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-transfer-complete-msg.
 
 - sessionId REQUIRED: A unique identifier (e.g. UUIDv4) chosen earlier
-  by client in the Initialization Request Message.
+  by the client in the Initialization Request Message.
 
 - transferContextId REQUIRED: A unique identifier (e.g. UUIDv4)
   used to identify the current transfer session at the application layer.
 
-- hashPrevMessage REQUIRED. The hash of previous message.
+- hashPrevMessage REQUIRED. The hash of the previous message.
 
 - hashTransferCommence REQUIRED. The hash of the Transfer Commence message
   at the start of Stage 2.
@@ -1167,12 +1167,12 @@ The parameters of this message consists of the following:
 # SATP Session Resumption
 
 {: #satp-session-resume-section}
-This section answers the question how can a backup gateway build trust
-with the counter party gateway to resume the execution of the protocol,
+This section answers the question of how can a backup gateway build trust
+with the counterparty gateway to resume the execution of the protocol,
 in the presence of errors and crashes?
 
-Gateways may enter faulty state at any time while execution the protocol.
-The faulty state can manifest itself by incorrect behavior,
+Gateways may enter a faulty state at any time while executing the protocol.
+The faulty state can manifest itself in incorrect behavior,
 leading to gateways emitting alerts and errors.
 
 In some instances, gateways may crash.
@@ -1183,19 +1183,19 @@ by a functioning one, or recover, respectively.
 When a crash occurs, we initiate a recovery procedure by
 the backup gateway or the recovered gateway, as defined in the
 crash recovery draft {{?I-D.draft-belchior-satp-gateway-recovery}}.
-In either case, if the recovery happenswithin a time period defined as max_timeout (in Stage 2), the recovered gateway triggers a session resumption.
-The schema and order of the recovered messages is specified in the crash recovery draft.
+In either case, if the recovery happens within a time period defined as max_timeout (in Stage 2), the recovered gateway triggers a session resumption.
+The schema and order of the recovered messages are specified in the crash recovery draft.
 
 In the case where there is no answer from the gateway within the specified max_timeout,
-the counter-party gateway rollbacks the process until that stage.
+the counterparty gateway rollbacks the process until that stage.
 Upon recovery, the crashed gateway learns that the counterparty gateway
-has initated a rollback, and it proceeds accordingly (by also initating a rollback).
+has initiated a rollback, and it proceeds accordingly (by also initiating a rollback).
 Note that rollbacks can also happen in case of unresolved errors.
 
 The non-crashed gateway that conducts the rollback tries to communicate
-with the crashed gateway from time to time (self healing) or to contact
+with the crashed gateway from time to time (self-healing) or to contact
 the backup gateways (primary-backup).
-In any case, and upon the completion of a rollback,
+In any case, upon the completion of a rollback,
 the non-crashed gateway sends a ROLLBACK message
 to the recovered gateway to notify that a rollback happened.
 The recovered gateway should answer with ROLLBACK-ACK.
@@ -1212,7 +1212,7 @@ we focus on the primary-backup paradigm.
 
 Upon a gateway recovering using primary-backup,
 a new gateway (recovered gateway) takes over the crashed gateway.
-The counter-party gateway assures that the recovered gateway
+The counterparty gateway assures that the recovered gateway
 is legitimate (according to the crash recovery specification).
 
 After the recovery, the gateways exchange information about
@@ -1224,9 +1224,9 @@ After that, the gateways agree on the current state of the protocol.
 ## Recovery Messages
 
 {: #satp-session-resume-recovery-msg}
-We have omitted the logging procedure (only focusing the different messages).
+We have omitted the logging procedure (only focusing on the different messages).
 As defined in the crash recovery draft {{?I-D.draft-belchior-satp-gateway-recovery}},
-there are a set of messages that are exchanged between the recovered
+there is a set of messages that are exchanged between the recovered
 gateway and counterparty gateway:
 
 - RECOVER: when a gateway crashes and recovers,
@@ -1275,10 +1275,10 @@ is needed, the following messages are used:
 
 {: #satp-alert-error-messages}
 SATP distinguishes between
-application driven closures (terminations) and
+application-driven closures (terminations) and
 those caused by errors at the SATP protocol level.
 
-The list of errors and desciption can be found in the Appendix.
+The list of errors and descriptions can be found in the Appendix.
 
 ```
 enum { sessionClosure(1), nonfatalError (2) fatalError(3), (255) } AlertLevel;
@@ -1308,7 +1308,7 @@ struct {
 {: #satp-closure-alerts-section}
 
 The SATP client and server (gateways) must share knowledge that
-the transfer connection is ending in order to avoid third party attacks.
+the transfer connection is ending in order to avoid third-party attacks.
 
 (a) closeNotify: This alert notifies the recipient that the sender gateway
 will not send any more messages on this transfer connection.
@@ -1330,7 +1330,7 @@ MUST close the connection without sending or receiving any additional data.
 The following error alerts are defined:
 
 - connectionError: There is an error in the TLS session establishment
-  (TLS error codes should be reported-up to gateway level)
+  (TLS error codes should be reported-up to the gateway level)
 
 - badCertificate: The gateway certificate was corrupt, contained signatures,
   that did not verify correctly, etc.
@@ -1346,14 +1346,14 @@ The following error alerts are defined:
 
 {: #satp-Security-Consideration}
 Gateways are of particular interest to attackers because
-they are a kind of end-to-end pipeline that enable the transferral of
+they are a kind of end-to-end pipeline that enables the transferral of
 digital assets to external networks or systems.
 Thus, attacking a gateway may be attractive to attackers instead of
 the network behind a gateway.
 
 As such, hardware hardening technologies and
 tamper-resistant crypto-processors (e.g. TPM, Secure Enclaves, SGX)
-should be considered for implementations of gateways.
+should be considered for the implementation of gateways.
 
 # IANA Consideration
 
@@ -1372,7 +1372,7 @@ The following lists the error associated with each message in SATP.
 
 {: #errors-transfer-commence}
 
-The following are the list of errors related to Transfer Commence and Response:
+The following is the list of errors related to the Transfer Commence and Response:
 
 - err_2.1: Badly formed message.
 - err_2.2: Incorrect parameter.
@@ -1381,7 +1381,7 @@ The following are the list of errors related to Transfer Commence and Response:
 ## Lock Assertion errors
 
 {: #errors-lock-assertion}
-The following are the list of errors related to Lock Assertion:
+The following is the list of errors related to Lock Assertion:
 
 - err_2.4.1: Badly formed message: badly formed Claim.
 - err_2.4.2: Badly formed message: bad signature.
@@ -1393,7 +1393,7 @@ The following are the list of errors related to Lock Assertion:
 ## Lock Assertion Receipt errors
 
 {: #errors-lock-assertion-receipt}
-The following are the list of errors related to Lock Assertion Receipt:
+The following is the list of errors related to Lock Assertion Receipt:
 
 - err_2.6.1: Badly formed message: badly formed Claim.
 - err_2.6.2: Badly formed message: bad signature.
@@ -1405,7 +1405,7 @@ The following are the list of errors related to Lock Assertion Receipt:
 ## Commit Preparation errors
 
 {: #errors-commit-prepare}
-The following are the list of errors related to Commit Preparation:
+The following is the list of errors related to Commit Preparation:
 
 - err_3.1.1: Badly formed message: wrong transaction ID.
 
@@ -1419,7 +1419,7 @@ The following are the list of errors related to Commit Preparation:
 
 {: #errors-commit-prepare-ack}
 
-The following are the list of errors related to Commit Preparation Acknowledgement:
+The following is the list of errors related to Commit Preparation Acknowledgement:
 
 - err_3.2.1: Badly formed message: wrong transaction ID.
 - err_3.2.2: Badly formed message: mismatch hash value.
@@ -1430,7 +1430,7 @@ The following are the list of errors related to Commit Preparation Acknowledgeme
 
 {: #errors-commit-ready}
 
-The following are the list of errors related to Commit Ready:
+The following is the list of errors related to Commit Ready:
 
 - err_3.4.1: Badly formed message: wrong transaction ID.
 
@@ -1444,7 +1444,7 @@ The following are the list of errors related to Commit Ready:
 
 {: #errors-commit-final-assertion}
 
-The following are the list of errors related to Commit Final Assertion:
+The following is the list of errors related to Commit Final Assertion:
 
 - err_3.6.1: Badly formed message: badly formed Claim.
 

@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-08-25T00:37:02.406995+00:00",
+  "timestamp": "2024-08-27T00:34:04.441765+00:00",
   "repo": "ietf-satp/draft-ietf-satp-core",
   "labels": [
     {
@@ -1034,6 +1034,32 @@
       "mergeCommit": {
         "oid": "d7ebfddd2f772809f6e96e07c4db7ddbfedf2d54"
       },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 22,
+      "id": "PR_kwDOKkmiaM55aasb",
+      "title": "Fix typos in draft-ietf-satp-core.md",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/22",
+      "state": "OPEN",
+      "author": "AndreAugusto11",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "* Also, added a section number to Sequence Number\r\n",
+      "createdAt": "2024-08-26T09:11:18Z",
+      "updatedAt": "2024-08-26T09:11:18Z",
+      "baseRepository": "ietf-satp/draft-ietf-satp-core",
+      "baseRefName": "main",
+      "baseRefOid": "d7ebfddd2f772809f6e96e07c4db7ddbfedf2d54",
+      "headRepository": "AndreAugusto11/draft-ietf-satp-core",
+      "headRefName": "patch-1",
+      "headRefOid": "5437d2c906be53bbb9e3ee3b20e87395197ec719",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     }

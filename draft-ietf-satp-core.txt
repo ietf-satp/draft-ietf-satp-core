@@ -5,10 +5,10 @@
 Secure Asset Transfer Protocol                             M. Hargreaves
 Internet-Draft                                             Quant Network
 Intended status: Informational                               T. Hardjono
-Expires: 18 January 2025                                             MIT
+Expires: 16 March 2025                                               MIT
                                                           V. Ramakrishna
                                                                      IBM
-                                                            17 July 2024
+                                                       12 September 2024
 
 
                Secure Asset Transfer Protocol (SATP) Core
@@ -19,7 +19,8 @@ Abstract
    This memo describes the Secure Asset Transfer (SAT) Protocol for
    digital assets.  SAT is a protocol operating between two gateways
    that conducts the transfer of a digital asset from one gateway to
-   another.  The protocol establishes a secure channel between the
+   another, each representing their corresponding digital asset
+   networks.  The protocol establishes a secure channel between the
    endpoints and implements a 2-phase commit (2PC) to ensure the
    properties of transfer atomicity, consistency, isolation and
    durability.
@@ -56,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 January 2025.
+   This Internet-Draft will expire on 16 March 2025.
 
 Copyright Notice
 
@@ -1721,9 +1722,9 @@ Table of Contents
               Belchior, R., Correia, M., Augusto, A., and T. Hardjono,
               "Secure Asset Transfer Protocol (SATP) Gateway Crash
               Recovery Mechanism", Work in Progress, Internet-Draft,
-              draft-belchior-satp-gateway-recovery-01, 29 January 2024,
+              draft-belchior-satp-gateway-recovery-02, 22 July 2024,
               <https://datatracker.ietf.org/doc/html/draft-belchior-
-              satp-gateway-recovery-01>.
+              satp-gateway-recovery-02>.
 
    [NIST]     Yaga, D., Mell, P., Roby, N., and K. Scarfone, "NIST
               Blockchain Technology Overview (NISTR-8202)", October

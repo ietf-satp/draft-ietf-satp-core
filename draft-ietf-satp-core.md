@@ -749,7 +749,6 @@ For example, the client makes the following HTTP request using TLS
 "server_identity_pubkey":"dFgdfgdfgt43tetr535teyrfge4t54334",
 "transfer_init_claims":"nbvcwertyhgfdsertyhgf2h3v4bd3v21",
 "hash_prev_message":"DRvfrb654vgreDerverv654nhRbvder4",
-"client_transfer_number":"ji9876543ewdfgh",
 "client_signature":"fdw34567uyhgfer45"
 }
 
@@ -1250,7 +1249,7 @@ should be considered for implementations of gateways.
 
 (TBD)
 
-# Appendix C: Error Types
+# Appendix: Error Types
 
 {: #error-types-section}
 The following lists the error associated with each message in SATP.

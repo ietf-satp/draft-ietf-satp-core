@@ -90,15 +90,16 @@ This memo describes the Secure Asset Transfer (SAT) Protocol for digital assets.
 
 {: #introduction-doc}
 
-This memo proposes a secure asset transfer protocol (SATP) that is intended to be deployed between two gateway endpoints to transfer a digital asset from an origin network to a destination network.
+This memo proposes a secure asset transfer protocol (SATP) that is intended to be deployed between two gateway endpoints to transfer a digital asset from an origin asset network to a destination asset network.
+Readers are directed first to [SATP-ARCH] for a description of the architecture underlying the current protocol.
 
-Both the origin and destination networks are assumed to be opaque
-in the sense that the interior constructs of a given network
+Both the origin and destination asset networks are assumed to be opaque
+in the sense that the interior construct of a given network
 is not read/write accessible to unauthorized entities.
 
 The protocol utilizes the asset burn-and-mint paradigm whereby the asset
 to be transferred is permanently disabled or destroyed (burned)
-at the origin network and is re-generated (minted) at the destination network.
+at the origin asset network and is re-generated (minted) at the destination asset network.
 This is achieved through the coordinated actions of the peer gateways
 handling the unidirectional transfer at the respective networks.
 
@@ -113,14 +114,14 @@ The protocol must ensure that the properties of atomicity, consistency,
 isolation, and durability (ACID) are satisfied.
 
 The requirement of consistency implies that the
-asset transfer protocol always leaves both networks
+asset transfer protocol always leaves both asset networks
 in a consistent state (that the asset is located in
 one system/network only at any time).
 
 Atomicity means that the protocol must guarantee
 that either the transfer commits (completes) or entirely fails,
 where failure is taken to mean there is no change to the
-state of the asset in the origin (sender) network.
+state of the asset in the origin (sender) asset network.
 
 The property of isolation means that while a transfer
 is occurring to a digital asset from an origin network,
@@ -153,6 +154,11 @@ interpreted as carrying significance described in RFC 2119.
 
 The following are some terminology used in the current document:
 
+- Digital asset: digital representation of a value or of a right that is able to be
+  transferred and stored electronically using distributed ledger technology or similar technology [MICA].
+
+- Asset network: A monolithic system or a set of distributed systems that manage digital assets.
+
 - Client application: This is the application employed by a user
   to interact with a gateway.
 
@@ -170,7 +176,9 @@ The following are some terminology used in the current document:
 
 - Gateway Claim: An assertion made by a Gateway regarding the status or
   condition of resources (e.g. assets, public keys, etc.)
-  accessible to that gateway (e.g. within its network or system).
+  accessible to that gateway (e.g. within its asset network or system).
+
+In the remainder of this document, for brevity of description the term “asset network” will often be shorted to "network".
 
 # The Secure Asset Transfer Protocol
 

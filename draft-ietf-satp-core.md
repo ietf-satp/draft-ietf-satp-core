@@ -256,10 +256,8 @@ SATP recognizes the following cryptographic keys which are intended for distinct
 - Gateway secure channel establishment public key-pair: This is the key-pair utilized by peer gateways to establish a secure channel (e.g. TLS) for a transfer session.
 
 - Gateway device-identity public key pair: This is the key-pair that identifies the unique hardware device underlying a gateway.
-
+  
 - Gateway owner-identity public key pair: This is the key-pair that identifies the owner (e.g. legal entity) who is the legal owner of a gateway.
-
-
 
 # SATP Message Format, identifiers and Descriptors
 
@@ -329,9 +327,9 @@ This is the unique immutable identifier (e.g. UUIDv2) representing the applicati
 
 This is the unique identifier (e.g. UUIDv2) representing a session between two gateways handling a single unidirectional transfer. This may be derived from the Transfer-Context ID at the application level. There may be several session IDs related to a SATP execution instance. Only one Session ID may be active for a given SATP execution instance. Session IDs may be stored in the transfer-context for audit trail purposes.
 
-Sequence Number:
+### Sequence Number:
 
-This is an increasing counter uniquely representing a message from a session. This can be utilized to assist the peer gateways when they are processing multiple simultaneous unrelated transfers.
+This is a monotonically increasing counter value uniquely representing a message from a session. This can be utilized to assist the peer gateways when they are processing multiple simultaneous unrelated transfers.
 
 ### Gateway Credential Type
 
@@ -352,6 +350,10 @@ This is the list of digital signature algorithm supported by a gateway, with the
 ### Message Signature
 
 This payload is the actual the ECDSA signature portion over a message.
+
+### Lock assertion Claims and Format
+This is the format of the set of claims regarding the state of the asset in the origin network. 
+The claims are network-dependent in the sense that different asset networks or systems may utilize a different asset locking (disablement) mechanism.
 
 ## Negotiation of Security Protocols and Parameters
 
@@ -407,7 +409,7 @@ The client and server must mutually agree on the asset type or profile that is t
 
 {: #satp-flows-overview-section}
 
-The SATP message flows are logically divided into three (3) stages, with the preparatory stage denoted as Stage-0. How the tasks are achieved in Stage-0 is out of scope for the current specification.
+The SATP message flows are logically divided into three (3) stages [SATP-ARCH], with the preparatory stage denoted as Stage-0. How the tasks are achieved in Stage-0 is out of scope for the current specification.
 
 The Stage-1 flows pertains to the initialization of the transfer between the two gateways.
 
@@ -471,7 +473,9 @@ The reader is directed to [SATP-ARCH] for further discussion of this model.
 
 {: #satp-Stage0-section}
 
-Prior to commencing the asset transfer from the sender gateway (client) to the recipient gateway (server), both gateways must perform a number of verifications steps. The types of information required by both the sender and recipient are use-case dependent and asset-type dependent.
+Prior to commencing the asset transfer from the sender gateway (client) to the recipient gateway (server), 
+both gateways must perform a number of verifications steps pSATP-ARCH]. 
+The types of information required by both the sender and recipient are use-case dependent and asset-type dependent.
 
 The verifications include, but not limited to, the following:
 
@@ -494,6 +498,7 @@ The verifications include, but not limited to, the following:
 These are considered out of scope in the current specifications,
 and are assumed to have been successfully completed prior to
 the commencement of the transfer initiation flow.
+The reader is directed to [SATP-ARCH] for further discussion regarding Stage-0.
 
 # Transfer Initiation Stage (Stage 1)
 
@@ -619,7 +624,7 @@ The parameters of this message consists of the following:
 - transfer_init_claims: The set of artifacts and parameters as the basis
   for the current transfer.
 
-- transfer_init_claims_format OPTIONAL: The format of the transfer initialization claims.
+- transfer_init_claims_format REQUIRED: The format of the transfer initialization claims.
 
 - network_capabilities_list REQUIRED: The set of origin network parameters reported by the client to the server.
 
@@ -634,8 +639,7 @@ The parameters of this message consists of the following:
 {: #satp-stage1-init-receipt}
 
 The purpose of this message is for the server to indicate explicit
-acceptance of the Transfer Initialization Claims
-in the transfer proposal message.
+acceptance of the parameters in the claims  part of the transfer proposal message.
 
 The message must be signed by the server.
 
@@ -722,9 +726,6 @@ The parameters of this message consists of the following:
 - hash_prev_message REQUIRED. The hash of the last message, in this case the
   Transfer Proposal Receipt message.
 
-- client_transfer_number OPTIONAL. This is the transfer identification number
-  chosen by the client. This number is meaningful only the client.
-
 - client_signature REQUIRED. The digital signature of the client.
 
 For example, the client makes the following HTTP request using TLS
@@ -768,7 +769,7 @@ This message is sent by the server to the Transfer Commence Endpoint at the clie
 
 The message must be signed by the server.
 
-The parameters of this message consists of the following:
+The parameters of this message consist of the following:
 
 - message_type REQUIRED urn:ietf:satp:msgtype:ack-commence-msg
 
@@ -781,9 +782,6 @@ The parameters of this message consists of the following:
 - hash_prev_message REQUIRED.The hash of the last message, in this case the
   the Transfer Commence Message.
 
-- server_transfer_number OPTIONAL. This is the transfer identification number
-  chosen by the server. This number is meaningful only to the server.
-
 - server_signature REQUIRED. The digital signature of the server.
 
 An example of a success response could be as follows: (TBD).
@@ -793,7 +791,7 @@ An example of a success response could be as follows: (TBD).
 {: #satp-stage2-section}
 
 The messages in this stage pertain to the sender gateway providing
-the recipient gateway with a signed assertion that the asset in the origin network
+the recipient gateway with a signed assertion that the asset in the origin asset network
 has been locked or disabled and under the control of the sender gateway.
 
 In the following, the sender gateway takes the role of the client
@@ -848,10 +846,6 @@ The parameters of this message consists of the following:
 
 - hash_prev_message REQUIRED. The hash of the previous message.
 
-- client_transfer_number OPTIONAL. This is the
-  transfer identification number chosen by the client.
-  This number is meaningful only to the client.
-
 - client_signature REQUIRED. The digital signature of the client.
 
 ## Lock Assertion Receipt Message
@@ -877,9 +871,6 @@ The parameters of this message consists of the following:
   used to identify the current transfer session at the application layer.
 
 - hash_prev_message REQUIRED. The hash of previous message.
-
-- server_transfer_number OPTIONAL. This is the transfer identification number chosen by the server.
-  This number is meaningful only to the server.
 
 - server_signature REQUIRED. The digital signature of the server.
 
@@ -934,10 +925,6 @@ The parameters of this message consists of the following:
 
 - hash_prev_message REQUIRED. The hash of previous message.
 
-- client_transfer_number OPTIONAL.
-  This is the transfer identification number chosen by the client.
-  This number is meaningful only the client.
-
 - client_signature REQUIRED. The digital signature of the client.
 
 ## Commit Ready Message (Commit-Ready)
@@ -968,10 +955,6 @@ The parameters of this message consists of the following:
 - mint_assertion_format OPTIONAL. The format of the assertion payload.
 
 - hash_prev_message REQUIRED. The hash of previous message.
-
-- server_transfer_number OPTIONAL.
-  This is the transfer identification number chosen by the server.
-  This number is meaningful only the server.
 
 - server_signature REQUIRED. The digital signature of the server.
 
@@ -1007,10 +990,6 @@ The parameters of this message consists of the following:
 
 - hash_prev_message REQUIRED. The hash of previous message.
 
-- client_transfer_number OPTIONAL.
-  This is the transfer identification number chosen by the client.
-  This number is meaningful only the client.
-
 - client_signature REQUIRED. The digital signature of the client.
 
 ## Commit-Final Acknowledgement Receipt Message (ACK-Final-Receipt)
@@ -1040,10 +1019,6 @@ The parameters of this message consists of the following:
 - assignment_assertion_claim_format OPTIONAL. The format of the claim.
 
 - hash_prev_message REQUIRED. The hash of previous message.
-
-- server_transfer_number OPTIONAL.
-  This is the transfer identification number chosen by the server.
-  This number is meaningful only the server.
 
 - server_signature REQUIRED. The digital signature of the server.
 
@@ -1075,10 +1050,6 @@ The parameters of this message consists of the following:
 
 - hash_transfer_commence REQUIRED. The hash of the Transfer Commence message
   at the start of Stage 2.
-
-- client_transfer_number OPTIONAL.
-  This is the transfer identification number chosen by the client.
-  This number is meaningful only the client.
 
 - client_signature REQUIRED. The digital signature of the client.
 

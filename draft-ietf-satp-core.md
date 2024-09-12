@@ -192,7 +192,7 @@ The Secure Asset Transfer Protocol (SATP) is a gateway-to-gateway protocol used 
 
 The protocol defines a number of API endpoints, resources and identifier definitions, and message flows corresponding to the asset transfer between the two gateways.
 
-The current document pertains to the interaction between gateways through API2.
+The current document pertains to the interaction between gateways through API2 [SATP-ARCH].
 
 ```
                  +----------+                +----------+
@@ -219,49 +219,33 @@ The current document pertains to the interaction between gateways through API2.
 
 {: #satp-model}
 
-The model for SATP is shown in Figure 1.
+The model for SATP is shown in Figure 1 [SATP-ARCH].
 The Client (application) interacts with its local gateway (G1) over an interface (API1) in order to provide instructions to the gateway with regards to actions to assets and related resources located in the local system or network (NW1).
 
 Gateways interact with each other over a gateway interface (API2). A given gateway may be required to access resources that are not located in network NW1 or network NW2. Access to these types of resources are performed over an off-network interface (API3).
-
-## Family of APIs
-
-{: #satp-apitypes}
-
-The following are the types of APIs in SATP:
-
-- Gateway APIs for client (API1):
-  This is the API that allows a Client (application) to interact with a local gateway and issue instructions for actions pertaining to resources accessible to the gateway.
-
-- Gateway APIs for peer gateways (API2):
-  These are the APIs employed by two (2) peer gateways for performing unidirectional asset transfers.
-
-- APIs for validation of off-network resources (API3):
-  These are the APIs made available by a resource server (resource owner) that a gateway can use to access resources.
-
-The use of these APIs is dependent on the mode of access and the type of flow in question.
 
 ## Stages of the Protocol
 
 {: #satp-flowtypes}
 
-The SAT protocol defines three (3) stages for a unidirectional asset transfer:
+The SAT protocol defines three (3) stages for a unidirectional asset transfer. These stages occur following the transfer set-up.
 
 - Transfer Initiation stage (Stage-1):
-  These flows deals with commencing a transfer from one gateway to another. Several tasks are involved, including (but not limited to):
+  These flows deal with commencing a transfer from one gateway to another. Several tasks are involved, including (but not limited to):
   (i) gateway identification and mutual authentication;
   (ii) exchange of asset type (definition) information;
   (iii) verification of the asset definition, and others.
 
 - Lock-Assertion stage (Stage-2):
-  These flows deals with the conveyance of signed assertions from the sender gateway to the receiver gateway regarding the locked status of an asset at the origin network.
+  These flows deal with the conveyance of signed assertions from the sender gateway to the receiver gateway
+  regarding the locked status of an asset at the origin asset network.
 
-- Commitment Establishment stage (Stage-3):
-  These flowsdeals with the asset transfer and commitment establishment between two gateways.
+- Commitment Preparation and Finalization stage (Stage-3):
+  These flows deal with the asset transfer and commitment establishment between two gateways.
 
 In order to clarify discussion, the interactions between the peer gateways prior to transfer initiation stage is referred to as the setup stage (Stage-0), which is outside the scope of the current specification.
 
-These flows will be discussed below.
+The Stage-1, Stage-2 and Stage-3 flows will be discussed below.
 
 ## Gateway Cryptographic Keys
 

@@ -81,9 +81,8 @@ Table of Contents
    4.  The Secure Asset Transfer Protocol
      4.1.  Overview
      4.2.  SAT Model
-     4.3.  Family of APIs
-     4.4.  Stages of the Protocol
-     4.5.  Gateway Cryptographic Keys
+     4.3.  Stages of the Protocol
+     4.4.  Gateway Cryptographic Keys
    5.  SATP Message Format, identifiers and Descriptors
      5.1.  Overview
      5.2.  SATP Message Format and Payloads
@@ -258,7 +257,7 @@ Table of Contents
    transfer between the two gateways.
 
    The current document pertains to the interaction between gateways
-   through API2.
+   through API2 [SATP-ARCH].
 
    +----------+ +----------+ | Client | | Off-net | ------ | (App) | |
    Resource | | +----------+ +----------+ | | | API3 | | |
@@ -270,66 +269,46 @@ Table of Contents
 
 4.2.  SAT Model
 
-   The model for SATP is shown in Figure 1.  The Client (application)
-   interacts with its local gateway (G1) over an interface (API1) in
-   order to provide instructions to the gateway with regards to actions
-   to assets and related resources located in the local system or
-   network (NW1).
+   The model for SATP is shown in Figure 1 [SATP-ARCH].  The Client
+   (application) interacts with its local gateway (G1) over an interface
+   (API1) in order to provide instructions to the gateway with regards
+   to actions to assets and related resources located in the local
+   system or network (NW1).
 
    Gateways interact with each other over a gateway interface (API2).  A
    given gateway may be required to access resources that are not
    located in network NW1 or network NW2.  Access to these types of
    resources are performed over an off-network interface (API3).
 
-4.3.  Family of APIs
-
-   The following are the types of APIs in SATP:
-
-   *  Gateway APIs for client (API1): This is the API that allows a
-      Client (application) to interact with a local gateway and issue
-      instructions for actions pertaining to resources accessible to the
-      gateway.
-
-   *  Gateway APIs for peer gateways (API2): These are the APIs employed
-      by two (2) peer gateways for performing unidirectional asset
-      transfers.
-
-   *  APIs for validation of off-network resources (API3): These are the
-      APIs made available by a resource server (resource owner) that a
-      gateway can use to access resources.
-
-   The use of these APIs is dependent on the mode of access and the type
-   of flow in question.
-
-4.4.  Stages of the Protocol
+4.3.  Stages of the Protocol
 
    The SAT protocol defines three (3) stages for a unidirectional asset
-   transfer:
+   transfer.  These stages occur following the transfer set-up.
 
-   *  Transfer Initiation stage (Stage-1): These flows deals with
+   *  Transfer Initiation stage (Stage-1): These flows deal with
       commencing a transfer from one gateway to another.  Several tasks
       are involved, including (but not limited to): (i) gateway
       identification and mutual authentication; (ii) exchange of asset
       type (definition) information; (iii) verification of the asset
       definition, and others.
 
-   *  Lock-Assertion stage (Stage-2): These flows deals with the
+   *  Lock-Assertion stage (Stage-2): These flows deal with the
       conveyance of signed assertions from the sender gateway to the
       receiver gateway regarding the locked status of an asset at the
-      origin network.
+      origin asset network.
 
-   *  Commitment Establishment stage (Stage-3): These flowsdeals with
-      the asset transfer and commitment establishment between two
-      gateways.
+   *  Commitment Preparation and Finalization stage (Stage-3): These
+      flows deal with the asset transfer and commitment establishment
+      between two gateways.
 
    In order to clarify discussion, the interactions between the peer
    gateways prior to transfer initiation stage is referred to as the
    setup stage (Stage-0), which is outside the scope of the current
    specification.
 
-   These flows will be discussed below.
+   The Stage-1, Stage-2 and Stage-3 flows will be discussed below.
 
-4.5.  Gateway Cryptographic Keys
+4.4.  Gateway Cryptographic Keys
 
    SATP recognizes the following cryptographic keys which are intended
    for distinct purposes within the different stages of the protocol.

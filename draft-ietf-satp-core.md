@@ -93,6 +93,17 @@ informative:
     target: https://www.rfc-editor.org/info/rfc5939
     title: Session Description Protocol (SDP) Capability Negotiation
 
+  RFC9334:
+    author:
+    - ins: H. Birkholz
+    - ins: D. Thaler
+    - ins: M. Richardson
+    - ins: N. Smith
+    - ins: W. Pan
+    date: January 2023
+    target: https://www.rfc-editor.org/info/rfc9334
+    title: Remote Attestation Procedures Architecture (RATS)
+
 normative:
   JWT: RFC7519
   REQ-LEVEL: RFC2119
@@ -428,7 +439,7 @@ The client and server must mutually agree on the asset type or profile that is t
 
 {: #satp-flows-overview-section}
 
-The SATP message flows are logically divided into three (3) stages [SATP-ARCH], with the preparatory stage denoted as Stage-0. How the tasks are achieved in Stage-0 is out of scope for the current specification.
+The SATP message flows are logically divided into three (3) stages {{ARCH}}, with the preparatory stage denoted as Stage-0. How the tasks are achieved in Stage-0 is out of scope for the current specification.
 
 The Stage-1 flows pertains to the initialization of the transfer between the two gateways.
 
@@ -438,7 +449,7 @@ If that assertion is accepted by gateway G2, it must in return transmit a signed
 
 The Stage-3 flows commits gateways G1 and G2 to the burn and mint in Stage-2. The sender gateway G1 must make the lock on the asset in origin network NW1 to be permanent (burn). The receiver gateway G2 must assign (mint) the asset in the destination network NW2 to the correct beneficiary.
 
-The reader is directed to [SATP-ARCH] for further discussion of this model.
+The reader is directed to {{ARCH}} for further discussion of this model.
 
 ```
        App1  NW1          G1                     G2          NW2    App2
@@ -493,7 +504,7 @@ The reader is directed to [SATP-ARCH] for further discussion of this model.
 {: #satp-Stage0-section}
 
 Prior to commencing the asset transfer from the sender gateway (client) to the recipient gateway (server), 
-both gateways must perform a number of verifications steps pSATP-ARCH]. 
+both gateways must perform a number of verifications steps. 
 The types of information required by both the sender and recipient are use-case dependent and asset-type dependent.
 
 The verifications include, but not limited to, the following:
@@ -504,7 +515,7 @@ The verifications include, but not limited to, the following:
   This is the verification of the identity (e.g. LEI) of the owners of the gateways.
 
 - Gateway device and state validation:
-  This is the device attestation evidence [RATS]
+  This is the device attestation evidence {{RFC9334}}
   that a gateway must collect and convey to each other,
   where a verifier is assumed to be available to decode,
   parse and appraise the evidence.
@@ -517,7 +528,7 @@ The verifications include, but not limited to, the following:
 These are considered out of scope in the current specifications,
 and are assumed to have been successfully completed prior to
 the commencement of the transfer initiation flow.
-The reader is directed to [SATP-ARCH] for further discussion regarding Stage-0.
+The reader is directed to {{ARCH}} for further discussion regarding Stage-0.
 
 # Transfer Initiation Stage (Stage 1)
 

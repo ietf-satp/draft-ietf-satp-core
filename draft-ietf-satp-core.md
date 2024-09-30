@@ -52,7 +52,7 @@ author:
     name: Rafael Belchior
     organization: INESC-ID, Técnico Lisboa, Blockdaemon
     email: rafael.belchior@tecnico.ulisboa.pt
-      -
+  -
     ins: V. Ramakrishna
     name: Venkatraman Ramakrishna
     organization: IBM

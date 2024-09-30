@@ -86,7 +86,7 @@ informative:
     date: June 2024
     target: https://datatracker.ietf.org/doc/draft-ietf-satp-architecture/
     title: Secure Asset Transfer (SAT) Interoperability Architecture
-    
+
   RFC5939:
     author:
     - ins: F. Andreasen
@@ -108,7 +108,7 @@ informative:
 normative:
   JWT: RFC7519
   REQ-LEVEL: RFC2119
-  
+
 --- abstract
 
 This memo describes the Secure Asset Transfer (SAT) Protocol for digital assets. SAT is a protocol operating between two gateways that conducts the transfer of a digital asset from one gateway to another, each representing their corresponding digital asset networks. The protocol establishes a secure channel between the endpoints and implements a 2-phase commit (2PC) to ensure the properties of transfer atomicity, consistency, isolation and durability.
@@ -285,7 +285,7 @@ SATP recognizes the following cryptographic keys which are intended for distinct
 - Gateway secure channel establishment public key-pair: This is the key-pair utilized by peer gateways to establish a secure channel (e.g. TLS) for a transfer session.
 
 - Gateway device-identity public key pair: This is the key-pair that identifies the unique hardware device underlying a gateway.
-  
+
 - Gateway owner-identity public key pair: This is the key-pair that identifies the owner (e.g. legal entity) who is the legal owner of a gateway.
 
 # SATP Message Format, identifiers and Descriptors
@@ -352,7 +352,7 @@ The mechanism used to derive the digital asset identifier is outside the scope o
 
 This is the unique immutable identifier (e.g. UUIDv2) representing the application layer context of a single unidirectional transfer. The method to generate the transfer-context ID is outside the scope of the current document.
 
-The transfer-context may be a complex data structure that contains all information related to a SATP execution instance. Examples of information contained in a transfer-context may include identifiers of sessions, gateways, networks or assets related to the specific SATP execution instance. 
+The transfer-context may be a complex data structure that contains all information related to a SATP execution instance. Examples of information contained in a transfer-context may include identifiers of sessions, gateways, networks or assets related to the specific SATP execution instance.
 
 ### Session ID:
 
@@ -383,7 +383,7 @@ This is the list of digital signature algorithm supported by a gateway, with the
 This payload is the actual the ECDSA signature portion over a message.
 
 ### Lock assertion Claims and Format
-This is the format of the set of claims regarding the state of the asset in the origin network. 
+This is the format of the set of claims regarding the state of the asset in the origin network.
 The claims are network-dependent in the sense that different asset networks or systems may utilize a different asset locking (disablement) mechanism.
 
 ## Negotiation of Security Protocols and Parameters
@@ -504,8 +504,8 @@ The reader is directed to {{ARCH}} for further discussion of this model.
 
 {: #satp-Stage0-section}
 
-Prior to commencing the asset transfer from the sender gateway (client) to the recipient gateway (server), 
-both gateways must perform a number of verifications steps. 
+Prior to commencing the asset transfer from the sender gateway (client) to the recipient gateway (server),
+both gateways must perform a number of verifications steps.
 The types of information required by both the sender and recipient are use-case dependent and asset-type dependent.
 
 The verifications include, but not limited to, the following:

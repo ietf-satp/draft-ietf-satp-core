@@ -37,6 +37,7 @@ venue:
   latest: "https://ietf-satp.github.io/draft-ietf-satp-core/draft-ietf-satp-core.html"
 
 author:
+
   -
     ins: M. Hargreaves
     name: Martin Hargreaves

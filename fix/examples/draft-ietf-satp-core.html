@@ -2227,25 +2227,25 @@ Transfer Proposal Receipt message.<a href="#section-8.6-5.5.1" class="pilcrow">�
         </ul>
 <p id="section-8.6-6">For example, the client makes the following HTTP request using TLS
 (with extra line breaks for display purposes only):<a href="#section-8.6-6" class="pilcrow">¶</a></p>
-<p id="section-8.6-7">```<a href="#section-8.6-7" class="pilcrow">¶</a></p>
-<p id="section-8.6-8">POST /token HTTP/1.1
- Host: server.example.com
- Authorization: Basic awHCaGRSa3F0MzpnWDFmQmF0M2ZG
- Content-Type: application/x-www-form-urlencoded<a href="#section-8.6-8" class="pilcrow">¶</a></p>
-<p id="section-8.6-9">{
-"message_type": "urn:ietf:satp:msgtype:transfer-commence-msg",
-"session_id":"9097hkstgkjvVbNH",
-"originator_pubkey":"zGy89097hkbfgkjvVbNH",
-"beneficiary_pubkey": "mBGHJjjuijh67yghb",
-"sender_net_system": "originNETsystem",
-"recipient_net_system":"recipientNETsystem",
-"client_identity_pubkey":"fgH654tgeryuryuy",
-"server_identity_pubkey":"dFgdfgdfgt43tetr535teyrfge4t54334",
-"transfer_init_claims":"nbvcwertyhgfdsertyhgf2h3v4bd3v21",
-"hash_prev_message":"DRvfrb654vgreDerverv654nhRbvder4",
-"client_signature":"fdw34567uyhgfer45"
-}<a href="#section-8.6-9" class="pilcrow">¶</a></p>
-<p id="section-8.6-10">```<a href="#section-8.6-10" class="pilcrow">¶</a></p>
+<p id="section-8.6-7">```
+POST /token HTTP/1.1
+Host: server.example.com
+Authorization: Basic awHCaGRSa3F0MzpnWDFmQmF0M2ZG
+Content-Type: application/x-www-form-urlencoded<a href="#section-8.6-7" class="pilcrow">¶</a></p>
+<p id="section-8.6-8">{
+    "message_type": "urn:ietf:satp:msgtype:transfer-commence-msg",
+    "session_id":"9097hkstgkjvVbNH",
+    "originator_pubkey":"zGy89097hkbfgkjvVbNH",
+    "beneficiary_pubkey": "mBGHJjjuijh67yghb",
+    "sender_net_system": "originNETsystem",
+    "recipient_net_system":"recipientNETsystem",
+    "client_identity_pubkey":"fgH654tgeryuryuy",
+    "server_identity_pubkey":"dFgdfgdfgt43tetr535teyrfge4t54334",
+    "transfer_init_claims":"nbvcwertyhgfdsertyhgf2h3v4bd3v21",
+    "hash_prev_message":"DRvfrb654vgreDerverv654nhRbvder4",
+    "client_signature":"fdw34567uyhgfer45"
+}
+```<a href="#section-8.6-8" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="transfer-commence-sec-example">

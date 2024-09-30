@@ -338,7 +338,9 @@ The mechanism used to derive the digital asset identifier is outside the scope o
 
 ### Transfer-Context ID:
 
-This is the unique immutable identifier (e.g. UUIDv2) representing the application layer context of a single unidirectional transfer. The transfer-context is a complex data structure (e.g. in JSON format) that contains all information related to a SATP execution instance. Examples of information contained in a transfer-context may include identifiers of sessions, gateways, networks or assets related to the specific SATP execution instance. Typically, a transfer-context may be retrieved from a Registry via an API3 call
+This is the unique immutable identifier (e.g. UUIDv2) representing the application layer context of a single unidirectional transfer. The method to generate the transfer-context ID is outside the scope of the current document.
+
+The transfer-context may be a complex data structure that contains all information related to a SATP execution instance. Examples of information contained in a transfer-context may include identifiers of sessions, gateways, networks or assets related to the specific SATP execution instance. 
 
 ### Session ID:
 

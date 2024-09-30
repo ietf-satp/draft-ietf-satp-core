@@ -76,6 +76,16 @@ informative:
     target: https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica
     title: EU Directive on Markets in Crypto-Assets Regulation (MiCA)
 
+  ARCH:
+    author:
+    - ins: T. Hardjono
+    - ins: M. Hargreaves
+    - ins: N. Smith
+    - ins: V. Ramakrishna
+    date: June 2024
+    target: https://datatracker.ietf.org/doc/draft-ietf-satp-architecture/
+    title: Secure Asset Transfer (SAT) Interoperability Architecture
+    
   RFC5939:
     author:
     - ins: F. Andreasen
@@ -86,7 +96,7 @@ informative:
 normative:
   JWT: RFC7519
   REQ-LEVEL: RFC2119
-
+  
 --- abstract
 
 This memo describes the Secure Asset Transfer (SAT) Protocol for digital assets. SAT is a protocol operating between two gateways that conducts the transfer of a digital asset from one gateway to another, each representing their corresponding digital asset networks. The protocol establishes a secure channel between the endpoints and implements a 2-phase commit (2PC) to ensure the properties of transfer atomicity, consistency, isolation and durability.

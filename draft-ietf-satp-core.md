@@ -69,6 +69,13 @@ informative:
     target: https://doi.org/10.6028/NIST.IR.8202
     title: NIST Blockchain Technology Overview (NISTR-8202)
 
+  MICA:
+    author:
+    - ins: European Commission
+    date: June 2023
+    target: https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica
+    title: EU Directive on Markets in Crypto-Assets Regulation (MiCA)
+
   RFC5939:
     author:
     - ins: F. Andreasen

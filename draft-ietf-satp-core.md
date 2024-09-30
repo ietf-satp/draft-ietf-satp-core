@@ -169,7 +169,7 @@ interpreted as carrying significance described in RFC 2119.
 
 {: #terminology-doc}
 
-The following are some terminology used in the current document:
+The following are some terminology used in the current document, some borrowed from {{NIST}}:
 
 - Digital asset: digital representation of a value or of a right that is able to be
   transferred and stored electronically using distributed ledger technology or similar technology {{MICA}}.

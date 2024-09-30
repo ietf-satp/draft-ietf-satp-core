@@ -770,16 +770,16 @@ Content-Type: application/x-www-form-urlencoded
 
 {
     "message_type": "urn:ietf:satp:msgtype:transfer-commence-msg",
-    "session_id":"9097hkstgkjvVbNH",
-    "originator_pubkey":"zGy89097hkbfgkjvVbNH",
+    "session_id": "9097hkstgkjvVbNH",
+    "originator_pubkey": "zGy89097hkbfgkjvVbNH",
     "beneficiary_pubkey": "mBGHJjjuijh67yghb",
     "sender_net_system": "originNETsystem",
-    "recipient_net_system":"recipientNETsystem",
-    "client_identity_pubkey":"fgH654tgeryuryuy",
-    "server_identity_pubkey":"dFgdfgdfgt43tetr535teyrfge4t54334",
-    "transfer_init_claims":"nbvcwertyhgfdsertyhgf2h3v4bd3v21",
-    "hash_prev_message":"DRvfrb654vgreDerverv654nhRbvder4",
-    "client_signature":"fdw34567uyhgfer45"
+    "recipient_net_system": "recipientNETsystem",
+    "client_identity_pubkey": "fgH654tgeryuryuy",
+    "server_identity_pubkey": "dFgdfgdfgt43tetr535teyrfge4t54334",
+    "transfer_init_claims": "nbvcwertyhgfdsertyhgf2h3v4bd3v21",
+    "hash_prev_message": "DRvfrb654vgreDerverv654nhRbvder4",
+    "client_signature": "fdw34567uyhgfer45"
 }
 ```
 

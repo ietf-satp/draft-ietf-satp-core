@@ -715,7 +715,7 @@ Table of Contents
    *  receiverGatewayOwnerId OPTIONAL: This is the identity information
       of the owner or operator of the recipient gateway.
 
-   Here is a potential example for the message request body:
+   Here is an example for the message request body:
 
    json { "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",
    "assetProfileId": "38561", "verifiedOriginatorEntityId": "CN=Alice,
@@ -780,6 +780,14 @@ Table of Contents
    *  gatewayAccessControlProfile REQUIRED: the profile regarding the
       confidentiality of the log entries being stored.  Default is only
       the gateway that created the logs can access them.
+
+   Here is an example for the message request body:
+
+   json { "gatewayDefaultSignatureAlgorithm": "ECDSA",
+   "gatewaySupportedSignatureAlgorithms": ["ECDSA", "RSA"],
+   "networkLockType": "HASH_TIME_LOCK", "networkLockExpirationTime":
+   120, "gatewayCredentialProfile": "OAUTH", "gatewayLoggingProfile":
+   "LOCAL_STORE", "gatewayAccessControlProfile": "RBAC" }
 
 8.3.  Transfer Proposal Message
 

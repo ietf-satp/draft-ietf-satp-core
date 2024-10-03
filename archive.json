@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-01T00:41:31.492183+00:00",
+  "timestamp": "2024-10-03T00:37:14.381227+00:00",
   "repo": "ietf-satp/draft-ietf-satp-core",
   "labels": [
     {
@@ -1075,13 +1075,13 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-09-30T18:11:10Z",
-      "updatedAt": "2024-09-30T22:08:44Z",
+      "updatedAt": "2024-10-02T09:59:10Z",
       "baseRepository": "ietf-satp/draft-ietf-satp-core",
       "baseRefName": "main",
       "baseRefOid": "52e77892256546dcbbe049bb54b44e588160129b",
       "headRepository": "ietf-satp/draft-ietf-satp-core",
       "headRefName": "fix/examples",
-      "headRefOid": "ec7c99dda14fa72dd083c2c63c817fd02738d4b8",
+      "headRefOid": "28af0016cddc89f13078ba6c2b8aa36f372b6381",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,

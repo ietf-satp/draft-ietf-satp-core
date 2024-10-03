@@ -905,7 +905,8 @@ Table of Contents
    11f2-4729-a0e9-17ce1faf47c1", "transferContextId":
    "89e04e71-bba2-4363-933c-262f42ec07a0", "hashTransferInitClaims":
    "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
-   "timestamp": "2024-10-03T12:02+00Z" }
+   "timestamp": "2024-10-03T12:02+00Z" // TODO: shouldn't we have a
+   signature field?  Or would we solely rely on the TLS sig? }
 
 8.5.  Transfer Proposal Reject Message
 

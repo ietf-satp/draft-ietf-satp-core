@@ -2179,7 +2179,7 @@ for the current transfer.<a href="#section-8.3-5.5.1" class="pilcrow">¶</a></p>
         </h3>
 <div id="satp-stage1-init-receipt">
 <p id="section-8.4-1">The purpose of this message is for the server to indicate explicit
-acceptance of the parameters in the claims  part of the transfer proposal message.<a href="#section-8.4-1" class="pilcrow">¶</a></p>
+acceptance of the parameters in the claims part of the transfer proposal message.<a href="#section-8.4-1" class="pilcrow">¶</a></p>
 </div>
 <p id="section-8.4-2">The message must be signed by the server.<a href="#section-8.4-2" class="pilcrow">¶</a></p>
 <p id="section-8.4-3">The message is sent from the server to the Transfer Proposal Endpoint at the client.<a href="#section-8.4-3" class="pilcrow">¶</a></p>
@@ -2217,6 +2217,7 @@ the Initialization Request Message was received.<a href="#section-8.4-5.6.1" cla
   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
   "hashTransferInitClaims": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
   "timestamp": "2024-10-03T12:02+00Z"
+  // TODO: shouldn't we have a signature field? Or would we solely rely on the TLS sig?
 }
 </code><a href="#section-8.4-7" class="pilcrow">¶</a></p>
 </section>

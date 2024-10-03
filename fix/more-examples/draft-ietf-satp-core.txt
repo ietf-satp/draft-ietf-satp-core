@@ -982,17 +982,18 @@ Table of Contents
 
    For example, the client makes the following HTTP request using TLS:
 
-   ``` POST /token HTTP/1.1 Host: server.example.com Authorization:
-   Basic awHCaGRSa3F0MzpnWDFmQmF0M2ZG Content-Type: application/json
-
-   { "messageType": "urn:ietf:satp:msgtype:transfer-commence-msg",
-   "sessionId": "1b7f6300-7f14-45ba-8345-a5f6d875b61e",
-   "sender_net_system": "originNETsystem", "recipient_net_system":
-   "recipientNETsystem", "client_identity_pubkey": "fgH654tgeryuryuy",
-   "server_identity_pubkey": "dFgdfgdfgt43tetr535teyrfge4t54334",
-   "transferInitClaims": "nbvcwertyhgfdsertyhgf2h3v4bd3v21",
-   "hashPrevMessage": "DRvfrb654vgreDerverv654nhRbvder4",
-   "clientSignature": "fdw34567uyhgfer45" } ```
+   json { "messageType": "urn:ietf:satp:msgtype:transfer-commence-msg",
+   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
+   "hashTransferInitClaims":
+   "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
+   "hashPrevMessage":
+   "0b0aecc2680e0d8a86bece6b54c454fba67068799484f477cdf2f87e6541db66",
+   "clientSignature": "9b134def087470de4df82000094000000004f564c2508254b
+   e946e32da6edbea6b4c794cd50c830753f054657374204d657373616765c001a0ff92
+   315970206155d9ffa29deb57d71b4aa51ebd9bbe1e8033df5452203530428848dcc8b
+   f7d2a9aa81a04b88ec5843752813c323b869475d4e7549304f88883a6a2a316f0b0b5
+   e65eb7e1af9aa36a702841" }
 
 8.7.  Commence Response Message (ACK-Commence)
 

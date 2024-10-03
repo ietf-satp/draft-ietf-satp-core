@@ -729,7 +729,7 @@ Here is an example of the message request body:
       "receiverGatewayOwnerId": "CN=BridgeSolutions, OU=BridgeSolutions Engineering, O=BridgeSolutions LTD, L=Austin, C=US"
   },
   "transferInitClaimsFormat": "JSON",
-  "networkCapabilitiesList": [] // TODO: is the network capabilities list the same as the conveyance of network capabilities, or more?
+  "networkCapabilitiesList": [], // TODO: is the network capabilities list the same as the conveyance of network capabilities, or more?
   "multipleClaimsAllowed":false,
   "multipleCancelsAllowed": false,
   "clientSignature": "428848dcc8bf7d2a9aa81a06a2a316f0b0b5e65eb7e1af9aa36a7028414b88ec584375281508254be946e32da6edbea6b4c794cd50c830753f9b134def087470de4df82000094000000004f564c2054657374204d657373616765c001a0ff92315970206155d9ffa29deb57d71b4aa51ebd9bbe1e8033df54522035303c323b869475d4e7549304f88883a"
@@ -765,7 +765,18 @@ The parameters of this message consists of the following:
 - timestamp REQUIRED: timestamp referring to when
   the Initialization Request Message was received.
 
-Example: TBD.
+Here is an example of the message request body:
+
+```json
+{
+  "version": "1.0",
+  "messageType": "urn:ietf:satp:msgtype:proposal-receipt-msg",
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
+  "hashTransferInitClaims": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
+  "timestamp": "2024-10-03T12:02+00Z"
+}
+```
 
 ## Transfer Proposal Reject Message
 

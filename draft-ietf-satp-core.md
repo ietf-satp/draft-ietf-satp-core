@@ -604,7 +604,7 @@ The Transfer Initialization Claims consists of the following:
 - receiverGatewayOwnerId OPTIONAL: This is the identity information of the owner or operator
   of the recipient gateway.
 
-Here is a potential example for the message request body:
+Here is an example for the message request body:
 
 ```json
 {
@@ -652,6 +652,20 @@ The network capabilities list is as follows:
 - gatewayLoggingProfile REQUIRED: contains the profile regarding the logging procedure. Default is local store
 
 - gatewayAccessControlProfile REQUIRED: the profile regarding the confidentiality of the log entries being stored. Default is only the gateway that created the logs can access them.
+
+Here is an example for the message request body:
+
+```json
+{
+  "gatewayDefaultSignatureAlgorithm": "ECDSA",
+  "gatewaySupportedSignatureAlgorithms": ["ECDSA", "RSA"],
+  "networkLockType": "HASH_TIME_LOCK",
+  "networkLockExpirationTime": 120,
+  "gatewayCredentialProfile": "OAUTH",
+  "gatewayLoggingProfile": "LOCAL_STORE",
+  "gatewayAccessControlProfile": "RBAC"
+}
+```
 
 ## Transfer Proposal Message
 

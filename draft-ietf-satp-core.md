@@ -741,7 +741,7 @@ Here is an example of the message request body:
 {: #satp-stage1-init-receipt}
 
 The purpose of this message is for the server to indicate explicit
-acceptance of the parameters in the claims  part of the transfer proposal message.
+acceptance of the parameters in the claims part of the transfer proposal message.
 
 The message must be signed by the server.
 
@@ -775,6 +775,7 @@ Here is an example of the message request body:
   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
   "hashTransferInitClaims": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
   "timestamp": "2024-10-03T12:02+00Z"
+  // TODO: shouldn't we have a signature field? Or would we solely rely on the TLS sig?
 }
 ```
 

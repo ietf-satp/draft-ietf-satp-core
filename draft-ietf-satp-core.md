@@ -604,6 +604,29 @@ The Transfer Initialization Claims consists of the following:
 - receiverGatewayOwnerId OPTIONAL: This is the identity information of the owner or operator
   of the recipient gateway.
 
+Here is a potential example for the message request body:
+
+```json
+{
+  "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",
+  "assetProfileId": "38561",
+  "verifiedOriginatorEntityId": "CN=Alice, OU=Example Org Unit, O=Example, L=New York, C=US",
+  "verifiedBeneficiaryEntityId": "CN=Bob, OU=Case Org Unit, O=Case, L=San Francisco, C=US",
+  "originatorPubkey": "0304b9f34d3898b27f85b3d88fa069a879abe14db5060dde466dd1e4a31ff75e44",
+  "beneficiaryPubkey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",
+  "senderGatewaySignaturePublicKey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",
+  "receiverGatewaySignaturePublicKey": "0243b12ada6515ada3bf99a7da32e84f00383b5765fd7701528e660449ba5ef260",
+  "senderGatewayId": "GW1",
+  "recipientGatewayId": "GW2",
+  "senderGatewayNetworkId": "1",
+  "recipientGatewayNetworkId": "43114",
+  "senderGatewayDeviceIdentityPubkey": "0245785e34b4a7b457dd4683a297ea3d78bab35f8b2583df55d9df8c69604d0e73",
+  "receiverGatewayDeviceIdentityPubkey": "03763f0bc48ff154cff45ea533a9d8a94349d65a45573e4de6ad6495b6e834312b",
+  "senderGatewayOwnerId": "CN=GatewayOps, OU=GatewayOps Systems, O=GatewayOps LTD, L=Austin, C=US",
+  "receiverGatewayOwnerId": "CN=BridgeSolutions, OU=BridgeSolutions Engineering, O=BridgeSolutions LTD, L=Austin, C=US"
+}
+```
+
 ## Conveyance of Gateway and Network Capabilities
 
 {: #satp-stage1-conveyance}

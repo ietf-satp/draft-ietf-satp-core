@@ -715,7 +715,7 @@ Table of Contents
    *  receiverGatewayOwnerId OPTIONAL: This is the identity information
       of the owner or operator of the recipient gateway.
 
-   Here is an example for the message request body:
+   Here is an example representation in JSON format:
 
    json { "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",
    "assetProfileId": "38561", "verifiedOriginatorEntityId": "CN=Alice,
@@ -781,7 +781,7 @@ Table of Contents
       confidentiality of the log entries being stored.  Default is only
       the gateway that created the logs can access them.
 
-   Here is an example for the message request body:
+   Here is an example representation in JSON format:
 
    json { "gatewayDefaultSignatureAlgorithm": "ECDSA",
    "gatewaySupportedSignatureAlgorithms": ["ECDSA", "RSA"],
@@ -816,8 +816,8 @@ Table of Contents
       used to identify the current transfer session at the application
       layer.
 
-   *  transferInitClaims: The set of artifacts and parameters as the
-      basis for the current transfer.
+   *  transferInitClaims REQUIRED: The set of artifacts and parameters
+      as the basis for the current transfer.
 
    *  transferInitClaimsFormat REQUIRED: The format of the transfer
       initialization claims.
@@ -830,6 +830,43 @@ Table of Contents
    *  multipleCancelsAllowed OPTIONAL: true/false.
 
    *  clientSignature REQUIRED: The client's signature over the message.
+
+   Here is an example of the message request body:
+
+   json { "version": "1.0", "messageType":
+   "urn:ietf:satp:msgtype:transfer-proposal-msg", "sessionId":
+   "d66a567c-11f2-4729-a0e9-17ce1faf47c1", "transferContextId":
+   "89e04e71-bba2-4363-933c-262f42ec07a0", "transferInitClaims": {
+   "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",
+   "assetProfileId": "38561", "verifiedOriginatorEntityId": "CN=Alice,
+   OU=Example Org Unit, O=Example, L=New York, C=US",
+   "verifiedBeneficiaryEntityId": "CN=Bob, OU=Case Org Unit, O=Case,
+   L=San Francisco, C=US", "originatorPubkey":
+   "0304b9f34d3898b27f85b3d88fa069a879abe14db5060dde466dd1e4a31ff75e44",
+   "beneficiaryPubkey":
+   "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",
+   "senderGatewaySignaturePublicKey":
+   "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",
+   "receiverGatewaySignaturePublicKey":
+   "0243b12ada6515ada3bf99a7da32e84f00383b5765fd7701528e660449ba5ef260",
+   "senderGatewayId": "GW1", "recipientGatewayId": "GW2",
+   "senderGatewayNetworkId": "1", "recipientGatewayNetworkId": "43114",
+   "senderGatewayDeviceIdentityPubkey":
+   "0245785e34b4a7b457dd4683a297ea3d78bab35f8b2583df55d9df8c69604d0e73",
+   "receiverGatewayDeviceIdentityPubkey":
+   "03763f0bc48ff154cff45ea533a9d8a94349d65a45573e4de6ad6495b6e834312b",
+   "senderGatewayOwnerId": "CN=GatewayOps, OU=GatewayOps Systems,
+   O=GatewayOps LTD, L=Austin, C=US", "receiverGatewayOwnerId":
+   "CN=BridgeSolutions, OU=BridgeSolutions Engineering,
+   O=BridgeSolutions LTD, L=Austin, C=US" }, "transferInitClaimsFormat":
+   "JSON", "networkCapabilitiesList": [] // TODO: is the network
+   capabilities list the same as the conveyance of network capabilities,
+   or more?  "multipleClaimsAllowed":false, "multipleCancelsAllowed":
+   false, "clientSignature": "428848dcc8bf7d2a9aa81a06a2a316f0b0b5e65eb7
+   e1af9aa36a7028414b88ec584375281508254be946e32da6edbea6b4c794cd50c8307
+   53f9b134def087470de4df82000094000000004f564c2054657374204d65737361676
+   5c001a0ff92315970206155d9ffa29deb57d71b4aa51ebd9bbe1e8033df5452203530
+   3c323b869475d4e7549304f88883a" }
 
 8.4.  Transfer Proposal Receipt Message
 

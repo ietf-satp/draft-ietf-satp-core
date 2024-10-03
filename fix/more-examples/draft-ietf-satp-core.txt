@@ -938,7 +938,15 @@ Table of Contents
    *  timestamp REQUIRED: timestamp referring to when the Initialization
       Request Message was received.
 
-   Example: TBD.
+   Here is an example of the message request body:
+
+   json { "version": "1.0", "messageType":
+   "urn:ietf:satp:msgtype:proposal-reject-msg", "sessionId": "d66a567c-
+   11f2-4729-a0e9-17ce1faf47c1", "transferContextId":
+   "89e04e71-bba2-4363-933c-262f42ec07a0", "hashTransferInitClaims":
+   "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
+   "timestamp": "2024-10-03T12:02+00Z" // TODO: shouldn't we have a
+   signature field?  Or would we solely rely on the TLS sig? }
 
 8.6.  Transfer Commence Message
 

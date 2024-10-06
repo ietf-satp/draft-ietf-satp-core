@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-03T00:37:14.381227+00:00",
+  "timestamp": "2024-10-06T00:40:44.242131+00:00",
   "repo": "ietf-satp/draft-ietf-satp-core",
   "labels": [
     {
@@ -1049,7 +1049,7 @@
       "labels": [],
       "body": "* Also, added a section number to Sequence Number\r\n",
       "createdAt": "2024-08-26T09:11:18Z",
-      "updatedAt": "2024-08-26T09:11:18Z",
+      "updatedAt": "2024-10-04T14:11:40Z",
       "baseRepository": "ietf-satp/draft-ietf-satp-core",
       "baseRefName": "main",
       "baseRefOid": "d7ebfddd2f772809f6e96e07c4db7ddbfedf2d54",
@@ -1060,7 +1060,15 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "RafaelAPB",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Thank you for the fixes. Can you please fix the conflicts prior to merge?",
+          "createdAt": "2024-10-04T14:11:39Z",
+          "updatedAt": "2024-10-04T14:11:39Z"
+        }
+      ],
       "reviews": []
     },
     {
@@ -1068,26 +1076,86 @@
       "id": "PR_kwDOKkmiaM59J7Xi",
       "title": "Fix/examples",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/23",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "alexchiriac",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-09-30T18:11:10Z",
-      "updatedAt": "2024-10-02T09:59:10Z",
+      "updatedAt": "2024-10-03T00:50:24Z",
       "baseRepository": "ietf-satp/draft-ietf-satp-core",
       "baseRefName": "main",
       "baseRefOid": "52e77892256546dcbbe049bb54b44e588160129b",
       "headRepository": "ietf-satp/draft-ietf-satp-core",
       "headRefName": "fix/examples",
       "headRefOid": "28af0016cddc89f13078ba6c2b8aa36f372b6381",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "closedAt": "2024-10-03T00:50:23Z",
+      "mergedAt": "2024-10-03T00:50:23Z",
+      "mergedBy": "findthomas",
+      "mergeCommit": {
+        "oid": "92947dd22ee5ecc453ccb636c23239d3d11ced67"
+      },
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Corrections from Alex.",
+          "createdAt": "2024-10-03T00:50:07Z",
+          "updatedAt": "2024-10-03T00:50:07Z"
+        }
+      ],
       "reviews": []
+    },
+    {
+      "number": 24,
+      "id": "PR_kwDOKkmiaM59ezEt",
+      "title": "fix: add more examples",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/24",
+      "state": "MERGED",
+      "author": "alexchiriac",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-03T10:26:50Z",
+      "updatedAt": "2024-10-04T11:36:01Z",
+      "baseRepository": "ietf-satp/draft-ietf-satp-core",
+      "baseRefName": "main",
+      "baseRefOid": "92947dd22ee5ecc453ccb636c23239d3d11ced67",
+      "headRepository": "ietf-satp/draft-ietf-satp-core",
+      "headRefName": "fix/more-examples",
+      "headRefOid": "7e2ecc07a2bd87082ece0fd14596297dd9b4f982",
+      "closedAt": "2024-10-04T11:35:36Z",
+      "mergedAt": "2024-10-04T11:35:36Z",
+      "mergedBy": "findthomas",
+      "mergeCommit": {
+        "oid": "8e0a1f59a42dcf9d8f6234e79e2f21b73b09517c"
+      },
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Examples from Alex.",
+          "createdAt": "2024-10-04T11:36:00Z",
+          "updatedAt": "2024-10-04T11:36:00Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKkmiaM6L8RnQ",
+          "commit": {
+            "abbreviatedOid": "7e2ecc0"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-04T11:35:15Z",
+          "updatedAt": "2024-10-04T11:35:15Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }

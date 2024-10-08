@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-06T00:40:44.242131+00:00",
+  "timestamp": "2024-10-08T00:37:02.041162+00:00",
   "repo": "ietf-satp/draft-ietf-satp-core",
   "labels": [
     {
@@ -1049,13 +1049,13 @@
       "labels": [],
       "body": "* Also, added a section number to Sequence Number\r\n",
       "createdAt": "2024-08-26T09:11:18Z",
-      "updatedAt": "2024-10-04T14:11:40Z",
+      "updatedAt": "2024-10-07T14:22:55Z",
       "baseRepository": "ietf-satp/draft-ietf-satp-core",
       "baseRefName": "main",
-      "baseRefOid": "d7ebfddd2f772809f6e96e07c4db7ddbfedf2d54",
+      "baseRefOid": "8e0a1f59a42dcf9d8f6234e79e2f21b73b09517c",
       "headRepository": "AndreAugusto11/draft-ietf-satp-core",
       "headRefName": "patch-1",
-      "headRefOid": "5437d2c906be53bbb9e3ee3b20e87395197ec719",
+      "headRefOid": "3b876da21867c903b72ae086f11448b435cc165c",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -1067,6 +1067,13 @@
           "body": "Thank you for the fixes. Can you please fix the conflicts prior to merge?",
           "createdAt": "2024-10-04T14:11:39Z",
           "updatedAt": "2024-10-04T14:11:39Z"
+        },
+        {
+          "author": "AndreAugusto11",
+          "authorAssociation": "NONE",
+          "body": "> Thank you for the fixes. Can you please fix the conflicts prior to merge?\r\n\r\n@RafaelAPB rebased\r\n",
+          "createdAt": "2024-10-07T14:22:53Z",
+          "updatedAt": "2024-10-07T14:22:53Z"
         }
       ],
       "reviews": []

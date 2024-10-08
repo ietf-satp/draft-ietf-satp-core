@@ -1031,7 +1031,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Hargreaves, et al.</td>
-<td class="center">Expires 6 April 2025</td>
+<td class="center">Expires 11 April 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1044,12 +1044,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-satp-core-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-10-03" class="published">3 October 2024</time>
+<time datetime="2024-10-08" class="published">8 October 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-04-06">6 April 2025</time></dd>
+<dd class="expires"><time datetime="2025-04-11">11 April 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1111,7 +1111,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 6 April 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 11 April 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -2207,6 +2207,9 @@ received in the Transfer Proposal Message.<a href="#section-8.4-5.5.1" class="pi
             <p id="section-8.4-5.6.1">timestamp REQUIRED: timestamp referring to when
 the Initialization Request Message was received.<a href="#section-8.4-5.6.1" class="pilcrow">¶</a></p>
 </li>
+          <li class="normal" id="section-8.4-5.7">
+            <p id="section-8.4-5.7.1">serverSignature REQUIRED. The digital signature of the server.<a href="#section-8.4-5.7.1" class="pilcrow">¶</a></p>
+</li>
         </ul>
 <p id="section-8.4-6">Here is an example of the message request body:<a href="#section-8.4-6" class="pilcrow">¶</a></p>
 <p id="section-8.4-7"><code>json
@@ -2216,8 +2219,8 @@ the Initialization Request Message was received.<a href="#section-8.4-5.6.1" cla
   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
   "hashTransferInitClaims": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
-  "timestamp": "2024-10-03T12:02+00Z"
-  // TODO: shouldn't we have a signature field? Or would we solely rely on the TLS sig?
+  "timestamp": "2024-10-03T12:02+00Z",
+  "serverSignature": "53f054657374204d657373616765c001a0ff92315970206155d9ffa29deb57d71b4aa51eb0000004f564c2508254be946e32da6edbea6b4c7949b134def087470de4df8200009400cd50c8307d9bbe1e8033df5452203530428842813c323b869475d4e7549304f88883a6a2a316f0b0b5e65eb7e1af9aa36a7028418dcc8bf7d2a9aa81a04b88ec584375"
 }
 </code><a href="#section-8.4-7" class="pilcrow">¶</a></p>
 </section>
@@ -2259,6 +2262,9 @@ received in the Transfer Proposal Message.<a href="#section-8.5-5.5.1" class="pi
             <p id="section-8.5-5.6.1">timestamp REQUIRED: timestamp referring to when
 the Initialization Request Message was received.<a href="#section-8.5-5.6.1" class="pilcrow">¶</a></p>
 </li>
+          <li class="normal" id="section-8.5-5.7">
+            <p id="section-8.5-5.7.1">serverSignature REQUIRED. The digital signature of the server.<a href="#section-8.5-5.7.1" class="pilcrow">¶</a></p>
+</li>
         </ul>
 <p id="section-8.5-6">Here is an example of the message request body:<a href="#section-8.5-6" class="pilcrow">¶</a></p>
 <p id="section-8.5-7"><code>json
@@ -2268,8 +2274,8 @@ the Initialization Request Message was received.<a href="#section-8.5-5.6.1" cla
   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
   "hashTransferInitClaims": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
-  "timestamp": "2024-10-03T12:02+00Z"
-  // TODO: shouldn't we have a signature field? Or would we solely rely on the TLS sig?
+  "timestamp": "2024-10-03T12:02+00Z",
+  "serverSignature": "53f054657374204d657373616765c001a0ff92315970206155d9ffa29deb57d71b4aa51eb0000004f564c2508254be946e32da6edbea6b4c7949b134def087470de4df8200009400cd50c8307d9bbe1e8033df5452203530428842813c323b869475d4e7549304f88883a6a2a316f0b0b5e65eb7e1af9aa36a7028418dcc8bf7d2a9aa81a04b88ec584375"
 }
 </code><a href="#section-8.5-7" class="pilcrow">¶</a></p>
 </section>
@@ -2358,7 +2364,16 @@ the Transfer Commence Message.<a href="#section-8.7-5.4.1" class="pilcrow">¶</a
             <p id="section-8.7-5.5.1">serverSignature REQUIRED. The digital signature of the server.<a href="#section-8.7-5.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-8.7-6">An example of a success response could be as follows: (TBD).<a href="#section-8.7-6" class="pilcrow">¶</a></p>
+<p id="section-8.7-6">An example of a success response could be as follows:<a href="#section-8.7-6" class="pilcrow">¶</a></p>
+<p id="section-8.7-7"><code>json
+{
+  "messageType": "urn:ietf:satp:msgtype:ack-commence-msg",
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
+  "hashPrevMessage": "dd5a61a26fc8f5d72e5ca6052c2a1fca1613115e5582d9417d336375c196db89",
+  "serverSignature": "53f054657374204d657373616765c001a0ff92315970206155d9ffa29deb57d71b4aa51eb0000004f564c2508254be946e32da6edbea6b4c7949b134def087470de4df8200009400cd50c8307d9bbe1e8033df5452203530428842813c323b869475d4e7549304f88883a6a2a316f0b0b5e65eb7e1af9aa36a7028418dcc8bf7d2a9aa81a04b88ec584375"
+}
+</code><a href="#section-8.7-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>

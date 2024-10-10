@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-08T00:37:02.041162+00:00",
+  "timestamp": "2024-10-10T00:37:01.102345+00:00",
   "repo": "ietf-satp/draft-ietf-satp-core",
   "labels": [
     {
@@ -1163,6 +1163,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 25,
+      "id": "PR_kwDOKkmiaM594f_x",
+      "title": "Fix/more examples",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/25",
+      "state": "OPEN",
+      "author": "alexchiriac",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-08T00:43:33Z",
+      "updatedAt": "2024-10-08T00:43:33Z",
+      "baseRepository": "ietf-satp/draft-ietf-satp-core",
+      "baseRefName": "main",
+      "baseRefOid": "8e0a1f59a42dcf9d8f6234e79e2f21b73b09517c",
+      "headRepository": "ietf-satp/draft-ietf-satp-core",
+      "headRefName": "fix/more-examples",
+      "headRefOid": "3ce33018a510fdcdb807e4c611f23b6201990977",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-10T00:37:01.102345+00:00",
+  "timestamp": "2024-10-13T00:40:42.551576+00:00",
   "repo": "ietf-satp/draft-ietf-satp-core",
   "labels": [
     {
@@ -1042,24 +1042,26 @@
       "id": "PR_kwDOKkmiaM55aasb",
       "title": "Fix typos in draft-ietf-satp-core.md",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/22",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "AndreAugusto11",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "* Also, added a section number to Sequence Number\r\n",
       "createdAt": "2024-08-26T09:11:18Z",
-      "updatedAt": "2024-10-07T14:22:55Z",
+      "updatedAt": "2024-10-10T19:04:53Z",
       "baseRepository": "ietf-satp/draft-ietf-satp-core",
       "baseRefName": "main",
       "baseRefOid": "8e0a1f59a42dcf9d8f6234e79e2f21b73b09517c",
       "headRepository": "AndreAugusto11/draft-ietf-satp-core",
       "headRefName": "patch-1",
       "headRefOid": "3b876da21867c903b72ae086f11448b435cc165c",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-10-10T19:04:53Z",
+      "mergedAt": "2024-10-10T19:04:53Z",
+      "mergedBy": "RafaelAPB",
+      "mergeCommit": {
+        "oid": "5b0653b53e01b98d913bf20086295071c6e1d895"
+      },
       "comments": [
         {
           "author": "RafaelAPB",
@@ -1070,13 +1072,27 @@
         },
         {
           "author": "AndreAugusto11",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "> Thank you for the fixes. Can you please fix the conflicts prior to merge?\r\n\r\n@RafaelAPB rebased\r\n",
           "createdAt": "2024-10-07T14:22:53Z",
           "updatedAt": "2024-10-07T14:22:53Z"
         }
       ],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOKkmiaM6MvOVv",
+          "commit": {
+            "abbreviatedOid": "3b876da"
+          },
+          "author": "RafaelAPB",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "Thanks for your contributions, Andr\u00e9!",
+          "createdAt": "2024-10-10T19:04:26Z",
+          "updatedAt": "2024-10-10T19:04:26Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 23,

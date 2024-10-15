@@ -5,12 +5,12 @@
 Secure Asset Transfer Protocol                             M. Hargreaves
 Internet-Draft                                             Quant Network
 Intended status: Informational                               T. Hardjono
-Expires: 13 April 2025                                               MIT
+Expires: 18 April 2025                                               MIT
                                                              R. Belchior
                                    INESC-ID, Técnico Lisboa, Blockdaemon
                                                           V. Ramakrishna
                                                                      IBM
-                                                         10 October 2024
+                                                         15 October 2024
 
 
                Secure Asset Transfer Protocol (SATP) Core
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 April 2025.
+   This Internet-Draft will expire on 18 April 2025.
 
 Copyright Notice
 
@@ -897,6 +897,8 @@ Table of Contents
    *  timestamp REQUIRED: timestamp referring to when the Initialization
       Request Message was received.
 
+   *  serverSignature REQUIRED.  The digital signature of the server.
+
    Here is an example of the message request body:
 
    json { "version": "1.0", "messageType":
@@ -904,8 +906,11 @@ Table of Contents
    11f2-4729-a0e9-17ce1faf47c1", "transferContextId":
    "89e04e71-bba2-4363-933c-262f42ec07a0", "hashTransferInitClaims":
    "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
-   "timestamp": "2024-10-03T12:02+00Z" // TODO: shouldn't we have a
-   signature field?  Or would we solely rely on the TLS sig? }
+   "timestamp": "2024-10-03T12:02+00Z", "serverSignature": "53f054657374
+   204d657373616765c001a0ff92315970206155d9ffa29deb57d71b4aa51eb0000004f
+   564c2508254be946e32da6edbea6b4c7949b134def087470de4df8200009400cd50c8
+   307d9bbe1e8033df5452203530428842813c323b869475d4e7549304f88883a6a2a31
+   6f0b0b5e65eb7e1af9aa36a7028418dcc8bf7d2a9aa81a04b88ec584375" }
 
 8.5.  Transfer Proposal Reject Message
 
@@ -938,6 +943,8 @@ Table of Contents
    *  timestamp REQUIRED: timestamp referring to when the Initialization
       Request Message was received.
 
+   *  serverSignature REQUIRED.  The digital signature of the server.
+
    Here is an example of the message request body:
 
    json { "version": "1.0", "messageType":
@@ -945,8 +952,11 @@ Table of Contents
    11f2-4729-a0e9-17ce1faf47c1", "transferContextId":
    "89e04e71-bba2-4363-933c-262f42ec07a0", "hashTransferInitClaims":
    "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
-   "timestamp": "2024-10-03T12:02+00Z" // TODO: shouldn't we have a
-   signature field?  Or would we solely rely on the TLS sig? }
+   "timestamp": "2024-10-03T12:02+00Z", "serverSignature": "53f054657374
+   204d657373616765c001a0ff92315970206155d9ffa29deb57d71b4aa51eb0000004f
+   564c2508254be946e32da6edbea6b4c7949b134def087470de4df8200009400cd50c8
+   307d9bbe1e8033df5452203530428842813c323b869475d4e7549304f88883a6a2a31
+   6f0b0b5e65eb7e1af9aa36a7028418dcc8bf7d2a9aa81a04b88ec584375" }
 
 8.6.  Transfer Commence Message
 
@@ -1023,7 +1033,18 @@ Table of Contents
 
    *  serverSignature REQUIRED.  The digital signature of the server.
 
-   An example of a success response could be as follows: (TBD).
+   An example of a success response could be as follows:
+
+   json { "messageType": "urn:ietf:satp:msgtype:ack-commence-msg",
+   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
+   "hashPrevMessage":
+   "dd5a61a26fc8f5d72e5ca6052c2a1fca1613115e5582d9417d336375c196db89",
+   "serverSignature": "53f054657374204d657373616765c001a0ff9231597020615
+   5d9ffa29deb57d71b4aa51eb0000004f564c2508254be946e32da6edbea6b4c7949b1
+   34def087470de4df8200009400cd50c8307d9bbe1e8033df5452203530428842813c3
+   23b869475d4e7549304f88883a6a2a316f0b0b5e65eb7e1af9aa36a7028418dcc8bf7
+   d2a9aa81a04b88ec584375" }
 
 9.  Lock Assertion Stage (Stage 2)
 

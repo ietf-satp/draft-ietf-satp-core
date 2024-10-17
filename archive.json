@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-15T00:37:57.369882+00:00",
+  "timestamp": "2024-10-17T00:37:35.317155+00:00",
   "repo": "ietf-satp/draft-ietf-satp-core",
   "labels": [
     {
@@ -1185,26 +1185,50 @@
       "id": "PR_kwDOKkmiaM594f_x",
       "title": "Fix/more examples",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/25",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "alexchiriac",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-10-08T00:43:33Z",
-      "updatedAt": "2024-10-08T00:43:33Z",
+      "updatedAt": "2024-10-15T13:19:16Z",
       "baseRepository": "ietf-satp/draft-ietf-satp-core",
       "baseRefName": "main",
       "baseRefOid": "8e0a1f59a42dcf9d8f6234e79e2f21b73b09517c",
       "headRepository": "ietf-satp/draft-ietf-satp-core",
       "headRefName": "fix/more-examples",
       "headRefOid": "3ce33018a510fdcdb807e4c611f23b6201990977",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
-      "reviews": []
+      "closedAt": "2024-10-15T13:19:01Z",
+      "mergedAt": "2024-10-15T13:19:00Z",
+      "mergedBy": "findthomas",
+      "mergeCommit": {
+        "oid": "13035d27afa59716ead97fa8f9addf682b776175"
+      },
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks Alex.",
+          "createdAt": "2024-10-15T13:19:14Z",
+          "updatedAt": "2024-10-15T13:19:14Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKkmiaM6NOPs8",
+          "commit": {
+            "abbreviatedOid": "3ce3301"
+          },
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thanks Alex.",
+          "createdAt": "2024-10-15T13:18:19Z",
+          "updatedAt": "2024-10-15T13:18:19Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }

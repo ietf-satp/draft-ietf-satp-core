@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-17T00:37:35.317155+00:00",
+  "timestamp": "2024-10-20T00:41:33.647848+00:00",
   "repo": "ietf-satp/draft-ietf-satp-core",
   "labels": [
     {
@@ -158,6 +158,22 @@
       "body": "By [Carsten Bormann <cabo@tzi.org>](mailto:cabo@tzi.org), via mailing list:\r\n\r\n> However, note that EditorConfig also acts upon the yaml definition at the beginning of the draft,\r\n\r\nI don\u2019t know why this happens (would need to look at the editorconfig setup), but you probably don\u2019t need a\r\n\r\npi:\r\n\r\nsubtree in the YAML any more.\r\n\r\nJust replace that (and the \u201cstand_alone: yes\u201d) by\r\n\r\nv: 3\r\n\r\n",
       "createdAt": "2024-04-25T07:22:26Z",
       "updatedAt": "2024-04-25T07:22:26Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 26,
+      "id": "I_kwDOKkmiaM6ank0C",
+      "title": "Problems raised by John Robotham",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/26",
+      "state": "OPEN",
+      "author": "RafaelAPB",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "https://mailarchive.ietf.org/arch/msg/sat/uRr_-tBl0BxykY40DqmMzs2Ilfg/",
+      "createdAt": "2024-10-17T08:52:08Z",
+      "updatedAt": "2024-10-17T08:52:08Z",
       "closedAt": null,
       "comments": []
     }

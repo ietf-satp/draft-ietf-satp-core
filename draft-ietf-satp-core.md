@@ -636,7 +636,7 @@ Some network-specific parameters regarding the origin network may be relevant fo
 
 For example, the average duration of time of a lock to be held by a sender gateway may inform the receiver gateway about delay expectations.
 
-The network capabilities list is as follows:
+The gateway and network capabilities list is as follows:
 
 - gatewayDefaultSignatureAlgorithm REQUIRED: The default digital signature algorithm (algorithm-id) used by a gateway to sign claims.
 
@@ -693,7 +693,7 @@ The parameters of this message consist of the following:
 
 - transferInitClaimsFormat REQUIRED: The format of the transfer initialization claims.
 
-- networkCapabilitiesList REQUIRED: The set of origin network parameters reported by the client to the server.
+- gatewayAndNetworkCapabilities REQUIRED: The set of origin gateway and network parameters reported by the client to the server.
 
 - multipleClaimsAllowed OPTIONAL: true/false.
 
@@ -728,7 +728,15 @@ Here is an example of the message request body:
       "receiverGatewayOwnerId": "CN=BridgeSolutions, OU=BridgeSolutions Engineering, O=BridgeSolutions LTD, L=Austin, C=US"
   },
   "transferInitClaimsFormat": "JSON",
-  "networkCapabilitiesList": [], // TODO: is the network capabilities list the same as the conveyance of network capabilities, or more?
+  "gatewayAndNetworkCapabilities": {
+      "gatewayDefaultSignatureAlgorithm": "ECDSA",
+      "gatewaySupportedSignatureAlgorithms": ["ECDSA", "RSA"],
+      "networkLockType": "HASH_TIME_LOCK",
+      "networkLockExpirationTime": 120,
+      "gatewayCredentialProfile": "OAUTH",
+      "gatewayLoggingProfile": "LOCAL_STORE",
+      "gatewayAccessControlProfile": "RBAC"
+  },
   "multipleClaimsAllowed":false,
   "multipleCancelsAllowed": false,
   "clientSignature": "428848dcc8bf7d2a9aa81a06a2a316f0b0b5e65eb7e1af9aa36a7028414b88ec584375281508254be946e32da6edbea6b4c794cd50c830753f9b134def087470de4df82000094000000004f564c2054657374204d657373616765c001a0ff92315970206155d9ffa29deb57d71b4aa51ebd9bbe1e8033df54522035303c323b869475d4e7549304f88883a"

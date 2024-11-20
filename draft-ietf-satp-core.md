@@ -450,16 +450,16 @@ The reader is directed to {{ARCH}} for further discussion of this model.
         |     |            |                      |            |     |
         |     |            |<--Proposal Receipt---|(1.2)       |     |
         |     |            |                      |            |     |
-        |     |       (1.3)|<--Transf. Commence-->|            |     |
+        |     |       (1.3)|---Transf. Commence-->|            |     |
         |     |            |                      |            |     |
-        |     |            |<--- ACK Commence --->|(1.4)       |     |
+        |     |            |<----ACK Commence-----|(1.4)       |     |
         |     |            |                      |            |     |
       ..|.....|............|......................|............|.....|..
         |     |            |       Stage 2        |            |     |
         |     |            |                      |            |     |
         |     |<---Lock----|(2.1)                 |            |     |
         |     |            |                      |            |     |
-        |     |       (2.2)|--- Lock-Assertion--->|            |     |
+        |     |       (2.2)|----Lock-Assertion--->|            |     |
         |     |            |                      |            |     |
         |     |            |                 (2.3)|----Bcast-->|     |
         |     |            |                      |            |     |
@@ -472,11 +472,11 @@ The reader is directed to {{ARCH}} for further discussion of this model.
         |     |            |                      |            |     |
         |     |            |                 (3.2)|----Mint--->|     |
         |     |            |                      |            |     |
-        |     |            |<--- Commit Ready ----|(3.3)       |     |
+        |     |            |<----Commit Ready-----|(3.3)       |     |
         |     |            |                      |            |     |
         |     |<---Burn----|(3.4)                 |            |     |
         |     |            |                      |            |     |
-        |     |       (3.5)|---- Commit Final --->|            |     |
+        |     |       (3.5)|-----Commit Final---->|            |     |
         |     |            |                      |            |     |
         |     |            |                 (3.6)|---Assign-->|     |
         |     |            |                      |            |     |

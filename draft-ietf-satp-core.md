@@ -713,7 +713,7 @@ Here is an example of the message request body:
       "senderGatewayOwnerId": "CN=GatewayOps, OU=GatewayOps Systems, O=GatewayOps LTD, L=Austin, C=US",
       "receiverGatewayOwnerId": "CN=BridgeSolutions, OU=BridgeSolutions Engineering, O=BridgeSolutions LTD, L=Austin, C=US"
   },
-  "transferInitClaimFormat": "JSON",
+  "transferInitClaimFormat": "TRANSFER_INIT_CLAIM_FORMAT_1",
   "gatewayAndNetworkCapabilities": {
       "gatewayDefaultSignatureAlgorithm": "ECDSA",
       "gatewaySupportedSignatureAlgorithms": ["ECDSA", "RSA"],
@@ -965,6 +965,22 @@ The parameters of this message consist of the following:
 
 - clientSignature REQUIRED. The digital signature of the client.
 
+Example:
+
+```json
+{
+  "messageType": "urn:ietf:satp:msgtype:lock-assert-msg",
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
+  "lockAssertionClaim": {},
+  "lockAssertionClaimFormat": "LOCK_ASSERTION_CLAIM_FORMAT_1",
+  "lockAssetionExpiration": "2024-12-23T23:59:59.999Z",
+  "hashPrevMessage": "b2c3e916703c4ee4494f45bcf52414a2c3edfe53643510ff158ff4a406678346",
+  "clientSignature": "6f0b0b5e65eb7e1af9aa36a7028418dcc8bf7d5c001a0ff92315970206155d9ffa29deb57d71b4aa51eb0000004f564c2508254be946e32da6edbea6b4c7949b134def087470de4df8200009400cd50c8307d9bbe1e8033df5452203530428842813c323b869475d4e7549304f88883a6a2a32a9aa81a04b88ec58437553f054657374204d657373616761"
+}
+```
+
+
 ## Lock Assertion Receipt Message
 
 {: #satp-lock-assertion-receipt-section}
@@ -990,6 +1006,18 @@ The parameters of this message consist of the following:
 - hashPrevMessage REQUIRED. The hash of the previous message.
 
 - serverSignature REQUIRED. The digital signature of the server.
+
+Example:
+
+```json
+{
+  "messageType": "urn:ietf:satp:msgtype:assertion-receipt-msg",
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
+  "hashPrevMessage": "16c983122d7506c78f906c15ca1dcc7142a0fa94552cdea9578fe87419c2c5d0",
+  "serverSignature": "46e32da6edbea6b4c7949b134def087470de4df8200009400cd56f0b0b5e65eb315970206155d9ffa29deb57d71b4aa51eb0000004f564c2508254be90c8307d9bbe1e8033df5452203530428842813c323b869475d4e7549304f88883a6a2a32a9aa81a04b88ec58437553f054657374204d6573736167617e1af9aa36a7028418dcc8bf7d5c001a0ff92"
+}
+```
 
 # Commitment Preparation and Finalization (Stage 3)
 
@@ -1044,6 +1072,18 @@ The parameters of this message consist of the following:
 
 - clientSignature REQUIRED. The digital signature of the client.
 
+Example:
+
+```json
+{
+  "messageType": "urn:ietf:satp:msgtype:commit-prepare-msg",
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
+  "hashPrevMessage": "399bdadc07fe0bd57c4dfdd6cc176ceeca50a5e744f774154eccbeee8908fbaa",
+  "clientSignature": "0cd56f0b0b5e65eb31597617e1af9aa36a7028418dcc8bf70206155d9ffa29deb57d71b4aa51eb46e32da6edbea6b4c7944be90c8307d9bbe1e8033df5452203530428842813c323b869475d4e7549304f88883a6a2a32a9aa81a04b88ec58437553f054657374204d6573736167d5c001a0ff929b134def087470de4df8200009400000004f564c250825"
+}
+```
+
 ## Commit Ready Message (Commit-Ready)
 
 {: #satp-commit-ready-section}
@@ -1067,13 +1107,27 @@ The parameters of this message consist of the following:
 - transferContextId REQUIRED: A unique identifier (e.g. UUIDv4)
   used to identify the current transfer session at the application layer.
 
+- hashPrevMessage REQUIRED. The hash of the previous message.
+
 - mintAssertionClaim REQUIRED. The mint assertion claim or statement by the server.
 
 - mintAssertionFormat REQUIRED. The format of the assertion payload.
 
-- hashPrevMessage REQUIRED. The hash of the previous message.
-
 - serverSignature REQUIRED. The digital signature of the server.
+
+Example:
+
+```json
+{
+  "messageType": "urn:ietf:satp:msgtype:commit-ready-msg",
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
+  "hashPrevMessage": "8dcc8dc4e6c2c979474b42d24d3747ce4607a92637d1a7b294857ff7288b8e46",
+  "mintAssertionClaim": {},
+  "mintAssertionClaimFormat": "MINT_ASSERTION_CLAIM_FORMAT_1",
+  "serverSignature": "a0ff929b134def087470de41af9aa36a7028418dcc8bf70206155d9ffa29deb57d71b4aa50cd56f0b0b5e65eb31597617e1eb46e32da6edbea6b4c7944be90c8307d9bbe1e8033df5452203530428842813c323b869475d4e7549304f88883a6a2a32a9aa81a04b88ec58437553f054657374204f564c250825d6573736167d5c001df8200009400000004"
+}
+```
 
 ## Commit Final Assertion Message (Commit-Final)
 
@@ -1101,13 +1155,27 @@ The parameters of this message consist of the following:
 - transferContextId REQUIRED: A unique identifier (e.g. UUIDv4)
   used to identify the current transfer session at the application layer.
 
+- hashPrevMessage REQUIRED. The hash of the previous message.
+
 - burnAssertionClaim REQUIRED. The burn assertion signed claim or statement by the client.
 
 - burnAssertionClaimFormat REQUIRED. The format of the claim.
 
-- hashPrevMessage REQUIRED. The hash of the previous message.
-
 - clientSignature REQUIRED. The digital signature of the client.
+
+Example:
+
+```json
+{
+  "messageType": "urn:ietf:satp:msgtype:commit-final-msg",
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
+  "hashPrevMessage": "b92f13007216c58f2b51a8621599c3aef6527b02c8284e90c6a54a181d898e02",
+  "burnAssertionClaim": {},
+  "burnAssertionClaimFormat": "BURN_ASSERTION_CLAIM_FORMAT_1",
+  "clientSignature": "4e7549304cc8bf70206155d9ffa29deb57d71b4aa50cd56f0b0b5e65eb31597617a0ff929b134de46e32da6edbea6b4c7944be90c8307d9bbe1e8033df087470de41af9aa36a7028418de1ebf5452203530428842813c323b869475df88883a6a2a32a9d6573736167d5c001df820000940000000488ec58437553f054657374204f564c2508aa81a04b25"
+}
+```
 
 ## Commit-Final Acknowledgement Receipt Message (ACK-Final-Receipt)
 
@@ -1130,14 +1198,28 @@ The parameters of this message consist of the following:
 - transferContextId REQUIRED: A unique identifier (e.g. UUIDv4)
   used to identify the current transfer session at the application layer.
 
+- hashPrevMessage REQUIRED. The hash of the previous message.
+
 - assignmentAssertionClaim REQUIRED. The claim or statement by the server
   that the asset has been assigned by the server to the intended beneficiary.
 
 - assignmentAssertionClaimFormat REQUIRED. The format of the claim.
 
-- hashPrevMessage REQUIRED. The hash of the previous message.
-
 - serverSignature REQUIRED. The digital signature of the server.
+
+Example:
+
+```json
+{
+  "messageType": "urn:ietf:satp:msgtype:ack-commit-final-msg",
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
+  "hashPrevMessage": "9c8f07c22ccf6888fc0306fee0799325efb87dfd536d90bb47d97392f020e998",
+  "assignmentAssertionClaim": {},
+  "assignmentAssertionClaimFormat": "ASSIGNMENT_ASSERTION_CLAIM_FORMAT_1",
+  "serverSignature": "a0ff929b134def087470de41af9aa36a7028418dcc8bf70206155d9ffa29deb57d71b4aa50cd56f0b0b5e65eb31597617e1eb46e32da6edbea6b4c7944be90c8307d9bbe1e8033df5452203530428842813c323b869475d4e7549304f88883a6a2a32a9aa81a04b88ec58437553f054657374204f564c250825d6573736167d5c001df8200009400000004"
+}
+```
 
 ## Transfer Complete Message
 
@@ -1169,6 +1251,19 @@ The parameters of this message consist of the following:
   at the start of Stage 2.
 
 - clientSignature REQUIRED. The digital signature of the client.
+
+Example:
+
+```json
+{
+  "messageType": "urn:ietf:satp:msgtype:commit-transfer-complete-msg",
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
+  "hashPrevMessage": "9c8f07c22ccf6888fc0306fee0799325efb87dfd536d90bb47d97392f020e998",
+  "hashTransferCommence": "4ba76c69265f4215b4e2d2f24fe56e708512fdb49e27f50d2ac0095928e1531b",
+  "clientSignature": "54657374204f564c250825d6573736167d5c00c8bf70206155d9ffa29deb57d71b4aa50cd56f0b0b5e65eb31597617e11df820000a0ff929b134def087470de41af9aa36a7028418dceb46e32da6edbea6b4c7944be90c8307d9bbe1e8033df5452203530428842813c323b869475d4e7549304f88883a6a2a32a9aa81a04b88ec58437553f09400000004"
+}
+```
 
 # SATP Session Resumption
 

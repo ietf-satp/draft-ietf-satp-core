@@ -93,20 +93,18 @@ Table of Contents
        5.2.3.  Digital Asset Identifier
        5.2.4.  Transfer-Context ID:
        5.2.5.  Session ID:
-       5.2.6.  Sequence Number:
-       5.2.7.  Gateway Credential Type
-       5.2.8.  Gateway Credential
-       5.2.9.  Payload Hash
-       5.2.10. Signature Algorithms Supported
-       5.2.11. Message Signature
-       5.2.12. Lock assertion Claims and Format
+       5.2.6.  Gateway Credential Type
+       5.2.7.  Gateway Credential
+       5.2.8.  Payload Hash
+       5.2.9.  Signature Algorithms Supported
+       5.2.10. Message Signature
+       5.2.11. Lock assertion Claims and Format
      5.3.  Negotiation of Security Protocols and Parameters
        5.3.1.  TLS Secure Channel Establishment
        5.3.2.  Client offers supported credential schemes
        5.3.3.  Server selects supported credential scheme
        5.3.4.  Client asserts or proves identity
-       5.3.5.  Sequence numbers initialized
-       5.3.6.  Messages can now be exchanged
+       5.3.5.  Messages can now be exchanged
      5.4.  Asset Profile Identification
    6.  Overview of Message Flows
    7.  Identity and Asset Verification Stage (Stage 0)
@@ -437,38 +435,31 @@ Table of Contents
    execution instance.  Session IDs may be stored in the transfer-
    context for audit trail purposes.
 
-5.2.6.  Sequence Number:
-
-   This is a monotonically increasing counter value uniquely
-   representing a message from a session.  This can be utilized to
-   assist the peer gateways when they are processing multiple
-   simultaneous unrelated transfers.
-
-5.2.7.  Gateway Credential Type
+5.2.6.  Gateway Credential Type
 
    This is the type of authentication mechanism supported by the gateway
    (e.g.  SAML, OAuth, X.509)
 
-5.2.8.  Gateway Credential
+5.2.7.  Gateway Credential
 
    This payload is the actual credential of the gateway (token,
    certificate, string, etc.).
 
-5.2.9.  Payload Hash
+5.2.8.  Payload Hash
 
    This is the hash of the current message payload.
 
-5.2.10.  Signature Algorithms Supported
+5.2.9.  Signature Algorithms Supported
 
    This is the list of digital signature algorithm supported by a
    gateway, with the base default being the NIST ECDSA standard.
 
-5.2.11.  Message Signature
+5.2.10.  Message Signature
 
    This payload is the actual the ECDSA signature portion over a
    message.
 
-5.2.12.  Lock assertion Claims and Format
+5.2.11.  Lock assertion Claims and Format
 
    This is the format of the set of claims regarding the state of the
    asset in the origin network.  The claims are network-dependent in the
@@ -510,20 +501,7 @@ Table of Contents
    The details of the assertion/verification step are specific to the
    chosen credential scheme and are outside the scope of this document.
 
-5.3.5.  Sequence numbers initialized
-
-   Sequence numbers are used to allow the server to correctly order
-   operations from the client.  Some operations may be asynchronous,
-   synchronous, or idempotent with duplicate requests handled
-   differently according to the use case.  The initial sequence number
-   is proposed by the client (sender gateway) after credential
-   verification is finalized.  The server (receiver gateway) MUST
-   respond with the same sequence number to indicate acceptance.  The
-   client increments the sequence number with each new request.
-   Sequence numbers can be reused for retries in the event of a gateway
-   timeout.
-
-5.3.6.  Messages can now be exchanged
+5.3.5.  Messages can now be exchanged
 
    Handshaking is complete at this point, and the client can send SAT
    messages to perform actions on resources, which MAY reference the SAT
@@ -1398,19 +1376,16 @@ Table of Contents
    *  RECOVER: when a gateway crashes and recovers, it sends a RECOVER
       message to the counterparty gateway, informing them of its most
       recent state.  The message contains various parameters such as the
-      session ID, message type, SATP stage, sequence number, a flag
+      session ID, message type, SATP stage, context ID, a flag
       indicating if the sender is a backup gateway, the new public key
       if the sender is a backup, the timestamp of the last known log
       entry, and the sender's digital signature.
 
    *  RECOVER-UPDATE: Upon receiving the RECOVER message, the
-      counterparty gateway sends a RECOVER-UPDATE message.  This message
-      carries the difference between the log entry corresponding to the
-      received sequence number from the recovered gateway and the latest
-      sequence number (corresponding to the latest log entry).  The
-      message includes parameters such as the session ID, message type,
-      the hash of the previous message, the list of log messages that
-      the recovered gateway needs to update, and the sender's digital
+      counterparty gateway sends a RECOVER-UPDATE message.  The message
+      includes parameters such as the session ID, message type, the hash
+      of the previous message, the list of log messages that the
+      recovered gateway needs to update, and the sender's digital
       signature.
 
    *  RECOVER-SUCCESS: The recovered gateway responds with a RECOVER-

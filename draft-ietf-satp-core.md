@@ -1069,7 +1069,7 @@ The parameters of this message consist of the following:
 
 - mintAssertionClaim REQUIRED. The mint assertion claim or statement by the server.
 
-- mintAssertionFormat OPTIONAL. The format of the assertion payload.
+- mintAssertionFormat REQUIRED. The format of the assertion payload.
 
 - hashPrevMessage REQUIRED. The hash of the previous message.
 
@@ -1103,7 +1103,7 @@ The parameters of this message consist of the following:
 
 - burnAssertionClaim REQUIRED. The burn assertion signed claim or statement by the client.
 
-- burnAssertionClaimFormat OPTIONAL. The format of the claim.
+- burnAssertionClaimFormat REQUIRED. The format of the claim.
 
 - hashPrevMessage REQUIRED. The hash of the previous message.
 
@@ -1133,7 +1133,7 @@ The parameters of this message consist of the following:
 - assignmentAssertionClaim REQUIRED. The claim or statement by the server
   that the asset has been assigned by the server to the intended beneficiary.
 
-- assignmentAssertionClaimFormat OPTIONAL. The format of the claim.
+- assignmentAssertionClaimFormat REQUIRED. The format of the claim.
 
 - hashPrevMessage REQUIRED. The hash of the previous message.
 

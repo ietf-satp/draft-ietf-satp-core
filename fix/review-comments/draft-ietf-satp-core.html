@@ -1843,16 +1843,16 @@ The claims are network-dependent in the sense that different asset networks or s
         |     |            |                      |            |     |
         |     |            |&lt;--Proposal Receipt---|(1.2)       |     |
         |     |            |                      |            |     |
-        |     |       (1.3)|&lt;--Transf. Commence--&gt;|            |     |
+        |     |       (1.3)|---Transf. Commence--&gt;|            |     |
         |     |            |                      |            |     |
-        |     |            |&lt;--- ACK Commence ---&gt;|(1.4)       |     |
+        |     |            |&lt;----ACK Commence-----|(1.4)       |     |
         |     |            |                      |            |     |
       ..|.....|............|......................|............|.....|..
         |     |            |       Stage 2        |            |     |
         |     |            |                      |            |     |
         |     |&lt;---Lock----|(2.1)                 |            |     |
         |     |            |                      |            |     |
-        |     |       (2.2)|--- Lock-Assertion---&gt;|            |     |
+        |     |       (2.2)|----Lock-Assertion---&gt;|            |     |
         |     |            |                      |            |     |
         |     |            |                 (2.3)|----Bcast--&gt;|     |
         |     |            |                      |            |     |
@@ -1865,11 +1865,11 @@ The claims are network-dependent in the sense that different asset networks or s
         |     |            |                      |            |     |
         |     |            |                 (3.2)|----Mint---&gt;|     |
         |     |            |                      |            |     |
-        |     |            |&lt;--- Commit Ready ----|(3.3)       |     |
+        |     |            |&lt;----Commit Ready-----|(3.3)       |     |
         |     |            |                      |            |     |
         |     |&lt;---Burn----|(3.4)                 |            |     |
         |     |            |                      |            |     |
-        |     |       (3.5)|---- Commit Final ---&gt;|            |     |
+        |     |       (3.5)|-----Commit Final----&gt;|            |     |
         |     |            |                      |            |     |
         |     |            |                 (3.6)|---Assign--&gt;|     |
         |     |            |                      |            |     |

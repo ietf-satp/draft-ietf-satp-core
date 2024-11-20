@@ -357,10 +357,6 @@ The transfer-context may be a complex data structure that contains all informati
 
 This is the unique identifier (e.g. UUIDv4) representing a session between two gateways handling a single unidirectional transfer. This may be derived from the Transfer-Context ID at the application level. There may be several session IDs related to a SATP execution instance. Only one Session ID may be active for a given SATP execution instance. Session IDs may be stored in the transfer-context for audit trail purposes.
 
-### Sequence Number:
-
-This is a monotonically increasing counter value uniquely representing a message from a session. This can be utilized to assist the peer gateways when they are processing multiple simultaneous unrelated transfers.
-
 ### Gateway Credential Type
 
 This is the type of authentication mechanism supported by the gateway (e.g. SAML, OAuth, X.509)
@@ -416,12 +412,6 @@ The server (recipient Gateway) selects one acceptable credential scheme from the
 {: #client-procedure-sec}
 
 The details of the assertion/verification step are specific to the chosen credential scheme and are outside the scope of this document.
-
-### Sequence numbers initialized
-
-{: #sequence-numbers-sec}
-
-Sequence numbers are used to allow the server to correctly order operations from the client. Some operations may be asynchronous, synchronous, or idempotent with duplicate requests handled differently according to the use case. The initial sequence number is proposed by the client (sender gateway) after credential verification is finalized. The server (receiver gateway) MUST respond with the same sequence number to indicate acceptance. The client increments the sequence number with each new request. Sequence numbers can be reused for retries in the event of a gateway timeout.
 
 ### Messages can now be exchanged
 
@@ -1255,17 +1245,13 @@ gateway and counterparty gateway:
   it sends a RECOVER message to the counterparty gateway,
   informing them of its most recent state.
   The message contains various parameters such as the session ID,
-  message type, SATP stage, sequence number,
+  message type, SATP stage, context ID,
   a flag indicating if the sender is a backup gateway,
   the new public key if the sender is a backup,
   the timestamp of the last known log entry, and the sender's digital signature.
 
 - RECOVER-UPDATE: Upon receiving the RECOVER message,
   the counterparty gateway sends a RECOVER-UPDATE message.
-  This message carries the difference between the log entry
-  corresponding to the received sequence number from the
-  recovered gateway and the latest sequence number
-  (corresponding to the latest log entry).
   The message includes parameters such as the session ID, message type,
   the hash of the previous message, the list of log messages that
   the recovered gateway needs to update, and the sender's digital signature.

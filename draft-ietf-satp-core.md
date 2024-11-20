@@ -685,10 +685,6 @@ The parameters of this message consist of the following:
 
 - gatewayAndNetworkCapabilities REQUIRED: The set of origin gateway and network parameters reported by the client to the server.
 
-- multipleClaimsAllowed OPTIONAL: true/false.
-
-- multipleCancelsAllowed OPTIONAL: true/false.
-
 - clientSignature REQUIRED: The client's signature over the message.
 
 Here is an example of the message request body:
@@ -727,8 +723,6 @@ Here is an example of the message request body:
       "gatewayLoggingProfile": "LOCAL_STORE",
       "gatewayAccessControlProfile": "RBAC"
   },
-  "multipleClaimsAllowed":false,
-  "multipleCancelsAllowed": false,
   "clientSignature": "428848dcc8bf7d2a9aa81a06a2a316f0b0b5e65eb7e1af9aa36a7028414b88ec584375281508254be946e32da6edbea6b4c794cd50c830753f9b134def087470de4df82000094000000004f564c2054657374204d657373616765c001a0ff92315970206155d9ffa29deb57d71b4aa51ebd9bbe1e8033df54522035303c323b869475d4e7549304f88883a"
 }
 ```

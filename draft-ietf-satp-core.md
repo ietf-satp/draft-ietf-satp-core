@@ -377,9 +377,9 @@ This is the list of digital signature algorithm supported by a gateway, with the
 
 This payload is the actual the ECDSA signature portion over a message.
 
-### Lock assertion Claims and Format
-This is the format of the set of claims regarding the state of the asset in the origin network.
-The claims are network-dependent in the sense that different asset networks or systems may utilize a different asset locking (disablement) mechanism.
+### Lock assertion Claim and Format
+This is the format of the claim regarding the state of the asset in the origin network.
+The claim is network-dependent in the sense that different asset networks or systems may utilize a different asset locking (disablement) mechanism.
 
 ## Negotiation of Security Protocols and Parameters
 
@@ -526,7 +526,7 @@ The reader is directed to {{ARCH}} for further discussion regarding Stage-0.
 
 This section describes the transfer initiation stage, where the sender gateway and the receiver gateway prepare for the start of the asset transfer.
 
-The sender gateway proposes the set of transfer parameters and asset-related artifacts for the transfer to the receiver gateway. These are contained in the Transfer Initiation Claims.
+The sender gateway proposes the set of transfer parameters and asset-related artifacts for the transfer to the receiver gateway. These are contained in the Transfer Initiation Claim.
 
 If the receiver gateway accepts the proposal, it returns a signed receipt message for the proposal indicating it agrees to proceed to the next stage. If the receiver gateway rejects any parameters or artifacts in the proposal, it can provide a counteroffer to the sender gateway by responding with a proposal reject message carrying alternative parameters.
 
@@ -540,14 +540,14 @@ serialized using URI Query String Serialization.
 
 (NOTE: Flows occur over TLS. Nonces are not shown).
 
-## Transfer Initialization Claims
+## Transfer Initialization Claim
 
-{: #satp-stage1-init-claims}
+{: #satp-stage1-init-claim}
 This is set of artifacts pertaining to the asset that
 must be agreed upon between the client (sender
 gateway) and the server (recipient gateway).
 
-The Transfer Initialization Claims consist of the following:
+The Transfer Initialization Claim consists of the following:
 
 - digitalAssetId REQUIRED: This is the globally unique identifier for the digital asset
   located in the origin network.
@@ -662,7 +662,7 @@ Here is an example representation in JSON format:
 
 The purpose of this message is for the sender gateway as the client to initiate an asset transfer session with the receiver gateway as the server.
 
-The client transmits a proposal message that carries the claims related to the asset to be transferred. This message must be signed by the client.
+The client transmits a proposal message that carries the claim related to the asset to be transferred. This message must be signed by the client.
 
 This message is sent from the client to the Transfer Initialization Endpoint at the server.
 
@@ -678,10 +678,10 @@ The parameters of this message consist of the following:
 - transferContextId REQUIRED: A unique identifier (e.g. UUIDv4) used to identify
   the current transfer session at the application layer.
 
-- transferInitClaims REQUIRED: The set of artifacts and parameters as the basis
+- transferInitClaim REQUIRED: The set of artifacts and parameters as the basis
   for the current transfer.
 
-- transferInitClaimsFormat REQUIRED: The format of the transfer initialization claims.
+- transferInitClaimFormat REQUIRED: The format of the transfer initialization claim.
 
 - gatewayAndNetworkCapabilities REQUIRED: The set of origin gateway and network parameters reported by the client to the server.
 
@@ -695,7 +695,7 @@ Here is an example of the message request body:
   "messageType": "urn:ietf:satp:msgtype:transfer-proposal-msg",
   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
-  "transferInitClaims": {
+  "transferInitClaim": {
       "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",
       "assetProfileId": "38561",
       "verifiedOriginatorEntityId": "CN=Alice, OU=Example Org Unit, O=Example, L=New York, C=US",
@@ -713,7 +713,7 @@ Here is an example of the message request body:
       "senderGatewayOwnerId": "CN=GatewayOps, OU=GatewayOps Systems, O=GatewayOps LTD, L=Austin, C=US",
       "receiverGatewayOwnerId": "CN=BridgeSolutions, OU=BridgeSolutions Engineering, O=BridgeSolutions LTD, L=Austin, C=US"
   },
-  "transferInitClaimsFormat": "JSON",
+  "transferInitClaimFormat": "JSON",
   "gatewayAndNetworkCapabilities": {
       "gatewayDefaultSignatureAlgorithm": "ECDSA",
       "gatewaySupportedSignatureAlgorithms": ["ECDSA", "RSA"],
@@ -732,7 +732,7 @@ Here is an example of the message request body:
 {: #satp-stage1-init-receipt}
 
 The purpose of this message is for the server to indicate explicit
-acceptance of the parameters in the claims part of the transfer proposal message.
+acceptance of the parameters in the claim part of the transfer proposal message.
 
 The message must be signed by the server.
 
@@ -750,7 +750,7 @@ The parameters of this message consist of the following:
 - transferContextId REQUIRED: A unique identifier (e.g. UUIDv4) used to identify
   the current transfer session at the application layer.
 
-- hashTransferInitClaims REQUIRED: Hash of the Transfer Initialization Claims
+- hashTransferInitClaim REQUIRED: Hash of the Transfer Initialization Claim
   received in the Transfer Proposal Message.
 
 - timestamp REQUIRED: timestamp referring to when
@@ -766,7 +766,7 @@ Here is an example of the message request body:
   "messageType": "urn:ietf:satp:msgtype:proposal-receipt-msg",
   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
-  "hashTransferInitClaims": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
+  "hashTransferInitClaim": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
   "timestamp": "2024-10-03T12:02+00Z",
   "serverSignature": "53f054657374204d657373616765c001a0ff92315970206155d9ffa29deb57d71b4aa51eb0000004f564c2508254be946e32da6edbea6b4c7949b134def087470de4df8200009400cd50c8307d9bbe1e8033df5452203530428842813c323b869475d4e7549304f88883a6a2a316f0b0b5e65eb7e1af9aa36a7028418dcc8bf7d2a9aa81a04b88ec584375"
 }
@@ -777,7 +777,7 @@ Here is an example of the message request body:
 {: #satp-stage1-init-reject}
 
 The purpose of this message is for the server to indicate explicit
-rejection of the Transfer Initialization Claims
+rejection of the Transfer Initialization Claim
 in the transfer proposal message.
 A reject message is taken to mean an immediate termination of the session.
 
@@ -797,7 +797,7 @@ The parameters of this message consist of the following:
 - transferContextId REQUIRED: A unique identifier (e.g. UUIDv4) used to identify
   the current transfer session at the application layer.
 
-- hashTransferInitClaims REQUIRED: Hash of the Transfer Initialization Claims
+- hashTransferInitClaim REQUIRED: Hash of the Transfer Initialization Claim
   received in the Transfer Proposal Message.
 
 - timestamp REQUIRED: timestamp referring to when
@@ -813,7 +813,7 @@ Here is an example of the message request body:
   "messageType": "urn:ietf:satp:msgtype:proposal-reject-msg",
   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
-  "hashTransferInitClaims": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
+  "hashTransferInitClaim": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
   "timestamp": "2024-10-03T12:02+00Z",
   "serverSignature": "53f054657374204d657373616765c001a0ff92315970206155d9ffa29deb57d71b4aa51eb0000004f564c2508254be946e32da6edbea6b4c7949b134def087470de4df8200009400cd50c8307d9bbe1e8033df5452203530428842813c323b869475d4e7549304f88883a6a2a316f0b0b5e65eb7e1af9aa36a7028418dcc8bf7d2a9aa81a04b88ec584375"
 }
@@ -841,7 +841,7 @@ The parameters of this message consist of the following:
 - transferContextId REQUIRED: A unique identifier (e.g. UUIDv4)
   used to identify the current transfer session at the application layer.
 
-- hashTransferInitClaims REQUIRED: Hash of the Transfer Initialization Claims
+- hashTransferInitClaim REQUIRED: Hash of the Transfer Initialization Claim
   in the Transfer Proposal message.
 
 - hashPrevMessage REQUIRED. The hash of the last message, in this case the
@@ -856,7 +856,7 @@ For example, the client makes the following HTTP request using TLS:
     "messageType": "urn:ietf:satp:msgtype:transfer-commence-msg",
     "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
     "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
-    "hashTransferInitClaims": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
+    "hashTransferInitClaim": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
     "hashPrevMessage": "0b0aecc2680e0d8a86bece6b54c454fba67068799484f477cdf2f87e6541db66",
     "clientSignature": "9b134def087470de4df82000094000000004f564c2508254be946e32da6edbea6b4c794cd50c830753f054657374204d657373616765c001a0ff92315970206155d9ffa29deb57d71b4aa51ebd9bbe1e8033df5452203530428848dcc8bf7d2a9aa81a04b88ec5843752813c323b869475d4e7549304f88883a6a2a316f0b0b5e65eb7e1af9aa36a702841"
 }
@@ -940,7 +940,7 @@ of the client and is outside the scope of this specification.
 
 This message is sent from the client to the Lock Assertion Endpoint at the server.
 
-The server must validate the claims (payload)
+The server must validate the claim (payload)
 in this message prior to the next step.
 
 The message must be signed by the client.
@@ -969,7 +969,7 @@ The parameters of this message consist of the following:
 
 {: #satp-lock-assertion-receipt-section}
 The purpose of this message is for the server (receiver gateway)
-to indicate acceptance of the claim(s) in the lock-assertion message
+to indicate acceptance of the claim in the lock-assertion message
 delivered by the client (sender gateway) in the previous message.
 
 This message is sent from the server to the Assertion Receipt Endpoint
@@ -1067,7 +1067,7 @@ The parameters of this message consist of the following:
 - transferContextId REQUIRED: A unique identifier (e.g. UUIDv4)
   used to identify the current transfer session at the application layer.
 
-- mintAssertionClaims REQUIRED. The mint assertion claim or statement by the server.
+- mintAssertionClaim REQUIRED. The mint assertion claim or statement by the server.
 
 - mintAssertionFormat OPTIONAL. The format of the assertion payload.
 
@@ -1083,7 +1083,7 @@ The purpose of this message is for the client to indicate to the server
 that the client (sender gateway) has completed the extinguishment (burn)
 of the asset in the origin network.
 
-The message must contain standalone claims related
+The message must contain a standalone claim related
 to the extinguishment of the asset by the client.
 The standalone claim must be signed by the client.
 

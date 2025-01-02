@@ -772,24 +772,23 @@ Here is an example of the message request body:
 }
 ```
 
-## Transfer Proposal Reject Message
+## Reject Message
 
 {: #satp-stage1-init-reject}
 
 The purpose of this message is for the server to indicate explicit
-rejection of the Transfer Initialization Claim
-in the transfer proposal message.
+rejection of the the previous message receuved from the client.
+This message can be sent at any time in the session.
+The server MUST include an error code in this message.
 A reject message is taken to mean an immediate termination of the session.
 
 The message must be signed by the server.
-
-The message is sent from the server to the Transfer Proposal Endpoint at the client.
 
 The parameters of this message consist of the following:
 
 - version REQUIRED: SAT protocol Version (major, minor).
 
-- messageType REQUIRED: urn:ietf:satp:msgtype:proposal-reject-msg.
+- messageType REQUIRED: urn:ietf:satp:msgtype:reject-msg
 
 - sessionId REQUIRED: A unique identifier (e.g. UUIDv4) chosen by the
   client to identify the current session.
@@ -797,11 +796,11 @@ The parameters of this message consist of the following:
 - transferContextId REQUIRED: A unique identifier (e.g. UUIDv4) used to identify
   the current transfer session at the application layer.
 
-- hashTransferInitClaim REQUIRED: Hash of the Transfer Initialization Claim
-  received in the Transfer Proposal Message.
+- hashPrevMessage REQUIRED:  The hash of the last message that caused the rejection to occur.
 
-- timestamp REQUIRED: timestamp referring to when
-  the Initialization Request Message was received.
+- reasonCode REQUIRED: the error code causing the rejection.
+
+- timestamp REQUIRED: timestamp of this message.
 
 - serverSignature REQUIRED. The digital signature of the server.
 
@@ -810,10 +809,11 @@ Here is an example of the message request body:
 ```json
 {
   "version": "1.0",
-  "messageType": "urn:ietf:satp:msgtype:proposal-reject-msg",
+  "messageType": "urn:ietf:satp:msgtype:reject-msg",
   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
-  "hashTransferInitClaim": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
+  "hashPrevMessage": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
+  "reasonCode": "err_2.1",
   "timestamp": "2024-10-03T12:02+00Z",
   "serverSignature": "53f054657374204d657373616765c001a0ff92315970206155d9ffa29deb57d71b4aa51eb0000004f564c2508254be946e32da6edbea6b4c7949b134def087470de4df8200009400cd50c8307d9bbe1e8033df5452203530428842813c323b869475d4e7549304f88883a6a2a316f0b0b5e65eb7e1af9aa36a7028418dcc8bf7d2a9aa81a04b88ec584375"
 }

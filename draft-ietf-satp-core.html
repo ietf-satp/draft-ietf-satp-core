@@ -1277,7 +1277,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 <p id="section-toc.1-1.8.2.4.1"><a href="#section-8.4" class="auto internal xref">8.4</a>.  <a href="#name-transfer-proposal-receipt-m" class="internal xref">Transfer Proposal Receipt Message</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.5">
-                <p id="section-toc.1-1.8.2.5.1"><a href="#section-8.5" class="auto internal xref">8.5</a>.  <a href="#name-transfer-proposal-reject-me" class="internal xref">Transfer Proposal Reject Message</a></p>
+                <p id="section-toc.1-1.8.2.5.1"><a href="#section-8.5" class="auto internal xref">8.5</a>.  <a href="#name-reject-message" class="internal xref">Reject Message</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.6">
                 <p id="section-toc.1-1.8.2.6.1"><a href="#section-8.6" class="auto internal xref">8.6</a>.  <a href="#name-transfer-commence-message" class="internal xref">Transfer Commence Message</a></p>
@@ -2220,59 +2220,61 @@ the Initialization Request Message was received.<a href="#section-8.4-5.6.1" cla
 </code><a href="#section-8.4-7" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="transfer-proposal-reject-message">
+<div id="reject-message">
 <section id="section-8.5">
-        <h3 id="name-transfer-proposal-reject-me">
-<a href="#section-8.5" class="section-number selfRef">8.5. </a><a href="#name-transfer-proposal-reject-me" class="section-name selfRef">Transfer Proposal Reject Message</a>
+        <h3 id="name-reject-message">
+<a href="#section-8.5" class="section-number selfRef">8.5. </a><a href="#name-reject-message" class="section-name selfRef">Reject Message</a>
         </h3>
 <div id="satp-stage1-init-reject">
 <p id="section-8.5-1">The purpose of this message is for the server to indicate explicit
-rejection of the Transfer Initialization Claim
-in the transfer proposal message.
+rejection of the the previous message receuved from the client.
+This message can be sent at any time in the session.
+The server MUST include an error code in this message.
 A reject message is taken to mean an immediate termination of the session.<a href="#section-8.5-1" class="pilcrow">¶</a></p>
 </div>
 <p id="section-8.5-2">The message must be signed by the server.<a href="#section-8.5-2" class="pilcrow">¶</a></p>
-<p id="section-8.5-3">The message is sent from the server to the Transfer Proposal Endpoint at the client.<a href="#section-8.5-3" class="pilcrow">¶</a></p>
-<p id="section-8.5-4">The parameters of this message consist of the following:<a href="#section-8.5-4" class="pilcrow">¶</a></p>
+<p id="section-8.5-3">The parameters of this message consist of the following:<a href="#section-8.5-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-8.5-5.1">
-            <p id="section-8.5-5.1.1">version REQUIRED: SAT protocol Version (major, minor).<a href="#section-8.5-5.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-8.5-4.1">
+            <p id="section-8.5-4.1.1">version REQUIRED: SAT protocol Version (major, minor).<a href="#section-8.5-4.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.5-5.2">
-            <p id="section-8.5-5.2.1">messageType REQUIRED: urn:ietf:satp:msgtype:proposal-reject-msg.<a href="#section-8.5-5.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-8.5-4.2">
+            <p id="section-8.5-4.2.1">messageType REQUIRED: urn:ietf:satp:msgtype:reject-msg<a href="#section-8.5-4.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.5-5.3">
-            <p id="section-8.5-5.3.1">sessionId REQUIRED: A unique identifier (e.g. UUIDv4) chosen by the
-client to identify the current session.<a href="#section-8.5-5.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-8.5-4.3">
+            <p id="section-8.5-4.3.1">sessionId REQUIRED: A unique identifier (e.g. UUIDv4) chosen by the
+client to identify the current session.<a href="#section-8.5-4.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.5-5.4">
-            <p id="section-8.5-5.4.1">transferContextId REQUIRED: A unique identifier (e.g. UUIDv4) used to identify
-the current transfer session at the application layer.<a href="#section-8.5-5.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-8.5-4.4">
+            <p id="section-8.5-4.4.1">transferContextId REQUIRED: A unique identifier (e.g. UUIDv4) used to identify
+the current transfer session at the application layer.<a href="#section-8.5-4.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.5-5.5">
-            <p id="section-8.5-5.5.1">hashTransferInitClaim REQUIRED: Hash of the Transfer Initialization Claim
-received in the Transfer Proposal Message.<a href="#section-8.5-5.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-8.5-4.5">
+            <p id="section-8.5-4.5.1">hashPrevMessage REQUIRED:  The hash of the last message that caused the rejection to occur.<a href="#section-8.5-4.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.5-5.6">
-            <p id="section-8.5-5.6.1">timestamp REQUIRED: timestamp referring to when
-the Initialization Request Message was received.<a href="#section-8.5-5.6.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-8.5-4.6">
+            <p id="section-8.5-4.6.1">reasonCode REQUIRED: the error code causing the rejection.<a href="#section-8.5-4.6.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.5-5.7">
-            <p id="section-8.5-5.7.1">serverSignature REQUIRED. The digital signature of the server.<a href="#section-8.5-5.7.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-8.5-4.7">
+            <p id="section-8.5-4.7.1">timestamp REQUIRED: timestamp of this message.<a href="#section-8.5-4.7.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.5-4.8">
+            <p id="section-8.5-4.8.1">serverSignature REQUIRED. The digital signature of the server.<a href="#section-8.5-4.8.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-8.5-6">Here is an example of the message request body:<a href="#section-8.5-6" class="pilcrow">¶</a></p>
-<p id="section-8.5-7"><code>json
+<p id="section-8.5-5">Here is an example of the message request body:<a href="#section-8.5-5" class="pilcrow">¶</a></p>
+<p id="section-8.5-6"><code>json
 {
   "version": "1.0",
-  "messageType": "urn:ietf:satp:msgtype:proposal-reject-msg",
+  "messageType": "urn:ietf:satp:msgtype:reject-msg",
   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
-  "hashTransferInitClaim": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
+  "hashPrevMessage": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
+  "reasonCode": "err_2.1",
   "timestamp": "2024-10-03T12:02+00Z",
   "serverSignature": "53f054657374204d657373616765c001a0ff92315970206155d9ffa29deb57d71b4aa51eb0000004f564c2508254be946e32da6edbea6b4c7949b134def087470de4df8200009400cd50c8307d9bbe1e8033df5452203530428842813c323b869475d4e7549304f88883a6a2a316f0b0b5e65eb7e1af9aa36a7028418dcc8bf7d2a9aa81a04b88ec584375"
 }
-</code><a href="#section-8.5-7" class="pilcrow">¶</a></p>
+</code><a href="#section-8.5-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="transfer-commence-message">

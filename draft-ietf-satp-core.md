@@ -319,7 +319,7 @@ The possible values are:
 
 - proposal-receipt-msg: This is the signed receipt message indicating acceptance of the proposal by the receiver gateway.
 
-- proposal-reject-msg: This is an explicit reject message from the receiver gateway, indicating a rejection of the proposal and an immediate session termination.
+- reject-msg: This is a reject message from a gateway to the peer gateway in the session, indication the reason and the resulting action.
 
 - transfer-commence-msg: Request to begin the commencement of the asset transfer.
 
@@ -341,7 +341,7 @@ The possible values are:
 
 ### Digital Asset Identifier
 
-This is the unique identifier (e.g. UUIDv4) that uniquely identifies the digital asset in the origin network which is to be transferred to the destination network.
+This is the unique identifier that uniquely identifies the digital asset in the origin network which is to be transferred to the destination network.
 
 The digital asset identifier is a value that is derived by the applications utilized by the originator and the beneficiary prior to starting the asset transfer.
 
@@ -349,13 +349,13 @@ The mechanism used to derive the digital asset identifier is outside the scope o
 
 ### Transfer-Context ID:
 
-This is the unique immutable identifier (e.g. UUIDv4) representing the application layer context of a single unidirectional transfer. The method to generate the transfer-context ID is outside the scope of the current document.
+This is the unique immutable identifier representing the application layer context of a single unidirectional transfer. The method to generate the transfer-context ID is outside the scope of the current document.
 
 The transfer-context may be a complex data structure that contains all information related to a SATP execution instance. Examples of information contained in a transfer-context may include identifiers of sessions, gateways, networks or assets related to the specific SATP execution instance.
 
 ### Session ID:
 
-This is the unique identifier (e.g. UUIDv4) representing a session between two gateways handling a single unidirectional transfer. This may be derived from the Transfer-Context ID at the application level. There may be several session IDs related to a SATP execution instance. Only one Session ID may be active for a given SATP execution instance. Session IDs may be stored in the transfer-context for audit trail purposes.
+This is the unique identifier representing a session between two gateways handling a single unidirectional transfer. This may be derived from the Transfer-Context ID at the application level. There may be several session IDs related to a SATP execution instance. Only one Session ID may be active for a given SATP execution instance. Session IDs may be stored in the transfer-context for audit trail purposes.
 
 ### Gateway Credential Type
 
@@ -461,7 +461,7 @@ The reader is directed to {{ARCH}} for further discussion of this model.
         |     |            |                      |            |     |
         |     |       (2.2)|----Lock-Assertion--->|            |     |
         |     |            |                      |            |     |
-        |     |            |                 (2.3)|----Bcast-->|     |
+        |     |            |                 (2.3)|--Record--->|     |
         |     |            |                      |            |     |
         |     |            |<--Assertion Receipt--|(2.4)       |     |
         |     |            |                      |            |     |
@@ -483,7 +483,7 @@ The reader is directed to {{ARCH}} for further discussion of this model.
         |     |            |<-----ACK Final-------|(3.7)       |     |
         |     |            |                      |            |     |
         |     |            |                      |            |     |
-        |     |<---Bcast---|(3.8)                 |            |     |
+        |     |<--Record---|(3.8)                 |            |     |
         |     |            |                      |            |     |
         |     |       (3.9)|--Transfer Complete-->|            |     |
       ..|.....|............|......................|............|.....|..

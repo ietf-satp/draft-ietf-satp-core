@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-02T00:37:40.773087+00:00",
+  "timestamp": "2025-01-05T00:41:59.487525+00:00",
   "repo": "ietf-satp/draft-ietf-satp-core",
   "labels": [
     {
@@ -55,32 +55,48 @@
       "id": "I_kwDOKkmiaM500uxD",
       "title": "test issue",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/1",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "RafaelAPB",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "test issue #1",
       "createdAt": "2023-10-24T19:57:47Z",
-      "updatedAt": "2023-10-24T19:57:47Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-01-02T15:46:33Z",
+      "closedAt": "2025-01-02T15:46:32Z",
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Test only.",
+          "createdAt": "2025-01-02T15:46:32Z",
+          "updatedAt": "2025-01-02T15:46:32Z"
+        }
+      ]
     },
     {
       "number": 12,
       "id": "I_kwDOKkmiaM6E_dMA",
       "title": "Add reference to architecture draft",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/12",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "RafaelAPB",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Add a reference to the blockchain interoperability architecture draft.\r\n\r\nRaised by Martin Gfeller <mgf=40acm.org@dmarc.ietf.org>",
       "createdAt": "2024-04-08T13:27:03Z",
-      "updatedAt": "2024-04-08T13:27:03Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-01-02T15:46:17Z",
+      "closedAt": "2025-01-02T15:46:17Z",
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thank you Martin. This was also pointed out by Paul Hoffman at the last IETF meeting. \r\n\r\nThe satp-core-07 draft now tells the reader to review first the SATP-Architecture draft.",
+          "createdAt": "2025-01-02T15:46:17Z",
+          "updatedAt": "2025-01-02T15:46:17Z"
+        }
+      ]
     },
     {
       "number": 13,
@@ -118,64 +134,96 @@
       "id": "I_kwDOKkmiaM6E_hww",
       "title": "Problems raised by Martin G.",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/14",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "RafaelAPB",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Fix grammar/typos/references:\r\n\r\n---\r\n\u00a0 \u00a0 Claim Type:\r\n\r\n\u00a0 \u00a0 \u00a0 \u00a0 Stipulates that JWT above is just one option. Perhaps always have \"X type\" before \"X\";\r\n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0i.e., \"claim type\" before \"claim\"\r\n---\u00a0\r\n\u00a0 \u00a0 Network:\r\n\u00a0 \u00a0 \u00a0 \u00a0 Might be worthwhile to define\u00a0network.\r\n\r\n---\r\n\u00a0 \u00a0 When do we speak about SAT and when about SATP?\r\n\u00a0 \u00a0\r\n\u00a0 \u00a0 \u00a0 \u00a0 I think the model is for the protocol, so SATP Model, not SAT Model.\r\n\u00a0 \u00a0\r\n\u00a0 \u00a0 local gateway\r\n\u00a0 \u00a0\r\n\u00a0 \u00a0 \u00a0 \u00a0 \"local\" is understandable, but not actually defined. As the application is defined\u00a0\r\n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0to interact with a gateway, a gateway is always \"local\" from the perspective of\r\n\u00a0 \u00a0 \u00a0 \u00a0 the application.\r\n\u00a0 \u00a0 \u00a0 \u00a04.2 SAT Model\r\n\r\n\u00a0 \u00a0 When do we speak about SAT and when about SATP?\r\n\u00a0 \u00a0\r\n\u00a0 \u00a0 \u00a0 \u00a0 I think the model is for the protocol, so SATP Model, not SAT Model.\r\n\u00a0 \u00a0\r\n\u00a0 \u00a0 local gateway\r\n\u00a0 \u00a0\r\n\u00a0 \u00a0 \u00a0 \u00a0 \"local\" is understandable, but not actually defined. As the application is defined\u00a0\r\n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0to interact with a gateway, a gateway is always \"local\" from the perspective of\r\n\u00a0 \u00a0 \u00a0 \u00a0 the application.\r\n\r\n ---\r\n\r\n4.7.2 Message Type\r\n\r\n\u00a0 \u00a0 Inconsistent style - drop the \u00a0\"This is the \"\r\n\u00a0 \u00a0\r\n4.7.3 Digital Asset Identifier\r\n\r\n\u00a0 \u00a0 unique identifier (UUIDv2) that uniquely identifies\r\n\u00a0 \u00a0\r\n\u00a0 \u00a0 \u00a0 \u00a0 unique, more unique, most unique? :-)\r\n\u00a0 \u00a0\r\n\u00a0 \u00a0 application of the beneficiary\r\n\u00a0 \u00a0\r\n\u00a0 \u00a0 \u00a0 \u00a0 This is the first time the application in NW2 is mentioned in an active role - in\u00a0\r\n\u00a0 \u00a0 \u00a0 \u00a0 the document above\u00a0this point, I understood that while the NW2 and GW2 are involved,\r\n\u00a0 \u00a0 \u00a0 \u00a0 the application of the beneficiary is not actively involved.\r\n\u00a0 \u00a0 \u00a0 \u00a0\r\n4.7.4 Session ID: (delete the \":\")\r\n\r\n\u00a0 \u00a0 \u00a0 \u00a0 Was the Context-Id introduced? Yes, but below. Somewhat circular. Same problem\r\n\u00a0 \u00a0 \u00a0 \u00a0 noted in Architecture document.\r\n\u00a0 \u00a0\r\n4.7.5 Transfer-Context ID\r\n\r\n\u00a0 \u00a0 \u00a0 \u00a0 Is the \"Sequence Number\" part of the Transfer-Context ID, or a possible implementation,\r\n\u00a0 \u00a0 \u00a0 \u00a0 or something additional?\r\n\r\n4.7.8.\u00a0 Payload Hash\r\n\r\n\u00a0 \u00a0 \u00a0 \u00a0 Is the algo to be used intentionally left open?\r\n\u00a0 \u00a0\r\n\r\n4.8 \u00a0Negotiation of Security Protocols and Parameters\r\n\r\n\u00a0 \u00a0 transfer initiation stage (Stage-0)\r\n\u00a0 \u00a0\r\n\u00a0 \u00a0 \u00a0 \u00a0 Isn't that Stage-1, according to 4.4?\r\n\u00a0 \u00a0 \u00a0 \u00a0\r\n7-9: Stages\r\n\r\n\u00a0 \u00a0 Do we need to repeat the use of HTTP GET and POST - until the parenthetical remark\u00a0\r\n\u00a0 \u00a0 about the TLS nonce for each Stage?\r\n\u00a0 \u00a0\r\n10.2\r\n\r\n\u00a0 \u00a0 \u00a0 \u00a0 The purpose The purpose\r\n\u00a0 \u00a0\r\n\u00a0 \u00a0 Repeated.\r\n\u00a0 \u00a0\r\n17.2 Informative References\r\n\r\n\u00a0 \u00a0 Wouldn't including references to the SATP Architecture and Use Cases documents be good?\r\n\u00a0 \u00a0\r\n\u00a0 \u00a0",
       "createdAt": "2024-04-08T13:35:05Z",
-      "updatedAt": "2024-04-08T13:35:05Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-01-02T15:43:48Z",
+      "closedAt": "2025-01-02T15:43:48Z",
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks Martin. These are text editorial questions that we are updating the SATP-core drafts.",
+          "createdAt": "2025-01-02T15:43:48Z",
+          "updatedAt": "2025-01-02T15:43:48Z"
+        }
+      ]
     },
     {
       "number": 15,
       "id": "I_kwDOKkmiaM6E_p4w",
       "title": "Problems raised by Denis A.",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/15",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "RafaelAPB",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "I believe UUIDv2 is too restrictive. I would suggest we mention a more technology-neutral formulation, e.g. that digital asset identifiers should be globally unique and let the implementors decide how the digital asset identifiers could be defined",
       "createdAt": "2024-04-08T13:48:39Z",
-      "updatedAt": "2024-04-08T13:48:39Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-01-02T15:42:27Z",
+      "closedAt": "2025-01-02T15:42:27Z",
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The digital asset identifier structure is being addressed in the asset profile draft (not here in SATP-core). \r\n\r\nFYI. The identifier structure being discussed needs to be a JSON structure (i.e. not just a UUIDv2 string).",
+          "createdAt": "2025-01-02T15:42:27Z",
+          "updatedAt": "2025-01-02T15:42:27Z"
+        }
+      ]
     },
     {
       "number": 17,
       "id": "I_kwDOKkmiaM6G4LgC",
       "title": "Potential solution to fix whitespace trailing problems on PRs",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/17",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "RafaelAPB",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "By [Carsten Bormann <cabo@tzi.org>](mailto:cabo@tzi.org), via mailing list:\r\n\r\n> However, note that EditorConfig also acts upon the yaml definition at the beginning of the draft,\r\n\r\nI don\u2019t know why this happens (would need to look at the editorconfig setup), but you probably don\u2019t need a\r\n\r\npi:\r\n\r\nsubtree in the YAML any more.\r\n\r\nJust replace that (and the \u201cstand_alone: yes\u201d) by\r\n\r\nv: 3\r\n\r\n",
       "createdAt": "2024-04-25T07:22:26Z",
-      "updatedAt": "2024-04-25T07:22:26Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-01-02T15:40:38Z",
+      "closedAt": "2025-01-02T15:40:37Z",
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This is a Editor tool problem.",
+          "createdAt": "2025-01-02T15:40:37Z",
+          "updatedAt": "2025-01-02T15:40:37Z"
+        }
+      ]
     },
     {
       "number": 26,
       "id": "I_kwDOKkmiaM6ank0C",
       "title": "Problems raised by John Robotham",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/26",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "RafaelAPB",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "https://mailarchive.ietf.org/arch/msg/sat/uRr_-tBl0BxykY40DqmMzs2Ilfg/",
       "createdAt": "2024-10-17T08:52:08Z",
-      "updatedAt": "2024-10-17T08:52:08Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-01-02T15:39:21Z",
+      "closedAt": "2025-01-02T15:39:20Z",
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The big issue was the use of the Transfer Proposal Reject message.  This has now been renamed into a generic \"reject\" message that will carry the Error_code/reason_code listed in the Appendix.",
+          "createdAt": "2025-01-02T15:39:21Z",
+          "updatedAt": "2025-01-02T15:39:21Z"
+        }
+      ]
     }
   ],
   "pulls": [

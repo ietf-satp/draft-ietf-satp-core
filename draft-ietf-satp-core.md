@@ -1458,6 +1458,31 @@ should be considered for the implementation of gateways.
 
 (TBD)
 
+# Acknowledgements
+
+{: #satp-core-contributors}
+
+The authors would like to thank the following people for their input and support:
+
+Andre Augusto,
+Denis Avrilionis,
+Rafael Belchior,
+Alexandru Chiriac,
+Anthony Culligan,
+Claire Facer,
+Martin Gfeller,
+Wes Hardaker,
+David Millman,
+Krishnasuri Narayanam,
+Anais Ofranc,
+Luke Riley,
+John Robotham,
+Orie Steele,
+Yaron Scheffer,
+Peter Somogyvari,
+Weijia Zhang.
+
+
 # Appendix: Error Types
 
 {: #error-types-section}

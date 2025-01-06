@@ -672,10 +672,10 @@ The parameters of this message consist of the following:
 
 - messageType REQUIRED: urn:ietf:satp:msgtype:transfer-proposal-msg.
 
-- sessionId REQUIRED: A unique identifier (e.g. UUIDv4) chosen by the
+- sessionId REQUIRED: A unique identifier chosen by the
   client to identify the current session.
 
-- transferContextId REQUIRED: A unique identifier (e.g. UUIDv4) used to identify
+- transferContextId REQUIRED: A unique identifier used to identify
   the current transfer session at the application layer.
 
 - transferInitClaim REQUIRED: The set of artifacts and parameters as the basis
@@ -744,10 +744,10 @@ The parameters of this message consist of the following:
 
 - messageType REQUIRED: urn:ietf:satp:msgtype:proposal-receipt-msg.
 
-- sessionId REQUIRED: A unique identifier (e.g. UUIDv4) chosen by the
+- sessionId REQUIRED: A unique identifier chosen by the
   client to identify the current session.
 
-- transferContextId REQUIRED: A unique identifier (e.g. UUIDv4) used to identify
+- transferContextId REQUIRED: A unique identifier used to identify
   the current transfer session at the application layer.
 
 - hashTransferInitClaim REQUIRED: Hash of the Transfer Initialization Claim
@@ -790,10 +790,10 @@ The parameters of this message consist of the following:
 
 - messageType REQUIRED: urn:ietf:satp:msgtype:reject-msg
 
-- sessionId REQUIRED: A unique identifier (e.g. UUIDv4) chosen by the
+- sessionId REQUIRED: A unique identifier chosen by the
   client to identify the current session.
 
-- transferContextId REQUIRED: A unique identifier (e.g. UUIDv4) used to identify
+- transferContextId REQUIRED: A unique identifier used to identify
   the current transfer session at the application layer.
 
 - hashPrevMessage REQUIRED:  The hash of the last message that caused the rejection to occur.
@@ -835,10 +835,10 @@ The parameters of this message consist of the following:
 
 - messageType REQUIRED. MUST be the value urn:ietf:satp:msgtype:transfer-commence-msg.
 
-- sessionId REQUIRED: A unique identifier (e.g. UUIDv4) chosen earlier
+- sessionId REQUIRED: A unique identifier chosen earlier
   by the client in the Initialization Request Message.
 
-- transferContextId REQUIRED: A unique identifier (e.g. UUIDv4)
+- transferContextId REQUIRED: A unique identifier
   used to identify the current transfer session at the application layer.
 
 - hashTransferInitClaim REQUIRED: Hash of the Transfer Initialization Claim
@@ -880,10 +880,10 @@ The parameters of this message consist of the following:
 
 - messageType REQUIRED urn:ietf:satp:msgtype:ack-commence-msg
 
-- sessionId REQUIRED: A unique identifier (e.g. UUIDv4) chosen earlier
+- sessionId REQUIRED: A unique identifier chosen earlier
   by the client in the Initialization Request Message.
 
-- transferContextId REQUIRED: A unique identifier (e.g. UUIDv4)
+- transferContextId REQUIRED: A unique identifier
   used to identify the current transfer session at the application layer.
 
 - hashPrevMessage REQUIRED.The hash of the last message, in this case the
@@ -949,10 +949,10 @@ The parameters of this message consist of the following:
 
 - messageType REQUIRED urn:ietf:satp:msgtype:lock-assert-msg.
 
-- sessionId REQUIRED: A unique identifier (e.g. UUIDv4) chosen earlier
+- sessionId REQUIRED: A unique identifier chosen earlier
   by the client in the Initialization Request Message.
 
-- transferContextId REQUIRED: A unique identifier (e.g. UUIDv4)
+- transferContextId REQUIRED: A unique identifier
   used to identify the current transfer session at the application layer.
 
 - lockAssertionClaim REQUIRED. The lock assertion claim or statement by the client.
@@ -997,10 +997,10 @@ The parameters of this message consist of the following:
 
 - messageType REQUIRED urn:ietf:satp:msgtype:assertion-receipt-msg.
 
-- sessionId REQUIRED: A unique identifier (e.g. UUIDv4) chosen earlier
+- sessionId REQUIRED: A unique identifier chosen earlier
   by the client in the Initialization Request Message.
 
-- transferContextId REQUIRED: A unique identifier (e.g. UUIDv4)
+- transferContextId REQUIRED: A unique identifier
   used to identify the current transfer session at the application layer.
 
 - hashPrevMessage REQUIRED. The hash of the previous message.
@@ -1062,10 +1062,10 @@ The parameters of this message consist of the following:
 
 - messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-prepare-msg
 
-- sessionId REQUIRED: A unique identifier (e.g. UUIDv4) chosen earlier
+- sessionId REQUIRED: A unique identifier chosen earlier
   by the client in the Initialization Request Message.
 
-- transferContextId REQUIRED: A unique identifier (e.g. UUIDv4)
+- transferContextId REQUIRED: A unique identifier
   used to identify the current transfer session at the application layer.
 
 - hashPrevMessage REQUIRED. The hash of the previous message.
@@ -1101,10 +1101,10 @@ The parameters of this message consist of the following:
 
 - messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-ready-msg.
 
-- sessionId REQUIRED: A unique identifier (e.g. UUIDv2) chosen earlier
+- sessionId REQUIRED: A unique identifier chosen earlier
   by client in the Initialization Request Message.
 
-- transferContextId REQUIRED: A unique identifier (e.g. UUIDv4)
+- transferContextId REQUIRED: A unique identifier
   used to identify the current transfer session at the application layer.
 
 - hashPrevMessage REQUIRED. The hash of the previous message.
@@ -1149,10 +1149,10 @@ The parameters of this message consist of the following:
 
 - messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-final-msg.
 
-- sessionId REQUIRED: A unique identifier (e.g. UUIDv4) chosen earlier
+- sessionId REQUIRED: A unique identifier chosen earlier
   by the client in the Initialization Request Message.
 
-- transferContextId REQUIRED: A unique identifier (e.g. UUIDv4)
+- transferContextId REQUIRED: A unique identifier
   used to identify the current transfer session at the application layer.
 
 - hashPrevMessage REQUIRED. The hash of the previous message.
@@ -1192,10 +1192,10 @@ The parameters of this message consist of the following:
 
 - messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:ack-commit-final-msg.
 
-- sessionId REQUIRED: A unique identifier (e.g. UUIDv2) chosen earlier
+- sessionId REQUIRED: A unique identifier chosen earlier
   by client in the Initialization Request Message.
 
-- transferContextId REQUIRED: A unique identifier (e.g. UUIDv4)
+- transferContextId REQUIRED: A unique identifier
   used to identify the current transfer session at the application layer.
 
 - hashPrevMessage REQUIRED. The hash of the previous message.
@@ -1239,10 +1239,10 @@ The parameters of this message consist of the following:
 
 - messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-transfer-complete-msg.
 
-- sessionId REQUIRED: A unique identifier (e.g. UUIDv4) chosen earlier
+- sessionId REQUIRED: A unique identifier chosen earlier
   by the client in the Initialization Request Message.
 
-- transferContextId REQUIRED: A unique identifier (e.g. UUIDv4)
+- transferContextId REQUIRED: A unique identifier
   used to identify the current transfer session at the application layer.
 
 - hashPrevMessage REQUIRED. The hash of the previous message.

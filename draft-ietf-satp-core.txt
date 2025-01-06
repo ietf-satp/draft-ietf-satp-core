@@ -5,12 +5,12 @@
 Secure Asset Transfer Protocol                             M. Hargreaves
 Internet-Draft                                             Quant Network
 Intended status: Informational                               T. Hardjono
-Expires: 6 July 2025                                                 MIT
+Expires: 10 July 2025                                                MIT
                                                              R. Belchior
                                    INESC-ID, Técnico Lisboa, Blockdaemon
                                                           V. Ramakrishna
                                                                      IBM
-                                                          2 January 2025
+                                                          6 January 2025
 
 
                Secure Asset Transfer Protocol (SATP) Core
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 July 2025.
+   This Internet-Draft will expire on 10 July 2025.
 
 Copyright Notice
 
@@ -134,17 +134,18 @@ Table of Contents
      12.2.  Error Alerts
    13. Security Consideration
    14. IANA Consideration
-   15. Appendix: Error Types
-     15.1.  Transfer Commence and Response errors
-     15.2.  Lock Assertion errors
-     15.3.  Lock Assertion Receipt errors
-     15.4.  Commit Preparation errors
-     15.5.  Commit Preparation Acknowledgement errors
-     15.6.  Commit Ready errors
-     15.7.  Commit Final Assertion errors
-   16. References
-     16.1.  Normative References
-     16.2.  Informative References
+   15. Acknowledgements
+   16. Appendix: Error Types
+     16.1.  Transfer Commence and Response errors
+     16.2.  Lock Assertion errors
+     16.3.  Lock Assertion Receipt errors
+     16.4.  Commit Preparation errors
+     16.5.  Commit Preparation Acknowledgement errors
+     16.6.  Commit Ready errors
+     16.7.  Commit Final Assertion errors
+   17. References
+     17.1.  Normative References
+     17.2.  Informative References
    Authors' Addresses
 
 1.  Introduction
@@ -1579,14 +1580,25 @@ Table of Contents
 
    (TBD)
 
-15.  Appendix: Error Types
+15.  Acknowledgements
+
+   The authors would like to thank the following people for their input
+   and support:
+
+   Andre Augusto, Denis Avrilionis, Rafael Belchior, Alexandru Chiriac,
+   Anthony Culligan, Claire Facer, Martin Gfeller, Wes Hardaker, David
+   Millman, Krishnasuri Narayanam, Anais Ofranc, Luke Riley, John
+   Robotham, Orie Steele, Yaron Scheffer, Peter Somogyvari, Weijia
+   Zhang.
+
+16.  Appendix: Error Types
 
    The following lists the error associated with each message in SATP.
 
    (Note: these have been laid out for convenience, and may be grouped
    together more efficiently later).
 
-15.1.  Transfer Commence and Response errors
+16.1.  Transfer Commence and Response errors
 
    The following is the list of errors related to the Transfer Commence
    and Response:
@@ -1597,7 +1609,7 @@ Table of Contents
 
    *  err_2.3: ACK mismatch.
 
-15.2.  Lock Assertion errors
+16.2.  Lock Assertion errors
 
    The following is the list of errors related to Lock Assertion:
 
@@ -1613,7 +1625,7 @@ Table of Contents
 
    *  err_2.4.6: Expired Claim.
 
-15.3.  Lock Assertion Receipt errors
+16.3.  Lock Assertion Receipt errors
 
    The following is the list of errors related to Lock Assertion
    Receipt:
@@ -1630,7 +1642,7 @@ Table of Contents
 
    *  err_2.6.6: Expired Claim.
 
-15.4.  Commit Preparation errors
+16.4.  Commit Preparation errors
 
    The following is the list of errors related to Commit Preparation:
 
@@ -1643,7 +1655,7 @@ Table of Contents
 
    *  err_3.1.4: Message out of sequence.
 
-15.5.  Commit Preparation Acknowledgement errors
+16.5.  Commit Preparation Acknowledgement errors
 
    The following is the list of errors related to Commit Preparation
    Acknowledgement:
@@ -1656,7 +1668,7 @@ Table of Contents
 
    *  err_3.2.4: Message out of sequence.
 
-15.6.  Commit Ready errors
+16.6.  Commit Ready errors
 
    The following is the list of errors related to Commit Ready:
 
@@ -1668,7 +1680,7 @@ Table of Contents
 
    *  err_3.4.4: Message out of sequence (ACK mismatch).
 
-15.7.  Commit Final Assertion errors
+16.7.  Commit Final Assertion errors
 
    The following is the list of errors related to Commit Final
    Assertion:
@@ -1685,9 +1697,9 @@ Table of Contents
 
    *  err_3.6.6: Expired Claim.
 
-16.  References
+17.  References
 
-16.1.  Normative References
+17.1.  Normative References
 
    [JWT]      Jones, M., Bradley, J., and N. Sakimura, "JSON Web Token
               (JWT)", RFC 7519, DOI 10.17487/RFC7519, May 2015,
@@ -1699,7 +1711,7 @@ Table of Contents
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
-16.2.  Informative References
+17.2.  Informative References
 
    [ARCH]     Hardjono, T., Hargreaves, M., Smith, N., and V.
               Ramakrishna, "Secure Asset Transfer (SAT) Interoperability

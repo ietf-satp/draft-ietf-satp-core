@@ -161,9 +161,10 @@ the transfer has been committed by both gateways,
 that this commitment must hold regardless of subsequent
 unavailability (e.g. crash) of the gateways implementing the SAT protocol.
 
-All messages exchanged between gateways are assumed to run over TLS1.2,
+All messages exchanged between gateways are assumed to run over TLS1.2 or higher,
 and the endpoints at the respective gateways are associated with
 a certificate indicating the legal owner (or operator) of the gateway.
+HTTPS/S must be used intead of plain HTTP.
 
 # Conventions used in this document
 
@@ -257,7 +258,7 @@ Gateways interact with each other over a gateway interface (API2). A given gatew
 
 {: #satp-flowtypes}
 
-The SAT protocol defines three (3) stages for a unidirectional asset transfer. These stages occur following the transfer set-up.
+The SAT protocol defines three (3) stages for a unidirectional asset transfer:
 
 - Transfer Initiation stage (Stage-1):
   These flows deal with commencing a transfer from one gateway to another. Several tasks are involved, including (but not limited to):
@@ -283,7 +284,7 @@ SATP recognizes the following cryptographic keys which are intended for distinct
 
 - Gateway secure channel establishment public key-pair: This is the key-pair utilized by peer gateways to establish a secure channel (e.g. TLS) for a transfer session.
 
-- Gateway device-identity public key pair: This is the key-pair that identifies the unique hardware device underlying a gateway.
+- Gateway device-identity public key pair: This is the key-pair that uniquely identifies a gateway.
 
 - Gateway owner-identity public key pair: This is the key-pair that identifies the owner (e.g. legal entity) who is the legal owner of a gateway.
 

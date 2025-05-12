@@ -241,7 +241,7 @@ The current document pertains to the interaction between gateways through API2 [
        |     |   |         |    |        |    |         |   |     |
        +-----+   +---------+----+        +----+---------+   +-----+
 ```
-
+Figure 1
 {: #satp-fig-overview}
 
 ## SAT Model
@@ -488,6 +488,7 @@ The reader is directed to {{ARCH}} for further discussion of this model.
         |     |       (3.9)|--Transfer Complete-->|            |     |
       ..|.....|............|......................|............|.....|..
 ```
+Figure 2
 
 # Identity and Asset Verification Stage (Stage 0)
 

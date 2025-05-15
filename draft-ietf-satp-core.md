@@ -249,9 +249,8 @@ The current document pertains to the interaction between gateways through API2 [
        | NW1 |---|    G1   |    |<------>|    |    G2   |---| NW2 |
        |     |   |         |    |        |    |         |   |     |
        +-----+   +---------+----+        +----+---------+   +-----+
+                               Figure 1
 ```
-Figure 1
-
 
 ## SAT Model
 
@@ -292,9 +291,9 @@ SATP recognizes the following cryptographic keys which are intended for distinct
 
 - Gateway secure channel establishment public key-pair: This is the key-pair utilized by peer gateways to establish a secure channel (e.g. TLS) for a transfer session.
 
-- Gateway device-identity public key pair: This is the key-pair that uniquely identifies a gateway.
+- Gateway identity public key pair: This is the key-pair that uniquely identifies a gateway.
 
-- Gateway owner-identity public key pair: This is the key-pair that identifies the owner (e.g. legal entity) who is the legal owner of a gateway.
+- Gateway-owner identity public key pair: This is the key-pair that identifies the owner (e.g. legal entity) who is the legal owner of a gateway.
 
 This document assumes that the relevant X.509 certificates are associated with these keys. However, the mechanisms to obtain X.509 certificates is outside the scope of this specification.
 
@@ -424,13 +423,17 @@ TLS 1.2 or higher MUST be implemented to protect gateway communications. TLS 1.3
 
 {: #satp-client-offers-sec}
 
-The client sends a JSON block containing the supported credential schemes, such as OAuth2.0 or SAML, in the "Credential Scheme" field of the SATP message.
+Prior to commecing the TLS 1.3 secure channel establishment, the client (sender gateway) may choose to send a JSON block containing information regarding the client's supported credential schemes.
+
+The purpose of the credential scheme is to enable the client to deliver to server the relevant identity information in that scheme regarding the gateway-identity and gateway-owner identity information.
 
 ### Server selects supported credential scheme
 
 {: #satp-server-selects-sec}
 
-The server (recipient Gateway) selects one acceptable credential scheme from the offered schemes, returning the selection in the "Credential Scheme" field of the SATP message. If no acceptable credential scheme was offered, an HTTP 511 "Network Authentication Required" error is returned.
+If the client  (sender gateway) transmits a list of supported credential schemes, the server (recipient gateway) selects one acceptable credential scheme from the offered schemes.
+
+If no acceptable credential scheme was offered, a "No Acceptable Scheme" error is returned by the server.
 
 ### Client asserts or proves identity
 

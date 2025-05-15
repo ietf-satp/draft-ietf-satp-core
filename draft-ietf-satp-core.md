@@ -70,6 +70,12 @@ informative:
     target: https://doi.org/10.6028/NIST.IR.8202
     title: NIST Blockchain Technology Overview (NISTR-8202)
 
+  ECDSA:
+    author:
+    date: February 2023
+    target: https://doi.org/10.6028/NIST.FIPS.186-5
+    title: Digital Signature Standard (FIPS 186-5)
+    
   MICA:
     author:
     - ins: European Commission
@@ -107,6 +113,7 @@ informative:
 
 normative:
   JWT: RFC7519
+  JSON: RFC8259 
   REQ-LEVEL: RFC2119
 
 --- abstract
@@ -288,6 +295,8 @@ SATP recognizes the following cryptographic keys which are intended for distinct
 
 - Gateway owner-identity public key pair: This is the key-pair that identifies the owner (e.g. legal entity) who is the legal owner of a gateway.
 
+This document assumes that the relevant X.509 certificates are associated with these keys. However, the mechanisms to obtain X.509 certificates is outside the scope of this specification.
+
 # SATP Message Format, identifiers and Descriptors
 
 {: #satp-messages-identifiers}
@@ -305,6 +314,8 @@ The mandatory fields are determined by the message type exchanged between the tw
 {: #satp-message-format}
 
 SATP messages are exchanged between peer gateways, where depending on the message type one gateway may act as a client of the other (and vice versa).
+
+All SATP messages exchanged between gateways are in JSON format [RFC8259], with the relevant payloads Base64 encoded.
 
 ### Protocol version
 

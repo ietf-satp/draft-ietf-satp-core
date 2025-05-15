@@ -365,11 +365,19 @@ The possible values are:
 
 ### Digital Asset Identifier
 
-This is the unique identifier that uniquely identifies the digital asset in the origin network which is to be transferred to the destination network.
+This is the identifier that uniquely identifies the digital asset in the origin network which is to be transferred to the destination network.
 
 The digital asset identifier is a value that is derived by the applications utilized by the originator and the beneficiary prior to starting the asset transfer.
 
 The mechanism used to derive the digital asset identifier is outside the scope of the current document.
+
+### Asset Profile Identifier
+
+This is the unique identifier of the asset schema or asset profile which defines the class or type of asset in question. The asset profile is relevant from a regulatory perspective.
+
+In some cases the profile identifier may be needed by the receiver gateway at the destination network in order to evaluate whether the asset is permitted to enter the destination network.
+
+The formal specification of asset profiles and their identification is outside the scope of this document.  
 
 ### Transfer-Context ID:
 
@@ -448,11 +456,6 @@ The details of the assertion/verification step are specific to the chosen creden
 
 Handshaking is complete at this point, and the client and server can begin exchanging SATP messages.
 
-## Asset Profile Identification
-
-{: #satp-asset-profile-negotiation}
-
-The client and server must mutually agree on the asset type or profile that is the subject of the current transfer. The client provides the server with the asset identification number, or the server may provide the client with the asset identification numbers for the digital asset it supports. Formal specification of asset identification is outside the scope of this document. Globally numbering digital asset types or profiles is expected to be performed by a legally recognized entity.
 
 # Overview of Message Flows
 

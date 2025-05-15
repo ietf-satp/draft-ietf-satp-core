@@ -445,7 +445,7 @@ The details of the assertion/verification step are specific to the chosen creden
 
 {: #satp-msg-exchnge-sec}
 
-Handshaking is complete at this point, and the client can send SAT messages to perform actions on resources, which MAY reference the SAT Payload field.
+Handshaking is complete at this point, and the client and server can begin exchanging SATP messages.
 
 ## Asset Profile Identification
 
@@ -515,8 +515,8 @@ The reader is directed to {{ARCH}} for further discussion of this model.
         |     |            |                      |            |     |
         |     |       (3.9)|--Transfer Complete-->|            |     |
       ..|.....|............|......................|............|.....|..
+                                Figure 2
 ```
-Figure 2
 
 # Identity and Asset Verification Stage (Stage 0)
 

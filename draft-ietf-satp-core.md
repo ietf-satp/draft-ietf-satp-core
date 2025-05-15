@@ -58,7 +58,12 @@ author:
     name: Venkatraman Ramakrishna
     organization: IBM
     email: vramakr2@in.ibm.com
-
+  -
+    ins: A. Chiriac
+    name: Alex Chiriac
+    organization: Quant Network
+    email: alexandru.chiriac@quant.network
+    
 informative:
   NIST:
     author:

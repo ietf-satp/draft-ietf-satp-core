@@ -113,7 +113,8 @@ informative:
 
 normative:
   JWT: RFC7519
-  JSON: RFC8259 
+  JSON: RFC8259
+  JWS: RFC7515
   REQ-LEVEL: RFC2119
 
 --- abstract
@@ -317,6 +318,17 @@ SATP messages are exchanged between peer gateways, where depending on the messag
 
 All SATP messages exchanged between gateways are in JSON format [RFC8259], with the relevant payloads Base64 encoded.
 
+## SATP Message Digital Signatures
+
+{: #satp-message-signatures}
+
+All SATP messages exchanged between gateways must be signed, using JSON Web Signatures mechanism (RFC7515).
+
+All gateways implementing SATP must support the ECDSA signature algorithm with the P-256 curve and the SHA-256 hash function.
+
+Additional signature algorithms and keying parameters may be negotiated by peer gateways. However, the negotiation protocol is outside the scope of this specification.
+
+
 ### Protocol version
 
 This refers to SATP protocol Version, encoded as "major.minor" (separated by a period symbol).
@@ -383,11 +395,12 @@ This is the hash of the current message payload.
 
 ### Signature Algorithms Supported
 
-This is the list of digital signature algorithm supported by a gateway, with the base default being the NIST ECDSA standard.
+This is the list of digital signature algorithm supported by a gateway, 
+with the base default being the NIST ECDSA signature algorithm with the P-256 curve and the SHA-256 hash function.
 
 ### Message Signature
 
-This payload is the actual the ECDSA signature portion over a message.
+This payload is the actual the signature portion over a message.
 
 ### Lock assertion Claim and Format
 This is the format of the claim regarding the state of the asset in the origin network.

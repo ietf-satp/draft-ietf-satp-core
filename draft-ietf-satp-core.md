@@ -267,11 +267,7 @@ Gateways interact with each other over a gateway interface (API2). A given gatew
 
 The SAT protocol defines three (3) stages for a unidirectional asset transfer:
 
-- Transfer Initiation stage (Stage-1):
-  These flows deal with commencing a transfer from one gateway to another. Several tasks are involved, including (but not limited to):
-  (i) gateway identification and mutual authentication;
-  (ii) exchange of asset type (definition) information;
-  (iii) verification of the asset definition, and others.
+- Transfer Initiation stage (Stage-1): These flows deal with commencing a transfer from one gateway to another. In this stage the sender gateway delivers a proposal containing the parameters agreed upon in Stage-0.
 
 - Lock-Assertion stage (Stage-2):
   These flows deal with the conveyance of signed assertions from the sender gateway to the receiver gateway regarding the locked status of an asset at the origin network.

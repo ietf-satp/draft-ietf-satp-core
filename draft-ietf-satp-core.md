@@ -310,13 +310,6 @@ This section describes the SATP message-types, the format of the messages exchan
 
 The mandatory fields are determined by the message type exchanged between the two gateways (see Section 7).
 
-## SATP Message Format and Payloads
-
-{: #satp-message-format}
-
-SATP messages are exchanged between peer gateways, where depending on the message type one gateway may act as a client of the other (and vice versa).
-
-All SATP messages exchanged between gateways are in JSON format [RFC8259], with the relevant payloads Base64 encoded.
 
 ## SATP Message Digital Signatures
 
@@ -328,6 +321,14 @@ All gateways implementing SATP must support the ECDSA signature algorithm with t
 
 Additional signature algorithms and keying parameters may be negotiated by peer gateways. However, the negotiation protocol is outside the scope of this specification.
 
+
+## SATP Message Format and Payloads
+
+{: #satp-message-format}
+
+SATP messages are exchanged between peer gateways, where depending on the message type one gateway may act as a client of the other (and vice versa).
+
+All SATP messages exchanged between gateways are in JSON format [RFC8259], with the relevant payloads Base64 encoded.
 
 ### Protocol version
 
@@ -405,10 +406,6 @@ This is the hash of the current message payload.
 
 This is the list of digital signature algorithm supported by a gateway, 
 with the base default being the NIST ECDSA signature algorithm with the P-256 curve and the SHA-256 hash function.
-
-### Message Signature
-
-This payload is the actual the signature portion over a message.
 
 ### Lock assertion Claim and Format
 This is the format of the claim regarding the state of the asset in the origin network.
@@ -718,8 +715,6 @@ The parameters of this message consist of the following:
 
 - gatewayAndNetworkCapabilities REQUIRED: The set of origin gateway and network parameters reported by the client to the server.
 
-- clientSignature REQUIRED: The client's signature over the message.
-
 Here is an example of the message request body:
 
 ```json
@@ -789,8 +784,6 @@ The parameters of this message consist of the following:
 - timestamp REQUIRED: timestamp referring to when
   the Initialization Request Message was received.
 
-- serverSignature REQUIRED. The digital signature of the server.
-
 Here is an example of the message request body:
 
 ```json
@@ -835,8 +828,6 @@ The parameters of this message consist of the following:
 
 - timestamp REQUIRED: timestamp of this message.
 
-- serverSignature REQUIRED. The digital signature of the server.
-
 Here is an example of the message request body:
 
 ```json
@@ -880,8 +871,6 @@ The parameters of this message consist of the following:
 - hashPrevMessage REQUIRED. The hash of the last message, in this case the
   Transfer Proposal Receipt message.
 
-- clientSignature REQUIRED. The digital signature of the client.
-
 For example, the client makes the following HTTP request using TLS:
 
 ```json
@@ -921,8 +910,6 @@ The parameters of this message consist of the following:
 
 - hashPrevMessage REQUIRED.The hash of the last message, in this case the
   the Transfer Commence Message.
-
-- serverSignature REQUIRED. The digital signature of the server.
 
 An example of a success response could be as follows:
 
@@ -996,8 +983,6 @@ The parameters of this message consist of the following:
 
 - hashPrevMessage REQUIRED. The hash of the previous message.
 
-- clientSignature REQUIRED. The digital signature of the client.
-
 Example:
 
 ```json
@@ -1037,8 +1022,6 @@ The parameters of this message consist of the following:
   used to identify the current transfer session at the application layer.
 
 - hashPrevMessage REQUIRED. The hash of the previous message.
-
-- serverSignature REQUIRED. The digital signature of the server.
 
 Example:
 
@@ -1103,8 +1086,6 @@ The parameters of this message consist of the following:
 
 - hashPrevMessage REQUIRED. The hash of the previous message.
 
-- clientSignature REQUIRED. The digital signature of the client.
-
 Example:
 
 ```json
@@ -1145,8 +1126,6 @@ The parameters of this message consist of the following:
 - mintAssertionClaim REQUIRED. The mint assertion claim or statement by the server.
 
 - mintAssertionFormat REQUIRED. The format of the assertion payload.
-
-- serverSignature REQUIRED. The digital signature of the server.
 
 Example:
 
@@ -1194,8 +1173,6 @@ The parameters of this message consist of the following:
 
 - burnAssertionClaimFormat REQUIRED. The format of the claim.
 
-- clientSignature REQUIRED. The digital signature of the client.
-
 Example:
 
 ```json
@@ -1237,8 +1214,6 @@ The parameters of this message consist of the following:
   that the asset has been assigned by the server to the intended beneficiary.
 
 - assignmentAssertionClaimFormat REQUIRED. The format of the claim.
-
-- serverSignature REQUIRED. The digital signature of the server.
 
 Example:
 
@@ -1282,8 +1257,6 @@ The parameters of this message consist of the following:
 
 - hashTransferCommence REQUIRED. The hash of the Transfer Commence message
   at the start of Stage 2.
-
-- clientSignature REQUIRED. The digital signature of the client.
 
 Example:
 

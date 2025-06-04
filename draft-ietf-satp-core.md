@@ -643,6 +643,25 @@ The Transfer Initialization Claim consists of the following:
 
 Here is an example representation in JSON format:
 
+{
+  "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",\  
+  "assetProfileId": "38561",\  
+  "verifiedOriginatorEntityId": "CN=Alice, OU=Example Org Unit, O=Example, L=New York, C=US",\  
+  "verifiedBeneficiaryEntityId": "CN=Bob, OU=Case Org Unit, O=Case, L=San Francisco, C=US",\  
+  "originatorPubkey": "0304b9f34d3898b27f85b3d88fa069a879abe14db5060dde466dd1e4a31ff75e44",\  
+  "beneficiaryPubkey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",\  
+  "senderGatewaySignaturePublicKey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",\  
+  "receiverGatewaySignaturePublicKey": "0243b12ada6515ada3bf99a7da32e84f00383b5765fd7701528e660449ba5ef260",\  
+  "senderGatewayId": "GW1",\  
+  "recipientGatewayId": "GW2",\  
+  "senderGatewayNetworkId": "1",\  
+  "recipientGatewayNetworkId": "43114",\  
+  "senderGatewayDeviceIdentityPubkey": "0245785e34b4a7b457dd4683a297ea3d78bab35f8b2583df55d9df8c69604d0e73",\  
+  "receiverGatewayDeviceIdentityPubkey": "03763f0bc48ff154cff45ea533a9d8a94349d65a45573e4de6ad6495b6e834312b",\  
+  "senderGatewayOwnerId": "CN=GatewayOps, OU=GatewayOps Systems, O=GatewayOps LTD, L=Austin, C=US",\  
+  "receiverGatewayOwnerId": "CN=BridgeSolutions, OU=BridgeSolutions Engineering, O=BridgeSolutions LTD, L=Austin, C=US"\  
+}
+
 ```json
 {
   "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",
@@ -692,6 +711,16 @@ The gateway and network capabilities list is as follows:
 
 Here is an example representation in JSON format:
 
+{
+  "gatewayDefaultSignatureAlgorithm": "ECDSA",\  
+  "gatewaySupportedSignatureAlgorithms": ["ECDSA", "RSA"],\  
+  "networkLockType": "HASH_TIME_LOCK",\  
+  "networkLockExpirationTime": 120,\  
+  "gatewayCredentialProfile": "OAUTH",\  
+  "gatewayLoggingProfile": "LOCAL_STORE",\  
+  "gatewayAccessControlProfile": "RBAC"\  
+}
+
 ```json
 {
   "gatewayDefaultSignatureAlgorithm": "ECDSA",
@@ -734,6 +763,41 @@ The parameters of this message consist of the following:
 - gatewayAndNetworkCapabilities REQUIRED: The set of origin gateway and network parameters reported by the client to the server.
 
 Here is an example of the message request body:
+
+{
+  "version": "1.0",\  
+  "messageType": "urn:ietf:satp:msgtype:transfer-proposal-msg",\  
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
+  "transferInitClaim": {\  
+      "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",\  
+      "assetProfileId": "38561",\  
+      "verifiedOriginatorEntityId": "CN=Alice, OU=Example Org Unit, O=Example, L=New York, C=US",\  
+      "verifiedBeneficiaryEntityId": "CN=Bob, OU=Case Org Unit, O=Case, L=San Francisco, C=US",\  
+      "originatorPubkey": "0304b9f34d3898b27f85b3d88fa069a879abe14db5060dde466dd1e4a31ff75e44",\  
+      "beneficiaryPubkey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",\  
+      "senderGatewaySignaturePublicKey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",\  
+      "receiverGatewaySignaturePublicKey": "0243b12ada6515ada3bf99a7da32e84f00383b5765fd7701528e660449ba5ef260",\  
+      "senderGatewayId": "GW1",\  
+      "recipientGatewayId": "GW2",\  
+      "senderGatewayNetworkId": "1",\  
+      "recipientGatewayNetworkId": "43114",\  
+      "senderGatewayDeviceIdentityPubkey": "0245785e34b4a7b457dd4683a297ea3d78bab35f8b2583df55d9df8c69604d0e73",\  
+      "receiverGatewayDeviceIdentityPubkey": "03763f0bc48ff154cff45ea533a9d8a94349d65a45573e4de6ad6495b6e834312b",\  
+      "senderGatewayOwnerId": "CN=GatewayOps, OU=GatewayOps Systems, O=GatewayOps LTD, L=Austin, C=US",\  
+      "receiverGatewayOwnerId": "CN=BridgeSolutions, OU=BridgeSolutions Engineering, O=BridgeSolutions LTD, L=Austin, C=US"\  
+  },\  
+  "transferInitClaimFormat": "TRANSFER_INIT_CLAIM_FORMAT_1",\  
+  "gatewayAndNetworkCapabilities": {\  
+      "gatewayDefaultSignatureAlgorithm": "ECDSA",\  
+      "gatewaySupportedSignatureAlgorithms": ["ECDSA", "RSA"],\  
+      "networkLockType": "HASH_TIME_LOCK",\  
+      "networkLockExpirationTime": 120,\  
+      "gatewayCredentialProfile": "OAUTH",\  
+      "gatewayLoggingProfile": "LOCAL_STORE",\  
+      "gatewayAccessControlProfile": "RBAC"\  
+  },\  
+}\  
 
 ```json
 {

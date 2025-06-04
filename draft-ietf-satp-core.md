@@ -416,6 +416,8 @@ with the base default being the NIST ECDSA signature algorithm with the P-256 cu
 This is the format of the claim regarding the state of the asset in the origin network.
 The claim is network-dependent in the sense that different asset networks or systems may utilize a different asset locking (disablement) mechanism.
 
+The sender gateway provides the choice of the format to the receiver gateway.  Mechanisms to establish this value between the sender and receiver gateways may be utilized prior commencing the SAT protocol. However, these are out of scope.
+
 ## Negotiation of Security Protocols and Parameters
 
 {: #satp-negotiation-params-sec}

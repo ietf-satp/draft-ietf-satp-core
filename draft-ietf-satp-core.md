@@ -334,6 +334,8 @@ All SATP messages exchanged between gateways are in JSON format [RFC8259], with 
 
 This refers to SATP protocol Version, encoded as "major.minor" (separated by a period symbol).
 
+The current version is "1.0".
+
 ### Message Type
 
 This refers to the type of request or response to be conveyed in the message.

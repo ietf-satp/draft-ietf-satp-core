@@ -405,6 +405,15 @@ This is the type of authentication mechanism supported by the gateway (e.g. SAML
 
 This payload is the actual credential of the gateway (token, certificate, string, etc.).
 
+### Gateway Identifier
+
+This is the unique identifier of the gateway service.  The gateway identifier MUST be uniquely bound to its SAT endpoint (e.g. via X509 certificate).
+
+This gateway identifier is distinct from the gateway operator business identifier (e.g., legal entity identifier (LEI) number). 
+A gateway operator may operate multiple gateways. Each of these gateways MUST have a unique gateway identifier.
+
+The mechanisms to establish the gateway identifier or the operator identifier is outside the scope of this specification.
+
 ### Payload Hash
 
 This is the hash of the current message payload.

@@ -1153,6 +1153,14 @@ The parameters of this message consist of the following:
 
 Example:
 
+{\  
+  "messageType": "urn:ietf:satp:msgtype:assertion-receipt-msg",\  
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
+  "hashPrevMessage": "16c983122d7506c78f906c15ca1dcc7142a0fa94552cdea9578fe87419c2c5d0",\  
+}\  
+
+
 ```json
 {
   "messageType": "urn:ietf:satp:msgtype:assertion-receipt-msg",
@@ -1216,6 +1224,13 @@ The parameters of this message consist of the following:
 
 Example:
 
+{\  
+  "messageType": "urn:ietf:satp:msgtype:commit-prepare-msg",\  
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
+  "hashPrevMessage": "399bdadc07fe0bd57c4dfdd6cc176ceeca50a5e744f774154eccbeee8908fbaa",\  
+}\  
+
 ```json
 {
   "messageType": "urn:ietf:satp:msgtype:commit-prepare-msg",
@@ -1256,6 +1271,15 @@ The parameters of this message consist of the following:
 - mintAssertionFormat REQUIRED. The format of the assertion payload.
 
 Example:
+
+{\  
+  "messageType": "urn:ietf:satp:msgtype:commit-ready-msg",\  
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
+  "hashPrevMessage": "8dcc8dc4e6c2c979474b42d24d3747ce4607a92637d1a7b294857ff7288b8e46",\  
+  "mintAssertionClaim": {},\  
+  "mintAssertionClaimFormat": "MINT_ASSERTION_CLAIM_FORMAT_1",\  
+}\  
 
 ```json
 {
@@ -1303,6 +1327,16 @@ The parameters of this message consist of the following:
 
 Example:
 
+{\  
+  "messageType": "urn:ietf:satp:msgtype:commit-final-msg",\  
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
+  "hashPrevMessage": "b92f13007216c58f2b51a8621599c3aef6527b02c8284e90c6a54a181d898e02",\  
+  "burnAssertionClaim": {},\  
+  "burnAssertionClaimFormat": "BURN_ASSERTION_CLAIM_FORMAT_1",\  
+}\  
+
+
 ```json
 {
   "messageType": "urn:ietf:satp:msgtype:commit-final-msg",
@@ -1344,6 +1378,16 @@ The parameters of this message consist of the following:
 - assignmentAssertionClaimFormat REQUIRED. The format of the claim.
 
 Example:
+
+{\  
+  "messageType": "urn:ietf:satp:msgtype:ack-commit-final-msg",\  
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
+  "hashPrevMessage": "9c8f07c22ccf6888fc0306fee0799325efb87dfd536d90bb47d97392f020e998",\  
+  "assignmentAssertionClaim": {},\  
+  "assignmentAssertionClaimFormat": "ASSIGNMENT_ASSERTION_CLAIM_FORMAT_1",\  
+}\  
+
 
 ```json
 {
@@ -1387,6 +1431,15 @@ The parameters of this message consist of the following:
   at the start of Stage 2.
 
 Example:
+
+{\  
+  "messageType": "urn:ietf:satp:msgtype:commit-transfer-complete-msg",\  
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
+  "hashPrevMessage": "9c8f07c22ccf6888fc0306fee0799325efb87dfd536d90bb47d97392f020e998",\  
+  "hashTransferCommence": "4ba76c69265f4215b4e2d2f24fe56e708512fdb49e27f50d2ac0095928e1531b",\  
+}\  
+
 
 ```json
 {

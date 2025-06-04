@@ -868,6 +868,15 @@ The parameters of this message consist of the following:
 
 Here is an example of the message request body:
 
+{\  
+  "version": "1.0",\  
+  "messageType": "urn:ietf:satp:msgtype:proposal-receipt-msg",\  
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
+  "hashTransferInitClaim": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",\  
+  "timestamp": "2024-10-03T12:02+00Z",\  
+}\  
+
 ```json
 {
   "version": "1.0",
@@ -912,6 +921,17 @@ The parameters of this message consist of the following:
 
 Here is an example of the message request body:
 
+{\  
+  "version": "1.0",\  
+  "messageType": "urn:ietf:satp:msgtype:reject-msg",\  
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
+  "hashPrevMessage": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",\  
+  "reasonCode": "err_2.1",\  
+  "timestamp": "2024-10-03T12:02+00Z",\  
+}\  
+
+
 ```json
 {
   "version": "1.0",
@@ -955,6 +975,14 @@ The parameters of this message consist of the following:
 
 For example, the client makes the following HTTP request using TLS:
 
+{\  
+    "messageType": "urn:ietf:satp:msgtype:transfer-commence-msg",\  
+    "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
+    "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
+    "hashTransferInitClaim": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",\  
+    "hashPrevMessage": "0b0aecc2680e0d8a86bece6b54c454fba67068799484f477cdf2f87e6541db66",\  
+}\  
+
 ```json
 {
     "messageType": "urn:ietf:satp:msgtype:transfer-commence-msg",
@@ -994,6 +1022,13 @@ The parameters of this message consist of the following:
   the Transfer Commence Message.
 
 An example of a success response could be as follows:
+
+{\  
+  "messageType": "urn:ietf:satp:msgtype:ack-commence-msg",\  
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
+  "hashPrevMessage": "dd5a61a26fc8f5d72e5ca6052c2a1fca1613115e5582d9417d336375c196db89",\  
+}\  
 
 ```json
 {
@@ -1066,6 +1101,17 @@ The parameters of this message consist of the following:
 - hashPrevMessage REQUIRED. The hash of the previous message.
 
 Example:
+
+{\  
+  "messageType": "urn:ietf:satp:msgtype:lock-assert-msg",\  
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
+  "lockAssertionClaim": {},\  
+  "lockAssertionClaimFormat": "LOCK_ASSERTION_CLAIM_FORMAT_1",\  
+  "lockAssetionExpiration": "2024-12-23T23:59:59.999Z",\  
+  "hashPrevMessage": "b2c3e916703c4ee4494f45bcf52414a2c3edfe53643510ff158ff4a406678346",\  
+}\  
+
 
 ```json
 {

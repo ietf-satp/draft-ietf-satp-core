@@ -1683,7 +1683,7 @@ The following lists the error associated with each message in SATP.
 
 The following is the list of errors related to the Transfer Proposal and Receipt.
 
-Errors rlated to the transfer context ID and session ID:
+Errors related to the transfer context ID and session ID:
 
 - err_1.1.1: Badly formed message: invalid transferContextId.
 - err_1.1.2: Badly formed message: invalid sessionId.
@@ -1711,6 +1711,13 @@ Errors within one of more parameters in the gateway and network capabilities cla
 - err_1.1.34: Badly formed parameter: unsupported gatewayCredentialProfile.
 - err_1.1.35: Badly formed parameter: unsupported gatewayLoggingProfile.
 - err_1.1.36: Badly formed parameter: unsupported gatewayAccessControlProfile.
+
+Errors related to the proposal receipt message:
+
+- err_1.2.1: Badly formed message: mismatch transferContextId.
+- err_1.2.2: Badly formed message: mismatch sessionId.
+- err_1.2.3: Badly formed message: mismatch hashTransferInitClaim.
+- err_1.2.4: Badly formed message: bad signature.
 
 ## Transfer Commence and Response errors
 

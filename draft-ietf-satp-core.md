@@ -1673,6 +1673,7 @@ Weijia Zhang.
 # Appendix: Error Types
 
 {: #error-types-section}
+
 The following lists the error associated with each message in SATP.
 
 (Note: these have been laid out for convenience, and may be grouped together more efficiently later).
@@ -1680,6 +1681,7 @@ The following lists the error associated with each message in SATP.
 ## Transfer Proposal and Receipt errors
 
 {: #errors-transfer-proposal}
+
 The following is the list of errors related to the Transfer Proposal and Receipt.
 
 Errors related to the transfer context ID and session ID:
@@ -1721,6 +1723,7 @@ Errors related to the proposal receipt message:
 ## Transfer Commence and Acknowledgement errors
 
 {: #errors-transfer-commence}
+
 The following is the list of errors related to the Transfer Commence:
 
 - err_1.3.1: Badly formed message: mismatch transferContextId.
@@ -1739,6 +1742,7 @@ The following is the list of errors related to the ACK Commence:
 ## Lock Assertion errors
 
 {: #errors-lock-assertion}
+
 The following is the list of errors related to Lock Assertion:
 
 - err_2.2.1: Badly formed message: mismatch transferContextId.
@@ -1751,6 +1755,7 @@ The following is the list of errors related to Lock Assertion:
 ## Lock Assertion Receipt errors
 
 {: #errors-lock-assertion-receipt}
+
 The following is the list of errors related to Lock Assertion Receipt:
 
 - err_2.4.1: Badly formed message: mismatch transferContextId.
@@ -1761,6 +1766,7 @@ The following is the list of errors related to Lock Assertion Receipt:
 ## Commit Preparation errors
 
 {: #errors-commit-prepare}
+
 The following is the list of errors related to Commit Preparation:
 
 - err_3.1.1: Badly formed message: mismatch transferContextId.
@@ -1771,6 +1777,7 @@ The following is the list of errors related to Commit Preparation:
 ## Commit Ready errors
 
 {: #errors-commit-ready}
+
 The following is the list of errors related to Commit Ready:
 
 - err_3.3.1: Badly formed message: mismatch transferContextId.
@@ -1782,6 +1789,7 @@ The following is the list of errors related to Commit Ready:
 ## Commit Final Assertion errors
 
 {: #errors-commit-final-assertion}
+
 The following is the list of errors related to Commit Final Assertion:
 
 - err_3.5.1: Badly formed message: mismatch transferContextId.
@@ -1793,6 +1801,7 @@ The following is the list of errors related to Commit Final Assertion:
 ## Commit Final Acknowledgement Receipt errors
 
 {: #errors-commit-final-ack}
+
 The following is the list of errors related to Commit Final Acknowledgement Receipt:
 
 - err_3.7.1: Badly formed message: mismatch transferContextId.
@@ -1804,6 +1813,7 @@ The following is the list of errors related to Commit Final Acknowledgement Rece
 ## Transfer Complete errors
 
 {: #errors-transfer-complete}
+
 The following is the list of errors related to Commit Final Assertion:
 
 - err_3.9.1: Badly formed message: mismatch transferContextId.

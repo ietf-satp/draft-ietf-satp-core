@@ -1562,30 +1562,6 @@ SATP distinguishes between
 application-driven closures (terminations) and
 those caused by errors at the SATP protocol level.
 
-The list of errors and descriptions can be found in the Appendix.
-
-```
-enum { sessionClosure(1), nonfatalError (2) fatalError(3), (255) } AlertLevel;
-
-enum {
- closeNotify(0),
- badCertificate(42),
- unsupportedCertificate(43),
- certificateRevoked(44),
- certificateExpired(45),
- certificateUnknown(46),
- illegalParameter(47),
- TBD
- (255)
-} AlertDescription;
-
-struct {
- AlertLevel level;
- AlertDescription description;
-} Alert;
-```
-
-{: #fig-error-format}
 
 ## Closure Alerts
 
@@ -1598,33 +1574,27 @@ the transfer connection is ending in order to avoid third-party attacks.
 will not send any more messages on this transfer connection.
 Any data received after a closure alert has been received MUST be ignored.
 
-(b) userCanceled: This alert notifies the recipient that the sender gateway
+(b) userCanceledNotify: This alert notifies the recipient that the sender gateway
 is canceling the transfer connection for some reason unrelated to a protocol failure.
 
-## Error Alerts
+These are enumerated in the appendix.
 
-{: #error-alerts-section}
-When an error is detected by a SATP gateway, the detecting gateway sends a message to its peer.
+## Connection Errors
 
-Upon transmission or receipt of a fatal alert message, both gateways MUST immediately close the connection.
-Whenever a SATP implementation encounters a fatal error condition,
-it SHOULD send an appropriate fatal alert and
-MUST close the connection without sending or receiving any additional data.
+{: #satp-connection-errors}
 
-The following error alerts are defined:
+Errors may occur at the connection layer, independent of the flows at the SATP layer and errrors there.
 
-- connectionError: There is an error in the TLS session establishment
-  (TLS error codes should be reported-up to the gateway level)
+(a) connectionError: There is an error in the TLS session establishment (TLS error codes should be reported-up to the gateway level)
 
-- badCertificate: The gateway certificate was corrupt, contained signatures,
-  that did not verify correctly, etc.
-  (Some common TLS level errors: unsupported_certificate,
-  certificate_revoked, certificate_expired, certificate_unknown, unknown_ca).
+(b) badCertificate: The gateway TLS certificate was corrupt, contained signatures, that did not verify correctly, etc.  (Some common TLS level errors: unsupported_certificate, certificate_revoked, certificate_expired, certificate_unknown, unknown_ca).
 
-- protocolVersionError: The SATP protocol version the peer
-  has attempted to negotiate is recognized but not supported.
 
-- (Others TBD)
+## SATP Protocol Errors
+
+{: #satp-protocol-errors}
+
+The errors at the SATP level pertain to protocol flow and the information carried within each message. These are enumerated in the appendix.
 
 # Security Consideration
 
@@ -1674,9 +1644,15 @@ Weijia Zhang.
 
 {: #error-types-section}
 
-The following lists the error associated with each message in SATP.
+The following lists the error associated with the SATP messages.
 
-(Note: these have been laid out for convenience, and may be grouped together more efficiently later).
+## Closure Alerts
+
+{: #alert-closurel}
+
+- err_ closeNotify: Closure notification message.
+- err_ UserCancelNotify: Application cancellation notification message.
+
 
 ## Transfer Proposal and Receipt errors
 

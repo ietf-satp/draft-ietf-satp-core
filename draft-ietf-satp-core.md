@@ -1681,18 +1681,39 @@ The following lists the error associated with each message in SATP.
 
 {: #errors-transfer-proposal}
 
-The following is the list of errors related to the Transfer Proposal and Receipt:
+The following is the list of errors related to the Transfer Proposal and Receipt.
 
-- err_1.1.1: Badly formed message: invalid digitalAssetId.
-- err_1.1.2: Badly formed message: invalid assetProfileId.
-- err_1.1.3: Badly formed message: invalid verifiedOriginatorEntityId.
-- err_1.1.4: Badly formed message: invalid verifiedBeneficiaryEntityId.
-- err_1.1.5: Badly formed message: invalid originatorPubkey.
-- err_1.1.6: Badly formed message: invalid beneficiaryPubkey.
-- err_1.1.7: Badly formed message: invalid senderGatewaySignaturePublicKey.
-- err_1.1.8: Badly formed message: invalid receiverGatewaySignaturePublicKey.
-- err_1.1.9: Badly formed message: invalid senderGatewayId.
-- err_1.1.10: Badly formed message: invalid recipientGatewayId.
+Errors rlated to the transfer context ID and session ID:
+
+- err_1.1.1: Badly formed message: invalid transferContextId.
+- err_1.1.2: Badly formed message: invalid sessionId.
+- err_1.1.3: Badly formed message: incorect transferInitClaimFormat.
+
+Errors within one of more claims in the transfer initilaization claim-set:
+
+- err_1.1.11: Badly formed message: invalid digitalAssetId.
+- err_1.1.12: Badly formed message: invalid assetProfileId.
+- err_1.1.13: Badly formed message: invalid verifiedOriginatorEntityId.
+- err_1.1.14: Badly formed message: invalid verifiedBeneficiaryEntityId.
+- err_1.1.15: Badly formed message: invalid originatorPubkey.
+- err_1.1.16: Badly formed message: invalid beneficiaryPubkey.
+- err_1.1.17: Badly formed message: invalid senderGatewaySignaturePublicKey.
+- err_1.1.18: Badly formed message: invalid receiverGatewaySignaturePublicKey.
+- err_1.1.19: Badly formed message: invalid senderGatewayId.
+- err_1.1.20: Badly formed message: invalid recipientGatewayId.
+  
+Errors within one of more parameters in the gateway and network capabilities claim-set:
+
+- err_1.1.31: Badly formed message: unsupported gatewayDefaultSignatureAlgorithm.
+- err_1.1.32: Badly formed message: unsupported networkLockType.
+- err_1.1.33: Badly formed message: unsupported networkLockExpirationTime.
+- err_1.1.34: Badly formed message: unsupported gatewayCredentialProfile.
+- err_1.1.35: Badly formed message: unsupported gatewayLoggingProfile.
+- err_1.1.36: Badly formed message: unsupported gatewayAccessControlProfile.
+- err_1.1.37: Badly formed message: unsupported
+- err_1.1.38: Badly formed message: unsupported 
+
+
 
 ## Transfer Commence and Response errors
 

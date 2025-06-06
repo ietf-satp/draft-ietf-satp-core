@@ -1719,7 +1719,7 @@ Errors related to the proposal receipt message:
 - err_1.2.3: Badly formed message: mismatch hashTransferInitClaim.
 - err_1.2.4: Badly formed message: bad signature.
 
-## Transfer Commence and Response errors
+## Transfer Commence and Acknowledgement errors
 
 {: #errors-transfer-commence}
 
@@ -1738,11 +1738,22 @@ The following is the list of errors related to the ACK Commence:
 - err_1.4.3: Badly formed message: mismatch hashPrevMessage.
 - err_1.4.4: Badly formed message: bad signature.
 
-
 ## Lock Assertion errors
 
 {: #errors-lock-assertion}
+
 The following is the list of errors related to Lock Assertion:
+
+- err_2.2.1: Badly formed message: mismatch transferContextId.
+- err_2.2.2: Badly formed message: mismatch sessionId.
+- err_2.2.3: Badly formed message: unsupported lockAssertionClaimFormat.
+- err_2.2.4: Badly formed message: unsupported lockAssertionExpiration.
+- err_2.2.5: Badly formed message: mismatch hashPrevMessage.
+- err_2.2.6: Badly formed message: bad signature.
+
+
+
+
 
 - err_2.4.1: Badly formed message: badly formed Claim.
 - err_2.4.2: Badly formed message: bad signature.

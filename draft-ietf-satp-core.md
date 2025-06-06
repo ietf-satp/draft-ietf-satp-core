@@ -1782,19 +1782,34 @@ The following is the list of errors related to Commit Ready:
 ## Commit Final Assertion errors
 
 {: #errors-commit-final-assertion}
-
 The following is the list of errors related to Commit Final Assertion:
 
-- err_3.6.1: Badly formed message: badly formed Claim.
+- err_3.5.1: Badly formed message: mismatch transferContextId.
+- err_3.5.2: Badly formed message: mismatch sessionId.
+- err_3.5.3: Badly formed message: mismatch hashPrevMessage.
+- err_3.5.4: Badly formed message: unsupported burnAssertionClaimFormat.
+- err_3.5.5: Badly formed message: bad signature.
 
-- err_3.6.2: Badly formed message: bad signature.
+## Commit Final Acknowledgement Receipt errors
 
-- err_3.6.3: Badly formed message: wrong transaction ID.
+{: #errors-commit-final-ack}
+The following is the list of errors related to Commit Final Acknowledgement Receipt:
 
-- err_3.6.4: Badly formed message: Mismatch hash values.
+- err_3.7.1: Badly formed message: mismatch transferContextId.
+- err_3.7.2: Badly formed message: mismatch sessionId.
+- err_3.7.3: Badly formed message: mismatch hashPrevMessage.
+- err_3.7.4: Badly formed message: unsupported assignmentAssertionClaimFormat.
+- err_3.7.5: Badly formed message: bad signature.
 
-- err_3.6.5: Expired signing-key certificate.
+## Transfer Complete errors
 
-- err_3.6.6: Expired Claim.
+{: #errors-transfer-complete}
+The following is the list of errors related to Commit Final Assertion:
+
+- err_3.9.1: Badly formed message: mismatch transferContextId.
+- err_3.9.2: Badly formed message: mismatch sessionId.
+- err_3.9.3: Badly formed message: mismatch hashPrevMessage.
+- err_3.9.4: Badly formed message: mismatch hashTransferCommence.
+- err_3.9.5: Badly formed message: bad signature.
 
 --- back

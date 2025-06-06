@@ -1690,7 +1690,7 @@ Errors related to the transfer context ID and session ID:
 - err_1.1.3: Badly formed message: incorect transferInitClaimFormat.
 - err_1.1.4: Badly formed message: bad signature.
 
-Errors within one of more claims in the transfer initilaization claim-set:
+Errors within one of more claims in the transfer initialization claim-set:
 
 - err_1.1.11: Badly formed claim: invalid digitalAssetId.
 - err_1.1.12: Badly formed claim: invalid assetProfileId.
@@ -1723,11 +1723,21 @@ Errors related to the proposal receipt message:
 
 {: #errors-transfer-commence}
 
-The following is the list of errors related to the Transfer Commence and Response:
+The following is the list of errors related to the Transfer Commence:
 
-- err_1.2.1: Badly formed message.
-- err_1.2.2: Incorrect parameter.
-- err_1.2.3: ACK mismatch.
+- err_1.3.1: Badly formed message: mismatch transferContextId.
+- err_1.3.2: Badly formed message: mismatch sessionId.
+- err_1.3.3: Badly formed message: mismatch hashTransferInitClaim.
+- err_1.3.4: Badly formed message: mismatch hashPrevMessage.
+- err_1.3.5: Badly formed message: bad signature.
+
+The following is the list of errors related to the ACK Commence:
+
+- err_1.4.1: Badly formed message: mismatch transferContextId.
+- err_1.4.2: Badly formed message: mismatch sessionId.
+- err_1.4.3: Badly formed message: mismatch hashPrevMessage.
+- err_1.4.4: Badly formed message: bad signature.
+
 
 ## Lock Assertion errors
 

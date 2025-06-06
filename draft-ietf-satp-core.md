@@ -1558,10 +1558,8 @@ is needed, the following messages are used:
 # Error Messages
 
 {: #satp-alert-error-messages}
-SATP distinguishes between
-application-driven closures (terminations) and
-those caused by errors at the SATP protocol level.
 
+SATP distinguishes between application-driven closures (terminations) and those caused by errors at the SATP protocol level.
 
 ## Closure Alerts
 
@@ -1581,7 +1579,7 @@ These are enumerated in the appendix.
 
 ## Connection Errors
 
-{: #satp-connection-errors}
+{: #satp-errors-connection-section}
 
 Errors may occur at the connection layer, independent of the flows at the SATP layer and errrors there.
 
@@ -1598,7 +1596,8 @@ The errors at the SATP level pertain to protocol flow and the information carrie
 
 # Security Consideration
 
-{: #satp-Security-Consideration}
+{: #satp-Security-Consideration-section}
+
 Gateways are of particular interest to attackers because
 they are a kind of end-to-end pipeline that enables the transferral of
 digital assets to external networks or systems.

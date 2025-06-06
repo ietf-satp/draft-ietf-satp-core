@@ -1680,7 +1680,6 @@ The following lists the error associated with each message in SATP.
 ## Transfer Proposal and Receipt errors
 
 {: #errors-transfer-proposal}
-
 The following is the list of errors related to the Transfer Proposal and Receipt.
 
 Errors related to the transfer context ID and session ID:
@@ -1722,7 +1721,6 @@ Errors related to the proposal receipt message:
 ## Transfer Commence and Acknowledgement errors
 
 {: #errors-transfer-commence}
-
 The following is the list of errors related to the Transfer Commence:
 
 - err_1.3.1: Badly formed message: mismatch transferContextId.
@@ -1741,7 +1739,6 @@ The following is the list of errors related to the ACK Commence:
 ## Lock Assertion errors
 
 {: #errors-lock-assertion}
-
 The following is the list of errors related to Lock Assertion:
 
 - err_2.2.1: Badly formed message: mismatch transferContextId.
@@ -1751,28 +1748,15 @@ The following is the list of errors related to Lock Assertion:
 - err_2.2.5: Badly formed message: mismatch hashPrevMessage.
 - err_2.2.6: Badly formed message: bad signature.
 
-
-
-
-
-- err_2.4.1: Badly formed message: badly formed Claim.
-- err_2.4.2: Badly formed message: bad signature.
-- err_2.4.3: Badly formed message: wrong transaction ID.
-- err_2.4.4: Badly formed message: Mismatch hash values.
-- err_2.4.5: Expired signing-key certificate.
-- err_2.4.6: Expired Claim.
-
 ## Lock Assertion Receipt errors
 
 {: #errors-lock-assertion-receipt}
 The following is the list of errors related to Lock Assertion Receipt:
 
-- err_2.6.1: Badly formed message: badly formed Claim.
-- err_2.6.2: Badly formed message: bad signature.
-- err_2.6.3: Badly formed message: wrong transaction ID.
-- err_2.6.4: Badly formed message: Mismatch hash values.
-- err_2.6.5: Expired signing-key certificate.
-- err_2.6.6: Expired Claim.
+- err_2.4.1: Badly formed message: mismatch transferContextId.
+- err_2.4.2: Badly formed message: mismatch sessionId.
+- err_2.4.3: Badly formed message: mismatch hashPrevMessage.
+- err_2.4.4: Badly formed message: bad signature.
 
 ## Commit Preparation errors
 

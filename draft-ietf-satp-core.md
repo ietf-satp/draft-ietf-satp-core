@@ -1590,7 +1590,7 @@ Errors may occur at the connection layer, independent of the flows at the SATP l
 
 ## SATP Protocol Errors
 
-{: #satp-protocol-errors}
+{: #satp-protocol-errors-section}
 
 The errors at the SATP level pertain to protocol flow and the information carried within each message. These are enumerated in the appendix.
 

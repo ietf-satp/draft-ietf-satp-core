@@ -1763,38 +1763,21 @@ The following is the list of errors related to Lock Assertion Receipt:
 {: #errors-commit-prepare}
 The following is the list of errors related to Commit Preparation:
 
-- err_3.1.1: Badly formed message: wrong transaction ID.
-
-- err_3.1.2: Badly formed message: mismatch hash value (i.e. from msg 2.6).
-
-- err_3.1.3: Incorrect parameter.
-
-- err_3.1.4: Message out of sequence.
-
-## Commit Preparation Acknowledgement errors
-
-{: #errors-commit-prepare-ack}
-
-The following is the list of errors related to Commit Preparation Acknowledgement:
-
-- err_3.2.1: Badly formed message: wrong transaction ID.
-- err_3.2.2: Badly formed message: mismatch hash value.
-- err_3.2.3: Incorrect parameter.
-- err_3.2.4: Message out of sequence.
+- err_3.1.1: Badly formed message: mismatch transferContextId.
+- err_3.1.2: Badly formed message: mismatch sessionId.
+- err_3.1.3: Badly formed message: mismatch hashPrevMessage.
+- err_3.1.4: Badly formed message: bad signature.
 
 ## Commit Ready errors
 
 {: #errors-commit-ready}
-
 The following is the list of errors related to Commit Ready:
 
-- err_3.4.1: Badly formed message: wrong transaction ID.
-
-- err_3.4.2: Badly formed message: mismatch hash value.
-
-- err_3.4.3: Incorrect parameter.
-
-- err_3.4.4: Message out of sequence (ACK mismatch).
+- err_3.3.1: Badly formed message: mismatch transferContextId.
+- err_3.3.2: Badly formed message: mismatch sessionId.
+- err_3.3.3: Badly formed message: mismatch hashPrevMessage.
+- err_3.3.4: Badly formed message: unsupported mintAssertionFormat.
+- err_3.3.5: Badly formed message: bad signature.
 
 ## Commit Final Assertion errors
 

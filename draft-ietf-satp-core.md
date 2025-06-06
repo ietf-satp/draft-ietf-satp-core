@@ -621,9 +621,9 @@ The Transfer Initialization Claim consists of the following:
 
 - receiverGatewaySignaturePublicKey REQUIRED. This is the public key of the key-pair used by the recevier gateway to sign assertions and receipts.
 
-- senderGatewayId OPTIONAL. This is the identifier of the sender gateway.
+- senderGatewayId REQUIRED. This is the identifier of the sender gateway.
 
-- recipientGatewayId OPTIONAL. This is the identifier of the receiver gateway.
+- recipientGatewayId REQUIRED. This is the identifier of the receiver gateway.
 
 - senderGatewayNetworkId REQUIRED. This is the identifier of the
   origin network or system behind the client.
@@ -1677,15 +1677,32 @@ The following lists the error associated with each message in SATP.
 
 (Note: these have been laid out for convenience, and may be grouped together more efficiently later).
 
+## Transfer Proposal and Receipt errors
+
+{: #errors-transfer-proposal}
+
+The following is the list of errors related to the Transfer Proposal and Receipt:
+
+- err_1.1.1: Badly formed message: invalid digitalAssetId.
+- err_1.1.2: Badly formed message: invalid assetProfileId.
+- err_1.1.3: Badly formed message: invalid verifiedOriginatorEntityId.
+- err_1.1.4: Badly formed message: invalid verifiedBeneficiaryEntityId.
+- err_1.1.5: Badly formed message: invalid originatorPubkey.
+- err_1.1.6: Badly formed message: invalid beneficiaryPubkey.
+- err_1.1.7: Badly formed message: invalid senderGatewaySignaturePublicKey.
+- err_1.1.8: Badly formed message: invalid receiverGatewaySignaturePublicKey.
+- err_1.1.9: Badly formed message: invalid senderGatewayId.
+- err_1.1.10: Badly formed message: invalid recipientGatewayId.
+
 ## Transfer Commence and Response errors
 
 {: #errors-transfer-commence}
 
 The following is the list of errors related to the Transfer Commence and Response:
 
-- err_2.1: Badly formed message.
-- err_2.2: Incorrect parameter.
-- err_2.3: ACK mismatch.
+- err_1.2.1: Badly formed message.
+- err_1.2.2: Incorrect parameter.
+- err_1.2.3: ACK mismatch.
 
 ## Lock Assertion errors
 

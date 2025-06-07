@@ -603,6 +603,10 @@ The Transfer Initialization Claim consists of the following:
 - assetProfileId REQUIRED: This is the globally unique identifier for the asset-profile
   definition (document) on which the digital asset was issued.
 
+- assetLockType REQUIRED: The default locking mechanism used for an asset. These can be (i) TIME_LOCK, (ii) HASH_LOCK, (iii) HASH_TIME_LOCK.
+
+- assetLockExpirationTime OPTIONAL: The duration of time (in seconds) for an asset lock to expire in the network, if it is a HASH_TIME_LOCK or a TIME_LOCK.
+
 - verifiedOriginatorEntityId REQUIRED: This is the identity data of the originator entity
   (person or organization) in the origin network.
   This information must be verified by the sender gateway.
@@ -646,6 +650,8 @@ Here is an example representation in JSON format:
 {
   "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",\  
   "assetProfileId": "38561",\  
+  "assetLockType": "HASH_TIME_LOCK",\  
+  "assetLockExpirationTime": 120,\  
   "verifiedOriginatorEntityId": "CN=Alice, OU=Example Org Unit, O=Example, L=New York, C=US",\  
   "verifiedBeneficiaryEntityId": "CN=Bob, OU=Case Org Unit, O=Case, L=San Francisco, C=US",\  
   "originatorPubkey": "0304b9f34d3898b27f85b3d88fa069a879abe14db5060dde466dd1e4a31ff75e44",\  
@@ -666,6 +672,8 @@ Here is an example representation in JSON format:
 {
   "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",
   "assetProfileId": "38561",
+  "assetLockType": "HASH_TIME_LOCK",  
+  "assetLockExpirationTime": 120,
   "verifiedOriginatorEntityId": "CN=Alice, OU=Example Org Unit, O=Example, L=New York, C=US",
   "verifiedBeneficiaryEntityId": "CN=Bob, OU=Case Org Unit, O=Case, L=San Francisco, C=US",
   "originatorPubkey": "0304b9f34d3898b27f85b3d88fa069a879abe14db5060dde466dd1e4a31ff75e44",
@@ -683,25 +691,17 @@ Here is an example representation in JSON format:
 }
 ```
 
-## Conveyance of Gateway and Network Capabilities
+## Conveyance of Gateway Capabilities
 
 {: #satp-stage1-conveyance}
 
-This is set of parameters pertaining to the origin network and the destination network, and the technical capabilities supported by the peer gateways.
+This is set of parameters pertaining to the technical capabilities supported by the peer gateways.
 
-Some network-specific parameters regarding the origin network may be relevant for a receiver gateway to evaluate its ability to process the proposed transfer.
-
-For example, the average duration of time of a lock to be held by a sender gateway may inform the receiver gateway about delay expectations.
-
-The gateway and network capabilities list is as follows:
+The gateway capabilities list is as follows:
 
 - gatewayDefaultSignatureAlgorithm REQUIRED: The default digital signature algorithm (algorithm-id) used by a gateway to sign claims.
 
 - gatewaySupportedSignatureAlgorithms OPTIONAL: The list of other digital signature algorithm (algorithm-id) supported by a gateway to sign claims
-
-- networkLockType REQUIRED: The default locking mechanism used by a network. These can be (i) timelock, (ii) hashlock, (iii) hashtimelock, and so on (TBD).
-
-- networkLockExpirationTime REQUIRED: The duration of time (in seconds) for a lock to expire in the network.
 
 - gatewayCredentialProfile REQUIRED: Specify type of auth (e.g., SAML, OAuth, X.509).
 
@@ -714,8 +714,6 @@ Here is an example representation in JSON format:
 {
   "gatewayDefaultSignatureAlgorithm": "ECDSA",\  
   "gatewaySupportedSignatureAlgorithms": ["ECDSA", "RSA"],\  
-  "networkLockType": "HASH_TIME_LOCK",\  
-  "networkLockExpirationTime": 120,\  
   "gatewayCredentialProfile": "OAUTH",\  
   "gatewayLoggingProfile": "LOCAL_STORE",\  
   "gatewayAccessControlProfile": "RBAC"\  
@@ -725,8 +723,6 @@ Here is an example representation in JSON format:
 {
   "gatewayDefaultSignatureAlgorithm": "ECDSA",
   "gatewaySupportedSignatureAlgorithms": ["ECDSA", "RSA"],
-  "networkLockType": "HASH_TIME_LOCK",
-  "networkLockExpirationTime": 120,
   "gatewayCredentialProfile": "OAUTH",
   "gatewayLoggingProfile": "LOCAL_STORE",
   "gatewayAccessControlProfile": "RBAC"
@@ -771,7 +767,9 @@ Here is an example of the message request body:
   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
   "transferInitClaim": {\  
       "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",\  
-      "assetProfileId": "38561",\  
+      "assetProfileId": "38561",\
+      "assetLockType": "HASH_TIME_LOCK",\  
+      "assetLockExpirationTime": 120,\ 
       "verifiedOriginatorEntityId": "CN=Alice, OU=Example Org Unit, O=Example, L=New York, C=US",\  
       "verifiedBeneficiaryEntityId": "CN=Bob, OU=Case Org Unit, O=Case, L=San Francisco, C=US",\  
       "originatorPubkey": "0304b9f34d3898b27f85b3d88fa069a879abe14db5060dde466dd1e4a31ff75e44",\  
@@ -788,11 +786,9 @@ Here is an example of the message request body:
       "receiverGatewayOwnerId": "CN=BridgeSolutions, OU=BridgeSolutions Engineering, O=BridgeSolutions LTD, L=Austin, C=US"\  
   },\  
   "transferInitClaimFormat": "TRANSFER_INIT_CLAIM_FORMAT_1",\  
-  "gatewayAndNetworkCapabilities": {\  
+  "gatewayCapabilities": {\  
       "gatewayDefaultSignatureAlgorithm": "ECDSA",\  
       "gatewaySupportedSignatureAlgorithms": ["ECDSA", "RSA"],\  
-      "networkLockType": "HASH_TIME_LOCK",\  
-      "networkLockExpirationTime": 120,\  
       "gatewayCredentialProfile": "OAUTH",\  
       "gatewayLoggingProfile": "LOCAL_STORE",\  
       "gatewayAccessControlProfile": "RBAC"\  
@@ -808,6 +804,8 @@ Here is an example of the message request body:
   "transferInitClaim": {
       "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",
       "assetProfileId": "38561",
+      "assetLockType": "HASH_TIME_LOCK",
+      "assetLockExpirationTime": 120,
       "verifiedOriginatorEntityId": "CN=Alice, OU=Example Org Unit, O=Example, L=New York, C=US",
       "verifiedBeneficiaryEntityId": "CN=Bob, OU=Case Org Unit, O=Case, L=San Francisco, C=US",
       "originatorPubkey": "0304b9f34d3898b27f85b3d88fa069a879abe14db5060dde466dd1e4a31ff75e44",
@@ -824,11 +822,9 @@ Here is an example of the message request body:
       "receiverGatewayOwnerId": "CN=BridgeSolutions, OU=BridgeSolutions Engineering, O=BridgeSolutions LTD, L=Austin, C=US"
   },
   "transferInitClaimFormat": "TRANSFER_INIT_CLAIM_FORMAT_1",
-  "gatewayAndNetworkCapabilities": {
+  "gatewayCapabilities": {
       "gatewayDefaultSignatureAlgorithm": "ECDSA",
       "gatewaySupportedSignatureAlgorithms": ["ECDSA", "RSA"],
-      "networkLockType": "HASH_TIME_LOCK",
-      "networkLockExpirationTime": 120,
       "gatewayCredentialProfile": "OAUTH",
       "gatewayLoggingProfile": "LOCAL_STORE",
       "gatewayAccessControlProfile": "RBAC"
@@ -1670,23 +1666,23 @@ Errors within one of more claims in the transfer initialization claim-set:
 
 - err_1.1.11: Badly formed claim: invalid digitalAssetId.
 - err_1.1.12: Badly formed claim: invalid assetProfileId.
-- err_1.1.13: Badly formed claim: invalid verifiedOriginatorEntityId.
-- err_1.1.14: Badly formed claim: invalid verifiedBeneficiaryEntityId.
-- err_1.1.15: Badly formed claim: invalid originatorPubkey.
-- err_1.1.16: Badly formed claim: invalid beneficiaryPubkey.
-- err_1.1.17: Badly formed claim: invalid senderGatewaySignaturePublicKey.
-- err_1.1.18: Badly formed claim: invalid receiverGatewaySignaturePublicKey.
-- err_1.1.19: Badly formed claim: invalid senderGatewayId.
-- err_1.1.20: Badly formed claim: invalid recipientGatewayId.
+- err_1.1.13: Badly formed parameter: unsupported assetLockType.
+- err_1.1.14: Badly formed parameter: unsupported assetLockExpirationTime.
+- err_1.1.15: Badly formed claim: invalid verifiedOriginatorEntityId.
+- err_1.1.16: Badly formed claim: invalid verifiedBeneficiaryEntityId.
+- err_1.1.17: Badly formed claim: invalid originatorPubkey.
+- err_1.1.18: Badly formed claim: invalid beneficiaryPubkey.
+- err_1.1.19: Badly formed claim: invalid senderGatewaySignaturePublicKey.
+- err_1.1.20: Badly formed claim: invalid receiverGatewaySignaturePublicKey.
+- err_1.1.21: Badly formed claim: invalid senderGatewayId.
+- err_1.1.22: Badly formed claim: invalid recipientGatewayId.
   
 Errors within one of more parameters in the gateway and network capabilities claim-set:
 
 - err_1.1.31: Badly formed parameter: unsupported gatewayDefaultSignatureAlgorithm.
-- err_1.1.32: Badly formed parameter: unsupported networkLockType.
-- err_1.1.33: Badly formed parameter: unsupported networkLockExpirationTime.
-- err_1.1.34: Badly formed parameter: unsupported gatewayCredentialProfile.
-- err_1.1.35: Badly formed parameter: unsupported gatewayLoggingProfile.
-- err_1.1.36: Badly formed parameter: unsupported gatewayAccessControlProfile.
+- err_1.1.32: Badly formed parameter: unsupported gatewayCredentialProfile.
+- err_1.1.33: Badly formed parameter: unsupported gatewayLoggingProfile.
+- err_1.1.34: Badly formed parameter: unsupported gatewayAccessControlProfile.
 
 Errors related to the proposal receipt message:
 

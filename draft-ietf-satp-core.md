@@ -1606,8 +1606,15 @@ Error messages at the SATP protocol layer is distinct from time-outs due to gate
 
 {: #satp-session-termination-notification}
 
-TBD
+Session closure initiated at the application layer is not considered to be an error at the SATP protocol layer.
 
+The message type used for application-initiated session termination: session-abort-msg.
+
+The message type used to indicate protocols errors: error-msg.
+
+A gateway can transmit the session abort message at any point in the SATP protocol flow. No further messages will be sent by the gateway.
+
+Any data received after the session termination message MUST be ignored.
 
 ## Connection Errors
 
@@ -1625,6 +1632,23 @@ Errors may occur at the connection layer, independent of the flows at the SATP l
 {: #satp-protocol-errors-section}
 
 The errors at the SATP level pertain to protocol flow and the information carried within each message. These are enumerated in the appendix.
+
+## Effecttiveness of Session Aborts
+
+{: #satp-abort-effecttiveness-section}
+
+The effectiveness of a session-abort message on the state of the asset depends on when the abort message occurs in the SATP protocol flow in Figure 2.
+
+Note that a session-abort message by be lost and never be received by the peer gateway. Gateways can crash prior to receiving an abort message.
+
+If gateway G2 transmits a session-abort message after gateway G1 performs a lock (msgtype:lock-assert-msg) on the asset in network NW1, the gateway G1 can always unlock the asset and restore its state.
+
+If either gateway G1 or gateway G2  transmits a session-abort message after gateway G1 sends a lock-assert message (msgtype:lock-assert-msg) but before G2 sends the commit ready message (msgtype:commit-ready-msg), the gateway G1 can always unlock the asset and restore its state in network NW1.
+
+Similarly, if either gateway G1 or gateway G2  transmits a session-abort message immediately after gateway G1 sends a commit-prepare message (msgtype:commit-prepare-msg) but before the commit ready message (msgtype:commit-ready-msg), the gateway G2 can always reverse the changes made by G2 to NW2 (i.e. reverse the mint-to-self).
+
+However, an abort message (occurring in either direction) after gateway G1 transmits the commit final message (msgtype:commit-final-msg) will not be effective. This is because G1 has already burned the asset in NW1 and G2 has already minted the asset in NW2 and has legally agreed to assign the asset to the appropriate beneficiary in NW2.
+
 
 # Security Consideration
 

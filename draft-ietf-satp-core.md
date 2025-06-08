@@ -365,6 +365,8 @@ The possible values are:
 - ack-commit-final-msg: Receiver gateway acknowledges receiving the signed commit-final-msg and has performed the asset creation and assignment in the destination network.
 
 - commit-transfer-complete-msg: Sender gateway indicates closure of the current transfer session.
+  
+- error-msg: This message is used to indicate that an error has occured at the SATP layer. It can be transmitted by either gateways.
 
 ### Digital Asset Identifier
 

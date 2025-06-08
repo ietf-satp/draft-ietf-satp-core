@@ -1581,23 +1581,20 @@ is needed, the following messages are used:
 
 {: #satp-alert-error-messages}
 
-SATP distinguishes between application-driven closures (terminations) and those caused by errors at the SATP protocol level.
+SATP distinguishes between session termination initiated by the user at the application layer from session termination cased by errors at the SATP protocol layer.
 
-## Closure Alerts
+A gateway can transmit an error message at any point in the SATP protocol flow to its peer gateway.
 
-{: #satp-closure-alerts-section}
+The default action to be taken by the transitting gateway is to terminate the session immediately.
 
-The SATP client and server (gateways) must share knowledge that
-the transfer connection is ending in order to avoid third-party attacks.
+Error messages at the SATP protocol layer is distinct from time-outs due to gateway crashes. 
 
-(a) closeNotify: This alert notifies the recipient that the sender gateway
-will not send any more messages on this transfer connection.
-Any data received after a closure alert has been received MUST be ignored.
+## Session Termination Notification
 
-(b) userCanceledNotify: This alert notifies the recipient that the sender gateway
-is canceling the transfer connection for some reason unrelated to a protocol failure.
+{: #satp-session-termination-notification}
 
-These are enumerated in the appendix.
+TBD
+
 
 ## Connection Errors
 

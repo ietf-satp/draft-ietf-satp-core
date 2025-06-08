@@ -1637,7 +1637,7 @@ The errors at the SATP level pertain to protocol flow and the information carrie
 
 {: #satp-abort-effectiveness-section}
 
-The effectiveness of a session-abort message on the state of the asset depends on when the abort message occurs in the SATP protocol flow in Figure 2.
+The effectiveness of a session-abort message on the state of the asset depends on where the abort message occurs in the SATP protocol flow in Figure 2.
 
 Note that a session-abort message by be lost and never be received by the peer gateway. Gateways can crash prior to receiving an abort message.
 

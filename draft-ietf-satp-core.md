@@ -1643,9 +1643,9 @@ Note that a session-abort message by be lost and never be received by the peer g
 
 If gateway G2 transmits a session-abort message after gateway G1 performs a lock (msgtype:lock-assert-msg) on the asset in network NW1, the gateway G1 can always unlock the asset and restore its state.
 
-If either gateway G1 or gateway G2  transmits a session-abort message after gateway G1 sends a lock-assert message (msgtype:lock-assert-msg) but before G2 sends the commit ready message (msgtype:commit-ready-msg), the gateway G1 can always unlock the asset and restore its state in network NW1.
+If either gateway G1 or gateway G2 transmits a session-abort message after gateway G1 sends a lock-assert message (msgtype:lock-assert-msg) but before G2 sends the commit ready message (msgtype:commit-ready-msg), the gateway G1 can always unlock the asset and restore its state in network NW1.
 
-Similarly, if either gateway G1 or gateway G2  transmits a session-abort message immediately after gateway G1 sends a commit-prepare message (msgtype:commit-prepare-msg) but before the commit ready message (msgtype:commit-ready-msg), the gateway G2 can always reverse the changes made by G2 to NW2 (i.e. reverse the mint-to-self).
+Similarly, if either gateway G1 or gateway G2 transmits a session-abort message immediately after gateway G1 sends a commit-prepare message (msgtype:commit-prepare-msg) but before G2 sends the commit ready message (msgtype:commit-ready-msg), the gateway G2 can always reverse the changes made by G2 to NW2 (i.e. reverse the assignment-to-self of the minted asset).
 
 However, an abort message (occurring in either direction) after gateway G1 transmits the commit final message (msgtype:commit-final-msg) will not be effective. This is because G1 has already burned the asset in NW1 and G2 has already minted the asset in NW2 and has legally agreed to assign the asset to the appropriate beneficiary in NW2.
 

@@ -368,6 +368,8 @@ The possible values are:
   
 - error-msg: This message is used to indicate that an error has occured at the SATP layer. It can be transmitted by either gateways.
 
+- session-abort-msg: This message is used by a gateway to abort the current session.
+
 ### Digital Asset Identifier
 
 This is the identifier that uniquely identifies the digital asset in the origin network which is to be transferred to the destination network.

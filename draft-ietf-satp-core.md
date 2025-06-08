@@ -1633,9 +1633,9 @@ Errors may occur at the connection layer, independent of the flows at the SATP l
 
 The errors at the SATP level pertain to protocol flow and the information carried within each message. These are enumerated in the appendix.
 
-## Effecttiveness of Session Aborts
+## Effectiveness of Session Aborts
 
-{: #satp-abort-effecttiveness-section}
+{: #satp-abort-effectiveness-section}
 
 The effectiveness of a session-abort message on the state of the asset depends on when the abort message occurs in the SATP protocol flow in Figure 2.
 

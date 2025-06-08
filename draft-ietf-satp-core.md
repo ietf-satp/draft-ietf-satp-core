@@ -1474,7 +1474,7 @@ This message must contain the error type (see the appendix) and the course of ac
 
 - hashPrevMessage REQUIRED.  The hash of the previous message to which the error pertains.
 
-Futher discussion on errors are discussed below.
+Futher discussion on protocol errors can be found below.
 
 ## Session abort message
 
@@ -1484,7 +1484,7 @@ The purpose of this message is to indicate that one of the peer gateways have de
 
 - sessionId REQUIRED: This is the current session in which the abort occurs.
 
-Futher discussion on session aborts are discussed below.
+The effect of session aborts on the state of the asset is discussed below.
 
 
 # SATP Session Resumption
@@ -1676,14 +1676,6 @@ Weijia Zhang.
 {: #error-types-section}
 
 The following lists the error associated with the SATP messages.
-
-## Closure Alerts
-
-{: #alert-closurel}
-
-- err_ closeNotify: Closure notification message.
-- err_ UserCancelNotify: Application cancellation notification message.
-
 
 ## Transfer Proposal and Receipt errors
 

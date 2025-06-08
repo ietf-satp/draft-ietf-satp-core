@@ -1406,6 +1406,7 @@ Example:
 ## Transfer Complete Message
 
 {: #satp-transfer-complete-message-section}
+
 The purpose of this message is for the client to indicate to the server that
 the asset transfer session (identified by sessionId)
 has been completed and no further messages are to be
@@ -1453,6 +1454,25 @@ Example:
   "clientSignature": "54657374204f564c250825d6573736167d5c00c8bf70206155d9ffa29deb57d71b4aa50cd56f0b0b5e65eb31597617e11df820000a0ff929b134def087470de41af9aa36a7028418dceb46e32da6edbea6b4c7944be90c8307d9bbe1e8033df5452203530428842813c323b869475d4e7549304f88883a6a2a32a9aa81a04b88ec58437553f09400000004"
 }
 ```
+## Error Message
+
+{: #satp-error-msg-payloads}
+
+The purpose of this message is for either the sender or the receiver gateways to indicate to its peer that an error has occurred within the transfer protocol flow. 
+
+This message must contain the error type (see the appendix) and the course of action indicated by the severity level. Typicaly, the action taken will be the immediate termination of the session.
+
+- messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:error-msg.
+
+- sessionId REQUIRED: This is the current session in which the error pertains.
+  
+- errorType REQUIRED: This is the error code.
+
+- errorSeverity REQUIRED: This is the severity level of the error, leading to the action.
+
+- hashPrevMessage REQUIRED.  The hash of the previous message to which the error pertains.
+
+Futher discussion on errors and actions are discussed below.
 
 # SATP Session Resumption
 

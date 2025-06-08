@@ -1474,7 +1474,18 @@ This message must contain the error type (see the appendix) and the course of ac
 
 - hashPrevMessage REQUIRED.  The hash of the previous message to which the error pertains.
 
-Futher discussion on errors and actions are discussed below.
+Futher discussion on errors are discussed below.
+
+## Session abort message
+
+The purpose of this message is to indicate that one of the peer gateways have decided not to proceed with the session. No further messages will be delivered after the abort message.
+
+- messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:session-abort-msg.
+
+- sessionId REQUIRED: This is the current session in which the abort occurs.
+
+Futher discussion on session aborts are discussed below.
+
 
 # SATP Session Resumption
 

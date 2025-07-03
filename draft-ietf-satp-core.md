@@ -1467,12 +1467,12 @@ This message must contain the error type (see the appendix) and the course of ac
 - messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:error-msg.
 
 - sessionId REQUIRED: This is the current session in which the error pertains.
+
+- errorMsgType: The pevious msg-type that was erronous.
   
 - errorType REQUIRED: This is the error code.
 
 - errorSeverity REQUIRED: This is the severity level of the error, leading to the action.
-
-- hashPrevMessage REQUIRED.  The hash of the previous message to which the error pertains.
 
 Futher discussion on protocol errors can be found below.
 

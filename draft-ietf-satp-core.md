@@ -811,18 +811,6 @@ Here is an example of the message request body:
   "timestamp": "2024-10-03T12:02+00Z",\  
 }\  
 
-```json
-{
-  "version": "1.0",
-  "messageType": "urn:ietf:satp:msgtype:proposal-receipt-msg",
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
-  "hashTransferInitClaim": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
-  "timestamp": "2024-10-03T12:02+00Z",
-  "serverSignature": "53f054657374204d657373616765c001a0ff92315970206155d9ffa29deb57d71b4aa51eb0000004f564c2508254be946e32da6edbea6b4c7949b134def087470de4df8200009400cd50c8307d9bbe1e8033df5452203530428842813c323b869475d4e7549304f88883a6a2a316f0b0b5e65eb7e1af9aa36a7028418dcc8bf7d2a9aa81a04b88ec584375"
-}
-```
-
 ## Reject Message
 
 {: #satp-stage1-init-reject}
@@ -866,19 +854,6 @@ Here is an example of the message request body:
 }\  
 
 
-```json
-{
-  "version": "1.0",
-  "messageType": "urn:ietf:satp:msgtype:reject-msg",
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
-  "hashPrevMessage": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
-  "reasonCode": "err_2.1",
-  "timestamp": "2024-10-03T12:02+00Z",
-  "serverSignature": "53f054657374204d657373616765c001a0ff92315970206155d9ffa29deb57d71b4aa51eb0000004f564c2508254be946e32da6edbea6b4c7949b134def087470de4df8200009400cd50c8307d9bbe1e8033df5452203530428842813c323b869475d4e7549304f88883a6a2a316f0b0b5e65eb7e1af9aa36a7028418dcc8bf7d2a9aa81a04b88ec584375"
-}
-```
-
 ## Transfer Commence Message
 
 {: #satp-transfer-commence-sec}
@@ -917,16 +892,6 @@ For example, the client makes the following HTTP request using TLS:
     "hashPrevMessage": "0b0aecc2680e0d8a86bece6b54c454fba67068799484f477cdf2f87e6541db66",\  
 }\  
 
-```json
-{
-    "messageType": "urn:ietf:satp:msgtype:transfer-commence-msg",
-    "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
-    "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
-    "hashTransferInitClaim": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
-    "hashPrevMessage": "0b0aecc2680e0d8a86bece6b54c454fba67068799484f477cdf2f87e6541db66",
-    "clientSignature": "9b134def087470de4df82000094000000004f564c2508254be946e32da6edbea6b4c794cd50c830753f054657374204d657373616765c001a0ff92315970206155d9ffa29deb57d71b4aa51ebd9bbe1e8033df5452203530428848dcc8bf7d2a9aa81a04b88ec5843752813c323b869475d4e7549304f88883a6a2a316f0b0b5e65eb7e1af9aa36a702841"
-}
-```
 
 {: #transfer-commence-sec-example}
 
@@ -963,16 +928,6 @@ An example of a success response could be as follows:
   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
   "hashPrevMessage": "dd5a61a26fc8f5d72e5ca6052c2a1fca1613115e5582d9417d336375c196db89",\  
 }\  
-
-```json
-{
-  "messageType": "urn:ietf:satp:msgtype:ack-commence-msg",
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
-  "hashPrevMessage": "dd5a61a26fc8f5d72e5ca6052c2a1fca1613115e5582d9417d336375c196db89",
-  "serverSignature": "53f054657374204d657373616765c001a0ff92315970206155d9ffa29deb57d71b4aa51eb0000004f564c2508254be946e32da6edbea6b4c7949b134def087470de4df8200009400cd50c8307d9bbe1e8033df5452203530428842813c323b869475d4e7549304f88883a6a2a316f0b0b5e65eb7e1af9aa36a7028418dcc8bf7d2a9aa81a04b88ec584375"
-}
-```
 
 # Lock Assertion Stage (Stage 2)
 

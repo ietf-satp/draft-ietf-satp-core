@@ -1134,18 +1134,6 @@ Example:
   "mintAssertionClaimFormat": "MINT_ASSERTION_CLAIM_FORMAT_1",\  
 }\  
 
-```json
-{
-  "messageType": "urn:ietf:satp:msgtype:commit-ready-msg",
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
-  "hashPrevMessage": "8dcc8dc4e6c2c979474b42d24d3747ce4607a92637d1a7b294857ff7288b8e46",
-  "mintAssertionClaim": {},
-  "mintAssertionClaimFormat": "MINT_ASSERTION_CLAIM_FORMAT_1",
-  "serverSignature": "a0ff929b134def087470de41af9aa36a7028418dcc8bf70206155d9ffa29deb57d71b4aa50cd56f0b0b5e65eb31597617e1eb46e32da6edbea6b4c7944be90c8307d9bbe1e8033df5452203530428842813c323b869475d4e7549304f88883a6a2a32a9aa81a04b88ec58437553f054657374204f564c250825d6573736167d5c001df8200009400000004"
-}
-```
-
 ## Commit Final Assertion Message (Commit-Final)
 
 {: #satp-commit-final-message-section}
@@ -1190,18 +1178,6 @@ Example:
 }\  
 
 
-```json
-{
-  "messageType": "urn:ietf:satp:msgtype:commit-final-msg",
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
-  "hashPrevMessage": "b92f13007216c58f2b51a8621599c3aef6527b02c8284e90c6a54a181d898e02",
-  "burnAssertionClaim": {},
-  "burnAssertionClaimFormat": "BURN_ASSERTION_CLAIM_FORMAT_1",
-  "clientSignature": "4e7549304cc8bf70206155d9ffa29deb57d71b4aa50cd56f0b0b5e65eb31597617a0ff929b134de46e32da6edbea6b4c7944be90c8307d9bbe1e8033df087470de41af9aa36a7028418de1ebf5452203530428842813c323b869475df88883a6a2a32a9d6573736167d5c001df820000940000000488ec58437553f054657374204f564c2508aa81a04b25"
-}
-```
-
 ## Commit-Final Acknowledgement Receipt Message (ACK-Final-Receipt)
 
 {: #satp--final-ack-section}
@@ -1240,19 +1216,6 @@ Example:
   "assignmentAssertionClaim": {},\  
   "assignmentAssertionClaimFormat": "ASSIGNMENT_ASSERTION_CLAIM_FORMAT_1",\  
 }\  
-
-
-```json
-{
-  "messageType": "urn:ietf:satp:msgtype:ack-commit-final-msg",
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
-  "hashPrevMessage": "9c8f07c22ccf6888fc0306fee0799325efb87dfd536d90bb47d97392f020e998",
-  "assignmentAssertionClaim": {},
-  "assignmentAssertionClaimFormat": "ASSIGNMENT_ASSERTION_CLAIM_FORMAT_1",
-  "serverSignature": "a0ff929b134def087470de41af9aa36a7028418dcc8bf70206155d9ffa29deb57d71b4aa50cd56f0b0b5e65eb31597617e1eb46e32da6edbea6b4c7944be90c8307d9bbe1e8033df5452203530428842813c323b869475d4e7549304f88883a6a2a32a9aa81a04b88ec58437553f054657374204f564c250825d6573736167d5c001df8200009400000004"
-}
-```
 
 ## Transfer Complete Message
 
@@ -1294,17 +1257,6 @@ Example:
   "hashTransferCommence": "4ba76c69265f4215b4e2d2f24fe56e708512fdb49e27f50d2ac0095928e1531b",\  
 }\  
 
-
-```json
-{
-  "messageType": "urn:ietf:satp:msgtype:commit-transfer-complete-msg",
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
-  "hashPrevMessage": "9c8f07c22ccf6888fc0306fee0799325efb87dfd536d90bb47d97392f020e998",
-  "hashTransferCommence": "4ba76c69265f4215b4e2d2f24fe56e708512fdb49e27f50d2ac0095928e1531b",
-  "clientSignature": "54657374204f564c250825d6573736167d5c00c8bf70206155d9ffa29deb57d71b4aa50cd56f0b0b5e65eb31597617e11df820000a0ff929b134def087470de41af9aa36a7028418dceb46e32da6edbea6b4c7944be90c8307d9bbe1e8033df5452203530428842813c323b869475d4e7549304f88883a6a2a32a9aa81a04b88ec58437553f09400000004"
-}
-```
 ## Error Message
 
 {: #satp-error-msg-payloads}

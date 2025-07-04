@@ -1654,15 +1654,20 @@ However, an abort message (occurring in either direction) after gateway G1 trans
 
 {: #satp-Security-Consideration-section}
 
-Gateways are of particular interest to attackers because
-they are a kind of end-to-end pipeline that enables the transferral of
-digital assets to external networks or systems.
-Thus, attacking a gateway may be attractive to attackers instead of
-the network behind a gateway.
+Gateways may be of interest to attackers because they enable the transferal of digital assets across networks and therefore are an important function in the digital economy. 
 
-As such, hardware hardening technologies and
-tamper-resistant crypto-processors (e.g. TPM, Secure Enclaves, SGX)
-should be considered for the implementation of gateways.
+- Disruptions in transfers and denial of service: Disruptions to a transfer session may cause not only resource waste (e.g. CPU usage), but in some cases may result in financial loss on the part of the gateway operator (e.g. fees charged by network). Denial-of-service attacks by third parties to a run of the protocol may result in the termination of the current run (e.g. time-outs at the SATP layer), and for new attempts to be conducted. If the gateway selection mechanisms are utilized by networks NW1 and NW2, such attacks may incur more delays because new gateways may have to be elected at either network. 
+
+- Dishonest gateways: The SATP protocol requires gateways to sign messages related to the transfer layer, not only to provide message source authentication and integrity but also to maintain honesty on the part of the gateways. Gateway-operators may take-on legal and financial liabilities in certain jurisdictions by digitally signing messages. 
+Dishonest gateways may intentionally delay the delivery of certain messages or intentionally fail (abort) the protocol run at certain crucial points [ARCH].  Two such crucial points in the message flows are the following: (i) the commit-final-msg, where the sender G1 asserts it has extinguished (burned) the asset in the origin network, and (ii) the ack-prepare-msg where the receiver gateway G2 asserts it is ready to proceed with the final commitment.
+If gateway G1 intentionally drops the commit-final-msg (commit-final) such that gateway G2 times-out, then G2 may suffer financial loss due to roll-back costs in network NW2. Similarly, if G2 intentionally drops the ack-prepare-msg to signal that it is ready to proceed with the commitment (commit-ready), then gateway G1 may time-out and terminate the protocol run, causing resource waste at G1.
+
+- Protection of gateway keys: It is crucial to protect the cryptographic keys utilized by gateways. This includes keys for secure session establishment (TLS1.3) and keys utilized for signing SATP messages. Loss of gateway keys may incur financial loss on the part of the gateway-operator. Implementation of gateways should consider utilizing tamper-resistant hardware to store and manage the relevant keys for gateways operational functions.
+
+- Gateway identification: Mechanisms must be utilized to provide unique identifiers to gateway implementations to ensure global uniqueness and reachability. Existing identification mechanisms such a X509 certificates and Verifiable Credentials (VC) and Selective Disclosure CBOR Web Tokens (SD-CWT) may be applied for gateway identification.
+
+- Identification of networks: There needs to be mechanism for gateways to declare or disclose the asset networks it current serves. Combined with strong gateway identification, this allows remote gateways to quickly locate suitable gateways to peer with for the purposes of asset transfers.
+
 
 # IANA Consideration
 

@@ -1001,21 +1001,6 @@ Example:
   "hashPrevMessage": "b2c3e916703c4ee4494f45bcf52414a2c3edfe53643510ff158ff4a406678346",\  
 }\  
 
-
-```json
-{
-  "messageType": "urn:ietf:satp:msgtype:lock-assert-msg",
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
-  "lockAssertionClaim": {},
-  "lockAssertionClaimFormat": "LOCK_ASSERTION_CLAIM_FORMAT_1",
-  "lockAssetionExpiration": "2024-12-23T23:59:59.999Z",
-  "hashPrevMessage": "b2c3e916703c4ee4494f45bcf52414a2c3edfe53643510ff158ff4a406678346",
-  "clientSignature": "6f0b0b5e65eb7e1af9aa36a7028418dcc8bf7d5c001a0ff92315970206155d9ffa29deb57d71b4aa51eb0000004f564c2508254be946e32da6edbea6b4c7949b134def087470de4df8200009400cd50c8307d9bbe1e8033df5452203530428842813c323b869475d4e7549304f88883a6a2a32a9aa81a04b88ec58437553f054657374204d657373616761"
-}
-```
-
-
 ## Lock Assertion Receipt Message
 
 {: #satp-lock-assertion-receipt-section}
@@ -1048,17 +1033,6 @@ Example:
   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
   "hashPrevMessage": "16c983122d7506c78f906c15ca1dcc7142a0fa94552cdea9578fe87419c2c5d0",\  
 }\  
-
-
-```json
-{
-  "messageType": "urn:ietf:satp:msgtype:assertion-receipt-msg",
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
-  "hashPrevMessage": "16c983122d7506c78f906c15ca1dcc7142a0fa94552cdea9578fe87419c2c5d0",
-  "serverSignature": "46e32da6edbea6b4c7949b134def087470de4df8200009400cd56f0b0b5e65eb315970206155d9ffa29deb57d71b4aa51eb0000004f564c2508254be90c8307d9bbe1e8033df5452203530428842813c323b869475d4e7549304f88883a6a2a32a9aa81a04b88ec58437553f054657374204d6573736167617e1af9aa36a7028418dcc8bf7d5c001a0ff92"
-}
-```
 
 # Commitment Preparation and Finalization (Stage 3)
 
@@ -1119,16 +1093,6 @@ Example:
   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
   "hashPrevMessage": "399bdadc07fe0bd57c4dfdd6cc176ceeca50a5e744f774154eccbeee8908fbaa",\  
 }\  
-
-```json
-{
-  "messageType": "urn:ietf:satp:msgtype:commit-prepare-msg",
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
-  "hashPrevMessage": "399bdadc07fe0bd57c4dfdd6cc176ceeca50a5e744f774154eccbeee8908fbaa",
-  "clientSignature": "0cd56f0b0b5e65eb31597617e1af9aa36a7028418dcc8bf70206155d9ffa29deb57d71b4aa51eb46e32da6edbea6b4c7944be90c8307d9bbe1e8033df5452203530428842813c323b869475d4e7549304f88883a6a2a32a9aa81a04b88ec58437553f054657374204d6573736167d5c001a0ff929b134def087470de4df8200009400000004f564c250825"
-}
-```
 
 ## Commit Ready Message (Commit-Ready)
 

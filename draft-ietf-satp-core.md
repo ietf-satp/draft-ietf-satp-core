@@ -1532,7 +1532,8 @@ The SATP Message Types registry's initial contents are as follows:
 - Change controller: IETF
 - Specification document(s): Section 10.1 of draft-ietf-satp-core.
 
-- ### - Parameter usage location: Commit Ready
+### Parameter name: commit-ready-msg
+- Parameter usage location: Commit Ready
 - Change controller: IETF
 - Specification document(s): Section 10.2 of draft-ietf-satp-core.
 

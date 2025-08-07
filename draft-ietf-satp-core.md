@@ -1474,7 +1474,7 @@ Gateways may be of interest to attackers because they enable the transferal of d
 
 {: #satp-iana-Consideration}
 
-The following requests is made to IANA.
+The following request is being made to IANA.
 
 ## URN Registration
 

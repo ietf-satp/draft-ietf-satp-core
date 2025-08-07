@@ -1492,7 +1492,7 @@ This specification establishes the SATP Message Types registry. The purpose of t
 ## Initial Registry Contents
 The SATP Message Types registry's initial contents are as follows:
 
-- Parameter name: transfer-proposal-msg
+- **Parameter name: transfer-proposal-msg**
 - Parameter usage location: Transfer Proposal
 - Change controller: IETF
 - Specification document(s):  Section 8.3 of draft-ietf-satp-core.

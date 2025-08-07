@@ -1492,72 +1492,71 @@ This specification establishes the SATP Message Types registry. The purpose of t
 ## Initial Registry Contents
 The SATP Message Types registry's initial contents are as follows:
 
-- **Parameter name: transfer-proposal-msg**
+### Parameter name: transfer-proposal-msg
 - Parameter usage location: Transfer Proposal
 - Change controller: IETF
 - Specification document(s):  Section 8.3 of draft-ietf-satp-core.
 
-- Parameter name: proposal-receipt-msg
+### Parameter name: proposal-receipt-msg
 - Parameter usage location: Transfer Proposal Receipt Message
 - Change controller: IETF
 - Specification document(s): Section 8.4 of draft-ietf-satp-core.
 
-- Parameter name: reject-msg
+### Parameter name: reject-msg
 - Parameter usage location: Transfer Reject
 - Change controller: IETF
 - Specification document(s): Section 8.5 of draft-ietf-satp-core.
 
-- Parameter name: transfer-commence-msg
+### Parameter name: transfer-commence-msg
 - Parameter usage location: Transfer Commence
 - Change controller: IETF
 - Specification document(s): Section 8.6 of draft-ietf-satp-core.
 
-- Parameter name: ack-commence-msg
+### Parameter name: ack-commence-msg
 - Parameter usage location: Transfer Commence Response
 - Change controller: IETF
 - Specification document(s): Section 8.7 of draft-ietf-satp-core.
 
-- Parameter name: lock-assert-msg
-   o  Parameter usage location: Lock Assertion
-   o  Change controller: IETF
-   o  Specification document(s): Section 9.1 of draft-ietf-satp-core.
+### Parameter name: lock-assert-msg
+- Parameter usage location: Lock Assertion
+- Change controller: IETF
+- Specification document(s): Section 9.1 of draft-ietf-satp-core.
 
-- Parameter name: assertion-receipt-msg
+### Parameter name: assertion-receipt-msg
 - Parameter usage location: Lock Assertion Receipt
 - Change controller: IETF
 - Specification document(s): Section 9.2 of draft-ietf-satp-core.
 
-- Parameter name: commit-prepare-msg
+### Parameter name: commit-prepare-msg
 - Parameter usage location: Commit Preparation
 - Change controller: IETF
 - Specification document(s): Section 10.1 of draft-ietf-satp-core.
 
-- Parameter name: commit-ready-msg
-- Parameter usage location: Commit Ready
+- ### - Parameter usage location: Commit Ready
 - Change controller: IETF
 - Specification document(s): Section 10.2 of draft-ietf-satp-core.
 
-- Parameter name: commit-final-msg
+### Parameter name: commit-final-msg
 - Parameter usage location: Commit Final Assertion
 - Change controller: IETF
 - Specification document(s): Section 10.3 of draft-ietf-satp-core.
 
-- Parameter name: ack-commit-final-msg
+### Parameter name: ack-commit-final-msg
 - Parameter usage location: Commit-Final Acknowledgement Receipt
 - Change controller: IETF
 - Specification document(s): Section 10.4 of draft-ietf-satp-core.
 
-- Parameter name: commit-transfer-complete-msg
+### Parameter name: commit-transfer-complete-msg
 - Parameter usage location: Transfer Complete
 - Change controller: IETF
 - Specification document(s): Section 10.5 of draft-ietf-satp-core.
 
-- Parameter name: error-msg
+### Parameter name: error-msg
 - Parameter usage location: Error message
 - Change controller: IETF
 - Specification document(s): Section 10.6 of draft-ietf-satp-core.
 
-- Parameter name: session-abort-msg
+### Parameter name: session-abort-msg
 - Parameter usage location: Session Abort
 - Change controller: IETF
 - Specification document(s): Section 10.7 of draft-ietf-satp-core.

@@ -1474,7 +1474,96 @@ Gateways may be of interest to attackers because they enable the transferal of d
 
 {: #satp-iana-Consideration}
 
-(TBD)
+The following requests is made to IANA.
+
+## URN Registration
+
+URN:   Request to be assigned by IANA.
+
+Common Name:    urn:ietf:satp
+
+Registrant Contact: IESG
+
+Description: The secure asset transfer protocol (SATP) requires message types, endpoints and parameters to be defined within a unique namespace to prevent collision.
+
+## SATP Message Types Registry
+This specification establishes the SATP Message Types registry. The purpose of this registry is to define the various message types utilized in the secure asset transfer protocol (SATP).
+
+## Initial Registry Contents
+The SATP Message Types registry's initial contents are as follows:
+
+- Parameter name: transfer-proposal-msg
+   o  Parameter usage location: Transfer Proposal
+   o  Change controller: IETF
+   o  Specification document(s):  Section 8.3 of draft-ietf-satp-core.
+
+- Parameter name: proposal-receipt-msg
+   o  Parameter usage location: Transfer Proposal Receipt Message
+   o  Change controller: IETF
+   o  Specification document(s): Section 8.4 of draft-ietf-satp-core.
+
+- Parameter name: reject-msg
+   o  Parameter usage location: Transfer Reject
+   o  Change controller: IETF
+   o  Specification document(s): Section 8.5 of draft-ietf-satp-core.
+
+- Parameter name: transfer-commence-msg
+   o  Parameter usage location: Transfer Commence
+   o  Change controller: IETF
+   o  Specification document(s): Section 8.6 of draft-ietf-satp-core.
+
+- Parameter name: ack-commence-msg
+   o  Parameter usage location: Transfer Commence Response
+   o  Change controller: IETF
+   o  Specification document(s): Section 8.7 of draft-ietf-satp-core.
+
+- Parameter name: lock-assert-msg
+   o  Parameter usage location: Lock Assertion
+   o  Change controller: IETF
+   o  Specification document(s): Section 9.1 of draft-ietf-satp-core.
+
+- Parameter name: assertion-receipt-msg
+   o  Parameter usage location: Lock Assertion Receipt
+   o  Change controller: IETF
+   o  Specification document(s): Section 9.2 of draft-ietf-satp-core.
+
+- Parameter name: commit-prepare-msg
+   o  Parameter usage location: Commit Preparation
+   o  Change controller: IETF
+   o  Specification document(s): Section 10.1 of draft-ietf-satp-core.
+
+- Parameter name: commit-ready-msg
+   o  Parameter usage location: Commit Ready
+   o  Change controller: IETF
+   o  Specification document(s): Section 10.2 of draft-ietf-satp-core.
+
+- Parameter name: commit-final-msg
+   o  Parameter usage location: Commit Final Assertion
+   o  Change controller: IETF
+   o  Specification document(s): Section 10.3 of draft-ietf-satp-core.
+
+- Parameter name: ack-commit-final-msg
+   o  Parameter usage location: Commit-Final Acknowledgement Receipt
+   o  Change controller: IETF
+   o  Specification document(s): Section 10.4 of draft-ietf-satp-core.
+
+- Parameter name: commit-transfer-complete-msg
+   o  Parameter usage location: Transfer Complete
+   o  Change controller: IETF
+   o  Specification document(s): Section 10.5 of draft-ietf-satp-core.
+
+- Parameter name: error-msg
+   o  Parameter usage location: Error message
+   o  Change controller: IETF
+   o  Specification document(s): Section 10.6 of draft-ietf-satp-core.
+
+- Parameter name: session-abort-msg
+   o  Parameter usage location: Session Abort
+   o  Change controller: IETF
+   o  Specification document(s): Section 10.7 of draft-ietf-satp-core.
+
+
+
 
 # Acknowledgements
 

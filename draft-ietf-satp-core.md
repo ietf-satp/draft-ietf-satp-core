@@ -475,7 +475,8 @@ The purpose of the credential scheme is to enable the client to deliver to serve
 If the client  (sender gateway) transmits a list of supported credential schemes, the server (recipient gateway) selects one acceptable credential scheme from the offered schemes.
 
 If no acceptable credential scheme was offered, a "unsupported
-gatewayCredentialProfile" (err_1.1.34) error is returned by the server.
+gatewayCredentialProfile" (err_1.1.34) reject message is returned by the server
+{{satp-stage1-init-reject}}.
 
 ### Client asserts or proves identity
 

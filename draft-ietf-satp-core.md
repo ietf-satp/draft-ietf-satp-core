@@ -431,11 +431,17 @@ This is the hash of the current message payload.
 This is the list of digital signature algorithm supported by a gateway, 
 with the base default being the NIST ECDSA signature algorithm with the P-256 curve and the SHA-256 hash function.
 
-### Lock assertion Claim and Format
+### Lock assertion Claim Format
 This is the format of the claim regarding the state of the asset in the origin network.
+
 The claim is network-dependent in the sense that different asset networks or systems may utilize a different asset locking (disablement) mechanism.
 
 The sender gateway provides the choice of the format to the receiver gateway.  Mechanisms to establish this value between the sender and receiver gateways may be utilized prior commencing the SAT protocol. However, these are out of scope.
+
+### Lock assertion Claim
+
+The actual encoded JSON string representation of the claim using the
+format as specified by the corresponding Lock assertion Claim Format.
 
 ## Negotiation of Security Protocols and Parameters
 

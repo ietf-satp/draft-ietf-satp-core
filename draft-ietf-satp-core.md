@@ -408,7 +408,9 @@ This is the type of authentication mechanism supported by the gateway (e.g. SAML
 
 ### Gateway Credential
 
-This payload is the actual credential of the gateway (token, certificate, string, etc.).
+This payload is the actual credential of the gateway (token,
+certificate, string, etc.) with a string based encoding based on the
+corresponding Gateway Credential Type.
 
 ### Gateway Identifier
 

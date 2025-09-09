@@ -455,7 +455,7 @@ In the following steps, the sender gateway is referred to as the client while th
 
 {: #satp-tls-Established-sec}
 
-TLS 1.2 or higher MUST be implemented to protect gateway communications. TLS 1.3 or higher SHOULD be implemented where both gateways support TLS 1.3 or higher.
+TLS 1.2 or higher MUST be implemented to protect gateway communications. TLS 1.3 or higher SHOULD be used where both gateways support TLS 1.3 or higher.
 
 ### Client offers supported credential schemes
 

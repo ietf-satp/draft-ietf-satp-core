@@ -620,6 +620,8 @@ This is set of artifacts pertaining to the asset that
 must be agreed upon between the client (sender
 gateway) and the server (recipient gateway).
 
+The format of the identity fields in this message, unless otherwise stated, is a JSON string that contains a [X.500] Distinguished Name.
+
 The Transfer Initialization Claim consists of the following:
 
 - digitalAssetId REQUIRED: This is the globally unique identifier for the digital asset
@@ -629,11 +631,11 @@ The Transfer Initialization Claim consists of the following:
   definition (document) on which the digital asset was issued.
 
 - verifiedOriginatorEntityId REQUIRED: This is the identity data of the originator entity
-  (person or organization) in the origin network.  The format of this field is a JSON string containing a [X.500] Distinguished Name.
+  (person or organization) in the origin network.
   This information must be verified by the sender gateway.
 
 - verifiedBeneficiaryEntityId REQUIRED: This is the identity data of the beneficiary entity
-  (person or organization) in the destination network.  The format of this field is a JSON string containing a [X.500] Distinguished Name.
+  (person or organization) in the destination network.
   This information must be verified by the receiver gateway.
 
 - originatorPubkey REQUIRED. This is the public key of the asset owner (originator)

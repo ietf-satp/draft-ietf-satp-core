@@ -342,7 +342,8 @@ The current version is "1.0".
 
 This refers to the type of request or response to be conveyed in the message.
 
-The possible values are:
+The possible values are defined in the IANA SATP Message Types
+Registry {{satp-message-types}}:
 
 - transfer-proposal-msg: This is the transfer proposal message from the sender gateway carrying the set of proposed parameters for the transfer.
 
@@ -1502,6 +1503,9 @@ Registrant Contact: IESG
 Description: The secure asset transfer protocol (SATP) requires message types, endpoints and parameters to be defined within a unique namespace to prevent collision.
 
 ## SATP Message Types Registry
+
+{: #satp-message-types}
+
 This specification establishes the SATP Message Types registry. The purpose of this registry is to define the various message types utilized in the secure asset transfer protocol (SATP).
 
 ## Initial Registry Contents

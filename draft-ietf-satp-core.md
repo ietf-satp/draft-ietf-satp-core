@@ -449,7 +449,7 @@ format as specified by the corresponding Lock assertion Claim Format.
 
 The peer gateways in SATP must establish a TLS session between them prior to starting the transfer initiation stage (Stage-0). The TLS session continues until the transfer is completed at the end of the commitment establishment stage (Stage-3).
 
-In the following, the sender gateway is referred to as the client while the received gateway as the server.
+In the following steps, the sender gateway is referred to as the client while the received gateway as the server.
 
 ### TLS Secure Channel Establishment
 
@@ -947,7 +947,7 @@ The messages in this stage pertain to the sender gateway providing
 the recipient gateway with a signed assertion that the asset in the origin network
 has been locked or disabled and under the control of the sender gateway.
 
-In the following, the sender gateway takes the role of the client
+In the following steps, the sender gateway takes the role of the client
 while the recipient gateway takes the role of the server.
 
 The flow follows a request-response model.
@@ -1053,7 +1053,7 @@ client (sender gateway) and the server (receiver gateway).
 This stage must be completed within the time specified
 in the lockAssertionExpiration value in the lock-assertion message.
 
-In the following, the sender gateway takes the role of the client
+In the following steps, the sender gateway takes the role of the client
 while the recipient gateway takes the role of the server.
 
 The flow follows a request-response model.

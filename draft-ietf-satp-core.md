@@ -124,6 +124,11 @@ normative:
   REQ-LEVEL: RFC2119
   BASE64: RFC4648
 
+  X.500:
+    author: ITU-T
+    date: 2005
+    title: The Directory: Overview of concepts, models and services.
+
 --- abstract
 
 This memo describes the Secure Asset Transfer (SAT) Protocol for digital assets. SAT is a protocol operating between two gateways that conducts the transfer of a digital asset from one gateway to another, each representing their corresponding digital asset networks. The protocol establishes a secure channel between the endpoints and implements a 2-phase commit (2PC) to ensure the properties of transfer atomicity, consistency, isolation and durability.
@@ -624,11 +629,11 @@ The Transfer Initialization Claim consists of the following:
   definition (document) on which the digital asset was issued.
 
 - verifiedOriginatorEntityId REQUIRED: This is the identity data of the originator entity
-  (person or organization) in the origin network.
+  (person or organization) in the origin network.  The format of this field is a JSON string containing a [X.500] Distinguished Name.
   This information must be verified by the sender gateway.
 
 - verifiedBeneficiaryEntityId REQUIRED: This is the identity data of the beneficiary entity
-  (person or organization) in the destination network.
+  (person or organization) in the destination network.  The format of this field is a JSON string containing a [X.500] Distinguished Name.
   This information must be verified by the receiver gateway.
 
 - originatorPubkey REQUIRED. This is the public key of the asset owner (originator)

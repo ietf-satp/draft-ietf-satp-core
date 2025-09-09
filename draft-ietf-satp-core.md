@@ -394,7 +394,7 @@ This is the unique immutable identifier representing the application layer conte
 
 The transfer-context may be a complex data structure that contains all information related to a SATP execution instance. Examples of information contained in a transfer-context may include identifiers of sessions, gateways, networks or assets related to the specific SATP execution instance.
 
-The sender gateway provides this value to the receiver gateway. Mechanisms to establish this value between the sender and receiver gateways may be utilized prior commencing the SAT protocol. However, these are out of scope.
+The sender gateway provides this value to the receiver gateway. Mechanisms to establish this value between the sender and receiver gateways may be utilized prior commencing the SAT protocol. Specifically, these are expected to be negated prior to the establishment of the SAT protocol and are out of scope for this document.
 
 
 ### Session ID:
@@ -439,7 +439,7 @@ This is the format of the claim regarding the state of the asset in the origin n
 
 The claim is network-dependent in the sense that different asset networks or systems may utilize a different asset locking (disablement) mechanism.
 
-The sender gateway provides the choice of the format to the receiver gateway.  Mechanisms to establish this value between the sender and receiver gateways may be utilized prior commencing the SAT protocol. However, these are out of scope.
+The sender gateway provides the choice of the format to the receiver gateway.  Mechanisms to establish this value between the sender and receiver gateways may be utilized prior commencing the SAT protocol. Specifically, these are expected to be negated prior to the establishment of the SAT protocol and are out of scope for this document.
 
 ### Lock assertion Claim
 
@@ -494,7 +494,7 @@ Handshaking is complete at this point, and the client and server can begin excha
 
 {: #satp-flows-overview-section}
 
-The SATP message flows are logically divided into three (3) stages {{ARCH}}, with the preparatory stage denoted as Stage-0. How the tasks are achieved in Stage-0 is out of the scope of the current specification.
+The SATP message flows are logically divided into three (3) stages {{ARCH}}, with the preparatory stage denoted as Stage-0. How the tasks are achieved in Stage-0 is out of the scope of this specification.
 
 The Stage-1 flows pertains to the initialization of the transfer between the two gateways.
 
@@ -581,7 +581,7 @@ The verifications include, but not limited to, the following:
   in the origin network seeking to transfer the asset to
   another entity (beneficiary) in the destination network.
 
-These are considered out of scope in the current specifications,
+These are considered out of scope in the current specification,
 and are assumed to have been successfully completed prior to
 the commencement of the transfer initiation flow.
 The reader is directed to {{ARCH}} for further discussion regarding Stage-0.

@@ -691,7 +691,7 @@ Here is an example representation in JSON format:
 
 {: #satp-stage1-conveyance}
 
-This is set of parameters pertaining to the origin network and the destination network, and the technical capabilities supported by the peer gateways.
+This is the set of parameters pertaining to the origin network and the destination network, and the technical capabilities supported by the peer gateways.  Some of these parameters must be previously agreed to during the Stage-0 negotiations, which is outside the scope of this document.
 
 Some network-specific parameters regarding the origin network may be relevant for a receiver gateway to evaluate its ability to process the proposed transfer.
 

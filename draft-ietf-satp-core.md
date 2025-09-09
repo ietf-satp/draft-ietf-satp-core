@@ -121,6 +121,7 @@ normative:
   JSON: RFC8259
   JWS: RFC7515
   REQ-LEVEL: RFC2119
+  BASE64: RFC4648
 
 --- abstract
 
@@ -328,7 +329,7 @@ Additional signature algorithms and keying parameters may be negotiated by peer 
 
 SATP messages are exchanged between peer gateways, where depending on the message type one gateway may act as a client of the other (and vice versa).
 
-All SATP messages exchanged between gateways are in JSON format [RFC8259], with the relevant payloads Base64 encoded.
+All SATP messages exchanged between gateways are in JSON format [RFC8259]. Unless otherwise noted, all values are encoded as JSON Strings.  Values not representable as JSON strings (such as binary data), unless otherwise noted, will be encoded as base64 {{BASE64}}.
 
 ### Protocol version
 

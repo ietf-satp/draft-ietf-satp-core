@@ -415,7 +415,8 @@ This payload is the actual credential of the gateway (token, certificate, string
 This is the unique identifier of the gateway service.  The gateway identifier MUST be uniquely bound to its SAT endpoint (e.g. via X.509 certificates).
 
 This gateway identifier is distinct from the gateway operator business identifier (e.g., legal entity identifier (LEI) number). 
-A gateway operator may operate multiple gateways. Each of these gateways MUST have a unique gateway identifier.
+A gateway operator may operate multiple gateways. Each of the gateways
+within an asset network MUST be identified by a unique gateway identifier.
 
 The mechanisms to establish the gateway identifier or the operator identifier is outside the scope of this specification.
 

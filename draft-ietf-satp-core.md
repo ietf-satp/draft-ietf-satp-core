@@ -120,6 +120,7 @@ normative:
   JWT: RFC7519
   JSON: RFC8259
   JWS: RFC7515
+  JWA: RFC7518
   REQ-LEVEL: RFC2119
   BASE64: RFC4648
 
@@ -428,8 +429,10 @@ This is the hash of the current message payload.
 
 ### Signature Algorithms Supported
 
-This is the list of digital signature algorithm supported by a gateway, 
-with the base default being the NIST ECDSA signature algorithm with the P-256 curve and the SHA-256 hash function.
+This is a JSON list of digital signature algorithms supported by a
+gateway.  Each entry in the list should either an Algorithm Name value registered in the IANA "JSON Web Signature and Encryption Algorithms" registry established by {{JWA}} or be a value that contains a Collision-Resistant Name.
+
+All implementations MUST support a common default of "ES256", which is the ECDSA signature algorithm with the P-256 curve and the SHA-256 hash function.
 
 ### Lock assertion Claim Format
 This is the format of the claim regarding the state of the asset in the origin network.
@@ -471,7 +474,8 @@ The purpose of the credential scheme is to enable the client to deliver to serve
 
 If the client  (sender gateway) transmits a list of supported credential schemes, the server (recipient gateway) selects one acceptable credential scheme from the offered schemes.
 
-If no acceptable credential scheme was offered, a "No Acceptable Scheme" error is returned by the server.
+If no acceptable credential scheme was offered, a "unsupported
+gatewayCredentialProfile" (err_1.1.34) error is returned by the server.
 
 ### Client asserts or proves identity
 

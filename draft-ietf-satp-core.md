@@ -339,6 +339,8 @@ All SATP messages exchanged between gateways are in JSON format [RFC8259]. Unles
 
 ### Protocol version
 
+{: #satp-protocol-version}
+
 This refers to SATP protocol Version, encoded as "major.minor" (separated by a period symbol).
 
 The current version is "1.0" defined in this specification.  Implementations not understanding a future option value should return an appropriate error response and cease the negotiation.
@@ -741,7 +743,7 @@ This message is sent from the client to the Transfer Initialization Endpoint at 
 
 The parameters of this message consist of the following:
 
-- version REQUIRED: SAT protocol Version (major, minor).
+- version REQUIRED: SAT protocol Version (see {{satp-protocol-version}}) as a string "major.minor".
 
 - messageType REQUIRED: urn:ietf:satp:msgtype:transfer-proposal-msg.
 
@@ -808,7 +810,7 @@ The message is sent from the server to the Transfer Proposal Endpoint at the cli
 
 The parameters of this message consist of the following:
 
-- version REQUIRED: SAT protocol Version (major, minor).
+- version REQUIRED: SAT protocol Version see {satp-protocol-version}} as a string "major.minor".
 
 - messageType REQUIRED: urn:ietf:satp:msgtype:proposal-receipt-msg.
 
@@ -849,7 +851,7 @@ The message must be signed by the server.
 
 The parameters of this message consist of the following:
 
-- version REQUIRED: SAT protocol Version (major, minor).
+- version REQUIRED: SAT protocol Version see {satp-protocol-version}} as a string "major.minor".
 
 - messageType REQUIRED: urn:ietf:satp:msgtype:reject-msg
 

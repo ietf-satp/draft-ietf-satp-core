@@ -714,7 +714,7 @@ The gateway and network capabilities list is as follows:
 
 - gatewayLoggingProfile REQUIRED: contains the profile of the logging procedure. "LOCAL_STORE" is the only defined allowed value at this time, but others may be defined in future updates to this specification.  Implementations not understanding a future option value should return an appropriate error response and cease the negotiation.
 
-- gatewayAccessControlProfile REQUIRED: the profile regarding the confidentiality of the log entries being stored. Default is only the gateway that created the logs can access them.
+- gatewayAccessControlProfile REQUIRED: the profile regarding the confidentiality of the log entries being stored. "RBAC" is the only defined allowed value at this time, but others may be defined in future updates to this specification.  Implementations not understanding a future option value should return an appropriate error response and cease the negotiation.  Default is only the gateway that created the logs can access them.
 
 Here is an example representation in JSON format:
 

@@ -1448,7 +1448,7 @@ Any data received after the session termination message MUST be ignored.
 
 {: #satp-errors-connection-section}
 
-Errors may occur at the connection layer, independent of the flows at the SATP layer and errrors there.
+Errors may occur at the connection layer, independent of the flows at the SATP layer and errors there.
 
 (a) connectionError: There is an error in the TLS session establishment (TLS error codes should be reported-up to the gateway level)
 

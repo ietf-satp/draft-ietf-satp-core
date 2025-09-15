@@ -701,9 +701,10 @@ For example, the average duration of time of a lock to be held by a sender gatew
 
 The gateway and network capabilities list is as follows:
 
-- gatewayDefaultSignatureAlgorithm REQUIRED: The default digital signature algorithm (algorithm-id) used by a gateway to sign claims.
+- gatewayDefaultSignatureAlgorithm REQUIRED: The default digital signature algorithm (algorithm-id) from the IANA "JSON Web Signature and Encryption Algorithms" registry used by a gateway to sign claims.
 
-- gatewaySupportedSignatureAlgorithms OPTIONAL: The list of other digital signature algorithm (algorithm-id) supported by a gateway to sign claims
+
+- gatewaySupportedSignatureAlgorithms OPTIONAL: The list of other digital signature algorithms (algorithm-id) from the IANA "JSON Web Signature and Encryption Algorithms" registry supported by a gateway to sign claims
 
 - networkLockType REQUIRED: The default locking mechanism used by a network. These can be (i) timelock, (ii) hashlock, (iii) hashtimelock, and so on (TBD).
 

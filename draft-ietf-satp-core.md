@@ -844,7 +844,7 @@ Here is an example of the message request body:
 The purpose of this message is for the server to indicate explicit
 rejection of the the previous message receuved from the client.
 This message can be sent at any time in the session.
-The server MUST include an error code in this message.
+The server MUST include an error code (see {{error-types-section}}) in this message.
 A reject message is taken to mean an immediate termination of the session.
 
 The message must be signed by the server.
@@ -863,7 +863,7 @@ The parameters of this message consist of the following:
 
 - hashPrevMessage REQUIRED:  The hash of the last message that caused the rejection to occur.
 
-- reasonCode REQUIRED: the error code causing the rejection.
+- reasonCode REQUIRED: the error code (see {{error-types-section}}) causing the rejection.
 
 - timestamp REQUIRED: timestamp of this message.
 
@@ -1297,7 +1297,7 @@ This message must contain the error type (see the appendix) and the course of ac
 
 - errorMsgType: The pevious msg-type that was erronous.
   
-- errorType REQUIRED: This is the error code.
+- errorType REQUIRED: This is the error code being reported {{error-types-section}}.
 
 - errorSeverity REQUIRED: This is the severity level of the error, leading to the action.
 

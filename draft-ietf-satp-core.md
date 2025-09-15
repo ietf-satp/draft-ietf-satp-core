@@ -123,6 +123,7 @@ normative:
   JWA: RFC7518
   REQ-LEVEL: RFC2119
   BASE64: RFC4648
+  DATETIME: RFC3339
 
   X.500:
     author: ITU-T
@@ -1011,7 +1012,7 @@ The parameters of this message consist of the following:
 
 - lockAssertionClaim REQUIRED. The lock assertion claim or statement by the client.
 
-- lockAssertionExpiration REQUIRED. The duration of time of the lock or escrow upon the asset.
+- lockAssertionExpiration REQUIRED. The expiration date and time {{DATETIME}} of the lock or escrow upon the asset.
 
 - hashPrevMessage REQUIRED. The hash of the previous message.
 

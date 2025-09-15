@@ -1306,7 +1306,7 @@ Futher discussion on protocol errors can be found below ({{error-types-section}}
 
 ## Session abort message
 
-The purpose of this message is to indicate that one of the peer gateways have decided not to proceed with the session. No further messages will be delivered after the abort message.
+The purpose of this message is to indicate that one of the peer gateways has decided not to proceed with the session. No further messages will be delivered after the abort message.
 
 - messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:session-abort-msg.
 

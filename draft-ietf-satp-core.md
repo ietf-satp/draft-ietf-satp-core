@@ -708,7 +708,7 @@ The gateway and network capabilities list is as follows:
 
 - networkLockType REQUIRED: The default locking mechanism used by a network. The values allowed are "TIME_LOCK", "HASH_LOCK", "HASH_TIME_LOCK".  Future updates to this specification may define new values and implementations not supporting a value or not understanding a value for this field must return an appropriate error and cease the negotiation.
 
-- networkLockExpirationTime REQUIRED: The duration of time (in seconds) for a lock to expire in the network.
+- networkLockExpirationTime REQUIRED: The duration of time (in integer seconds) for a lock to expire in the network.
 
 - gatewayCredentialProfile REQUIRED: Specify type of auth (e.g., SAML, OAuth, X.509).
 

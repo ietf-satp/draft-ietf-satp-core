@@ -712,7 +712,7 @@ The gateway and network capabilities list is as follows:
 
 - gatewayCredentialProfile REQUIRED: Specify type of auth (e.g., SAML, OAuth, X.509).
 
-- gatewayLoggingProfile REQUIRED: contains the profile regarding the logging procedure. Default is local store
+- gatewayLoggingProfile REQUIRED: contains the profile of the logging procedure. "LOCAL_STORE" is the only defined allowed value at this time, but others may be defined in future updates to this specification.  Implementations not understanding a future option value should return an appropriate error response and cease the negotiation.
 
 - gatewayAccessControlProfile REQUIRED: the profile regarding the confidentiality of the log entries being stored. Default is only the gateway that created the logs can access them.
 

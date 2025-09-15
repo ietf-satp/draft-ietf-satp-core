@@ -753,10 +753,10 @@ The parameters of this message consist of the following:
 - transferContextId REQUIRED: A unique identifier used to identify
   the current transfer session at the application layer.
 
+- transferInitClaimFormat REQUIRED: The format of the transfer initialization claim.
+
 - transferInitClaim REQUIRED: The set of artifacts and parameters as the basis
   for the current transfer.
-
-- transferInitClaimFormat REQUIRED: The format of the transfer initialization claim.
 
 - gatewayAndNetworkCapabilities REQUIRED: The set of origin gateway and network parameters reported by the client to the server.
 
@@ -767,6 +767,7 @@ Here is an example of the message request body:
   "messageType": "urn:ietf:satp:msgtype:transfer-proposal-msg",\  
   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
+  "transferInitClaimFormat": "TRANSFER_INIT_CLAIM_FORMAT_1",\  
   "transferInitClaim": {\  
       "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",\  
       "assetProfileId": "38561",\  
@@ -785,7 +786,6 @@ Here is an example of the message request body:
       "senderGatewayOwnerId": "CN=GatewayOps, OU=GatewayOps Systems, O=GatewayOps LTD, L=Austin, C=US",\  
       "receiverGatewayOwnerId": "CN=BridgeSolutions, OU=BridgeSolutions Engineering, O=BridgeSolutions LTD, L=Austin, C=US"\  
   },\  
-  "transferInitClaimFormat": "TRANSFER_INIT_CLAIM_FORMAT_1",\  
   "gatewayAndNetworkCapabilities": {\  
       "gatewayDefaultSignatureAlgorithm": "ES256",\  
       "gatewaySupportedSignatureAlgorithms": ["ES256", "RSA"],\  
@@ -1007,9 +1007,9 @@ The parameters of this message consist of the following:
 - transferContextId REQUIRED: A unique identifier
   used to identify the current transfer session at the application layer.
 
-- lockAssertionClaim REQUIRED. The lock assertion claim or statement by the client.
-
 - lockAssertionClaimFormat REQUIRED. The format of the claim.
+
+- lockAssertionClaim REQUIRED. The lock assertion claim or statement by the client.
 
 - lockAssertionExpiration REQUIRED. The duration of time of the lock or escrow upon the asset.
 
@@ -1021,8 +1021,8 @@ Example:
   "messageType": "urn:ietf:satp:msgtype:lock-assert-msg",\  
   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
-  "lockAssertionClaim": {},\  
   "lockAssertionClaimFormat": "LOCK_ASSERTION_CLAIM_FORMAT_1",\  
+  "lockAssertionClaim": {},\  
   "lockAssetionExpiration": "2024-12-23T23:59:59.999Z",\  
   "hashPrevMessage": "b2c3e916703c4ee4494f45bcf52414a2c3edfe53643510ff158ff4a406678346",\  
 }\  
@@ -1145,9 +1145,9 @@ The parameters of this message consist of the following:
 
 - hashPrevMessage REQUIRED. The hash of the previous message.
 
-- mintAssertionClaim REQUIRED. The mint assertion claim or statement by the server.
-
 - mintAssertionFormat REQUIRED. The format of the assertion payload.
+
+- mintAssertionClaim REQUIRED. The mint assertion claim or statement by the server.
 
 Example:
 
@@ -1156,8 +1156,8 @@ Example:
   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
   "hashPrevMessage": "8dcc8dc4e6c2c979474b42d24d3747ce4607a92637d1a7b294857ff7288b8e46",\  
-  "mintAssertionClaim": {},\  
   "mintAssertionClaimFormat": "MINT_ASSERTION_CLAIM_FORMAT_1",\  
+  "mintAssertionClaim": {},\  
 }\  
 
 ## Commit Final Assertion Message (Commit-Final)
@@ -1188,9 +1188,9 @@ The parameters of this message consist of the following:
 
 - hashPrevMessage REQUIRED. The hash of the previous message.
 
-- burnAssertionClaim REQUIRED. The burn assertion signed claim or statement by the client.
-
 - burnAssertionClaimFormat REQUIRED. The format of the claim.
+
+- burnAssertionClaim REQUIRED. The burn assertion signed claim or statement by the client.
 
 Example:
 
@@ -1199,8 +1199,8 @@ Example:
   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
   "hashPrevMessage": "b92f13007216c58f2b51a8621599c3aef6527b02c8284e90c6a54a181d898e02",\  
-  "burnAssertionClaim": {},\  
   "burnAssertionClaimFormat": "BURN_ASSERTION_CLAIM_FORMAT_1",\  
+  "burnAssertionClaim": {},\  
 }\  
 
 
@@ -1227,10 +1227,10 @@ The parameters of this message consist of the following:
 
 - hashPrevMessage REQUIRED. The hash of the previous message.
 
+- assignmentAssertionClaimFormat REQUIRED. The format of the claim.
+
 - assignmentAssertionClaim REQUIRED. The claim or statement by the server
   that the asset has been assigned by the server to the intended beneficiary.
-
-- assignmentAssertionClaimFormat REQUIRED. The format of the claim.
 
 Example:
 
@@ -1239,8 +1239,8 @@ Example:
   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
   "hashPrevMessage": "9c8f07c22ccf6888fc0306fee0799325efb87dfd536d90bb47d97392f020e998",\  
-  "assignmentAssertionClaim": {},\  
   "assignmentAssertionClaimFormat": "ASSIGNMENT_ASSERTION_CLAIM_FORMAT_1",\  
+  "assignmentAssertionClaim": {},\  
 }\  
 
 ## Transfer Complete Message

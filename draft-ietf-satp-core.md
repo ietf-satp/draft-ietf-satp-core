@@ -1375,7 +1375,7 @@ After that, the gateways agree on the current state of the protocol.
 ## Recovery Messages
 
 {: #satp-session-resume-recovery-msg}
-We have omitted the logging procedure (only focusing on the different messages).
+We have omitted the logging procedure, as that it implementation dependent to properly log a set of recovery steps needed to reconstruct state upon a gateway failure.
 As defined in the crash recovery draft {{?I-D.draft-belchior-satp-gateway-recovery}},
 there is a set of messages that are exchanged between the recovered
 gateway and counterparty gateway:

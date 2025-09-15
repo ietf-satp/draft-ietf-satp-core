@@ -1370,7 +1370,7 @@ After the recovery, the gateways exchange information about
 their current view of the protocol, since the crashed gateway
 may have been in the middle of executing the protocol when it crashed.
 
-After that, the gateways agree on the current state of the protocol.
+After that, the gateways MUST agree on the current state of the protocol.
 
 ## Recovery Messages
 

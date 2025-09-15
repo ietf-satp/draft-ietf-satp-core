@@ -324,7 +324,7 @@ The mandatory fields are determined by the message type exchanged between the tw
 
 All SATP messages exchanged between gateways must be signed, using JSON Web Signatures mechanism (RFC7515).
 
-All gateways implementing SATP must support the ECDSA signature algorithm with the P-256 curve and the SHA-256 hash function.
+All gateways implementing SATP must support the "ES256" from the IANA "JSON Web Signature and Encryption Algorithms" registry {{JWA}}, which is the ECDSA signature algorithm with the P-256 curve and the SHA-256 hash function.
 
 Additional signature algorithms and keying parameters may be negotiated by peer gateways. However, the negotiation protocol is outside the scope of this specification.
 
@@ -719,8 +719,8 @@ The gateway and network capabilities list is as follows:
 Here is an example representation in JSON format:
 
 {
-  "gatewayDefaultSignatureAlgorithm": "ECDSA",\  
-  "gatewaySupportedSignatureAlgorithms": ["ECDSA", "RSA"],\  
+  "gatewayDefaultSignatureAlgorithm": "ES256",\  
+  "gatewaySupportedSignatureAlgorithms": ["ES256", "RSA"],\  
   "networkLockType": "HASH_TIME_LOCK",\  
   "networkLockExpirationTime": 120,\  
   "gatewayCredentialProfile": "OAUTH",\  
@@ -785,8 +785,8 @@ Here is an example of the message request body:
   },\  
   "transferInitClaimFormat": "TRANSFER_INIT_CLAIM_FORMAT_1",\  
   "gatewayAndNetworkCapabilities": {\  
-      "gatewayDefaultSignatureAlgorithm": "ECDSA",\  
-      "gatewaySupportedSignatureAlgorithms": ["ECDSA", "RSA"],\  
+      "gatewayDefaultSignatureAlgorithm": "ES256",\  
+      "gatewaySupportedSignatureAlgorithms": ["ES256", "RSA"],\  
       "networkLockType": "HASH_TIME_LOCK",\  
       "networkLockExpirationTime": 120,\  
       "gatewayCredentialProfile": "OAUTH",\  

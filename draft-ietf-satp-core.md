@@ -1298,11 +1298,11 @@ This message must contain the error type (see the appendix) and the course of ac
 
 - errorMsgType: The pevious msg-type that was erronous.
   
-- errorType REQUIRED: This is the error code being reported {{error-types-section}}.
+- errorType REQUIRED: This is the error code being reported ({{error-types-section}}).
 
 - errorSeverity REQUIRED: This is the severity level of the error, leading to the action.
 
-Futher discussion on protocol errors can be found below.
+Futher discussion on protocol errors can be found below ({{error-types-section}}).
 
 ## Session abort message
 

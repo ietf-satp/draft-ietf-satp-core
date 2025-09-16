@@ -120,7 +120,15 @@ normative:
   JWT: RFC7519
   JSON: RFC8259
   JWS: RFC7515
+  JWA: RFC7518
   REQ-LEVEL: RFC2119
+  BASE64: RFC4648
+  DATETIME: RFC3339
+
+  X.500:
+    author: ITU-T
+    date: 2005
+    title: The Directory: Overview of concepts, models and services.
 
 --- abstract
 
@@ -317,7 +325,7 @@ The mandatory fields are determined by the message type exchanged between the tw
 
 All SATP messages exchanged between gateways must be signed, using JSON Web Signatures mechanism (RFC7515).
 
-All gateways implementing SATP must support the ECDSA signature algorithm with the P-256 curve and the SHA-256 hash function.
+All gateways implementing SATP must support the "ES256" from the IANA "JSON Web Signature and Encryption Algorithms" registry {{JWA}}, which is the ECDSA signature algorithm with the P-256 curve and the SHA-256 hash function.
 
 Additional signature algorithms and keying parameters may be negotiated by peer gateways. However, the negotiation protocol is outside the scope of this specification.
 
@@ -328,19 +336,22 @@ Additional signature algorithms and keying parameters may be negotiated by peer 
 
 SATP messages are exchanged between peer gateways, where depending on the message type one gateway may act as a client of the other (and vice versa).
 
-All SATP messages exchanged between gateways are in JSON format [RFC8259], with the relevant payloads Base64 encoded.
+All SATP messages exchanged between gateways are in JSON format [RFC8259]. Unless otherwise noted, all values are encoded as JSON Strings.  Values not representable as JSON strings (such as binary data), unless otherwise noted, will be encoded as base64 {{BASE64}}.
 
 ### Protocol version
 
+{: #satp-protocol-version}
+
 This refers to SATP protocol Version, encoded as "major.minor" (separated by a period symbol).
 
-The current version is "1.0".
+The current version is "1.0" defined in this specification.  Implementations not understanding a future option value should return an appropriate error response and cease the negotiation.
 
 ### Message Type
 
 This refers to the type of request or response to be conveyed in the message.
 
-The possible values are:
+The possible values are defined in the IANA SATP Message Types
+Registry {{satp-message-types}}:
 
 - transfer-proposal-msg: This is the transfer proposal message from the sender gateway carrying the set of proposed parameters for the transfer.
 
@@ -392,7 +403,7 @@ This is the unique immutable identifier representing the application layer conte
 
 The transfer-context may be a complex data structure that contains all information related to a SATP execution instance. Examples of information contained in a transfer-context may include identifiers of sessions, gateways, networks or assets related to the specific SATP execution instance.
 
-The sender gateway provides this value to the receiver gateway. Mechanisms to establish this value between the sender and receiver gateways may be utilized prior commencing the SAT protocol. However, these are out of scope.
+The sender gateway provides this value to the receiver gateway. Mechanisms to establish this value between the sender and receiver gateways may be utilized prior commencing the SAT protocol. Specifically, these are expected to be negated prior to the establishment of the SAT protocol and are out of scope for this document.
 
 
 ### Session ID:
@@ -407,14 +418,17 @@ This is the type of authentication mechanism supported by the gateway (e.g. SAML
 
 ### Gateway Credential
 
-This payload is the actual credential of the gateway (token, certificate, string, etc.).
+This payload is the actual credential of the gateway (token,
+certificate, string, etc.) with a string based encoding based on the
+corresponding Gateway Credential Type.
 
 ### Gateway Identifier
 
 This is the unique identifier of the gateway service.  The gateway identifier MUST be uniquely bound to its SAT endpoint (e.g. via X.509 certificates).
 
 This gateway identifier is distinct from the gateway operator business identifier (e.g., legal entity identifier (LEI) number). 
-A gateway operator may operate multiple gateways. Each of these gateways MUST have a unique gateway identifier.
+A gateway operator may operate multiple gateways. Each of the gateways
+within an asset network MUST be identified by a unique gateway identifier.
 
 The mechanisms to establish the gateway identifier or the operator identifier is outside the scope of this specification.
 
@@ -424,14 +438,22 @@ This is the hash of the current message payload.
 
 ### Signature Algorithms Supported
 
-This is the list of digital signature algorithm supported by a gateway, 
-with the base default being the NIST ECDSA signature algorithm with the P-256 curve and the SHA-256 hash function.
+This is a JSON list of digital signature algorithms supported by a
+gateway.  Each entry in the list should either an Algorithm Name value registered in the IANA "JSON Web Signature and Encryption Algorithms" registry established by {{JWA}} or be a value that contains a Collision-Resistant Name.
 
-### Lock assertion Claim and Format
+All implementations MUST support a common default of "ES256", which is the ECDSA signature algorithm with the P-256 curve and the SHA-256 hash function.
+
+### Lock assertion Claim Format
 This is the format of the claim regarding the state of the asset in the origin network.
+
 The claim is network-dependent in the sense that different asset networks or systems may utilize a different asset locking (disablement) mechanism.
 
-The sender gateway provides the choice of the format to the receiver gateway.  Mechanisms to establish this value between the sender and receiver gateways may be utilized prior commencing the SAT protocol. However, these are out of scope.
+The sender gateway provides the choice of the format to the receiver gateway.  Mechanisms to establish this value between the sender and receiver gateways may be utilized prior commencing the SAT protocol. Specifically, these are expected to be negated prior to the establishment of the SAT protocol and are out of scope for this document.
+
+### Lock assertion Claim
+
+The actual encoded JSON string representation of the claim using the
+format as specified by the corresponding Lock assertion Claim Format.
 
 ## Negotiation of Security Protocols and Parameters
 
@@ -439,13 +461,13 @@ The sender gateway provides the choice of the format to the receiver gateway.  M
 
 The peer gateways in SATP must establish a TLS session between them prior to starting the transfer initiation stage (Stage-0). The TLS session continues until the transfer is completed at the end of the commitment establishment stage (Stage-3).
 
-In the following, the sender gateway is referred to as the client while the received gateway as the server.
+In the following steps, the sender gateway is referred to as the client while the received gateway as the server.
 
 ### TLS Secure Channel Establishment
 
 {: #satp-tls-Established-sec}
 
-TLS 1.2 or higher MUST be implemented to protect gateway communications. TLS 1.3 or higher SHOULD be implemented where both gateways support TLS 1.3 or higher.
+TLS 1.2 or higher MUST be implemented to protect gateway communications. TLS 1.3 or higher SHOULD be used where both gateways support TLS 1.3 or higher.
 
 ### Client offers supported credential schemes
 
@@ -461,7 +483,9 @@ The purpose of the credential scheme is to enable the client to deliver to serve
 
 If the client  (sender gateway) transmits a list of supported credential schemes, the server (recipient gateway) selects one acceptable credential scheme from the offered schemes.
 
-If no acceptable credential scheme was offered, a "No Acceptable Scheme" error is returned by the server.
+If no acceptable credential scheme was offered, a "unsupported
+gatewayCredentialProfile" (err_1.1.34) reject message is returned by the server
+{{satp-stage1-init-reject}}.
 
 ### Client asserts or proves identity
 
@@ -480,7 +504,7 @@ Handshaking is complete at this point, and the client and server can begin excha
 
 {: #satp-flows-overview-section}
 
-The SATP message flows are logically divided into three (3) stages {{ARCH}}, with the preparatory stage denoted as Stage-0. How the tasks are achieved in Stage-0 is out of the scope of the current specification.
+The SATP message flows are logically divided into three (3) stages {{ARCH}}, with the preparatory stage denoted as Stage-0. How the tasks are achieved in Stage-0 is out of the scope of this specification.
 
 The Stage-1 flows pertains to the initialization of the transfer between the two gateways.
 
@@ -567,7 +591,7 @@ The verifications include, but not limited to, the following:
   in the origin network seeking to transfer the asset to
   another entity (beneficiary) in the destination network.
 
-These are considered out of scope in the current specifications,
+These are considered out of scope in the current specification,
 and are assumed to have been successfully completed prior to
 the commencement of the transfer initiation flow.
 The reader is directed to {{ARCH}} for further discussion regarding Stage-0.
@@ -599,10 +623,12 @@ This is set of artifacts pertaining to the asset that
 must be agreed upon between the client (sender
 gateway) and the server (recipient gateway).
 
+The format of the identity fields in this message, unless otherwise stated, is a JSON string that contains a [X.500] Distinguished Name.
+
 The Transfer Initialization Claim consists of the following:
 
 - digitalAssetId REQUIRED: This is the globally unique identifier for the digital asset
-  located in the origin network.
+  located in the origin network.  The format of this JSON string is dependent on the assetProfileId that indicates the asset network in which the asset is originating.
 
 - assetProfileId REQUIRED: This is the globally unique identifier for the asset-profile
   definition (document) on which the digital asset was issued.
@@ -670,7 +696,7 @@ Here is an example representation in JSON format:
 
 {: #satp-stage1-conveyance}
 
-This is set of parameters pertaining to the origin network and the destination network, and the technical capabilities supported by the peer gateways.
+This is the set of parameters pertaining to the origin network and the destination network, and the technical capabilities supported by the peer gateways.  Some of these parameters must be previously agreed to during the Stage-0 negotiations, which is outside the scope of this document.
 
 Some network-specific parameters regarding the origin network may be relevant for a receiver gateway to evaluate its ability to process the proposed transfer.
 
@@ -678,25 +704,26 @@ For example, the average duration of time of a lock to be held by a sender gatew
 
 The gateway and network capabilities list is as follows:
 
-- gatewayDefaultSignatureAlgorithm REQUIRED: The default digital signature algorithm (algorithm-id) used by a gateway to sign claims.
+- gatewayDefaultSignatureAlgorithm REQUIRED: The default digital signature algorithm (algorithm-id) from the IANA "JSON Web Signature and Encryption Algorithms" registry used by a gateway to sign claims.
 
-- gatewaySupportedSignatureAlgorithms OPTIONAL: The list of other digital signature algorithm (algorithm-id) supported by a gateway to sign claims
 
-- networkLockType REQUIRED: The default locking mechanism used by a network. These can be (i) timelock, (ii) hashlock, (iii) hashtimelock, and so on (TBD).
+- gatewaySupportedSignatureAlgorithms OPTIONAL: The list of other digital signature algorithms (algorithm-id) from the IANA "JSON Web Signature and Encryption Algorithms" registry supported by a gateway to sign claims
 
-- networkLockExpirationTime REQUIRED: The duration of time (in seconds) for a lock to expire in the network.
+- networkLockType REQUIRED: The default locking mechanism used by a network. The values allowed are "TIME_LOCK", "HASH_LOCK", "HASH_TIME_LOCK".  Future updates to this specification may define new values and implementations not supporting a value or not understanding a value for this field must return an appropriate error and cease the negotiation.
+
+- networkLockExpirationTime REQUIRED: The duration of time (in integer seconds) for a lock to expire in the network.
 
 - gatewayCredentialProfile REQUIRED: Specify type of auth (e.g., SAML, OAuth, X.509).
 
-- gatewayLoggingProfile REQUIRED: contains the profile regarding the logging procedure. Default is local store
+- gatewayLoggingProfile REQUIRED: contains the profile of the logging procedure. "LOCAL_STORE" is the only defined allowed value at this time, but others may be defined in future updates to this specification.  Implementations not understanding a future option value should return an appropriate error response and cease the negotiation.
 
-- gatewayAccessControlProfile REQUIRED: the profile regarding the confidentiality of the log entries being stored. Default is only the gateway that created the logs can access them.
+- gatewayAccessControlProfile REQUIRED: the profile regarding the confidentiality of the log entries being stored. "RBAC" is the only defined allowed value at this time, but others may be defined in future updates to this specification.  Implementations not understanding a future option value should return an appropriate error response and cease the negotiation.  Default is only the gateway that created the logs can access them.
 
 Here is an example representation in JSON format:
 
 {
-  "gatewayDefaultSignatureAlgorithm": "ECDSA",\  
-  "gatewaySupportedSignatureAlgorithms": ["ECDSA", "RSA"],\  
+  "gatewayDefaultSignatureAlgorithm": "ES256",\  
+  "gatewaySupportedSignatureAlgorithms": ["ES256", "RSA"],\  
   "networkLockType": "HASH_TIME_LOCK",\  
   "networkLockExpirationTime": 120,\  
   "gatewayCredentialProfile": "OAUTH",\  
@@ -717,7 +744,7 @@ This message is sent from the client to the Transfer Initialization Endpoint at 
 
 The parameters of this message consist of the following:
 
-- version REQUIRED: SAT protocol Version (major, minor).
+- version REQUIRED: SAT protocol Version (see {{satp-protocol-version}}) as a string "major.minor".
 
 - messageType REQUIRED: urn:ietf:satp:msgtype:transfer-proposal-msg.
 
@@ -727,10 +754,10 @@ The parameters of this message consist of the following:
 - transferContextId REQUIRED: A unique identifier used to identify
   the current transfer session at the application layer.
 
+- transferInitClaimFormat REQUIRED: The format of the transfer initialization claim.
+
 - transferInitClaim REQUIRED: The set of artifacts and parameters as the basis
   for the current transfer.
-
-- transferInitClaimFormat REQUIRED: The format of the transfer initialization claim.
 
 - gatewayAndNetworkCapabilities REQUIRED: The set of origin gateway and network parameters reported by the client to the server.
 
@@ -741,6 +768,7 @@ Here is an example of the message request body:
   "messageType": "urn:ietf:satp:msgtype:transfer-proposal-msg",\  
   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
+  "transferInitClaimFormat": "TRANSFER_INIT_CLAIM_FORMAT_1",\  
   "transferInitClaim": {\  
       "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",\  
       "assetProfileId": "38561",\  
@@ -759,10 +787,9 @@ Here is an example of the message request body:
       "senderGatewayOwnerId": "CN=GatewayOps, OU=GatewayOps Systems, O=GatewayOps LTD, L=Austin, C=US",\  
       "receiverGatewayOwnerId": "CN=BridgeSolutions, OU=BridgeSolutions Engineering, O=BridgeSolutions LTD, L=Austin, C=US"\  
   },\  
-  "transferInitClaimFormat": "TRANSFER_INIT_CLAIM_FORMAT_1",\  
   "gatewayAndNetworkCapabilities": {\  
-      "gatewayDefaultSignatureAlgorithm": "ECDSA",\  
-      "gatewaySupportedSignatureAlgorithms": ["ECDSA", "RSA"],\  
+      "gatewayDefaultSignatureAlgorithm": "ES256",\  
+      "gatewaySupportedSignatureAlgorithms": ["ES256", "RSA"],\  
       "networkLockType": "HASH_TIME_LOCK",\  
       "networkLockExpirationTime": 120,\  
       "gatewayCredentialProfile": "OAUTH",\  
@@ -784,7 +811,7 @@ The message is sent from the server to the Transfer Proposal Endpoint at the cli
 
 The parameters of this message consist of the following:
 
-- version REQUIRED: SAT protocol Version (major, minor).
+- version REQUIRED: SAT protocol Version see {satp-protocol-version}} as a string "major.minor".
 
 - messageType REQUIRED: urn:ietf:satp:msgtype:proposal-receipt-msg.
 
@@ -818,14 +845,14 @@ Here is an example of the message request body:
 The purpose of this message is for the server to indicate explicit
 rejection of the the previous message receuved from the client.
 This message can be sent at any time in the session.
-The server MUST include an error code in this message.
+The server MUST include an error code (see {{error-types-section}}) in this message.
 A reject message is taken to mean an immediate termination of the session.
 
 The message must be signed by the server.
 
 The parameters of this message consist of the following:
 
-- version REQUIRED: SAT protocol Version (major, minor).
+- version REQUIRED: SAT protocol Version see {satp-protocol-version}} as a string "major.minor".
 
 - messageType REQUIRED: urn:ietf:satp:msgtype:reject-msg
 
@@ -837,7 +864,7 @@ The parameters of this message consist of the following:
 
 - hashPrevMessage REQUIRED:  The hash of the last message that caused the rejection to occur.
 
-- reasonCode REQUIRED: the error code causing the rejection.
+- reasonCode REQUIRED: the error code (see {{error-types-section}}) causing the rejection.
 
 - timestamp REQUIRED: timestamp of this message.
 
@@ -937,7 +964,7 @@ The messages in this stage pertain to the sender gateway providing
 the recipient gateway with a signed assertion that the asset in the origin network
 has been locked or disabled and under the control of the sender gateway.
 
-In the following, the sender gateway takes the role of the client
+In the following steps, the sender gateway takes the role of the client
 while the recipient gateway takes the role of the server.
 
 The flow follows a request-response model.
@@ -981,11 +1008,11 @@ The parameters of this message consist of the following:
 - transferContextId REQUIRED: A unique identifier
   used to identify the current transfer session at the application layer.
 
-- lockAssertionClaim REQUIRED. The lock assertion claim or statement by the client.
-
 - lockAssertionClaimFormat REQUIRED. The format of the claim.
 
-- lockAssertionExpiration REQUIRED. The duration of time of the lock or escrow upon the asset.
+- lockAssertionClaim REQUIRED. The lock assertion claim or statement by the client.
+
+- lockAssertionExpiration REQUIRED. The expiration date and time {{DATETIME}} of the lock or escrow upon the asset.
 
 - hashPrevMessage REQUIRED. The hash of the previous message.
 
@@ -995,8 +1022,8 @@ Example:
   "messageType": "urn:ietf:satp:msgtype:lock-assert-msg",\  
   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
-  "lockAssertionClaim": {},\  
   "lockAssertionClaimFormat": "LOCK_ASSERTION_CLAIM_FORMAT_1",\  
+  "lockAssertionClaim": {},\  
   "lockAssetionExpiration": "2024-12-23T23:59:59.999Z",\  
   "hashPrevMessage": "b2c3e916703c4ee4494f45bcf52414a2c3edfe53643510ff158ff4a406678346",\  
 }\  
@@ -1043,7 +1070,7 @@ client (sender gateway) and the server (receiver gateway).
 This stage must be completed within the time specified
 in the lockAssertionExpiration value in the lock-assertion message.
 
-In the following, the sender gateway takes the role of the client
+In the following steps, the sender gateway takes the role of the client
 while the recipient gateway takes the role of the server.
 
 The flow follows a request-response model.
@@ -1119,9 +1146,9 @@ The parameters of this message consist of the following:
 
 - hashPrevMessage REQUIRED. The hash of the previous message.
 
-- mintAssertionClaim REQUIRED. The mint assertion claim or statement by the server.
-
 - mintAssertionFormat REQUIRED. The format of the assertion payload.
+
+- mintAssertionClaim REQUIRED. The mint assertion claim or statement by the server.
 
 Example:
 
@@ -1130,8 +1157,8 @@ Example:
   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
   "hashPrevMessage": "8dcc8dc4e6c2c979474b42d24d3747ce4607a92637d1a7b294857ff7288b8e46",\  
-  "mintAssertionClaim": {},\  
   "mintAssertionClaimFormat": "MINT_ASSERTION_CLAIM_FORMAT_1",\  
+  "mintAssertionClaim": {},\  
 }\  
 
 ## Commit Final Assertion Message (Commit-Final)
@@ -1162,9 +1189,9 @@ The parameters of this message consist of the following:
 
 - hashPrevMessage REQUIRED. The hash of the previous message.
 
-- burnAssertionClaim REQUIRED. The burn assertion signed claim or statement by the client.
-
 - burnAssertionClaimFormat REQUIRED. The format of the claim.
+
+- burnAssertionClaim REQUIRED. The burn assertion signed claim or statement by the client.
 
 Example:
 
@@ -1173,8 +1200,8 @@ Example:
   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
   "hashPrevMessage": "b92f13007216c58f2b51a8621599c3aef6527b02c8284e90c6a54a181d898e02",\  
-  "burnAssertionClaim": {},\  
   "burnAssertionClaimFormat": "BURN_ASSERTION_CLAIM_FORMAT_1",\  
+  "burnAssertionClaim": {},\  
 }\  
 
 
@@ -1201,10 +1228,10 @@ The parameters of this message consist of the following:
 
 - hashPrevMessage REQUIRED. The hash of the previous message.
 
+- assignmentAssertionClaimFormat REQUIRED. The format of the claim.
+
 - assignmentAssertionClaim REQUIRED. The claim or statement by the server
   that the asset has been assigned by the server to the intended beneficiary.
-
-- assignmentAssertionClaimFormat REQUIRED. The format of the claim.
 
 Example:
 
@@ -1213,8 +1240,8 @@ Example:
   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
   "hashPrevMessage": "9c8f07c22ccf6888fc0306fee0799325efb87dfd536d90bb47d97392f020e998",\  
-  "assignmentAssertionClaim": {},\  
   "assignmentAssertionClaimFormat": "ASSIGNMENT_ASSERTION_CLAIM_FORMAT_1",\  
+  "assignmentAssertionClaim": {},\  
 }\  
 
 ## Transfer Complete Message
@@ -1271,15 +1298,15 @@ This message must contain the error type (see the appendix) and the course of ac
 
 - errorMsgType: The pevious msg-type that was erronous.
   
-- errorType REQUIRED: This is the error code.
+- errorType REQUIRED: This is the error code being reported ({{error-types-section}}).
 
 - errorSeverity REQUIRED: This is the severity level of the error, leading to the action.
 
-Futher discussion on protocol errors can be found below.
+Futher discussion on protocol errors can be found below ({{error-types-section}}).
 
 ## Session abort message
 
-The purpose of this message is to indicate that one of the peer gateways have decided not to proceed with the session. No further messages will be delivered after the abort message.
+The purpose of this message is to indicate that one of the peer gateways has decided not to proceed with the session. No further messages will be delivered after the abort message.
 
 - messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:session-abort-msg.
 
@@ -1343,12 +1370,12 @@ After the recovery, the gateways exchange information about
 their current view of the protocol, since the crashed gateway
 may have been in the middle of executing the protocol when it crashed.
 
-After that, the gateways agree on the current state of the protocol.
+After that, the gateways MUST agree on the current state of the protocol.
 
 ## Recovery Messages
 
 {: #satp-session-resume-recovery-msg}
-We have omitted the logging procedure (only focusing on the different messages).
+We have omitted the logging procedure, as that it implementation dependent to properly log a set of recovery steps needed to reconstruct state upon a gateway failure.
 As defined in the crash recovery draft {{?I-D.draft-belchior-satp-gateway-recovery}},
 there is a set of messages that are exchanged between the recovered
 gateway and counterparty gateway:
@@ -1421,7 +1448,7 @@ Any data received after the session termination message MUST be ignored.
 
 {: #satp-errors-connection-section}
 
-Errors may occur at the connection layer, independent of the flows at the SATP layer and errrors there.
+Errors may occur at the connection layer, independent of the flows at the SATP layer and errors there.
 
 (a) connectionError: There is an error in the TLS session establishment (TLS error codes should be reported-up to the gateway level)
 
@@ -1487,6 +1514,9 @@ Registrant Contact: IESG
 Description: The secure asset transfer protocol (SATP) requires message types, endpoints and parameters to be defined within a unique namespace to prevent collision.
 
 ## SATP Message Types Registry
+
+{: #satp-message-types}
+
 This specification establishes the SATP Message Types registry. The purpose of this registry is to define the various message types utilized in the secure asset transfer protocol (SATP).
 
 ## Initial Registry Contents

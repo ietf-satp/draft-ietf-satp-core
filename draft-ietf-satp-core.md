@@ -98,23 +98,9 @@ informative:
     target: https://datatracker.ietf.org/doc/draft-ietf-satp-architecture/
     title: Secure Asset Transfer (SAT) Interoperability Architecture
 
-  RFC5939:
-    author:
-    - ins: F. Andreasen
-    date: September 2010
-    target: https://www.rfc-editor.org/info/rfc5939
-    title: Session Description Protocol (SDP) Capability Negotiation
+  RFC5939: RFC5939
 
-  RFC9334:
-    author:
-    - ins: H. Birkholz
-    - ins: D. Thaler
-    - ins: M. Richardson
-    - ins: N. Smith
-    - ins: W. Pan
-    date: January 2023
-    target: https://www.rfc-editor.org/info/rfc9334
-    title: Remote Attestation Procedures Architecture (RATS)
+  RFC9334: RFC9334
 
 normative:
   JWT: RFC7519
@@ -124,6 +110,7 @@ normative:
   REQ-LEVEL: RFC2119
   BASE64: RFC4648
   DATETIME: RFC3339
+  RFC2616: RFC2616
 
   X.500:
     author:
@@ -244,7 +231,7 @@ The Secure Asset Transfer Protocol (SATP) is a gateway-to-gateway protocol used 
 
 The protocol defines a number of API endpoints, resources and identifier definitions, and message flows corresponding to the asset transfer between the two gateways.
 
-The current document pertains to the interaction between gateways through API2 [SATP-ARCH].
+The current document pertains to the interaction between gateways through API2 {{ARCH}}.
 
 ```
                  +----------+                +----------+
@@ -270,7 +257,7 @@ The current document pertains to the interaction between gateways through API2 [
 
 {: #satp-model}
 
-The model for SATP is shown in Figure 1 [SATP-ARCH].
+The model for SATP is shown in Figure 1 {{ARCH}}.
 The Client (application) interacts with its local gateway (G1) over an interface (API1) in order to provide instructions to the gateway with regards to actions to assets and related resources located in the local system or network (NW1).
 
 Gateways interact with each other over a gateway interface (API2). A given gateway may be required to access resources that are not located in network NW1 or network NW2. Access to these types of resources are performed over an off-network interface (API3).
@@ -337,7 +324,7 @@ Additional signature algorithms and keying parameters may be negotiated by peer 
 
 SATP messages are exchanged between peer gateways, where depending on the message type one gateway may act as a client of the other (and vice versa).
 
-All SATP messages exchanged between gateways are in JSON format [RFC8259]. Unless otherwise noted, all values are encoded as JSON Strings.  Values not representable as JSON strings (such as binary data), unless otherwise noted, will be encoded as base64 {{BASE64}}.
+All SATP messages exchanged between gateways are in JSON format {{JSON}}. Unless otherwise noted, all values are encoded as JSON Strings.  Values not representable as JSON strings (such as binary data), unless otherwise noted, will be encoded as base64 {{BASE64}}.
 
 ### Protocol version
 
@@ -722,15 +709,17 @@ The gateway and network capabilities list is as follows:
 
 Here is an example representation in JSON format:
 
+```json
 {
-  "gatewayDefaultSignatureAlgorithm": "ES256",\
-  "gatewaySupportedSignatureAlgorithms": ["ES256", "RSA"],\
-  "networkLockType": "HASH_TIME_LOCK",\
-  "networkLockExpirationTime": 120,\
-  "gatewayCredentialProfile": "OAUTH",\
-  "gatewayLoggingProfile": "LOCAL_STORE",\
-  "gatewayAccessControlProfile": "RBAC"\
+  "gatewayDefaultSignatureAlgorithm": "ES256",
+  "gatewaySupportedSignatureAlgorithms": ["ES256", "RSA"],
+  "networkLockType": "HASH_TIME_LOCK",
+  "networkLockExpirationTime": 120,
+  "gatewayCredentialProfile": "OAUTH",
+  "gatewayLoggingProfile": "LOCAL_STORE",
+  "gatewayAccessControlProfile": "RBAC"
 }
+```
 
 
 ## Transfer Proposal Message
@@ -764,40 +753,42 @@ The parameters of this message consist of the following:
 
 Here is an example of the message request body:
 
+```json
 {
-  "version": "1.0",\
-  "messageType": "urn:ietf:satp:msgtype:transfer-proposal-msg",\
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
-  "transferInitClaimFormat": "TRANSFER_INIT_CLAIM_FORMAT_1",\
-  "transferInitClaim": {\
-      "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",\
-      "assetProfileId": "38561",\
-      "verifiedOriginatorEntityId": "CN=Alice, OU=Example Org Unit, O=Example, L=New York, C=US",\
-      "verifiedBeneficiaryEntityId": "CN=Bob, OU=Case Org Unit, O=Case, L=San Francisco, C=US",\
-      "originatorPubkey": "0304b9f34d3898b27f85b3d88fa069a879abe14db5060dde466dd1e4a31ff75e44",\
-      "beneficiaryPubkey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",\
-      "senderGatewaySignaturePublicKey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",\
-      "receiverGatewaySignaturePublicKey": "0243b12ada6515ada3bf99a7da32e84f00383b5765fd7701528e660449ba5ef260",\
-      "senderGatewayId": "GW1",\
-      "recipientGatewayId": "GW2",\
-      "senderGatewayNetworkId": "1",\
-      "recipientGatewayNetworkId": "43114",\
-      "senderGatewayDeviceIdentityPubkey": "0245785e34b4a7b457dd4683a297ea3d78bab35f8b2583df55d9df8c69604d0e73",\
-      "receiverGatewayDeviceIdentityPubkey": "03763f0bc48ff154cff45ea533a9d8a94349d65a45573e4de6ad6495b6e834312b",\
-      "senderGatewayOwnerId": "CN=GatewayOps, OU=GatewayOps Systems, O=GatewayOps LTD, L=Austin, C=US",\
-      "receiverGatewayOwnerId": "CN=BridgeSolutions, OU=BridgeSolutions Engineering, O=BridgeSolutions LTD, L=Austin, C=US"\
-  },\
-  "gatewayAndNetworkCapabilities": {\
-      "gatewayDefaultSignatureAlgorithm": "ES256",\
-      "gatewaySupportedSignatureAlgorithms": ["ES256", "RSA"],\
-      "networkLockType": "HASH_TIME_LOCK",\
-      "networkLockExpirationTime": 120,\
-      "gatewayCredentialProfile": "OAUTH",\
-      "gatewayLoggingProfile": "LOCAL_STORE",\
-      "gatewayAccessControlProfile": "RBAC"\
-  },\
-}\
+  "version": "1.0",
+  "messageType": "urn:ietf:satp:msgtype:transfer-proposal-msg",
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
+  "transferInitClaimFormat": "TRANSFER_INIT_CLAIM_FORMAT_1",
+  "transferInitClaim": {
+      "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",
+      "assetProfileId": "38561",
+      "verifiedOriginatorEntityId": "CN=Alice, OU=Example Org Unit, O=Example, L=New York, C=US",
+      "verifiedBeneficiaryEntityId": "CN=Bob, OU=Case Org Unit, O=Case, L=San Francisco, C=US",
+      "originatorPubkey": "0304b9f34d3898b27f85b3d88fa069a879abe14db5060dde466dd1e4a31ff75e44",
+      "beneficiaryPubkey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",
+      "senderGatewaySignaturePublicKey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",
+      "receiverGatewaySignaturePublicKey": "0243b12ada6515ada3bf99a7da32e84f00383b5765fd7701528e660449ba5ef260",
+      "senderGatewayId": "GW1",
+      "recipientGatewayId": "GW2",
+      "senderGatewayNetworkId": "1",
+      "recipientGatewayNetworkId": "43114",
+      "senderGatewayDeviceIdentityPubkey": "0245785e34b4a7b457dd4683a297ea3d78bab35f8b2583df55d9df8c69604d0e73",
+      "receiverGatewayDeviceIdentityPubkey": "03763f0bc48ff154cff45ea533a9d8a94349d65a45573e4de6ad6495b6e834312b",
+      "senderGatewayOwnerId": "CN=GatewayOps, OU=GatewayOps Systems, O=GatewayOps LTD, L=Austin, C=US",
+      "receiverGatewayOwnerId": "CN=BridgeSolutions, OU=BridgeSolutions Engineering, O=BridgeSolutions LTD, L=Austin, C=US"
+  },
+  "gatewayAndNetworkCapabilities": {
+      "gatewayDefaultSignatureAlgorithm": "ES256",
+      "gatewaySupportedSignatureAlgorithms": ["ES256", "RSA"],
+      "networkLockType": "HASH_TIME_LOCK",
+      "networkLockExpirationTime": 120,
+      "gatewayCredentialProfile": "OAUTH",
+      "gatewayLoggingProfile": "LOCAL_STORE",
+      "gatewayAccessControlProfile": "RBAC"
+  }
+}
+```
 
 ## Transfer Proposal Receipt Message
 
@@ -1412,7 +1403,7 @@ is needed, the following messages are used:
   The message parameters include session ID, message type,
   a boolean indicating success, a list of actions performed
   to rollback a state (e.g., UNLOCK, BURN), a list of proofs
-  specific to the DLT [SATP], and the sender's digital signature.
+  specific to the DLT, and the sender's digital signature.
 
 - ROLLBACK-ACK: Upon successful rollback, the counterparty
   gateway sends a ROLLBACK-ACK message to the recovered gateway acknowledging
@@ -1673,6 +1664,31 @@ The SATP Message Types registry's initial contents are as follows:
 - Change controller: IETF
 - Specification document(s): Section 10.7 of draft-ietf-satp-core.
 
+# Error Types and Codes
+
+{: #error-types-section}
+
+This appendix defines the error codes that may be returned in SATP protocol messages.
+
+## Protocol Error Codes
+
+The following error codes are defined for SATP protocol errors:
+
+- err_1.1: Invalid message type
+- err_1.2: Invalid session ID
+- err_1.3: Invalid transfer context ID
+- err_1.4: Invalid signature
+- err_1.5: Invalid hash value
+- err_2.1: Asset not found
+- err_2.2: Asset already locked
+- err_2.3: Asset lock expired
+- err_2.4: Insufficient permissions
+- err_3.1: Network connection failure
+- err_3.2: Gateway unavailable
+- err_3.3: Timeout exceeded
+- err_4.1: Unsupported credential profile
+- err_4.2: Invalid credential format
+- err_4.3: Credential verification failed
 
 # Acknowledgements
 

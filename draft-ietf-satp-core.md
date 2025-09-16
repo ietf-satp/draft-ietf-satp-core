@@ -1501,7 +1501,87 @@ Gateways may be of interest to attackers because they enable the transferal of d
 
 {: #satp-iana-Consideration}
 
+
 The following request is being made to IANA.
+
+## SATP Error Codes Registry
+
+This registry defines the error codes used in SATP protocol messages. Each entry consists of:
+
+- **Code**: The enumeration string (e.g., err_3.3.1)
+- **Category**: The protocol stage or message type (e.g., Commit Ready errors)
+- **Type**: The error type (e.g., badly formed message)
+- **Description**: A brief description (e.g., mismatch transferContextId)
+
+| Code         | Category                        | Type                  | Description                        |
+|--------------|----------------------------------|-----------------------|-------------------------------------|
+| err_1.1.1    | Transfer Proposal/Receipt errors | badly formed message  | invalid transferContextId           |
+| err_1.1.2    | Transfer Proposal/Receipt errors | badly formed message  | invalid sessionId                   |
+| err_1.1.3    | Transfer Proposal/Receipt errors | badly formed message  | incorect transferInitClaimFormat    |
+| err_1.1.4    | Transfer Proposal/Receipt errors | badly formed message  | bad signature                       |
+| err_1.1.11   | Transfer Proposal/Receipt errors | badly formed claim    | invalid digitalAssetId              |
+| err_1.1.12   | Transfer Proposal/Receipt errors | badly formed claim    | invalid assetProfileId              |
+| err_1.1.13   | Transfer Proposal/Receipt errors | badly formed claim    | invalid verifiedOriginatorEntityId  |
+| err_1.1.14   | Transfer Proposal/Receipt errors | badly formed claim    | invalid verifiedBeneficiaryEntityId |
+| err_1.1.15   | Transfer Proposal/Receipt errors | badly formed claim    | invalid originatorPubkey            |
+| err_1.1.16   | Transfer Proposal/Receipt errors | badly formed claim    | invalid beneficiaryPubkey           |
+| err_1.1.17   | Transfer Proposal/Receipt errors | badly formed claim    | invalid senderGatewaySignaturePublicKey |
+| err_1.1.18   | Transfer Proposal/Receipt errors | badly formed claim    | invalid receiverGatewaySignaturePublicKey |
+| err_1.1.19   | Transfer Proposal/Receipt errors | badly formed claim    | invalid senderGatewayId             |
+| err_1.1.20   | Transfer Proposal/Receipt errors | badly formed claim    | invalid recipientGatewayId          |
+| err_1.1.31   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported gatewayDefaultSignatureAlgorithm |
+| err_1.1.32   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported networkLockType         |
+| err_1.1.33   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported networkLockExpirationTime |
+| err_1.1.34   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported gatewayCredentialProfile |
+| err_1.1.35   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported gatewayLoggingProfile   |
+| err_1.1.36   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported gatewayAccessControlProfile |
+| err_1.2.1    | Transfer Proposal/Receipt errors | badly formed message  | mismatch transferContextId          |
+| err_1.2.2    | Transfer Proposal/Receipt errors | badly formed message  | mismatch sessionId                  |
+| err_1.2.3    | Transfer Proposal/Receipt errors | badly formed message  | mismatch hashTransferInitClaim      |
+| err_1.2.4    | Transfer Proposal/Receipt errors | badly formed message  | bad signature                       |
+| err_1.3.1    | Transfer Commence errors         | badly formed message  | mismatch transferContextId          |
+| err_1.3.2    | Transfer Commence errors         | badly formed message  | mismatch sessionId                  |
+| err_1.3.3    | Transfer Commence errors         | badly formed message  | mismatch hashTransferInitClaim      |
+| err_1.3.4    | Transfer Commence errors         | badly formed message  | mismatch hashPrevMessage            |
+| err_1.3.5    | Transfer Commence errors         | badly formed message  | bad signature                       |
+| err_1.4.1    | ACK Commence errors              | badly formed message  | mismatch transferContextId          |
+| err_1.4.2    | ACK Commence errors              | badly formed message  | mismatch sessionId                  |
+| err_1.4.3    | ACK Commence errors              | badly formed message  | mismatch hashPrevMessage            |
+| err_1.4.4    | ACK Commence errors              | badly formed message  | bad signature                       |
+| err_2.2.1    | Lock Assertion errors            | badly formed message  | mismatch transferContextId          |
+| err_2.2.2    | Lock Assertion errors            | badly formed message  | mismatch sessionId                  |
+| err_2.2.3    | Lock Assertion errors            | badly formed message  | unsupported lockAssertionClaimFormat|
+| err_2.2.4    | Lock Assertion errors            | badly formed message  | unsupported lockAssertionExpiration |
+| err_2.2.5    | Lock Assertion errors            | badly formed message  | mismatch hashPrevMessage            |
+| err_2.2.6    | Lock Assertion errors            | badly formed message  | bad signature                       |
+| err_2.4.1    | Lock Assertion Receipt errors    | badly formed message  | mismatch transferContextId          |
+| err_2.4.2    | Lock Assertion Receipt errors    | badly formed message  | mismatch sessionId                  |
+| err_2.4.3    | Lock Assertion Receipt errors    | badly formed message  | mismatch hashPrevMessage            |
+| err_2.4.4    | Lock Assertion Receipt errors    | badly formed message  | bad signature                       |
+| err_3.1.1    | Commit Preparation errors        | badly formed message  | mismatch transferContextId          |
+| err_3.1.2    | Commit Preparation errors        | badly formed message  | mismatch sessionId                  |
+| err_3.1.3    | Commit Preparation errors        | badly formed message  | mismatch hashPrevMessage            |
+| err_3.1.4    | Commit Preparation errors        | badly formed message  | bad signature                       |
+| err_3.3.1    | Commit Ready errors              | badly formed message  | mismatch transferContextId          |
+| err_3.3.2    | Commit Ready errors              | badly formed message  | mismatch sessionId                  |
+| err_3.3.3    | Commit Ready errors              | badly formed message  | mismatch hashPrevMessage            |
+| err_3.3.4    | Commit Ready errors              | badly formed message  | unsupported mintAssertionFormat     |
+| err_3.3.5    | Commit Ready errors              | badly formed message  | bad signature                       |
+| err_3.5.1    | Commit Final Assertion errors    | badly formed message  | mismatch transferContextId          |
+| err_3.5.2    | Commit Final Assertion errors    | badly formed message  | mismatch sessionId                  |
+| err_3.5.3    | Commit Final Assertion errors    | badly formed message  | mismatch hashPrevMessage            |
+| err_3.5.4    | Commit Final Assertion errors    | badly formed message  | unsupported burnAssertionClaimFormat|
+| err_3.5.5    | Commit Final Assertion errors    | badly formed message  | bad signature                       |
+| err_3.7.1    | Commit Final Ack Receipt errors  | badly formed message  | mismatch transferContextId          |
+| err_3.7.2    | Commit Final Ack Receipt errors  | badly formed message  | mismatch sessionId                  |
+| err_3.7.3    | Commit Final Ack Receipt errors  | badly formed message  | mismatch hashPrevMessage            |
+| err_3.7.4    | Commit Final Ack Receipt errors  | badly formed message  | unsupported assignmentAssertionClaimFormat |
+| err_3.7.5    | Commit Final Ack Receipt errors  | badly formed message  | bad signature                       |
+| err_3.9.1    | Transfer Complete errors         | badly formed message  | mismatch transferContextId          |
+| err_3.9.2    | Transfer Complete errors         | badly formed message  | mismatch sessionId                  |
+| err_3.9.3    | Transfer Complete errors         | badly formed message  | mismatch hashPrevMessage            |
+| err_3.9.4    | Transfer Complete errors         | badly formed message  | mismatch hashTransferCommence       |
+| err_3.9.5    | Transfer Complete errors         | badly formed message  | bad signature                       |
 
 ## URN Registration
 
@@ -1616,156 +1696,3 @@ Orie Steele,
 Yaron Scheffer,
 Peter Somogyvari,
 Weijia Zhang.
-
-
-# Appendix: Error Types
-
-{: #error-types-section}
-
-The following lists the error associated with the SATP messages.
-
-## Transfer Proposal and Receipt errors
-
-{: #errors-transfer-proposal}
-
-The following is the list of errors related to the Transfer Proposal and Receipt.
-
-Errors related to the transfer context ID and session ID:
-
-- err_1.1.1: Badly formed message: invalid transferContextId.
-- err_1.1.2: Badly formed message: invalid sessionId.
-- err_1.1.3: Badly formed message: incorect transferInitClaimFormat.
-- err_1.1.4: Badly formed message: bad signature.
-
-Errors within one of more claims in the transfer initialization claim-set:
-
-- err_1.1.11: Badly formed claim: invalid digitalAssetId.
-- err_1.1.12: Badly formed claim: invalid assetProfileId.
-- err_1.1.13: Badly formed claim: invalid verifiedOriginatorEntityId.
-- err_1.1.14: Badly formed claim: invalid verifiedBeneficiaryEntityId.
-- err_1.1.15: Badly formed claim: invalid originatorPubkey.
-- err_1.1.16: Badly formed claim: invalid beneficiaryPubkey.
-- err_1.1.17: Badly formed claim: invalid senderGatewaySignaturePublicKey.
-- err_1.1.18: Badly formed claim: invalid receiverGatewaySignaturePublicKey.
-- err_1.1.19: Badly formed claim: invalid senderGatewayId.
-- err_1.1.20: Badly formed claim: invalid recipientGatewayId.
-  
-Errors within one of more parameters in the gateway and network capabilities claim-set:
-
-- err_1.1.31: Badly formed parameter: unsupported gatewayDefaultSignatureAlgorithm.
-- err_1.1.32: Badly formed parameter: unsupported networkLockType.
-- err_1.1.33: Badly formed parameter: unsupported networkLockExpirationTime.
-- err_1.1.34: Badly formed parameter: unsupported gatewayCredentialProfile.
-- err_1.1.35: Badly formed parameter: unsupported gatewayLoggingProfile.
-- err_1.1.36: Badly formed parameter: unsupported gatewayAccessControlProfile.
-
-Errors related to the proposal receipt message:
-
-- err_1.2.1: Badly formed message: mismatch transferContextId.
-- err_1.2.2: Badly formed message: mismatch sessionId.
-- err_1.2.3: Badly formed message: mismatch hashTransferInitClaim.
-- err_1.2.4: Badly formed message: bad signature.
-
-## Transfer Commence and Acknowledgement errors
-
-{: #errors-transfer-commence}
-
-The following is the list of errors related to the Transfer Commence:
-
-- err_1.3.1: Badly formed message: mismatch transferContextId.
-- err_1.3.2: Badly formed message: mismatch sessionId.
-- err_1.3.3: Badly formed message: mismatch hashTransferInitClaim.
-- err_1.3.4: Badly formed message: mismatch hashPrevMessage.
-- err_1.3.5: Badly formed message: bad signature.
-
-The following is the list of errors related to the ACK Commence:
-
-- err_1.4.1: Badly formed message: mismatch transferContextId.
-- err_1.4.2: Badly formed message: mismatch sessionId.
-- err_1.4.3: Badly formed message: mismatch hashPrevMessage.
-- err_1.4.4: Badly formed message: bad signature.
-
-## Lock Assertion errors
-
-{: #errors-lock-assertion}
-
-The following is the list of errors related to Lock Assertion:
-
-- err_2.2.1: Badly formed message: mismatch transferContextId.
-- err_2.2.2: Badly formed message: mismatch sessionId.
-- err_2.2.3: Badly formed message: unsupported lockAssertionClaimFormat.
-- err_2.2.4: Badly formed message: unsupported lockAssertionExpiration.
-- err_2.2.5: Badly formed message: mismatch hashPrevMessage.
-- err_2.2.6: Badly formed message: bad signature.
-
-## Lock Assertion Receipt errors
-
-{: #errors-lock-assertion-receipt}
-
-The following is the list of errors related to Lock Assertion Receipt:
-
-- err_2.4.1: Badly formed message: mismatch transferContextId.
-- err_2.4.2: Badly formed message: mismatch sessionId.
-- err_2.4.3: Badly formed message: mismatch hashPrevMessage.
-- err_2.4.4: Badly formed message: bad signature.
-
-## Commit Preparation errors
-
-{: #errors-commit-prepare}
-
-The following is the list of errors related to Commit Preparation:
-
-- err_3.1.1: Badly formed message: mismatch transferContextId.
-- err_3.1.2: Badly formed message: mismatch sessionId.
-- err_3.1.3: Badly formed message: mismatch hashPrevMessage.
-- err_3.1.4: Badly formed message: bad signature.
-
-## Commit Ready errors
-
-{: #errors-commit-ready}
-
-The following is the list of errors related to Commit Ready:
-
-- err_3.3.1: Badly formed message: mismatch transferContextId.
-- err_3.3.2: Badly formed message: mismatch sessionId.
-- err_3.3.3: Badly formed message: mismatch hashPrevMessage.
-- err_3.3.4: Badly formed message: unsupported mintAssertionFormat.
-- err_3.3.5: Badly formed message: bad signature.
-
-## Commit Final Assertion errors
-
-{: #errors-commit-final-assertion}
-
-The following is the list of errors related to Commit Final Assertion:
-
-- err_3.5.1: Badly formed message: mismatch transferContextId.
-- err_3.5.2: Badly formed message: mismatch sessionId.
-- err_3.5.3: Badly formed message: mismatch hashPrevMessage.
-- err_3.5.4: Badly formed message: unsupported burnAssertionClaimFormat.
-- err_3.5.5: Badly formed message: bad signature.
-
-## Commit Final Acknowledgement Receipt errors
-
-{: #errors-commit-final-ack}
-
-The following is the list of errors related to Commit Final Acknowledgement Receipt:
-
-- err_3.7.1: Badly formed message: mismatch transferContextId.
-- err_3.7.2: Badly formed message: mismatch sessionId.
-- err_3.7.3: Badly formed message: mismatch hashPrevMessage.
-- err_3.7.4: Badly formed message: unsupported assignmentAssertionClaimFormat.
-- err_3.7.5: Badly formed message: bad signature.
-
-## Transfer Complete errors
-
-{: #errors-transfer-complete}
-
-The following is the list of errors related to Commit Final Assertion:
-
-- err_3.9.1: Badly formed message: mismatch transferContextId.
-- err_3.9.2: Badly formed message: mismatch sessionId.
-- err_3.9.3: Badly formed message: mismatch hashPrevMessage.
-- err_3.9.4: Badly formed message: mismatch hashTransferCommence.
-- err_3.9.5: Badly formed message: bad signature.
-
---- back

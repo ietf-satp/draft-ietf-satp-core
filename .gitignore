@@ -21,5 +21,7 @@ draft-ietf-satp-core.xml
 package-lock.json
 report.xml
 !requirements.txt
+/bin/**
+/tmp/**
 
 draft-ietf-satp-core.xml

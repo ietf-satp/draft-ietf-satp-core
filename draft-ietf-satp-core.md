@@ -63,7 +63,7 @@ author:
     name: Alex Chiriac
     organization: Quant Network
     email: alexandru.chiriac@quant.network
-    
+
 informative:
   NIST:
     author:
@@ -80,7 +80,7 @@ informative:
     date: February 2023
     target: https://doi.org/10.6028/NIST.FIPS.186-5
     title: Digital Signature Standard (FIPS 186-5)
-    
+
   MICA:
     author:
     - ins: European Commission
@@ -98,23 +98,9 @@ informative:
     target: https://datatracker.ietf.org/doc/draft-ietf-satp-architecture/
     title: Secure Asset Transfer (SAT) Interoperability Architecture
 
-  RFC5939:
-    author:
-    - ins: F. Andreasen
-    date: September 2010
-    target: https://www.rfc-editor.org/info/rfc5939
-    title: Session Description Protocol (SDP) Capability Negotiation
+  RFC5939: RFC5939
 
-  RFC9334:
-    author:
-    - ins: H. Birkholz
-    - ins: D. Thaler
-    - ins: M. Richardson
-    - ins: N. Smith
-    - ins: W. Pan
-    date: January 2023
-    target: https://www.rfc-editor.org/info/rfc9334
-    title: Remote Attestation Procedures Architecture (RATS)
+  RFC9334: RFC9334
 
 normative:
   JWT: RFC7519
@@ -124,11 +110,13 @@ normative:
   REQ-LEVEL: RFC2119
   BASE64: RFC4648
   DATETIME: RFC3339
+  RFC2616: RFC2616
 
   X.500:
-    author: ITU-T
+    author:
+    - ins: ITU-T
     date: 2005
-    title: The Directory: Overview of concepts, models and services.
+    title: "The Directory: Overview of concepts, models and services"
 
 --- abstract
 
@@ -243,7 +231,7 @@ The Secure Asset Transfer Protocol (SATP) is a gateway-to-gateway protocol used 
 
 The protocol defines a number of API endpoints, resources and identifier definitions, and message flows corresponding to the asset transfer between the two gateways.
 
-The current document pertains to the interaction between gateways through API2 [SATP-ARCH].
+The current document pertains to the interaction between gateways through API2 {{ARCH}}.
 
 ```
                  +----------+                +----------+
@@ -269,7 +257,7 @@ The current document pertains to the interaction between gateways through API2 [
 
 {: #satp-model}
 
-The model for SATP is shown in Figure 1 [SATP-ARCH].
+The model for SATP is shown in Figure 1 {{ARCH}}.
 The Client (application) interacts with its local gateway (G1) over an interface (API1) in order to provide instructions to the gateway with regards to actions to assets and related resources located in the local system or network (NW1).
 
 Gateways interact with each other over a gateway interface (API2). A given gateway may be required to access resources that are not located in network NW1 or network NW2. Access to these types of resources are performed over an off-network interface (API3).
@@ -336,7 +324,7 @@ Additional signature algorithms and keying parameters may be negotiated by peer 
 
 SATP messages are exchanged between peer gateways, where depending on the message type one gateway may act as a client of the other (and vice versa).
 
-All SATP messages exchanged between gateways are in JSON format [RFC8259]. Unless otherwise noted, all values are encoded as JSON Strings.  Values not representable as JSON strings (such as binary data), unless otherwise noted, will be encoded as base64 {{BASE64}}.
+All SATP messages exchanged between gateways are in JSON format {{JSON}}. Unless otherwise noted, all values are encoded as JSON Strings.  Values not representable as JSON strings (such as binary data), unless otherwise noted, will be encoded as base64 {{BASE64}}.
 
 ### Protocol version
 
@@ -376,7 +364,7 @@ Registry {{satp-message-types}}:
 - ack-commit-final-msg: Receiver gateway acknowledges receiving the signed commit-final-msg and has performed the asset creation and assignment in the destination network.
 
 - commit-transfer-complete-msg: Sender gateway indicates closure of the current transfer session.
-  
+
 - error-msg: This message is used to indicate that an error has occured at the SATP layer. It can be transmitted by either gateways.
 
 - session-abort-msg: This message is used by a gateway to abort the current session.
@@ -395,7 +383,7 @@ This is the unique identifier of the asset schema or asset profile which defines
 
 In some cases the profile identifier may be needed by the receiver gateway at the destination network in order to evaluate whether the asset is permitted to enter the destination network.
 
-The formal specification of asset profiles and their identification is outside the scope of this document.  
+The formal specification of asset profiles and their identification is outside the scope of this document.
 
 ### Transfer-Context ID:
 
@@ -426,7 +414,7 @@ corresponding Gateway Credential Type.
 
 This is the unique identifier of the gateway service.  The gateway identifier MUST be uniquely bound to its SAT endpoint (e.g. via X.509 certificates).
 
-This gateway identifier is distinct from the gateway operator business identifier (e.g., legal entity identifier (LEI) number). 
+This gateway identifier is distinct from the gateway operator business identifier (e.g., legal entity identifier (LEI) number).
 A gateway operator may operate multiple gateways. Each of the gateways
 within an asset network MUST be identified by a unique gateway identifier.
 
@@ -674,22 +662,22 @@ The Transfer Initialization Claim consists of the following:
 Here is an example representation in JSON format:
 
 {
-  "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",\  
-  "assetProfileId": "38561",\  
-  "verifiedOriginatorEntityId": "CN=Alice, OU=Example Org Unit, O=Example, L=New York, C=US",\  
-  "verifiedBeneficiaryEntityId": "CN=Bob, OU=Case Org Unit, O=Case, L=San Francisco, C=US",\  
-  "originatorPubkey": "0304b9f34d3898b27f85b3d88fa069a879abe14db5060dde466dd1e4a31ff75e44",\  
-  "beneficiaryPubkey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",\  
-  "senderGatewaySignaturePublicKey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",\  
-  "receiverGatewaySignaturePublicKey": "0243b12ada6515ada3bf99a7da32e84f00383b5765fd7701528e660449ba5ef260",\  
-  "senderGatewayId": "GW1",\  
-  "recipientGatewayId": "GW2",\  
-  "senderGatewayNetworkId": "1",\  
-  "recipientGatewayNetworkId": "43114",\  
-  "senderGatewayDeviceIdentityPubkey": "0245785e34b4a7b457dd4683a297ea3d78bab35f8b2583df55d9df8c69604d0e73",\  
-  "receiverGatewayDeviceIdentityPubkey": "03763f0bc48ff154cff45ea533a9d8a94349d65a45573e4de6ad6495b6e834312b",\  
-  "senderGatewayOwnerId": "CN=GatewayOps, OU=GatewayOps Systems, O=GatewayOps LTD, L=Austin, C=US",\  
-  "receiverGatewayOwnerId": "CN=BridgeSolutions, OU=BridgeSolutions Engineering, O=BridgeSolutions LTD, L=Austin, C=US"\  
+  "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",\
+  "assetProfileId": "38561",\
+  "verifiedOriginatorEntityId": "CN=Alice, OU=Example Org Unit, O=Example, L=New York, C=US",\
+  "verifiedBeneficiaryEntityId": "CN=Bob, OU=Case Org Unit, O=Case, L=San Francisco, C=US",\
+  "originatorPubkey": "0304b9f34d3898b27f85b3d88fa069a879abe14db5060dde466dd1e4a31ff75e44",\
+  "beneficiaryPubkey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",\
+  "senderGatewaySignaturePublicKey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",\
+  "receiverGatewaySignaturePublicKey": "0243b12ada6515ada3bf99a7da32e84f00383b5765fd7701528e660449ba5ef260",\
+  "senderGatewayId": "GW1",\
+  "recipientGatewayId": "GW2",\
+  "senderGatewayNetworkId": "1",\
+  "recipientGatewayNetworkId": "43114",\
+  "senderGatewayDeviceIdentityPubkey": "0245785e34b4a7b457dd4683a297ea3d78bab35f8b2583df55d9df8c69604d0e73",\
+  "receiverGatewayDeviceIdentityPubkey": "03763f0bc48ff154cff45ea533a9d8a94349d65a45573e4de6ad6495b6e834312b",\
+  "senderGatewayOwnerId": "CN=GatewayOps, OU=GatewayOps Systems, O=GatewayOps LTD, L=Austin, C=US",\
+  "receiverGatewayOwnerId": "CN=BridgeSolutions, OU=BridgeSolutions Engineering, O=BridgeSolutions LTD, L=Austin, C=US"\
 }
 
 ## Conveyance of Gateway and Network Capabilities
@@ -721,15 +709,17 @@ The gateway and network capabilities list is as follows:
 
 Here is an example representation in JSON format:
 
+```json
 {
-  "gatewayDefaultSignatureAlgorithm": "ES256",\  
-  "gatewaySupportedSignatureAlgorithms": ["ES256", "RSA"],\  
-  "networkLockType": "HASH_TIME_LOCK",\  
-  "networkLockExpirationTime": 120,\  
-  "gatewayCredentialProfile": "OAUTH",\  
-  "gatewayLoggingProfile": "LOCAL_STORE",\  
-  "gatewayAccessControlProfile": "RBAC"\  
+  "gatewayDefaultSignatureAlgorithm": "ES256",
+  "gatewaySupportedSignatureAlgorithms": ["ES256", "RSA"],
+  "networkLockType": "HASH_TIME_LOCK",
+  "networkLockExpirationTime": 120,
+  "gatewayCredentialProfile": "OAUTH",
+  "gatewayLoggingProfile": "LOCAL_STORE",
+  "gatewayAccessControlProfile": "RBAC"
 }
+```
 
 
 ## Transfer Proposal Message
@@ -763,40 +753,42 @@ The parameters of this message consist of the following:
 
 Here is an example of the message request body:
 
+```json
 {
-  "version": "1.0",\  
-  "messageType": "urn:ietf:satp:msgtype:transfer-proposal-msg",\  
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
-  "transferInitClaimFormat": "TRANSFER_INIT_CLAIM_FORMAT_1",\  
-  "transferInitClaim": {\  
-      "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",\  
-      "assetProfileId": "38561",\  
-      "verifiedOriginatorEntityId": "CN=Alice, OU=Example Org Unit, O=Example, L=New York, C=US",\  
-      "verifiedBeneficiaryEntityId": "CN=Bob, OU=Case Org Unit, O=Case, L=San Francisco, C=US",\  
-      "originatorPubkey": "0304b9f34d3898b27f85b3d88fa069a879abe14db5060dde466dd1e4a31ff75e44",\  
-      "beneficiaryPubkey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",\  
-      "senderGatewaySignaturePublicKey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",\  
-      "receiverGatewaySignaturePublicKey": "0243b12ada6515ada3bf99a7da32e84f00383b5765fd7701528e660449ba5ef260",\  
-      "senderGatewayId": "GW1",\  
-      "recipientGatewayId": "GW2",\  
-      "senderGatewayNetworkId": "1",\  
-      "recipientGatewayNetworkId": "43114",\  
-      "senderGatewayDeviceIdentityPubkey": "0245785e34b4a7b457dd4683a297ea3d78bab35f8b2583df55d9df8c69604d0e73",\  
-      "receiverGatewayDeviceIdentityPubkey": "03763f0bc48ff154cff45ea533a9d8a94349d65a45573e4de6ad6495b6e834312b",\  
-      "senderGatewayOwnerId": "CN=GatewayOps, OU=GatewayOps Systems, O=GatewayOps LTD, L=Austin, C=US",\  
-      "receiverGatewayOwnerId": "CN=BridgeSolutions, OU=BridgeSolutions Engineering, O=BridgeSolutions LTD, L=Austin, C=US"\  
-  },\  
-  "gatewayAndNetworkCapabilities": {\  
-      "gatewayDefaultSignatureAlgorithm": "ES256",\  
-      "gatewaySupportedSignatureAlgorithms": ["ES256", "RSA"],\  
-      "networkLockType": "HASH_TIME_LOCK",\  
-      "networkLockExpirationTime": 120,\  
-      "gatewayCredentialProfile": "OAUTH",\  
-      "gatewayLoggingProfile": "LOCAL_STORE",\  
-      "gatewayAccessControlProfile": "RBAC"\  
-  },\  
-}\  
+  "version": "1.0",
+  "messageType": "urn:ietf:satp:msgtype:transfer-proposal-msg",
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
+  "transferInitClaimFormat": "TRANSFER_INIT_CLAIM_FORMAT_1",
+  "transferInitClaim": {
+      "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",
+      "assetProfileId": "38561",
+      "verifiedOriginatorEntityId": "CN=Alice, OU=Example Org Unit, O=Example, L=New York, C=US",
+      "verifiedBeneficiaryEntityId": "CN=Bob, OU=Case Org Unit, O=Case, L=San Francisco, C=US",
+      "originatorPubkey": "0304b9f34d3898b27f85b3d88fa069a879abe14db5060dde466dd1e4a31ff75e44",
+      "beneficiaryPubkey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",
+      "senderGatewaySignaturePublicKey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",
+      "receiverGatewaySignaturePublicKey": "0243b12ada6515ada3bf99a7da32e84f00383b5765fd7701528e660449ba5ef260",
+      "senderGatewayId": "GW1",
+      "recipientGatewayId": "GW2",
+      "senderGatewayNetworkId": "1",
+      "recipientGatewayNetworkId": "43114",
+      "senderGatewayDeviceIdentityPubkey": "0245785e34b4a7b457dd4683a297ea3d78bab35f8b2583df55d9df8c69604d0e73",
+      "receiverGatewayDeviceIdentityPubkey": "03763f0bc48ff154cff45ea533a9d8a94349d65a45573e4de6ad6495b6e834312b",
+      "senderGatewayOwnerId": "CN=GatewayOps, OU=GatewayOps Systems, O=GatewayOps LTD, L=Austin, C=US",
+      "receiverGatewayOwnerId": "CN=BridgeSolutions, OU=BridgeSolutions Engineering, O=BridgeSolutions LTD, L=Austin, C=US"
+  },
+  "gatewayAndNetworkCapabilities": {
+      "gatewayDefaultSignatureAlgorithm": "ES256",
+      "gatewaySupportedSignatureAlgorithms": ["ES256", "RSA"],
+      "networkLockType": "HASH_TIME_LOCK",
+      "networkLockExpirationTime": 120,
+      "gatewayCredentialProfile": "OAUTH",
+      "gatewayLoggingProfile": "LOCAL_STORE",
+      "gatewayAccessControlProfile": "RBAC"
+  }
+}
+```
 
 ## Transfer Proposal Receipt Message
 
@@ -829,14 +821,14 @@ The parameters of this message consist of the following:
 
 Here is an example of the message request body:
 
-{\  
-  "version": "1.0",\  
-  "messageType": "urn:ietf:satp:msgtype:proposal-receipt-msg",\  
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
-  "hashTransferInitClaim": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",\  
-  "timestamp": "2024-10-03T12:02+00Z",\  
-}\  
+{\
+  "version": "1.0",\
+  "messageType": "urn:ietf:satp:msgtype:proposal-receipt-msg",\
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
+  "hashTransferInitClaim": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",\
+  "timestamp": "2024-10-03T12:02+00Z",\
+}\
 
 ## Reject Message
 
@@ -870,15 +862,15 @@ The parameters of this message consist of the following:
 
 Here is an example of the message request body:
 
-{\  
-  "version": "1.0",\  
-  "messageType": "urn:ietf:satp:msgtype:reject-msg",\  
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
-  "hashPrevMessage": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",\  
-  "reasonCode": "err_2.1",\  
-  "timestamp": "2024-10-03T12:02+00Z",\  
-}\  
+{\
+  "version": "1.0",\
+  "messageType": "urn:ietf:satp:msgtype:reject-msg",\
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
+  "hashPrevMessage": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",\
+  "reasonCode": "err_2.1",\
+  "timestamp": "2024-10-03T12:02+00Z",\
+}\
 
 
 ## Transfer Commence Message
@@ -911,13 +903,13 @@ The parameters of this message consist of the following:
 
 For example, the client makes the following HTTP request using TLS:
 
-{\  
-    "messageType": "urn:ietf:satp:msgtype:transfer-commence-msg",\  
-    "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
-    "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
-    "hashTransferInitClaim": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",\  
-    "hashPrevMessage": "0b0aecc2680e0d8a86bece6b54c454fba67068799484f477cdf2f87e6541db66",\  
-}\  
+{\
+    "messageType": "urn:ietf:satp:msgtype:transfer-commence-msg",\
+    "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
+    "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
+    "hashTransferInitClaim": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",\
+    "hashPrevMessage": "0b0aecc2680e0d8a86bece6b54c454fba67068799484f477cdf2f87e6541db66",\
+}\
 
 
 {: #transfer-commence-sec-example}
@@ -949,12 +941,12 @@ The parameters of this message consist of the following:
 
 An example of a success response could be as follows:
 
-{\  
-  "messageType": "urn:ietf:satp:msgtype:ack-commence-msg",\  
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
-  "hashPrevMessage": "dd5a61a26fc8f5d72e5ca6052c2a1fca1613115e5582d9417d336375c196db89",\  
-}\  
+{\
+  "messageType": "urn:ietf:satp:msgtype:ack-commence-msg",\
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
+  "hashPrevMessage": "dd5a61a26fc8f5d72e5ca6052c2a1fca1613115e5582d9417d336375c196db89",\
+}\
 
 # Lock Assertion Stage (Stage 2)
 
@@ -1018,15 +1010,15 @@ The parameters of this message consist of the following:
 
 Example:
 
-{\  
-  "messageType": "urn:ietf:satp:msgtype:lock-assert-msg",\  
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
-  "lockAssertionClaimFormat": "LOCK_ASSERTION_CLAIM_FORMAT_1",\  
-  "lockAssertionClaim": {},\  
-  "lockAssetionExpiration": "2024-12-23T23:59:59.999Z",\  
-  "hashPrevMessage": "b2c3e916703c4ee4494f45bcf52414a2c3edfe53643510ff158ff4a406678346",\  
-}\  
+{\
+  "messageType": "urn:ietf:satp:msgtype:lock-assert-msg",\
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
+  "lockAssertionClaimFormat": "LOCK_ASSERTION_CLAIM_FORMAT_1",\
+  "lockAssertionClaim": {},\
+  "lockAssetionExpiration": "2024-12-23T23:59:59.999Z",\
+  "hashPrevMessage": "b2c3e916703c4ee4494f45bcf52414a2c3edfe53643510ff158ff4a406678346",\
+}\
 
 ## Lock Assertion Receipt Message
 
@@ -1054,12 +1046,12 @@ The parameters of this message consist of the following:
 
 Example:
 
-{\  
-  "messageType": "urn:ietf:satp:msgtype:assertion-receipt-msg",\  
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
-  "hashPrevMessage": "16c983122d7506c78f906c15ca1dcc7142a0fa94552cdea9578fe87419c2c5d0",\  
-}\  
+{\
+  "messageType": "urn:ietf:satp:msgtype:assertion-receipt-msg",\
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
+  "hashPrevMessage": "16c983122d7506c78f906c15ca1dcc7142a0fa94552cdea9578fe87419c2c5d0",\
+}\
 
 # Commitment Preparation and Finalization (Stage 3)
 
@@ -1114,12 +1106,12 @@ The parameters of this message consist of the following:
 
 Example:
 
-{\  
-  "messageType": "urn:ietf:satp:msgtype:commit-prepare-msg",\  
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
-  "hashPrevMessage": "399bdadc07fe0bd57c4dfdd6cc176ceeca50a5e744f774154eccbeee8908fbaa",\  
-}\  
+{\
+  "messageType": "urn:ietf:satp:msgtype:commit-prepare-msg",\
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
+  "hashPrevMessage": "399bdadc07fe0bd57c4dfdd6cc176ceeca50a5e744f774154eccbeee8908fbaa",\
+}\
 
 ## Commit Ready Message (Commit-Ready)
 
@@ -1152,14 +1144,14 @@ The parameters of this message consist of the following:
 
 Example:
 
-{\  
-  "messageType": "urn:ietf:satp:msgtype:commit-ready-msg",\  
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
-  "hashPrevMessage": "8dcc8dc4e6c2c979474b42d24d3747ce4607a92637d1a7b294857ff7288b8e46",\  
-  "mintAssertionClaimFormat": "MINT_ASSERTION_CLAIM_FORMAT_1",\  
-  "mintAssertionClaim": {},\  
-}\  
+{\
+  "messageType": "urn:ietf:satp:msgtype:commit-ready-msg",\
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
+  "hashPrevMessage": "8dcc8dc4e6c2c979474b42d24d3747ce4607a92637d1a7b294857ff7288b8e46",\
+  "mintAssertionClaimFormat": "MINT_ASSERTION_CLAIM_FORMAT_1",\
+  "mintAssertionClaim": {},\
+}\
 
 ## Commit Final Assertion Message (Commit-Final)
 
@@ -1195,14 +1187,14 @@ The parameters of this message consist of the following:
 
 Example:
 
-{\  
-  "messageType": "urn:ietf:satp:msgtype:commit-final-msg",\  
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
-  "hashPrevMessage": "b92f13007216c58f2b51a8621599c3aef6527b02c8284e90c6a54a181d898e02",\  
-  "burnAssertionClaimFormat": "BURN_ASSERTION_CLAIM_FORMAT_1",\  
-  "burnAssertionClaim": {},\  
-}\  
+{\
+  "messageType": "urn:ietf:satp:msgtype:commit-final-msg",\
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
+  "hashPrevMessage": "b92f13007216c58f2b51a8621599c3aef6527b02c8284e90c6a54a181d898e02",\
+  "burnAssertionClaimFormat": "BURN_ASSERTION_CLAIM_FORMAT_1",\
+  "burnAssertionClaim": {},\
+}\
 
 
 ## Commit-Final Acknowledgement Receipt Message (ACK-Final-Receipt)
@@ -1235,14 +1227,14 @@ The parameters of this message consist of the following:
 
 Example:
 
-{\  
-  "messageType": "urn:ietf:satp:msgtype:ack-commit-final-msg",\  
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
-  "hashPrevMessage": "9c8f07c22ccf6888fc0306fee0799325efb87dfd536d90bb47d97392f020e998",\  
-  "assignmentAssertionClaimFormat": "ASSIGNMENT_ASSERTION_CLAIM_FORMAT_1",\  
-  "assignmentAssertionClaim": {},\  
-}\  
+{\
+  "messageType": "urn:ietf:satp:msgtype:ack-commit-final-msg",\
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
+  "hashPrevMessage": "9c8f07c22ccf6888fc0306fee0799325efb87dfd536d90bb47d97392f020e998",\
+  "assignmentAssertionClaimFormat": "ASSIGNMENT_ASSERTION_CLAIM_FORMAT_1",\
+  "assignmentAssertionClaim": {},\
+}\
 
 ## Transfer Complete Message
 
@@ -1276,19 +1268,19 @@ The parameters of this message consist of the following:
 
 Example:
 
-{\  
-  "messageType": "urn:ietf:satp:msgtype:commit-transfer-complete-msg",\  
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\  
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\  
-  "hashPrevMessage": "9c8f07c22ccf6888fc0306fee0799325efb87dfd536d90bb47d97392f020e998",\  
-  "hashTransferCommence": "4ba76c69265f4215b4e2d2f24fe56e708512fdb49e27f50d2ac0095928e1531b",\  
-}\  
+{\
+  "messageType": "urn:ietf:satp:msgtype:commit-transfer-complete-msg",\
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
+  "hashPrevMessage": "9c8f07c22ccf6888fc0306fee0799325efb87dfd536d90bb47d97392f020e998",\
+  "hashTransferCommence": "4ba76c69265f4215b4e2d2f24fe56e708512fdb49e27f50d2ac0095928e1531b",\
+}\
 
 ## Error Message
 
 {: #satp-error-msg-payloads}
 
-The purpose of this message is for either the sender or the receiver gateways to indicate to its peer that an error has occurred within the transfer protocol flow. 
+The purpose of this message is for either the sender or the receiver gateways to indicate to its peer that an error has occurred within the transfer protocol flow.
 
 This message must contain the error type (see the appendix) and the course of action indicated by the severity level. Typicaly, the action taken will be the immediate termination of the session.
 
@@ -1297,7 +1289,7 @@ This message must contain the error type (see the appendix) and the course of ac
 - sessionId REQUIRED: This is the current session in which the error pertains.
 
 - errorMsgType: The pevious msg-type that was erronous.
-  
+
 - errorType REQUIRED: This is the error code being reported ({{error-types-section}}).
 
 - errorSeverity REQUIRED: This is the severity level of the error, leading to the action.
@@ -1411,7 +1403,7 @@ is needed, the following messages are used:
   The message parameters include session ID, message type,
   a boolean indicating success, a list of actions performed
   to rollback a state (e.g., UNLOCK, BURN), a list of proofs
-  specific to the DLT [SATP], and the sender's digital signature.
+  specific to the DLT, and the sender's digital signature.
 
 - ROLLBACK-ACK: Upon successful rollback, the counterparty
   gateway sends a ROLLBACK-ACK message to the recovered gateway acknowledging
@@ -1428,7 +1420,7 @@ A gateway can transmit an error message at any point in the SATP protocol flow t
 
 The default action to be taken by the transitting gateway is to terminate the session immediately.
 
-Error messages at the SATP protocol layer is distinct from time-outs due to gateway crashes. 
+Error messages at the SATP protocol layer is distinct from time-outs due to gateway crashes.
 
 ## Session Termination Notification
 
@@ -1484,9 +1476,9 @@ In general, the termination of sessions or aborts occurring before the sender ga
 
 {: #satp-Security-Consideration-section}
 
-Gateways may be of interest to attackers because they enable the transferal of digital assets across networks and therefore are an important function in the digital economy. 
+Gateways may be of interest to attackers because they enable the transferal of digital assets across networks and therefore are an important function in the digital economy.
 
-- Disruptions in transfers and denial of service: Disruptions to a transfer session may cause not only resource waste (e.g. CPU usage), but in some cases may result in financial loss on the part of the gateway operator (e.g. fees charged by network). Denial-of-service attacks by third parties to a run of the protocol may result in the termination of the current run (e.g. time-outs at the SATP layer), and for new attempts to be conducted. If the gateway selection mechanisms are utilized by networks NW1 and NW2, such attacks may incur more delays because new gateways may have to be elected at either network. 
+- Disruptions in transfers and denial of service: Disruptions to a transfer session may cause not only resource waste (e.g. CPU usage), but in some cases may result in financial loss on the part of the gateway operator (e.g. fees charged by network). Denial-of-service attacks by third parties to a run of the protocol may result in the termination of the current run (e.g. time-outs at the SATP layer), and for new attempts to be conducted. If the gateway selection mechanisms are utilized by networks NW1 and NW2, such attacks may incur more delays because new gateways may have to be elected at either network.
 
 - Dishonest gateways: The SATP protocol requires gateways to sign messages related to the transfer layer, not only to provide message source authentication and integrity but also to maintain honesty on the part of the gateways. Gateway-operators may take-on legal and financial liabilities in certain jurisdictions by digitally signing messages. Dishonest gateways may intentionally delay the delivery of certain messages or intentionally fail (abort) the protocol run at certain crucial points [ARCH].  Two such crucial points in the message flows are the following: (i) the commit-final-msg, where the sender G1 asserts it has extinguished (burned) the asset in the origin network, and (ii) the ack-prepare-msg where the receiver gateway G2 asserts it is ready to proceed with the final commitment. If gateway G1 intentionally drops the commit-final-msg (commit-final) such that gateway G2 times-out, then G2 may suffer financial loss due to roll-back costs in network NW2. Similarly, if G2 intentionally drops the ack-prepare-msg to signal that it is ready to proceed with the commitment (commit-ready), then gateway G1 may time-out and terminate the protocol run, causing resource waste at G1. Operators of gateways should utlize relevant tools to detect possible dishonest behavior of certain gateways, and select to have their gateways peer with other reliable gateways.
 
@@ -1501,7 +1493,87 @@ Gateways may be of interest to attackers because they enable the transferal of d
 
 {: #satp-iana-Consideration}
 
+
 The following request is being made to IANA.
+
+## SATP Error Codes Registry
+
+This registry defines the error codes used in SATP protocol messages. Each entry consists of:
+
+- **Code**: The enumeration string (e.g., err_3.3.1)
+- **Category**: The protocol stage or message type (e.g., Commit Ready errors)
+- **Type**: The error type (e.g., badly formed message)
+- **Description**: A brief description (e.g., mismatch transferContextId)
+
+| Code         | Category                        | Type                  | Description                        |
+|--------------|----------------------------------|-----------------------|-------------------------------------|
+| err_1.1.1    | Transfer Proposal/Receipt errors | badly formed message  | invalid transferContextId           |
+| err_1.1.2    | Transfer Proposal/Receipt errors | badly formed message  | invalid sessionId                   |
+| err_1.1.3    | Transfer Proposal/Receipt errors | badly formed message  | incorect transferInitClaimFormat    |
+| err_1.1.4    | Transfer Proposal/Receipt errors | badly formed message  | bad signature                       |
+| err_1.1.11   | Transfer Proposal/Receipt errors | badly formed claim    | invalid digitalAssetId              |
+| err_1.1.12   | Transfer Proposal/Receipt errors | badly formed claim    | invalid assetProfileId              |
+| err_1.1.13   | Transfer Proposal/Receipt errors | badly formed claim    | invalid verifiedOriginatorEntityId  |
+| err_1.1.14   | Transfer Proposal/Receipt errors | badly formed claim    | invalid verifiedBeneficiaryEntityId |
+| err_1.1.15   | Transfer Proposal/Receipt errors | badly formed claim    | invalid originatorPubkey            |
+| err_1.1.16   | Transfer Proposal/Receipt errors | badly formed claim    | invalid beneficiaryPubkey           |
+| err_1.1.17   | Transfer Proposal/Receipt errors | badly formed claim    | invalid senderGatewaySignaturePublicKey |
+| err_1.1.18   | Transfer Proposal/Receipt errors | badly formed claim    | invalid receiverGatewaySignaturePublicKey |
+| err_1.1.19   | Transfer Proposal/Receipt errors | badly formed claim    | invalid senderGatewayId             |
+| err_1.1.20   | Transfer Proposal/Receipt errors | badly formed claim    | invalid recipientGatewayId          |
+| err_1.1.31   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported gatewayDefaultSignatureAlgorithm |
+| err_1.1.32   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported networkLockType         |
+| err_1.1.33   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported networkLockExpirationTime |
+| err_1.1.34   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported gatewayCredentialProfile |
+| err_1.1.35   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported gatewayLoggingProfile   |
+| err_1.1.36   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported gatewayAccessControlProfile |
+| err_1.2.1    | Transfer Proposal/Receipt errors | badly formed message  | mismatch transferContextId          |
+| err_1.2.2    | Transfer Proposal/Receipt errors | badly formed message  | mismatch sessionId                  |
+| err_1.2.3    | Transfer Proposal/Receipt errors | badly formed message  | mismatch hashTransferInitClaim      |
+| err_1.2.4    | Transfer Proposal/Receipt errors | badly formed message  | bad signature                       |
+| err_1.3.1    | Transfer Commence errors         | badly formed message  | mismatch transferContextId          |
+| err_1.3.2    | Transfer Commence errors         | badly formed message  | mismatch sessionId                  |
+| err_1.3.3    | Transfer Commence errors         | badly formed message  | mismatch hashTransferInitClaim      |
+| err_1.3.4    | Transfer Commence errors         | badly formed message  | mismatch hashPrevMessage            |
+| err_1.3.5    | Transfer Commence errors         | badly formed message  | bad signature                       |
+| err_1.4.1    | ACK Commence errors              | badly formed message  | mismatch transferContextId          |
+| err_1.4.2    | ACK Commence errors              | badly formed message  | mismatch sessionId                  |
+| err_1.4.3    | ACK Commence errors              | badly formed message  | mismatch hashPrevMessage            |
+| err_1.4.4    | ACK Commence errors              | badly formed message  | bad signature                       |
+| err_2.2.1    | Lock Assertion errors            | badly formed message  | mismatch transferContextId          |
+| err_2.2.2    | Lock Assertion errors            | badly formed message  | mismatch sessionId                  |
+| err_2.2.3    | Lock Assertion errors            | badly formed message  | unsupported lockAssertionClaimFormat|
+| err_2.2.4    | Lock Assertion errors            | badly formed message  | unsupported lockAssertionExpiration |
+| err_2.2.5    | Lock Assertion errors            | badly formed message  | mismatch hashPrevMessage            |
+| err_2.2.6    | Lock Assertion errors            | badly formed message  | bad signature                       |
+| err_2.4.1    | Lock Assertion Receipt errors    | badly formed message  | mismatch transferContextId          |
+| err_2.4.2    | Lock Assertion Receipt errors    | badly formed message  | mismatch sessionId                  |
+| err_2.4.3    | Lock Assertion Receipt errors    | badly formed message  | mismatch hashPrevMessage            |
+| err_2.4.4    | Lock Assertion Receipt errors    | badly formed message  | bad signature                       |
+| err_3.1.1    | Commit Preparation errors        | badly formed message  | mismatch transferContextId          |
+| err_3.1.2    | Commit Preparation errors        | badly formed message  | mismatch sessionId                  |
+| err_3.1.3    | Commit Preparation errors        | badly formed message  | mismatch hashPrevMessage            |
+| err_3.1.4    | Commit Preparation errors        | badly formed message  | bad signature                       |
+| err_3.3.1    | Commit Ready errors              | badly formed message  | mismatch transferContextId          |
+| err_3.3.2    | Commit Ready errors              | badly formed message  | mismatch sessionId                  |
+| err_3.3.3    | Commit Ready errors              | badly formed message  | mismatch hashPrevMessage            |
+| err_3.3.4    | Commit Ready errors              | badly formed message  | unsupported mintAssertionFormat     |
+| err_3.3.5    | Commit Ready errors              | badly formed message  | bad signature                       |
+| err_3.5.1    | Commit Final Assertion errors    | badly formed message  | mismatch transferContextId          |
+| err_3.5.2    | Commit Final Assertion errors    | badly formed message  | mismatch sessionId                  |
+| err_3.5.3    | Commit Final Assertion errors    | badly formed message  | mismatch hashPrevMessage            |
+| err_3.5.4    | Commit Final Assertion errors    | badly formed message  | unsupported burnAssertionClaimFormat|
+| err_3.5.5    | Commit Final Assertion errors    | badly formed message  | bad signature                       |
+| err_3.7.1    | Commit Final Ack Receipt errors  | badly formed message  | mismatch transferContextId          |
+| err_3.7.2    | Commit Final Ack Receipt errors  | badly formed message  | mismatch sessionId                  |
+| err_3.7.3    | Commit Final Ack Receipt errors  | badly formed message  | mismatch hashPrevMessage            |
+| err_3.7.4    | Commit Final Ack Receipt errors  | badly formed message  | unsupported assignmentAssertionClaimFormat |
+| err_3.7.5    | Commit Final Ack Receipt errors  | badly formed message  | bad signature                       |
+| err_3.9.1    | Transfer Complete errors         | badly formed message  | mismatch transferContextId          |
+| err_3.9.2    | Transfer Complete errors         | badly formed message  | mismatch sessionId                  |
+| err_3.9.3    | Transfer Complete errors         | badly formed message  | mismatch hashPrevMessage            |
+| err_3.9.4    | Transfer Complete errors         | badly formed message  | mismatch hashTransferCommence       |
+| err_3.9.5    | Transfer Complete errors         | badly formed message  | bad signature                       |
 
 ## URN Registration
 
@@ -1592,6 +1664,31 @@ The SATP Message Types registry's initial contents are as follows:
 - Change controller: IETF
 - Specification document(s): Section 10.7 of draft-ietf-satp-core.
 
+# Error Types and Codes
+
+{: #error-types-section}
+
+This appendix defines the error codes that may be returned in SATP protocol messages.
+
+## Protocol Error Codes
+
+The following error codes are defined for SATP protocol errors:
+
+- err_1.1: Invalid message type
+- err_1.2: Invalid session ID
+- err_1.3: Invalid transfer context ID
+- err_1.4: Invalid signature
+- err_1.5: Invalid hash value
+- err_2.1: Asset not found
+- err_2.2: Asset already locked
+- err_2.3: Asset lock expired
+- err_2.4: Insufficient permissions
+- err_3.1: Network connection failure
+- err_3.2: Gateway unavailable
+- err_3.3: Timeout exceeded
+- err_4.1: Unsupported credential profile
+- err_4.2: Invalid credential format
+- err_4.3: Credential verification failed
 
 # Acknowledgements
 
@@ -1616,156 +1713,3 @@ Orie Steele,
 Yaron Scheffer,
 Peter Somogyvari,
 Weijia Zhang.
-
-
-# Appendix: Error Types
-
-{: #error-types-section}
-
-The following lists the error associated with the SATP messages.
-
-## Transfer Proposal and Receipt errors
-
-{: #errors-transfer-proposal}
-
-The following is the list of errors related to the Transfer Proposal and Receipt.
-
-Errors related to the transfer context ID and session ID:
-
-- err_1.1.1: Badly formed message: invalid transferContextId.
-- err_1.1.2: Badly formed message: invalid sessionId.
-- err_1.1.3: Badly formed message: incorect transferInitClaimFormat.
-- err_1.1.4: Badly formed message: bad signature.
-
-Errors within one of more claims in the transfer initialization claim-set:
-
-- err_1.1.11: Badly formed claim: invalid digitalAssetId.
-- err_1.1.12: Badly formed claim: invalid assetProfileId.
-- err_1.1.13: Badly formed claim: invalid verifiedOriginatorEntityId.
-- err_1.1.14: Badly formed claim: invalid verifiedBeneficiaryEntityId.
-- err_1.1.15: Badly formed claim: invalid originatorPubkey.
-- err_1.1.16: Badly formed claim: invalid beneficiaryPubkey.
-- err_1.1.17: Badly formed claim: invalid senderGatewaySignaturePublicKey.
-- err_1.1.18: Badly formed claim: invalid receiverGatewaySignaturePublicKey.
-- err_1.1.19: Badly formed claim: invalid senderGatewayId.
-- err_1.1.20: Badly formed claim: invalid recipientGatewayId.
-  
-Errors within one of more parameters in the gateway and network capabilities claim-set:
-
-- err_1.1.31: Badly formed parameter: unsupported gatewayDefaultSignatureAlgorithm.
-- err_1.1.32: Badly formed parameter: unsupported networkLockType.
-- err_1.1.33: Badly formed parameter: unsupported networkLockExpirationTime.
-- err_1.1.34: Badly formed parameter: unsupported gatewayCredentialProfile.
-- err_1.1.35: Badly formed parameter: unsupported gatewayLoggingProfile.
-- err_1.1.36: Badly formed parameter: unsupported gatewayAccessControlProfile.
-
-Errors related to the proposal receipt message:
-
-- err_1.2.1: Badly formed message: mismatch transferContextId.
-- err_1.2.2: Badly formed message: mismatch sessionId.
-- err_1.2.3: Badly formed message: mismatch hashTransferInitClaim.
-- err_1.2.4: Badly formed message: bad signature.
-
-## Transfer Commence and Acknowledgement errors
-
-{: #errors-transfer-commence}
-
-The following is the list of errors related to the Transfer Commence:
-
-- err_1.3.1: Badly formed message: mismatch transferContextId.
-- err_1.3.2: Badly formed message: mismatch sessionId.
-- err_1.3.3: Badly formed message: mismatch hashTransferInitClaim.
-- err_1.3.4: Badly formed message: mismatch hashPrevMessage.
-- err_1.3.5: Badly formed message: bad signature.
-
-The following is the list of errors related to the ACK Commence:
-
-- err_1.4.1: Badly formed message: mismatch transferContextId.
-- err_1.4.2: Badly formed message: mismatch sessionId.
-- err_1.4.3: Badly formed message: mismatch hashPrevMessage.
-- err_1.4.4: Badly formed message: bad signature.
-
-## Lock Assertion errors
-
-{: #errors-lock-assertion}
-
-The following is the list of errors related to Lock Assertion:
-
-- err_2.2.1: Badly formed message: mismatch transferContextId.
-- err_2.2.2: Badly formed message: mismatch sessionId.
-- err_2.2.3: Badly formed message: unsupported lockAssertionClaimFormat.
-- err_2.2.4: Badly formed message: unsupported lockAssertionExpiration.
-- err_2.2.5: Badly formed message: mismatch hashPrevMessage.
-- err_2.2.6: Badly formed message: bad signature.
-
-## Lock Assertion Receipt errors
-
-{: #errors-lock-assertion-receipt}
-
-The following is the list of errors related to Lock Assertion Receipt:
-
-- err_2.4.1: Badly formed message: mismatch transferContextId.
-- err_2.4.2: Badly formed message: mismatch sessionId.
-- err_2.4.3: Badly formed message: mismatch hashPrevMessage.
-- err_2.4.4: Badly formed message: bad signature.
-
-## Commit Preparation errors
-
-{: #errors-commit-prepare}
-
-The following is the list of errors related to Commit Preparation:
-
-- err_3.1.1: Badly formed message: mismatch transferContextId.
-- err_3.1.2: Badly formed message: mismatch sessionId.
-- err_3.1.3: Badly formed message: mismatch hashPrevMessage.
-- err_3.1.4: Badly formed message: bad signature.
-
-## Commit Ready errors
-
-{: #errors-commit-ready}
-
-The following is the list of errors related to Commit Ready:
-
-- err_3.3.1: Badly formed message: mismatch transferContextId.
-- err_3.3.2: Badly formed message: mismatch sessionId.
-- err_3.3.3: Badly formed message: mismatch hashPrevMessage.
-- err_3.3.4: Badly formed message: unsupported mintAssertionFormat.
-- err_3.3.5: Badly formed message: bad signature.
-
-## Commit Final Assertion errors
-
-{: #errors-commit-final-assertion}
-
-The following is the list of errors related to Commit Final Assertion:
-
-- err_3.5.1: Badly formed message: mismatch transferContextId.
-- err_3.5.2: Badly formed message: mismatch sessionId.
-- err_3.5.3: Badly formed message: mismatch hashPrevMessage.
-- err_3.5.4: Badly formed message: unsupported burnAssertionClaimFormat.
-- err_3.5.5: Badly formed message: bad signature.
-
-## Commit Final Acknowledgement Receipt errors
-
-{: #errors-commit-final-ack}
-
-The following is the list of errors related to Commit Final Acknowledgement Receipt:
-
-- err_3.7.1: Badly formed message: mismatch transferContextId.
-- err_3.7.2: Badly formed message: mismatch sessionId.
-- err_3.7.3: Badly formed message: mismatch hashPrevMessage.
-- err_3.7.4: Badly formed message: unsupported assignmentAssertionClaimFormat.
-- err_3.7.5: Badly formed message: bad signature.
-
-## Transfer Complete errors
-
-{: #errors-transfer-complete}
-
-The following is the list of errors related to Commit Final Assertion:
-
-- err_3.9.1: Badly formed message: mismatch transferContextId.
-- err_3.9.2: Badly formed message: mismatch sessionId.
-- err_3.9.3: Badly formed message: mismatch hashPrevMessage.
-- err_3.9.4: Badly formed message: mismatch hashTransferCommence.
-- err_3.9.5: Badly formed message: bad signature.
-
---- back

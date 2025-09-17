@@ -19,11 +19,11 @@ The GitHub interface supports creating pull requests using the Edit (✏) button
 
 ## Command Line Usage
 
-Formatted text and HTML versions of the draft can be built using `make`.
+The Makefile provides several [useful targets](https://github.com/martinthomson/i-d-template/blob/main/main.mk#L1):
+- `make fix-lint` - Runs editorconfig-checker to validate formatting and style
+- `make` - Builds formatted text and HTML versions of the draft
 
-```sh
-$ make
-```
+These tools help maintain consistent formatting and catch common issues before submission.
 
 Command line usage requires that you have the necessary software installed.  See
 [the instructions](https://github.com/martinthomson/i-d-template/blob/main/doc/SETUP.md).

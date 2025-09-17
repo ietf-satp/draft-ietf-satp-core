@@ -5,14 +5,14 @@
 Secure Asset Transfer Protocol                             M. Hargreaves
 Internet-Draft                                             Quant Network
 Intended status: Informational                               T. Hardjono
-Expires: 20 March 2026                                               MIT
+Expires: 21 March 2026                                               MIT
                                                              R. Belchior
                                    INESC-ID, Técnico Lisboa, Blockdaemon
                                                           V. Ramakrishna
                                                                      IBM
                                                               A. Chiriac
                                                            Quant Network
-                                                       16 September 2025
+                                                       17 September 2025
 
 
                Secure Asset Transfer Protocol (SATP) Core
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 March 2026.
+   This Internet-Draft will expire on 21 March 2026.
 
 Copyright Notice
 

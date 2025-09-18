@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-30T00:36:51.404812+00:00",
+  "timestamp": "2025-09-18T00:59:20.227846+00:00",
   "repo": "ietf-satp/draft-ietf-satp-core",
   "labels": [
     {
@@ -47,6 +47,31 @@
       "name": "wontfix",
       "description": "This will not be worked on",
       "color": "ffffff"
+    },
+    {
+      "name": "stage 1",
+      "description": "",
+      "color": "bb7bc5"
+    },
+    {
+      "name": "stage 0",
+      "description": "",
+      "color": "1564ff"
+    },
+    {
+      "name": "stage 2",
+      "description": "",
+      "color": "6848f3"
+    },
+    {
+      "name": "stage 3",
+      "description": "",
+      "color": "38b483"
+    },
+    {
+      "name": "error model",
+      "description": "",
+      "color": "a470d1"
     }
   ],
   "issues": [
@@ -224,6 +249,328 @@
           "updatedAt": "2025-01-02T15:39:21Z"
         }
       ]
+    },
+    {
+      "number": 31,
+      "id": "I_kwDOKkmiaM7Lu_Tz",
+      "title": "Transfer-Context ID format?",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/31",
+      "state": "OPEN",
+      "author": "hardaker",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "stage 0"
+      ],
+      "body": "Section 5.3.5 defines the transfer context ID, but only specifies that it \"may be a complex data structure\".   It fails to specify what format this might appear as in message(s).  Should it be encoded as a string?  Should it be encoded as a json sub-structure/obect?  Either?  Who needs to understand the format?  Just the side that defines it?  Who should define it?\n\nThe format may be outside the scope, but it still needs to specify how it should be encoded.",
+      "createdAt": "2025-09-15T13:56:34Z",
+      "updatedAt": "2025-09-16T16:35:36Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 32,
+      "id": "I_kwDOKkmiaM7LvEs-",
+      "title": "Gateway Credential Type needs a list of values",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/32",
+      "state": "OPEN",
+      "author": "hardaker",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Right now the credential type is under specified.  It merely gives an example.  For this specification to be usable it needs a specific type list.  It can come from somewhere else (see what I proposed in #30 for JWEB algorithms), or can be a list of acceptable values defined in the document and specified later (see #30 and the change to networkLockType).",
+      "createdAt": "2025-09-15T14:02:07Z",
+      "updatedAt": "2025-09-15T14:02:07Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 33,
+      "id": "I_kwDOKkmiaM7LvLdL",
+      "title": "digitalAssetId format",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/33",
+      "state": "OPEN",
+      "author": "hardaker",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The asset ID example shows that it's a UUID format, but I suspect it can be anything as long as its a string of some kind.  But if that's true, it should say so or otherwise state it's a UUID or something.",
+      "createdAt": "2025-09-15T14:08:53Z",
+      "updatedAt": "2025-09-15T14:08:53Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 34,
+      "id": "I_kwDOKkmiaM7LvQ32",
+      "title": "originator and beneficiary public key specification types needed",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/34",
+      "state": "OPEN",
+      "author": "hardaker",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The originatorPubkey and beneficiaryPubkey types don't specify what type of key should be in the field.  It's possible that a format/type field may be needed if you expect to have different format types, or if it's a single type then it should say what type.  Note that a single type is not likely acceptable due to not being forward modifiable, which is always a danger with cryptographic mechanisms eventually being broken.  If a format is picked (or range of formats) the list needs to be clearly defined (probably with a reference like I suggested for other values in #30).",
+      "createdAt": "2025-09-15T14:14:24Z",
+      "updatedAt": "2025-09-15T14:14:24Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 35,
+      "id": "I_kwDOKkmiaM7LvSS3",
+      "title": "senderGatewaynetworkId and recipientGatewayNetworkId formats",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/35",
+      "state": "OPEN",
+      "author": "hardaker",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "stage 0"
+      ],
+      "body": "these two fields don't explain what types of values are acceptable, and who defines them.  The examples look like integers but I suspect they could be defined by the network in question as any sort of selection string?",
+      "createdAt": "2025-09-15T14:15:46Z",
+      "updatedAt": "2025-09-16T16:31:47Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 36,
+      "id": "I_kwDOKkmiaM7LvTrY",
+      "title": "networkLockTypes need defining",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/36",
+      "state": "OPEN",
+      "author": "hardaker",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "stage 0"
+      ],
+      "body": "I proposed some value clean ups in #30 but the three types still need a definition of what they mean.  Right now they're simply three strings without any definition of what the types mean.",
+      "createdAt": "2025-09-15T14:16:59Z",
+      "updatedAt": "2025-09-16T16:34:46Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 37,
+      "id": "I_kwDOKkmiaM7Lvosv",
+      "title": "Clarification for gatewayAccessControlProfile",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/37",
+      "state": "OPEN",
+      "author": "hardaker",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "stage 0"
+      ],
+      "body": "I suggested some changes to this in #30 but the last sentence (\"Default is only the gateway that created the logs can access them\") didn't make any sense to me so I couldn't figure if what I added got in the way of it or how I could make it more understandable.",
+      "createdAt": "2025-09-15T14:36:58Z",
+      "updatedAt": "2025-09-16T16:31:54Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 38,
+      "id": "I_kwDOKkmiaM7LvpDg",
+      "title": "gatewayCredentialProfile types needed",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/38",
+      "state": "OPEN",
+      "author": "hardaker",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "stage 0"
+      ],
+      "body": "Similar to the other bugs, this definition can't be an undefined list of values and needs to be pointed at definitions of a particular set of types where both sides understands what a string will mean.",
+      "createdAt": "2025-09-15T14:37:22Z",
+      "updatedAt": "2025-09-16T16:31:30Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 39,
+      "id": "I_kwDOKkmiaM7LvpIg",
+      "title": "transfer protocol message's transferContextId",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/39",
+      "state": "OPEN",
+      "author": "hardaker",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "stage 0"
+      ],
+      "body": "It should be stated which party creates this value and whether or not both sides need to understand it or whether it's just a reference that one side needs to understand.",
+      "createdAt": "2025-09-15T14:37:27Z",
+      "updatedAt": "2025-09-16T16:31:36Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 40,
+      "id": "I_kwDOKkmiaM7LvpPo",
+      "title": "transferInitClaimFormat",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/40",
+      "state": "OPEN",
+      "author": "hardaker",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "stage 1"
+      ],
+      "body": "This (and other similar) values needs to be defined as to acceptable values.  The examples uses \"TRANSFER_INIT_CLAIM_FORMAT_1\" as a value, but that is not defined anywhere.  That may be the only acceptable value for this version of the specification?",
+      "createdAt": "2025-09-15T14:37:30Z",
+      "updatedAt": "2025-09-16T16:31:15Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 41,
+      "id": "I_kwDOKkmiaM7LvvVN",
+      "title": "message signature formats",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/41",
+      "state": "OPEN",
+      "author": "hardaker",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The content response message (and others) specify that messages should be signed.  Signed how though?  I'd suggest stating that signed messages should use the format defined by the JOSE work.  RFC7515 eg?",
+      "createdAt": "2025-09-15T14:43:54Z",
+      "updatedAt": "2025-09-15T14:43:54Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 42,
+      "id": "I_kwDOKkmiaM7Lvvst",
+      "title": "lockAssertianClaimFormat is missing acceptable values and definitions",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/42",
+      "state": "OPEN",
+      "author": "hardaker",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "stage 2"
+      ],
+      "body": "",
+      "createdAt": "2025-09-15T14:44:19Z",
+      "updatedAt": "2025-09-16T16:30:58Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 43,
+      "id": "I_kwDOKkmiaM7Lvx-_",
+      "title": "hashPrevMessage hash type?",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/43",
+      "state": "OPEN",
+      "author": "hardaker",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The hashPrevMessage field doesn't indicate which hash type should be used.  And it probably needs a format type in order to allow for multiple hashing types.",
+      "createdAt": "2025-09-15T14:46:26Z",
+      "updatedAt": "2025-09-15T14:46:26Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 44,
+      "id": "I_kwDOKkmiaM7LvzT1",
+      "title": "Commitment prepration error handling",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/44",
+      "state": "OPEN",
+      "author": "hardaker",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "error model"
+      ],
+      "body": "Section 10 has a sentence that says the stage must be completed within the time specfied (...) but it doesn't specify what happens when this fails to happen in time.",
+      "createdAt": "2025-09-15T14:47:30Z",
+      "updatedAt": "2025-09-16T16:30:02Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 45,
+      "id": "I_kwDOKkmiaM7Lv2lJ",
+      "title": "Referecing the satp-gateway-recovery draft will hold publicatino",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/45",
+      "state": "OPEN",
+      "author": "hardaker",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "enhancement"
+      ],
+      "body": "As is the reference to an ID in section 11 will make the publication hold for that other document to be completed.  Instead it could specify that crash recovery will be defined later, but still reference that draft as a informative reference.",
+      "createdAt": "2025-09-15T14:50:41Z",
+      "updatedAt": "2025-09-16T16:29:49Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 46,
+      "id": "I_kwDOKkmiaM7Lv4Qd",
+      "title": "session resumption rollback",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/46",
+      "state": "OPEN",
+      "author": "hardaker",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "enhancement"
+      ],
+      "body": "The 5th paragraph in section 11 talks about \"until that stage\" but \"that\" in the sentence is not very well defined.",
+      "createdAt": "2025-09-15T14:52:12Z",
+      "updatedAt": "2025-09-16T16:29:40Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 47,
+      "id": "I_kwDOKkmiaM7Lv9vz",
+      "title": "Recovery messages are half defined but also declared out of scope",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/47",
+      "state": "OPEN",
+      "author": "hardaker",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "enhancement"
+      ],
+      "body": "I'd suggest simply sticking with the fact that they'll be defined in the future and not quoting them in the document at all since it's likely theyl'l change in the future as the other specification advances?",
+      "createdAt": "2025-09-15T14:57:22Z",
+      "updatedAt": "2025-09-16T16:29:27Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "RafaelAPB",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@hardaker yes, perhaps we should entirely remove references to it, and state we have a draft on crash recovery",
+          "createdAt": "2025-09-16T16:29:19Z",
+          "updatedAt": "2025-09-16T16:29:19Z"
+        }
+      ]
+    },
+    {
+      "number": 48,
+      "id": "I_kwDOKkmiaM7LwA0b",
+      "title": "connection errors not specified",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/48",
+      "state": "OPEN",
+      "author": "hardaker",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "error model"
+      ],
+      "body": "It's unclear how to implement section 12.2 about connection errors.  The bad certificate error references a number of TLS sub-errors, but it's unclear what to do when errors occur.  Since they're connection errors, I assume that the connection should just be aborted since there is no way to send an error message?",
+      "createdAt": "2025-09-15T15:00:12Z",
+      "updatedAt": "2025-09-16T16:28:43Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -1333,6 +1680,586 @@
           "createdAt": "2024-11-21T06:35:51Z",
           "updatedAt": "2024-11-21T06:35:51Z",
           "comments": []
+        }
+      ]
+    },
+    {
+      "number": 28,
+      "id": "PR_kwDOKkmiaM6ZgKFH",
+      "title": "fix: rename networkLockType and move it to the asset section. Introduce acceptable values.",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/28",
+      "state": "OPEN",
+      "author": "alexchiriac",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-06-07T10:40:07Z",
+      "updatedAt": "2025-06-07T10:40:07Z",
+      "baseRepository": "ietf-satp/draft-ietf-satp-core",
+      "baseRefName": "main",
+      "baseRefOid": "eb210fc66051077e68e4ecaaa67b6081bd819125",
+      "headRepository": "ietf-satp/draft-ietf-satp-core",
+      "headRefName": "fix/locking-mechanism-references",
+      "headRefOid": "b7cbc0d64e2ab26813782157ac2ba6261bfb464b",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 29,
+      "id": "PR_kwDOKkmiaM6hhvSo",
+      "title": "Upgraded 'upload-artifact' GitHub Action to 'v4'",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/29",
+      "state": "MERGED",
+      "author": "VRamakrishna",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I've upgraded the upload-artifact GitHub action to v4 to fix the failing workflows (it was v3 earlier, which is now deprecated).",
+      "createdAt": "2025-07-31T12:32:41Z",
+      "updatedAt": "2025-09-16T15:32:46Z",
+      "baseRepository": "ietf-satp/draft-ietf-satp-core",
+      "baseRefName": "main",
+      "baseRefOid": "b91acb4e1f77522436bd95b69925e1ca9a02ccc8",
+      "headRepository": "VRamakrishna/draft-ietf-satp-core",
+      "headRefName": "main",
+      "headRefOid": "01ba8d359b8caebcda747b3c83e7bf105c9da870",
+      "closedAt": "2025-09-16T15:32:46Z",
+      "mergedAt": "2025-09-16T15:32:46Z",
+      "mergedBy": "RafaelAPB",
+      "mergeCommit": {
+        "oid": "74225dc1f87923974e7c2a02c03a7f7f50c176ce"
+      },
+      "comments": [
+        {
+          "author": "RafaelAPB",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "LGTM",
+          "createdAt": "2025-09-16T15:32:36Z",
+          "updatedAt": "2025-09-16T15:32:36Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 30,
+      "id": "PR_kwDOKkmiaM6opGqJ",
+      "title": "Misc chair proposed fixes",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/30",
+      "state": "MERGED",
+      "author": "hardaker",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR contains a LOT of misc fixes and suggested changes to make the specification more complete.  Please review the changes carefully before you decide whether you should merge it or not.",
+      "createdAt": "2025-09-15T13:46:01Z",
+      "updatedAt": "2025-09-16T14:24:13Z",
+      "baseRepository": "ietf-satp/draft-ietf-satp-core",
+      "baseRefName": "main",
+      "baseRefOid": "811d87ff108628b3ab3b6be4498919bdab3359ee",
+      "headRepository": "hardaker/draft-ietf-satp-core",
+      "headRefName": "misc-chair-proposed-fixes",
+      "headRefOid": "ac817fae8a2f07c785ba9fd33c4647b9255163e0",
+      "closedAt": "2025-09-16T14:24:08Z",
+      "mergedAt": "2025-09-16T14:24:08Z",
+      "mergedBy": "findthomas",
+      "mergeCommit": {
+        "oid": "a2cf5e432baa9ca6b5ebeed67a5ac00682dd17cd"
+      },
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Merging comments.",
+          "createdAt": "2025-09-16T14:24:13Z",
+          "updatedAt": "2025-09-16T14:24:13Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKkmiaM7APogJ",
+          "commit": {
+            "abbreviatedOid": "ac817fa"
+          },
+          "author": "alexchiriac",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-15T15:54:56Z",
+          "updatedAt": "2025-09-15T15:54:56Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "lgtm",
+              "createdAt": "2025-09-15T15:54:56Z",
+              "updatedAt": "2025-09-15T15:54:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM7APsdo",
+          "commit": {
+            "abbreviatedOid": "ac817fa"
+          },
+          "author": "alexchiriac",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-15T15:59:41Z",
+          "updatedAt": "2025-09-15T15:59:42Z",
+          "comments": [
+            {
+              "originalPosition": 30,
+              "body": "We mention \"unless otherwise noted\", but I don't believe we actually do note otherwise. Would it be fair to remove the statements? I had a look at all the message examples and I don't believe there is any base64 encoding. Unless maybe somebody can point to a specific example that I may have missed?",
+              "createdAt": "2025-09-15T15:59:41Z",
+              "updatedAt": "2025-09-15T15:59:42Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM7APs_4",
+          "commit": {
+            "abbreviatedOid": "ac817fa"
+          },
+          "author": "alexchiriac",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-15T16:00:22Z",
+          "updatedAt": "2025-09-15T16:00:22Z",
+          "comments": [
+            {
+              "originalPosition": 30,
+              "body": "In addition, there are two spaces between `JSON Strings.`  and `Values`",
+              "createdAt": "2025-09-15T16:00:22Z",
+              "updatedAt": "2025-09-15T16:02:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM7APvC8",
+          "commit": {
+            "abbreviatedOid": "ac817fa"
+          },
+          "author": "alexchiriac",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-15T16:02:28Z",
+          "updatedAt": "2025-09-15T16:02:28Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "2 spaces between `specification.` and `Implementations`. Apologies if these are intentional, going ahead with the review, I will note when I notice there are 2 spaces.",
+              "createdAt": "2025-09-15T16:02:28Z",
+              "updatedAt": "2025-09-15T16:02:28Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM7APvvN",
+          "commit": {
+            "abbreviatedOid": "ac817fa"
+          },
+          "author": "alexchiriac",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-15T16:03:19Z",
+          "updatedAt": "2025-09-15T16:03:19Z",
+          "comments": [
+            {
+              "originalPosition": 56,
+              "body": "lgtm",
+              "createdAt": "2025-09-15T16:03:19Z",
+              "updatedAt": "2025-09-15T16:03:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM7APxn0",
+          "commit": {
+            "abbreviatedOid": "ac817fa"
+          },
+          "author": "alexchiriac",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-15T16:05:45Z",
+          "updatedAt": "2025-09-15T16:05:45Z",
+          "comments": [
+            {
+              "originalPosition": 67,
+              "body": "I believe that in some of the earlier feedback, we mentioned we want to discourage the use of vague \"etc.\" statements in enumerations. Unless, perhaps, the enumeration here actually warrants it? I would propose we remove the enumeration and rely on a specific example instead.",
+              "createdAt": "2025-09-15T16:05:45Z",
+              "updatedAt": "2025-09-15T16:05:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM7APyHX",
+          "commit": {
+            "abbreviatedOid": "ac817fa"
+          },
+          "author": "alexchiriac",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-15T16:06:22Z",
+          "updatedAt": "2025-09-15T16:06:22Z",
+          "comments": [
+            {
+              "originalPosition": 76,
+              "body": "lgtm",
+              "createdAt": "2025-09-15T16:06:22Z",
+              "updatedAt": "2025-09-15T16:06:23Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM7AP1Lv",
+          "commit": {
+            "abbreviatedOid": "ac817fa"
+          },
+          "author": "alexchiriac",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-15T16:10:04Z",
+          "updatedAt": "2025-09-15T16:10:04Z",
+          "comments": [
+            {
+              "originalPosition": 87,
+              "body": "2 spaces between `gateway.` and `Each`.\r\ntypo, missing \"be\" in `either an Algorithm`\r\n\r\notherwise lgtm",
+              "createdAt": "2025-09-15T16:10:04Z",
+              "updatedAt": "2025-09-15T16:10:04Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM7AP2Qa",
+          "commit": {
+            "abbreviatedOid": "ac817fa"
+          },
+          "author": "alexchiriac",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-15T16:11:22Z",
+          "updatedAt": "2025-09-15T16:11:22Z",
+          "comments": [
+            {
+              "originalPosition": 98,
+              "body": "lgtm",
+              "createdAt": "2025-09-15T16:11:22Z",
+              "updatedAt": "2025-09-15T16:11:23Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM7AP3Ef",
+          "commit": {
+            "abbreviatedOid": "ac817fa"
+          },
+          "author": "alexchiriac",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-15T16:12:19Z",
+          "updatedAt": "2025-09-15T16:12:19Z",
+          "comments": [
+            {
+              "originalPosition": 112,
+              "body": "typo, believe we mean \"receiver\" instead of `received`",
+              "createdAt": "2025-09-15T16:12:19Z",
+              "updatedAt": "2025-09-15T16:12:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM7AP6JF",
+          "commit": {
+            "abbreviatedOid": "ac817fa"
+          },
+          "author": "alexchiriac",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-15T16:16:20Z",
+          "updatedAt": "2025-09-15T16:16:20Z",
+          "comments": [
+            {
+              "originalPosition": 130,
+              "body": "Good catch! I'm not sure if you've raised this in the issues yet (will finish the review first then look at the issues), but the error messages should have at least an example and be in a consistent JSON format as well, I believe. Ideally they should also be accompanied by an HTTP status. The good news is that the hard work of actually wording out the error messages has been done by the other authors \ud83d\ude4c ",
+              "createdAt": "2025-09-15T16:16:20Z",
+              "updatedAt": "2025-09-15T16:16:20Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM7AP9Qy",
+          "commit": {
+            "abbreviatedOid": "ac817fa"
+          },
+          "author": "alexchiriac",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-15T16:20:38Z",
+          "updatedAt": "2025-09-15T16:20:39Z",
+          "comments": [
+            {
+              "originalPosition": 162,
+              "body": "2 spaces between `network.` and `The`. This segment should also be in line with the one above. I just noticed many of the bullet point list items are arbitrarily split on separate rows. Could I perhaps fix that as a commit to your branch?\r\n\r\nlgtm about the format description though",
+              "createdAt": "2025-09-15T16:20:38Z",
+              "updatedAt": "2025-09-15T16:20:39Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM7AP9oZ",
+          "commit": {
+            "abbreviatedOid": "ac817fa"
+          },
+          "author": "alexchiriac",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-15T16:21:09Z",
+          "updatedAt": "2025-09-15T16:21:09Z",
+          "comments": [
+            {
+              "originalPosition": 171,
+              "body": "2 spaces between `gateways.` and `Some`",
+              "createdAt": "2025-09-15T16:21:09Z",
+              "updatedAt": "2025-09-15T16:21:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM7AbEja",
+          "commit": {
+            "abbreviatedOid": "ac817fa"
+          },
+          "author": "alexchiriac",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-16T08:24:24Z",
+          "updatedAt": "2025-09-16T08:24:24Z",
+          "comments": [
+            {
+              "originalPosition": 187,
+              "body": "2 spaces between `\"HASH_TIME_LOCK\".` and `Future`",
+              "createdAt": "2025-09-16T08:24:24Z",
+              "updatedAt": "2025-09-16T08:24:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM7AcJhq",
+          "commit": {
+            "abbreviatedOid": "ac817fa"
+          },
+          "author": "alexchiriac",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-16T09:12:15Z",
+          "updatedAt": "2025-09-16T09:12:15Z",
+          "comments": [
+            {
+              "originalPosition": 198,
+              "body": "lgtm",
+              "createdAt": "2025-09-16T09:12:15Z",
+              "updatedAt": "2025-09-16T09:12:15Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM7AcLzS",
+          "commit": {
+            "abbreviatedOid": "ac817fa"
+          },
+          "author": "alexchiriac",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-16T09:13:56Z",
+          "updatedAt": "2025-09-16T09:13:57Z",
+          "comments": [
+            {
+              "originalPosition": 250,
+              "body": "lgtm",
+              "createdAt": "2025-09-16T09:13:56Z",
+              "updatedAt": "2025-09-16T09:13:57Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM7AcPrU",
+          "commit": {
+            "abbreviatedOid": "ac817fa"
+          },
+          "author": "alexchiriac",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-16T09:17:07Z",
+          "updatedAt": "2025-09-16T09:17:07Z",
+          "comments": [
+            {
+              "originalPosition": 432,
+              "body": "I think there is a typo here, a missing \"is\" or \"it\" changed to \"is\" in  `as that it implementation`",
+              "createdAt": "2025-09-16T09:17:07Z",
+              "updatedAt": "2025-09-16T09:17:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM7AcReU",
+          "commit": {
+            "abbreviatedOid": "ac817fa"
+          },
+          "author": "alexchiriac",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Left a few comments, happy to discuss on error examples and base64 encoding!\r\n\r\nFantastic contribution, thank you so much, Wes! Mostly looking good to me!",
+          "createdAt": "2025-09-16T09:18:32Z",
+          "updatedAt": "2025-09-16T09:18:32Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 49,
+      "id": "PR_kwDOKkmiaM6o5Ki7",
+      "title": "chore: add error model, automate linter, and fix specification warnings",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/49",
+      "state": "OPEN",
+      "author": "RafaelAPB",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Addresses Wes' email: https://mailarchive.ietf.org/arch/msg/sat/ov4XZuOIdPI6Cv9YqzBGeaKXigo/",
+      "createdAt": "2025-09-16T15:45:16Z",
+      "updatedAt": "2025-09-17T18:15:10Z",
+      "baseRepository": "ietf-satp/draft-ietf-satp-core",
+      "baseRefName": "main",
+      "baseRefOid": "74225dc1f87923974e7c2a02c03a7f7f50c176ce",
+      "headRepository": "ietf-satp/draft-ietf-satp-core",
+      "headRefName": "error-table",
+      "headRefOid": "ea3f012c4fbfa641208727a8203bd51939177e3e",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "RafaelAPB",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@VRamakrishna I have incorporated your suggestions. Thank you for the review.",
+          "createdAt": "2025-09-17T18:15:10Z",
+          "updatedAt": "2025-09-17T18:15:10Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKkmiaM7AlQqU",
+          "commit": {
+            "abbreviatedOid": "0899cdb"
+          },
+          "author": "alexchiriac",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-09-16T17:23:59Z",
+          "updatedAt": "2025-09-16T17:23:59Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKkmiaM7AmAVd",
+          "commit": {
+            "abbreviatedOid": "0899cdb"
+          },
+          "author": "VRamakrishna",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-16T18:23:40Z",
+          "updatedAt": "2025-09-16T18:23:41Z",
+          "comments": [
+            {
+              "originalPosition": 15,
+              "body": "The `README.md` already provides an instruction to build the repo using `make`, so I wonder whether the Makefile-related instructions here would be more appropriate in that file.",
+              "createdAt": "2025-09-16T18:23:40Z",
+              "updatedAt": "2025-09-16T18:23:48Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM7AmDbp",
+          "commit": {
+            "abbreviatedOid": "0899cdb"
+          },
+          "author": "VRamakrishna",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-16T18:28:01Z",
+          "updatedAt": "2025-09-16T18:28:01Z",
+          "comments": [
+            {
+              "originalPosition": 22,
+              "body": "I believe the default `Makefile` (from the `i-d-template` repo) already provides a `fix-lint` target for this (see https://github.com/martinthomson/i-d-template/blob/main/main.mk#L237), so I'm not sure if this is needed here.",
+              "createdAt": "2025-09-16T18:28:01Z",
+              "updatedAt": "2025-09-16T18:28:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM7A3Bki",
+          "commit": {
+            "abbreviatedOid": "0899cdb"
+          },
+          "author": "RafaelAPB",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-17T18:07:41Z",
+          "updatedAt": "2025-09-17T18:07:42Z",
+          "comments": [
+            {
+              "originalPosition": 22,
+              "body": "That's true. It is probably not needed. I'll enhance the docs.",
+              "createdAt": "2025-09-17T18:07:42Z",
+              "updatedAt": "2025-09-17T18:07:42Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKkmiaM7A3Bqk",
+          "commit": {
+            "abbreviatedOid": "0899cdb"
+          },
+          "author": "RafaelAPB",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-17T18:07:50Z",
+          "updatedAt": "2025-09-17T18:07:50Z",
+          "comments": [
+            {
+              "originalPosition": 15,
+              "body": "Agreed, and see comment below.",
+              "createdAt": "2025-09-17T18:07:50Z",
+              "updatedAt": "2025-09-17T18:07:51Z"
+            }
+          ]
         }
       ]
     }

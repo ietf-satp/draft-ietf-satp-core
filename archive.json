@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-21T01:06:04.364197+00:00",
+  "timestamp": "2025-09-23T00:59:34.156603+00:00",
   "repo": "ietf-satp/draft-ietf-satp-core",
   "labels": [
     {
@@ -2140,24 +2140,26 @@
       "id": "PR_kwDOKkmiaM6o5Ki7",
       "title": "chore: add error model, automate linter, and fix specification warnings",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/49",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "RafaelAPB",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Addresses Wes' email: https://mailarchive.ietf.org/arch/msg/sat/ov4XZuOIdPI6Cv9YqzBGeaKXigo/",
       "createdAt": "2025-09-16T15:45:16Z",
-      "updatedAt": "2025-09-18T06:25:44Z",
+      "updatedAt": "2025-09-22T19:52:25Z",
       "baseRepository": "ietf-satp/draft-ietf-satp-core",
       "baseRefName": "main",
       "baseRefOid": "74225dc1f87923974e7c2a02c03a7f7f50c176ce",
       "headRepository": "ietf-satp/draft-ietf-satp-core",
       "headRefName": "error-table",
       "headRefOid": "ea3f012c4fbfa641208727a8203bd51939177e3e",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-09-22T19:52:25Z",
+      "mergedAt": "2025-09-22T19:52:25Z",
+      "mergedBy": "RafaelAPB",
+      "mergeCommit": {
+        "oid": "ffde10615ebdf0d7e25a29b5d6e098dff6b05efc"
+      },
       "comments": [
         {
           "author": "RafaelAPB",
@@ -2187,7 +2189,7 @@
             "abbreviatedOid": "0899cdb"
           },
           "author": "VRamakrishna",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-16T18:23:40Z",
@@ -2207,7 +2209,7 @@
             "abbreviatedOid": "0899cdb"
           },
           "author": "VRamakrishna",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-16T18:28:01Z",
@@ -2272,6 +2274,19 @@
           "body": "",
           "createdAt": "2025-09-18T06:25:44Z",
           "updatedAt": "2025-09-18T06:25:44Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKkmiaM7B-XOW",
+          "commit": {
+            "abbreviatedOid": "ea3f012"
+          },
+          "author": "VRamakrishna",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM. Thanks for addressing my comments.",
+          "createdAt": "2025-09-22T17:58:05Z",
+          "updatedAt": "2025-09-22T17:58:05Z",
           "comments": []
         }
       ]

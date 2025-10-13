@@ -29,7 +29,7 @@
     PyYAML 6.0.2
     requests 2.32.5
     setuptools 80.9.0
-    wcwidth 0.2.13
+    wcwidth 0.2.14
 -->
 <link href="draft-ietf-satp-core.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1048,11 +1048,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">SATP Core</td>
-<td class="right">September 2025</td>
+<td class="right">October 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Hargreaves, et al.</td>
-<td class="center">Expires 26 March 2026</td>
+<td class="center">Expires 16 April 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-satp-core-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-09-22" class="published">22 September 2025</time>
+<time datetime="2025-10-13" class="published">13 October 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-03-26">26 March 2026</time></dd>
+<dd class="expires"><time datetime="2026-04-16">16 April 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1136,7 +1136,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 26 March 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 16 April 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -2078,56 +2078,62 @@ located in the origin network.  The format of this JSON string is dependent on t
 definition (document) on which the digital asset was issued.<a href="#section-8.1-4.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.3">
-            <p id="section-8.1-4.3.1">verifiedOriginatorEntityId REQUIRED: This is the identity data of the originator entity
-(person or organization) in the origin network.
-This information must be verified by the sender gateway.<a href="#section-8.1-4.3.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.3.1">assetLockType REQUIRED: The default locking mechanism used for an asset. These can be (i) TIME_LOCK, (ii) HASH_LOCK, (iii) HASH_TIME_LOCK.<a href="#section-8.1-4.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.4">
-            <p id="section-8.1-4.4.1">verifiedBeneficiaryEntityId REQUIRED: This is the identity data of the beneficiary entity
-(person or organization) in the destination network.
-This information must be verified by the receiver gateway.<a href="#section-8.1-4.4.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.4.1">assetLockExpirationTime OPTIONAL: The duration of time (in seconds) for an asset lock to expire in the network, if it is a HASH_TIME_LOCK or a TIME_LOCK.<a href="#section-8.1-4.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.5">
-            <p id="section-8.1-4.5.1">originatorPubkey REQUIRED. This is the public key of the asset owner (originator)
-in the origin network or system.<a href="#section-8.1-4.5.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.5.1">verifiedOriginatorEntityId REQUIRED: This is the identity data of the originator entity
+(person or organization) in the origin network.
+This information must be verified by the sender gateway.<a href="#section-8.1-4.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.6">
-            <p id="section-8.1-4.6.1">beneficiaryPubkey REQUIRED. This is the public key of the beneficiary
-in the destination network.<a href="#section-8.1-4.6.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.6.1">verifiedBeneficiaryEntityId REQUIRED: This is the identity data of the beneficiary entity
+(person or organization) in the destination network.
+This information must be verified by the receiver gateway.<a href="#section-8.1-4.6.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.7">
-            <p id="section-8.1-4.7.1">senderGatewaySignaturePublicKey REQUIRED. This is the public key of the key-pair used by the sender gateway to sign assertions and receipts.<a href="#section-8.1-4.7.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.7.1">originatorPubkey REQUIRED. This is the public key of the asset owner (originator)
+in the origin network or system.<a href="#section-8.1-4.7.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.8">
-            <p id="section-8.1-4.8.1">receiverGatewaySignaturePublicKey REQUIRED. This is the public key of the key-pair used by the recevier gateway to sign assertions and receipts.<a href="#section-8.1-4.8.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.8.1">beneficiaryPubkey REQUIRED. This is the public key of the beneficiary
+in the destination network.<a href="#section-8.1-4.8.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.9">
-            <p id="section-8.1-4.9.1">senderGatewayId REQUIRED. This is the identifier of the sender gateway.<a href="#section-8.1-4.9.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.9.1">senderGatewaySignaturePublicKey REQUIRED. This is the public key of the key-pair used by the sender gateway to sign assertions and receipts.<a href="#section-8.1-4.9.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.10">
-            <p id="section-8.1-4.10.1">recipientGatewayId REQUIRED. This is the identifier of the receiver gateway.<a href="#section-8.1-4.10.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.10.1">receiverGatewaySignaturePublicKey REQUIRED. This is the public key of the key-pair used by the recevier gateway to sign assertions and receipts.<a href="#section-8.1-4.10.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.11">
-            <p id="section-8.1-4.11.1">senderGatewayNetworkId REQUIRED. This is the identifier of the
-origin network or system behind the client.<a href="#section-8.1-4.11.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.11.1">senderGatewayId REQUIRED. This is the identifier of the sender gateway.<a href="#section-8.1-4.11.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.12">
-            <p id="section-8.1-4.12.1">recipientGatewayNetworkId REQUIRED. This is the identifier of the destination
-network or system behind the server.<a href="#section-8.1-4.12.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.12.1">recipientGatewayId REQUIRED. This is the identifier of the receiver gateway.<a href="#section-8.1-4.12.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.13">
-            <p id="section-8.1-4.13.1">senderGatewayDeviceIdentityPubkey OPTIONAL. The device public key of the sender gateway (client).<a href="#section-8.1-4.13.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.13.1">senderGatewayNetworkId REQUIRED. This is the identifier of the
+origin network or system behind the client.<a href="#section-8.1-4.13.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.14">
-            <p id="section-8.1-4.14.1">receiverGatewayDeviceIdentityPubkey OPTIONAL. The device public key of the receiver gateway<a href="#section-8.1-4.14.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.14.1">recipientGatewayNetworkId REQUIRED. This is the identifier of the destination
+network or system behind the server.<a href="#section-8.1-4.14.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.15">
-            <p id="section-8.1-4.15.1">senderGatewayOwnerId OPTIONAL: This is the identity information of the owner or operator
-of the sender gateway.<a href="#section-8.1-4.15.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.15.1">senderGatewayDeviceIdentityPubkey OPTIONAL. The device public key of the sender gateway (client).<a href="#section-8.1-4.15.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.16">
-            <p id="section-8.1-4.16.1">receiverGatewayOwnerId OPTIONAL: This is the identity information of the owner or operator
-of the recipient gateway.<a href="#section-8.1-4.16.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.16.1">receiverGatewayDeviceIdentityPubkey OPTIONAL. The device public key of the receiver gateway<a href="#section-8.1-4.16.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.1-4.17">
+            <p id="section-8.1-4.17.1">senderGatewayOwnerId OPTIONAL: This is the identity information of the owner or operator
+of the sender gateway.<a href="#section-8.1-4.17.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.1-4.18">
+            <p id="section-8.1-4.18.1">receiverGatewayOwnerId OPTIONAL: This is the identity information of the owner or operator
+of the recipient gateway.<a href="#section-8.1-4.18.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-8.1-5">Here is an example representation in JSON format:<a href="#section-8.1-5" class="pilcrow">¶</a></p>
@@ -2160,33 +2166,32 @@ of the recipient gateway.<a href="#section-8.1-4.16.1" class="pilcrow">¶</a></p
 <p id="section-8.2-1">This is the set of parameters pertaining to the origin network and the destination network, and the technical capabilities supported by the peer gateways.  Some of these parameters must be previously agreed to during the Stage-0 negotiations, which is outside the scope of this document.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
 </div>
 <p id="section-8.2-2">Some network-specific parameters regarding the origin network may be relevant for a receiver gateway to evaluate its ability to process the proposed transfer.<a href="#section-8.2-2" class="pilcrow">¶</a></p>
-<p id="section-8.2-3">For example, the average duration of time of a lock to be held by a sender gateway may inform the receiver gateway about delay expectations.<a href="#section-8.2-3" class="pilcrow">¶</a></p>
-<p id="section-8.2-4">The gateway and network capabilities list is as follows:<a href="#section-8.2-4" class="pilcrow">¶</a></p>
+<p id="section-8.2-3">The gateway capabilities list is as follows:<a href="#section-8.2-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-8.2-5.1">
-            <p id="section-8.2-5.1.1">gatewayDefaultSignatureAlgorithm REQUIRED: The default digital signature algorithm (algorithm-id) from the IANA "JSON Web Signature and Encryption Algorithms" registry used by a gateway to sign claims.<a href="#section-8.2-5.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-8.2-4.1">
+            <p id="section-8.2-4.1.1">gatewayDefaultSignatureAlgorithm REQUIRED: The default digital signature algorithm (algorithm-id) from the IANA "JSON Web Signature and Encryption Algorithms" registry used by a gateway to sign claims.<a href="#section-8.2-4.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.2-5.2">
-            <p id="section-8.2-5.2.1">gatewaySupportedSignatureAlgorithms OPTIONAL: The list of other digital signature algorithms (algorithm-id) from the IANA "JSON Web Signature and Encryption Algorithms" registry supported by a gateway to sign claims<a href="#section-8.2-5.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-8.2-4.2">
+            <p id="section-8.2-4.2.1">gatewaySupportedSignatureAlgorithms OPTIONAL: The list of other digital signature algorithms (algorithm-id) from the IANA "JSON Web Signature and Encryption Algorithms" registry supported by a gateway to sign claims<a href="#section-8.2-4.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.2-5.3">
-            <p id="section-8.2-5.3.1">networkLockType REQUIRED: The default locking mechanism used by a network. The values allowed are "TIME_LOCK", "HASH_LOCK", "HASH_TIME_LOCK".  Future updates to this specification may define new values and implementations not supporting a value or not understanding a value for this field must return an appropriate error and cease the negotiation.<a href="#section-8.2-5.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-8.2-4.3">
+            <p id="section-8.2-4.3.1">networkLockType REQUIRED: The default locking mechanism used by a network. The values allowed are "TIME_LOCK", "HASH_LOCK", "HASH_TIME_LOCK".  Future updates to this specification may define new values and implementations not supporting a value or not understanding a value for this field must return an appropriate error and cease the negotiation.<a href="#section-8.2-4.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.2-5.4">
-            <p id="section-8.2-5.4.1">networkLockExpirationTime REQUIRED: The duration of time (in integer seconds) for a lock to expire in the network.<a href="#section-8.2-5.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-8.2-4.4">
+            <p id="section-8.2-4.4.1">networkLockExpirationTime REQUIRED: The duration of time (in integer seconds) for a lock to expire in the network.<a href="#section-8.2-4.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.2-5.5">
-            <p id="section-8.2-5.5.1">gatewayCredentialProfile REQUIRED: Specify type of auth (e.g., SAML, OAuth, X.509).<a href="#section-8.2-5.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-8.2-4.5">
+            <p id="section-8.2-4.5.1">gatewayCredentialProfile REQUIRED: Specify type of auth (e.g., SAML, OAuth, X.509).<a href="#section-8.2-4.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.2-5.6">
-            <p id="section-8.2-5.6.1">gatewayLoggingProfile REQUIRED: contains the profile of the logging procedure. "LOCAL_STORE" is the only defined allowed value at this time, but others may be defined in future updates to this specification.  Implementations not understanding a future option value should return an appropriate error response and cease the negotiation.<a href="#section-8.2-5.6.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-8.2-4.6">
+            <p id="section-8.2-4.6.1">gatewayLoggingProfile REQUIRED: contains the profile of the logging procedure. "LOCAL_STORE" is the only defined allowed value at this time, but others may be defined in future updates to this specification.  Implementations not understanding a future option value should return an appropriate error response and cease the negotiation.<a href="#section-8.2-4.6.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.2-5.7">
-            <p id="section-8.2-5.7.1">gatewayAccessControlProfile REQUIRED: the profile regarding the confidentiality of the log entries being stored. "RBAC" is the only defined allowed value at this time, but others may be defined in future updates to this specification.  Implementations not understanding a future option value should return an appropriate error response and cease the negotiation.  Default is only the gateway that created the logs can access them.<a href="#section-8.2-5.7.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-8.2-4.7">
+            <p id="section-8.2-4.7.1">gatewayAccessControlProfile REQUIRED: the profile regarding the confidentiality of the log entries being stored. "RBAC" is the only defined allowed value at this time, but others may be defined in future updates to this specification.  Implementations not understanding a future option value should return an appropriate error response and cease the negotiation.  Default is only the gateway that created the logs can access them.<a href="#section-8.2-4.7.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-8.2-6">Here is an example representation in JSON format:<a href="#section-8.2-6" class="pilcrow">¶</a></p>
-<p id="section-8.2-7"><code>json
+<p id="section-8.2-5">Here is an example representation in JSON format:<a href="#section-8.2-5" class="pilcrow">¶</a></p>
+<p id="section-8.2-6"><code>json
 {
   "gatewayDefaultSignatureAlgorithm": "ES256",
   "gatewaySupportedSignatureAlgorithms": ["ES256", "RSA"],
@@ -2196,7 +2201,7 @@ of the recipient gateway.<a href="#section-8.1-4.16.1" class="pilcrow">¶</a></p
   "gatewayLoggingProfile": "LOCAL_STORE",
   "gatewayAccessControlProfile": "RBAC"
 }
-</code><a href="#section-8.2-7" class="pilcrow">¶</a></p>
+</code><a href="#section-8.2-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="transfer-proposal-message">
@@ -2247,6 +2252,8 @@ for the current transfer.<a href="#section-8.3-5.6.1" class="pilcrow">¶</a></p>
   "transferInitClaim": {
       "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",
       "assetProfileId": "38561",
+      "assetLockType": "HASH_TIME_LOCK",
+      "assetLockExpirationTime": 120,
       "verifiedOriginatorEntityId": "CN=Alice, OU=Example Org Unit, O=Example, L=New York, C=US",
       "verifiedBeneficiaryEntityId": "CN=Bob, OU=Case Org Unit, O=Case, L=San Francisco, C=US",
       "originatorPubkey": "0304b9f34d3898b27f85b3d88fa069a879abe14db5060dde466dd1e4a31ff75e44",

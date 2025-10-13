@@ -5,14 +5,14 @@
 Secure Asset Transfer Protocol                             M. Hargreaves
 Internet-Draft                                             Quant Network
 Intended status: Informational                               T. Hardjono
-Expires: 26 March 2026                                               MIT
+Expires: 16 April 2026                                               MIT
                                                              R. Belchior
                                    INESC-ID, Técnico Lisboa, Blockdaemon
                                                           V. Ramakrishna
                                                                      IBM
                                                               A. Chiriac
                                                            Quant Network
-                                                       22 September 2025
+                                                         13 October 2025
 
 
                Secure Asset Transfer Protocol (SATP) Core
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 March 2026.
+   This Internet-Draft will expire on 16 April 2026.
 
 Copyright Notice
 
@@ -758,6 +758,14 @@ Table of Contents
       for the asset-profile definition (document) on which the digital
       asset was issued.
 
+   *  assetLockType REQUIRED: The default locking mechanism used for an
+      asset.  These can be (i) TIME_LOCK, (ii) HASH_LOCK, (iii)
+      HASH_TIME_LOCK.
+
+   *  assetLockExpirationTime OPTIONAL: The duration of time (in
+      seconds) for an asset lock to expire in the network, if it is a
+      HASH_TIME_LOCK or a TIME_LOCK.
+
    *  verifiedOriginatorEntityId REQUIRED: This is the identity data of
       the originator entity (person or organization) in the origin
       network.  This information must be verified by the sender gateway.
@@ -841,11 +849,7 @@ Table of Contents
    relevant for a receiver gateway to evaluate its ability to process
    the proposed transfer.
 
-   For example, the average duration of time of a lock to be held by a
-   sender gateway may inform the receiver gateway about delay
-   expectations.
-
-   The gateway and network capabilities list is as follows:
+   The gateway capabilities list is as follows:
 
    *  gatewayDefaultSignatureAlgorithm REQUIRED: The default digital
       signature algorithm (algorithm-id) from the IANA "JSON Web
@@ -936,8 +940,9 @@ Table of Contents
    "89e04e71-bba2-4363-933c-262f42ec07a0", "transferInitClaimFormat":
    "TRANSFER_INIT_CLAIM_FORMAT_1", "transferInitClaim": {
    "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",
-   "assetProfileId": "38561", "verifiedOriginatorEntityId": "CN=Alice,
-   OU=Example Org Unit, O=Example, L=New York, C=US",
+   "assetProfileId": "38561", "assetLockType": "HASH_TIME_LOCK",
+   "assetLockExpirationTime": 120, "verifiedOriginatorEntityId":
+   "CN=Alice, OU=Example Org Unit, O=Example, L=New York, C=US",
    "verifiedBeneficiaryEntityId": "CN=Bob, OU=Case Org Unit, O=Case,
    L=San Francisco, C=US", "originatorPubkey":
    "0304b9f34d3898b27f85b3d88fa069a879abe14db5060dde466dd1e4a31ff75e44",

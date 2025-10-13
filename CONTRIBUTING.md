@@ -30,6 +30,16 @@ technical issues needs to occur on the mailing list.
 You might also like to familiarize yourself with other
 [Working Group documents](https://datatracker.ietf.org/wg/satp/documents/).
 
+## Getting Started
+
+This repository includes Makefile targets to streamline the development process and ensure code quality. For a quick start:
+
+1. **Fork the repository** - Create your own fork of this repository
+2. **Implement draft changes** - Make your modifications to the draft documents
+3. **Run linting** - Execute `make fix-lint` to check and fix formatting issues
+4. **Push changes** - Commit and push your changes to your fork
+5. **Create a Pull Request** - Open a PR to propose your changes
+
 ## Process
 The collaboration process follows standard engineering and open-source practices. To contribute to this draft, create a fork of the repo, do your changes, and open a pull request. A discussion will happen on the PR thread. Upon approval (contingent to the decision of the WP), the PR is merged and your changes are incorporated on the main draft. Detailed instructions:
 

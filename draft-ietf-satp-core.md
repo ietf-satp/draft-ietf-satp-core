@@ -621,6 +621,10 @@ The Transfer Initialization Claim consists of the following:
 - assetProfileId REQUIRED: This is the globally unique identifier for the asset-profile
   definition (document) on which the digital asset was issued.
 
+- assetLockType REQUIRED: The default locking mechanism used for an asset. These can be (i) TIME_LOCK, (ii) HASH_LOCK, (iii) HASH_TIME_LOCK.
+
+- assetLockExpirationTime OPTIONAL: The duration of time (in seconds) for an asset lock to expire in the network, if it is a HASH_TIME_LOCK or a TIME_LOCK.
+
 - verifiedOriginatorEntityId REQUIRED: This is the identity data of the originator entity
   (person or organization) in the origin network.
   This information must be verified by the sender gateway.
@@ -688,9 +692,7 @@ This is the set of parameters pertaining to the origin network and the destinati
 
 Some network-specific parameters regarding the origin network may be relevant for a receiver gateway to evaluate its ability to process the proposed transfer.
 
-For example, the average duration of time of a lock to be held by a sender gateway may inform the receiver gateway about delay expectations.
-
-The gateway and network capabilities list is as follows:
+The gateway capabilities list is as follows:
 
 - gatewayDefaultSignatureAlgorithm REQUIRED: The default digital signature algorithm (algorithm-id) from the IANA "JSON Web Signature and Encryption Algorithms" registry used by a gateway to sign claims.
 
@@ -763,6 +765,8 @@ Here is an example of the message request body:
   "transferInitClaim": {
       "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",
       "assetProfileId": "38561",
+      "assetLockType": "HASH_TIME_LOCK",
+      "assetLockExpirationTime": 120,
       "verifiedOriginatorEntityId": "CN=Alice, OU=Example Org Unit, O=Example, L=New York, C=US",
       "verifiedBeneficiaryEntityId": "CN=Bob, OU=Case Org Unit, O=Case, L=San Francisco, C=US",
       "originatorPubkey": "0304b9f34d3898b27f85b3d88fa069a879abe14db5060dde466dd1e4a31ff75e44",

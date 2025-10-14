@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-23T00:59:34.156603+00:00",
+  "timestamp": "2025-10-14T01:01:16.052225+00:00",
   "repo": "ietf-satp/draft-ietf-satp-core",
   "labels": [
     {
@@ -470,9 +470,17 @@
       "labels": [],
       "body": "The hashPrevMessage field doesn't indicate which hash type should be used.  And it probably needs a format type in order to allow for multiple hashing types.",
       "createdAt": "2025-09-15T14:46:26Z",
-      "updatedAt": "2025-09-15T14:46:26Z",
+      "updatedAt": "2025-10-13T17:36:03Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Actually, I think we want to re-use the JWK/JWS supported format types.",
+          "createdAt": "2025-10-13T15:00:07Z",
+          "updatedAt": "2025-10-13T17:36:03Z"
+        }
+      ]
     },
     {
       "number": 44,
@@ -559,7 +567,7 @@
       "id": "I_kwDOKkmiaM7LwA0b",
       "title": "connection errors not specified",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/48",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hardaker",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -568,9 +576,17 @@
       ],
       "body": "It's unclear how to implement section 12.2 about connection errors.  The bad certificate error references a number of TLS sub-errors, but it's unclear what to do when errors occur.  Since they're connection errors, I assume that the connection should just be aborted since there is no way to send an error message?",
       "createdAt": "2025-09-15T15:00:12Z",
-      "updatedAt": "2025-09-16T16:28:43Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-10-13T14:52:21Z",
+      "closedAt": "2025-10-13T14:52:21Z",
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Yes, any connection errors should result in the abort of the session.  From the 3PC message flow perspective, a connection error/loss is the same as a message in the flow being lost.\n\n",
+          "createdAt": "2025-10-13T14:52:21Z",
+          "updatedAt": "2025-10-13T14:52:21Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -1688,24 +1704,26 @@
       "id": "PR_kwDOKkmiaM6ZgKFH",
       "title": "fix: rename networkLockType and move it to the asset section. Introduce acceptable values.",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/28",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "alexchiriac",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-06-07T10:40:07Z",
-      "updatedAt": "2025-06-07T10:40:07Z",
+      "updatedAt": "2025-10-13T14:50:49Z",
       "baseRepository": "ietf-satp/draft-ietf-satp-core",
       "baseRefName": "main",
-      "baseRefOid": "eb210fc66051077e68e4ecaaa67b6081bd819125",
+      "baseRefOid": "ffde10615ebdf0d7e25a29b5d6e098dff6b05efc",
       "headRepository": "ietf-satp/draft-ietf-satp-core",
       "headRefName": "fix/locking-mechanism-references",
-      "headRefOid": "b7cbc0d64e2ab26813782157ac2ba6261bfb464b",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "ad7cdd8fd0cb977ee7ec5d5ec199e3b1498ba378",
+      "closedAt": "2025-10-13T14:50:49Z",
+      "mergedAt": "2025-10-13T14:50:49Z",
+      "mergedBy": "findthomas",
+      "mergeCommit": {
+        "oid": "f683f8c0d3aedf84660b74752a18ab7fecaa9857"
+      },
       "comments": [],
       "reviews": []
     },

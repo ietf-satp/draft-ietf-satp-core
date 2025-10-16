@@ -676,7 +676,7 @@ Here is an example representation in JSON format:
 
 {: #satp-stage1-conveyance}
 
-This is the set of parameters pertaining to the origin network and the destination network, and the technical capabilities supported by the peer gateways.  Some of these parameters must be previously agreed to during the Stage-0 negotiations, which is outside the scope of this document.
+This is the set of parameters pertaining to the origin network and the destination network, and the technical capabilities supported by the peer gateways. Some of these parameters must be previously agreed to during the Stage-0 negotiations, which is outside the scope of this document.
 
 Some network-specific parameters regarding the origin network may be relevant for a receiver gateway to evaluate its ability to process the proposed transfer.
 
@@ -687,7 +687,7 @@ The gateway capabilities list is as follows:
 
 - gatewaySupportedSignatureAlgorithms OPTIONAL: The list of other digital signature algorithms (algorithm-id) from the IANA "JSON Web Signature and Encryption Algorithms" registry supported by a gateway to sign claims
 
-- networkLockType REQUIRED: The default locking mechanism used by a network. The values allowed are "TIME_LOCK", "HASH_LOCK", "HASH_TIME_LOCK".  Future updates to this specification may define new values and implementations not supporting a value or not understanding a value for this field must return an appropriate error and cease the negotiation.
+- networkLockType REQUIRED: The default locking mechanism used by a network. The values allowed are "TIME_LOCK", "HASH_LOCK", "HASH_TIME_LOCK". Future updates to this specification may define new values and implementations not supporting a value or not understanding a value for this field must return an appropriate error and cease the negotiation.
 
 - networkLockExpirationTime REQUIRED: The duration of time (in integer seconds) for a lock to expire in the network.
 
@@ -1326,7 +1326,7 @@ After that, the gateways MUST agree on the current state of the protocol.
 ## Recovery Messages
 
 {: #satp-session-resume-recovery-msg}
-We have omitted the logging procedure, as that it implementation dependent to properly log a set of recovery steps needed to reconstruct state upon a gateway failure.
+We have omitted the logging procedure, as that it is implementation dependent to properly log a set of recovery steps needed to reconstruct state upon a gateway failure.
 As defined in the crash recovery draft {{?I-D.draft-belchior-satp-gateway-recovery}},
 there is a set of messages that are exchanged between the recovered
 gateway and counterparty gateway:

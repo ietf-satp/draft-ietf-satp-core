@@ -615,53 +615,41 @@ The format of the identity fields in this message, unless otherwise stated, is a
 
 The Transfer Initialization Claim consists of the following:
 
-- digitalAssetId REQUIRED: This is the globally unique identifier for the digital asset
-  located in the origin network.  The format of this JSON string is dependent on the assetProfileId that indicates the asset network in which the asset is originating.
+- digitalAssetId REQUIRED: This is the globally unique identifier for the digital asset located in the origin network. The format of this JSON string is dependent on the assetProfileId that indicates the asset network in which the asset is originating.
 
-- assetProfileId REQUIRED: This is the globally unique identifier for the asset-profile
-  definition (document) on which the digital asset was issued.
+- assetProfileId REQUIRED: This is the globally unique identifier for the asset-profile definition (document) on which the digital asset was issued.
 
 - assetLockType REQUIRED: The default locking mechanism used for an asset. These can be (i) TIME_LOCK, (ii) HASH_LOCK, (iii) HASH_TIME_LOCK.
 
 - assetLockExpirationTime OPTIONAL: The duration of time (in seconds) for an asset lock to expire in the network, if it is a HASH_TIME_LOCK or a TIME_LOCK.
 
-- verifiedOriginatorEntityId REQUIRED: This is the identity data of the originator entity
-  (person or organization) in the origin network.
-  This information must be verified by the sender gateway.
+- verifiedOriginatorEntityId REQUIRED: This is the identity data of the originator entity (person or organization) in the origin network. This information must be verified by the sender gateway.
 
-- verifiedBeneficiaryEntityId REQUIRED: This is the identity data of the beneficiary entity
-  (person or organization) in the destination network.
-  This information must be verified by the receiver gateway.
+- verifiedBeneficiaryEntityId REQUIRED: This is the identity data of the beneficiary entity (person or organization) in the destination network. This information must be verified by the receiver gateway.
 
-- originatorPubkey REQUIRED. This is the public key of the asset owner (originator)
-  in the origin network or system.
+- originatorPubkey REQUIRED: This is the public key of the asset owner (originator) in the origin network or system.
 
-- beneficiaryPubkey REQUIRED. This is the public key of the beneficiary
-  in the destination network.
+- beneficiaryPubkey REQUIRED: This is the public key of the beneficiary in the destination network.
 
-- senderGatewaySignaturePublicKey REQUIRED. This is the public key of the key-pair used by the sender gateway to sign assertions and receipts.
+- senderGatewaySignaturePublicKey REQUIRED: This is the public key of the key-pair used by the sender gateway to sign assertions and receipts.
 
-- receiverGatewaySignaturePublicKey REQUIRED. This is the public key of the key-pair used by the recevier gateway to sign assertions and receipts.
+- receiverGatewaySignaturePublicKey REQUIRED: This is the public key of the key-pair used by the recevier gateway to sign assertions and receipts.
 
-- senderGatewayId REQUIRED. This is the identifier of the sender gateway.
+- senderGatewayId REQUIRED: This is the identifier of the sender gateway.
 
-- recipientGatewayId REQUIRED. This is the identifier of the receiver gateway.
+- recipientGatewayId REQUIRED: This is the identifier of the receiver gateway.
 
-- senderGatewayNetworkId REQUIRED. This is the identifier of the
-  origin network or system behind the client.
+- senderGatewayNetworkId REQUIRED: This is the identifier of the origin network or system behind the client.
 
-- recipientGatewayNetworkId REQUIRED. This is the identifier of the destination
-  network or system behind the server.
+- recipientGatewayNetworkId REQUIRED: This is the identifier of the destination network or system behind the server.
 
-- senderGatewayDeviceIdentityPubkey OPTIONAL. The device public key of the sender gateway (client).
+- senderGatewayDeviceIdentityPubkey OPTIONAL: The device public key of the sender gateway (client).
 
-- receiverGatewayDeviceIdentityPubkey OPTIONAL. The device public key of the receiver gateway
+- receiverGatewayDeviceIdentityPubkey OPTIONAL: The device public key of the receiver gateway
 
-- senderGatewayOwnerId OPTIONAL: This is the identity information of the owner or operator
-  of the sender gateway.
+- senderGatewayOwnerId OPTIONAL: This is the identity information of the owner or operator of the sender gateway.
 
-- receiverGatewayOwnerId OPTIONAL: This is the identity information of the owner or operator
-  of the recipient gateway.
+- receiverGatewayOwnerId OPTIONAL: This is the identity information of the owner or operator of the recipient gateway.
 
 Here is an example representation in JSON format:
 
@@ -740,16 +728,13 @@ The parameters of this message consist of the following:
 
 - messageType REQUIRED: urn:ietf:satp:msgtype:transfer-proposal-msg.
 
-- sessionId REQUIRED: A unique identifier chosen by the
-  client to identify the current session.
+- sessionId REQUIRED: A unique identifier chosen by the client to identify the current session.
 
-- transferContextId REQUIRED: A unique identifier used to identify
-  the current transfer session at the application layer.
+- transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.
 
 - transferInitClaimFormat REQUIRED: The format of the transfer initialization claim.
 
-- transferInitClaim REQUIRED: The set of artifacts and parameters as the basis
-  for the current transfer.
+- transferInitClaim REQUIRED: The set of artifacts and parameters as the basis for the current transfer.
 
 - gatewayAndNetworkCapabilities REQUIRED: The set of origin gateway and network parameters reported by the client to the server.
 
@@ -811,17 +796,13 @@ The parameters of this message consist of the following:
 
 - messageType REQUIRED: urn:ietf:satp:msgtype:proposal-receipt-msg.
 
-- sessionId REQUIRED: A unique identifier chosen by the
-  client to identify the current session.
+- sessionId REQUIRED: A unique identifier chosen by the client to identify the current session.
 
-- transferContextId REQUIRED: A unique identifier used to identify
-  the current transfer session at the application layer.
+- transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.
 
-- hashTransferInitClaim REQUIRED: Hash of the Transfer Initialization Claim
-  received in the Transfer Proposal Message.
+- hashTransferInitClaim REQUIRED: Hash of the Transfer Initialization Claim received in the Transfer Proposal Message.
 
-- timestamp REQUIRED: timestamp referring to when
-  the Initialization Request Message was received.
+- timestamp REQUIRED: timestamp referring to when the Initialization Request Message was received.
 
 Here is an example of the message request body:
 
@@ -852,13 +833,11 @@ The parameters of this message consist of the following:
 
 - messageType REQUIRED: urn:ietf:satp:msgtype:reject-msg
 
-- sessionId REQUIRED: A unique identifier chosen by the
-  client to identify the current session.
+- sessionId REQUIRED: A unique identifier chosen by the client to identify the current session.
 
-- transferContextId REQUIRED: A unique identifier used to identify
-  the current transfer session at the application layer.
+- transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.
 
-- hashPrevMessage REQUIRED:  The hash of the last message that caused the rejection to occur.
+- hashPrevMessage REQUIRED: The hash of the last message that caused the rejection to occur.
 
 - reasonCode REQUIRED: the error code (see {{error-types-section}}) causing the rejection.
 
@@ -891,19 +870,15 @@ This message is sent by the client to the Transfer Commence Endpoint at the serv
 
 The parameters of this message consist of the following:
 
-- messageType REQUIRED. MUST be the value urn:ietf:satp:msgtype:transfer-commence-msg.
+- messageType REQUIRED: MUST be the value urn:ietf:satp:msgtype:transfer-commence-msg.
 
-- sessionId REQUIRED: A unique identifier chosen earlier
-  by the client in the Initialization Request Message.
+- sessionId REQUIRED: A unique identifier chosen earlier by the client in the Initialization Request Message.
 
-- transferContextId REQUIRED: A unique identifier
-  used to identify the current transfer session at the application layer.
+- transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.
 
-- hashTransferInitClaim REQUIRED: Hash of the Transfer Initialization Claim
-  in the Transfer Proposal message.
+- hashTransferInitClaim REQUIRED: Hash of the Transfer Initialization Claim in the Transfer Proposal message.
 
-- hashPrevMessage REQUIRED. The hash of the last message, in this case the
-  Transfer Proposal Receipt message.
+- hashPrevMessage REQUIRED: The hash of the last message, in this case the Transfer Proposal Receipt message.
 
 For example, the client makes the following HTTP request using TLS:
 
@@ -930,18 +905,14 @@ This message is sent by the server to the Transfer Commence Endpoint at the clie
 The message must be signed by the server.
 
 The parameters of this message consist of the following:
-The parameters of this message consist of the following:
 
-- messageType REQUIRED urn:ietf:satp:msgtype:ack-commence-msg
+- messageType REQUIRED: urn:ietf:satp:msgtype:ack-commence-msg
 
-- sessionId REQUIRED: A unique identifier chosen earlier
-  by the client in the Initialization Request Message.
+- sessionId REQUIRED: A unique identifier chosen earlier by the client in the Initialization Request Message.
 
-- transferContextId REQUIRED: A unique identifier
-  used to identify the current transfer session at the application layer.
+- transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.
 
-- hashPrevMessage REQUIRED.The hash of the last message, in this case the
-  the Transfer Commence Message.
+- hashPrevMessage REQUIRED: The hash of the last message, in this case the Transfer Commence Message.
 
 An example of a success response could be as follows:
 
@@ -996,21 +967,19 @@ The message must be signed by the client.
 
 The parameters of this message consist of the following:
 
-- messageType REQUIRED urn:ietf:satp:msgtype:lock-assert-msg.
+- messageType REQUIRED: urn:ietf:satp:msgtype:lock-assert-msg.
 
-- sessionId REQUIRED: A unique identifier chosen earlier
-  by the client in the Initialization Request Message.
+- sessionId REQUIRED: A unique identifier chosen earlier by the client in the Initialization Request Message.
 
-- transferContextId REQUIRED: A unique identifier
-  used to identify the current transfer session at the application layer.
+- transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.
 
-- lockAssertionClaimFormat REQUIRED. The format of the claim.
+- lockAssertionClaimFormat REQUIRED: The format of the claim.
 
-- lockAssertionClaim REQUIRED. The lock assertion claim or statement by the client.
+- lockAssertionClaim REQUIRED: The lock assertion claim or statement by the client.
 
-- lockAssertionExpiration REQUIRED. The expiration date and time {{DATETIME}} of the lock or escrow upon the asset.
+- lockAssertionExpiration REQUIRED: The expiration date and time {{DATETIME}} of the lock or escrow upon the asset.
 
-- hashPrevMessage REQUIRED. The hash of the previous message.
+- hashPrevMessage REQUIRED: The hash of the previous message.
 
 Example:
 
@@ -1038,15 +1007,13 @@ The message must be signed by the server.
 
 The parameters of this message consist of the following:
 
-- messageType REQUIRED urn:ietf:satp:msgtype:assertion-receipt-msg.
+- messageType REQUIRED: urn:ietf:satp:msgtype:assertion-receipt-msg.
 
-- sessionId REQUIRED: A unique identifier chosen earlier
-  by the client in the Initialization Request Message.
+- sessionId REQUIRED: A unique identifier chosen earlier by the client in the Initialization Request Message.
 
-- transferContextId REQUIRED: A unique identifier
-  used to identify the current transfer session at the application layer.
+- transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.
 
-- hashPrevMessage REQUIRED. The hash of the previous message.
+- hashPrevMessage REQUIRED: The hash of the previous message.
 
 Example:
 
@@ -1098,15 +1065,13 @@ The message must be signed by the client.
 
 The parameters of this message consist of the following:
 
-- messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-prepare-msg
+- messageType REQUIRED: It MUST be the value urn:ietf:satp:msgtype:commit-prepare-msg
 
-- sessionId REQUIRED: A unique identifier chosen earlier
-  by the client in the Initialization Request Message.
+- sessionId REQUIRED: A unique identifier chosen earlier by the client in the Initialization Request Message.
 
-- transferContextId REQUIRED: A unique identifier
-  used to identify the current transfer session at the application layer.
+- transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.
 
-- hashPrevMessage REQUIRED. The hash of the previous message.
+- hashPrevMessage REQUIRED: The hash of the previous message.
 
 Example:
 
@@ -1132,19 +1097,17 @@ The message must be signed by the server.
 
 The parameters of this message consist of the following:
 
-- messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-ready-msg.
+- messageType REQUIRED: It MUST be the value urn:ietf:satp:msgtype:commit-ready-msg.
 
-- sessionId REQUIRED: A unique identifier chosen earlier
-  by client in the Initialization Request Message.
+- sessionId REQUIRED: A unique identifier chosen earlier by client in the Initialization Request Message.
 
-- transferContextId REQUIRED: A unique identifier
-  used to identify the current transfer session at the application layer.
+- transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.
 
-- hashPrevMessage REQUIRED. The hash of the previous message.
+- hashPrevMessage REQUIRED: The hash of the previous message.
 
-- mintAssertionFormat REQUIRED. The format of the assertion payload.
+- mintAssertionFormat REQUIRED: The format of the assertion payload.
 
-- mintAssertionClaim REQUIRED. The mint assertion claim or statement by the server.
+- mintAssertionClaim REQUIRED: The mint assertion claim or statement by the server.
 
 Example:
 
@@ -1175,19 +1138,17 @@ The message must be signed by the server.
 
 The parameters of this message consist of the following:
 
-- messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-final-msg.
+- messageType REQUIRED: It MUST be the value urn:ietf:satp:msgtype:commit-final-msg.
 
-- sessionId REQUIRED: A unique identifier chosen earlier
-  by the client in the Initialization Request Message.
+- sessionId REQUIRED: A unique identifier chosen earlier by the client in the Initialization Request Message.
 
-- transferContextId REQUIRED: A unique identifier
-  used to identify the current transfer session at the application layer.
+- transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.
 
-- hashPrevMessage REQUIRED. The hash of the previous message.
+- hashPrevMessage REQUIRED: The hash of the previous message.
 
-- burnAssertionClaimFormat REQUIRED. The format of the claim.
+- burnAssertionClaimFormat REQUIRED: The format of the claim.
 
-- burnAssertionClaim REQUIRED. The burn assertion signed claim or statement by the client.
+- burnAssertionClaim REQUIRED: The burn assertion signed claim or statement by the client.
 
 Example:
 
@@ -1214,20 +1175,17 @@ The message must be signed by the server.
 
 The parameters of this message consist of the following:
 
-- messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:ack-commit-final-msg.
+- messageType REQUIRED: It MUST be the value urn:ietf:satp:msgtype:ack-commit-final-msg.
 
-- sessionId REQUIRED: A unique identifier chosen earlier
-  by client in the Initialization Request Message.
+- sessionId REQUIRED: A unique identifier chosen earlier by client in the Initialization Request Message.
 
-- transferContextId REQUIRED: A unique identifier
-  used to identify the current transfer session at the application layer.
+- transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.
 
-- hashPrevMessage REQUIRED. The hash of the previous message.
+- hashPrevMessage REQUIRED: The hash of the previous message.
 
-- assignmentAssertionClaimFormat REQUIRED. The format of the claim.
+- assignmentAssertionClaimFormat REQUIRED: The format of the claim.
 
-- assignmentAssertionClaim REQUIRED. The claim or statement by the server
-  that the asset has been assigned by the server to the intended beneficiary.
+- assignmentAssertionClaim REQUIRED: The claim or statement by the server that the asset has been assigned by the server to the intended beneficiary.
 
 Example:
 
@@ -1257,18 +1215,15 @@ The message must be signed by the client.
 
 The parameters of this message consist of the following:
 
-- messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-transfer-complete-msg.
+- messageType REQUIRED: It MUST be the value urn:ietf:satp:msgtype:commit-transfer-complete-msg.
 
-- sessionId REQUIRED: A unique identifier chosen earlier
-  by the client in the Initialization Request Message.
+- sessionId REQUIRED: A unique identifier chosen earlier by the client in the Initialization Request Message.
 
-- transferContextId REQUIRED: A unique identifier
-  used to identify the current transfer session at the application layer.
+- transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.
 
-- hashPrevMessage REQUIRED. The hash of the previous message.
+- hashPrevMessage REQUIRED: The hash of the previous message.
 
-- hashTransferCommence REQUIRED. The hash of the Transfer Commence message
-  at the start of Stage 2.
+- hashTransferCommence REQUIRED: The hash of the Transfer Commence message at the start of Stage 2.
 
 Example:
 
@@ -1288,7 +1243,7 @@ The purpose of this message is for either the sender or the receiver gateways to
 
 This message must contain the error type (see the appendix) and the course of action indicated by the severity level. Typicaly, the action taken will be the immediate termination of the session.
 
-- messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:error-msg.
+- messageType REQUIRED: It MUST be the value urn:ietf:satp:msgtype:error-msg.
 
 - sessionId REQUIRED: This is the current session in which the error pertains.
 
@@ -1304,7 +1259,7 @@ Futher discussion on protocol errors can be found below ({{error-types-section}}
 
 The purpose of this message is to indicate that one of the peer gateways has decided not to proceed with the session. No further messages will be delivered after the abort message.
 
-- messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:session-abort-msg.
+- messageType REQUIRED: It MUST be the value urn:ietf:satp:msgtype:session-abort-msg.
 
 - sessionId REQUIRED: This is the current session in which the abort occurs.
 

@@ -332,7 +332,7 @@ All SATP messages exchanged between gateways are in JSON format {{JSON}}.
 
 This refers to SATP protocol Version, encoded as "major.minor" (separated by a period symbol).
 
-The current version is "1.0" defined in this specification.  Implementations not understanding a future option value should return an appropriate error response and cease the negotiation.
+The current version is "1.0" defined in this specification. Implementations not understanding a future option value should return an appropriate error response and cease the negotiation.
 
 ### Message Type
 
@@ -407,7 +407,7 @@ This is the type of authentication mechanism supported by the gateway (e.g. SAML
 ### Gateway Credential
 
 This payload is the actual credential of the gateway (token,
-certificate, string, etc.) with a string based encoding based on the
+certificate, string) with a string based encoding based on the
 corresponding Gateway Credential Type.
 
 ### Gateway Identifier
@@ -427,7 +427,7 @@ This is the hash of the current message payload.
 ### Signature Algorithms Supported
 
 This is a JSON list of digital signature algorithms supported by a
-gateway.  Each entry in the list should either an Algorithm Name value registered in the IANA "JSON Web Signature and Encryption Algorithms" registry established by {{JWA}} or be a value that contains a Collision-Resistant Name.
+gateway. Each entry in the list should be either an Algorithm Name value registered in the IANA "JSON Web Signature and Encryption Algorithms" registry established by {{JWA}} or be a value that contains a Collision-Resistant Name.
 
 All implementations MUST support a common default of "ES256", which is the ECDSA signature algorithm with the P-256 curve and the SHA-256 hash function.
 
@@ -449,7 +449,7 @@ format as specified by the corresponding Lock assertion Claim Format.
 
 The peer gateways in SATP must establish a TLS session between them prior to starting the transfer initiation stage (Stage-0). The TLS session continues until the transfer is completed at the end of the commitment establishment stage (Stage-3).
 
-In the following steps, the sender gateway is referred to as the client while the received gateway as the server.
+In the following steps, the sender gateway is referred to as the client while the receiver gateway as the server.
 
 ### TLS Secure Channel Establishment
 

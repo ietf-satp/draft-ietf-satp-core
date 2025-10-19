@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-14T01:01:16.052225+00:00",
+  "timestamp": "2025-10-19T01:09:16.321312+00:00",
   "repo": "ietf-satp/draft-ietf-satp-core",
   "labels": [
     {
@@ -2305,6 +2305,46 @@
           "body": "LGTM. Thanks for addressing my comments.",
           "createdAt": "2025-09-22T17:58:05Z",
           "updatedAt": "2025-09-22T17:58:05Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 50,
+      "id": "PR_kwDOKkmiaM6uJLct",
+      "title": "Address comments from chair's PR",
+      "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/50",
+      "state": "OPEN",
+      "author": "alexchiriac",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-10-16T18:05:43Z",
+      "updatedAt": "2025-10-16T20:18:50Z",
+      "baseRepository": "ietf-satp/draft-ietf-satp-core",
+      "baseRefName": "main",
+      "baseRefOid": "4cc5cfdf62ccc85e818cca3255ca853cdb9092a8",
+      "headRepository": "ietf-satp/draft-ietf-satp-core",
+      "headRefName": "fix/comments-on-chair-pr",
+      "headRefOid": "4311b9827a02137e9c1481d346fa0eacf2d6af09",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKkmiaM7HfRs_",
+          "commit": {
+            "abbreviatedOid": "4311b98"
+          },
+          "author": "lukerQuant",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "LGTM, thanks Alex",
+          "createdAt": "2025-10-16T20:18:50Z",
+          "updatedAt": "2025-10-16T20:18:50Z",
           "comments": []
         }
       ]

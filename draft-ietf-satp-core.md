@@ -615,7 +615,7 @@ The format of the identity fields in this message, unless otherwise stated, is a
 
 The Transfer Initialization Claim consists of the following:
 
-- digitalAssetId REQUIRED: This is the globally unique identifier for the digital asset located in the origin network. The format of this JSON string is dependent on the assetProfileId that indicates the asset network in which the asset is originating.
+- digitalAssetId REQUIRED: This is the globally unique identifier for the digital asset located in the origin network. The default format is JSON, with base64 encoding.
 
 - assetProfileId REQUIRED: This is the globally unique identifier for the asset-profile definition (document) on which the digital asset was issued.
 

@@ -2593,26 +2593,23 @@ client (sender gateway) and the server (receiver gateway).<a href="#section-10-1
 </div>
 <p id="section-10-2">This stage must be completed within the time specified
 in the lockAssertionExpiration value in the lock-assertion message.
-This value is the time when the lock or escrow upon the asset will expire on the origin network.
-The completion of this stage is denoted by the signed Commit-Final Acknowledgement Receipt Message
-sent from the server to the client.<a href="#section-10-2" class="pilcrow">¶</a></p>
-<p id="section-10-3">If the lockAssertionExpiration timer at the client expires before the Commit-Final Acknowledgement Receipt Message
-is received by the client,
-the client may terminate the session.<a href="#section-10-3" class="pilcrow">¶</a></p>
-<p id="section-10-4">In the following steps, the sender gateway takes the role of the client
-while the recipient gateway takes the role of the server.<a href="#section-10-4" class="pilcrow">¶</a></p>
-<p id="section-10-5">The flow follows a request-response model.
-The client makes a request (POST) to the Transfer Commitment endpoint at the server.<a href="#section-10-5" class="pilcrow">¶</a></p>
-<p id="section-10-6">Gateways MUST support the use of the HTTP GET and POST methods
-defined in RFC 2616 <span>[<a href="#RFC2616" class="cite xref">RFC2616</a>]</span> for the endpoint.<a href="#section-10-6" class="pilcrow">¶</a></p>
-<p id="section-10-7">Clients MAY use the HTTP GET or POST methods to send messages in this stage to the server.
+This value is the time when the lock or escrow upon the asset will expire on the origin network.<a href="#section-10-2" class="pilcrow">¶</a></p>
+<p id="section-10-3">The completion of this stage is denoted by the signed Commit-Final Acknowledgement Receipt Message
+sent from the receiver gateway (server) to the sender gateway (client).
+If the lockAssertionExpiration timer at the client expires before the Commit-Final Acknowledgement Receipt Message
+is received by the client, the client may terminate the session.<a href="#section-10-3" class="pilcrow">¶</a></p>
+<p id="section-10-4">The flow follows a request-response model.
+The client makes a request (POST) to the Transfer Commitment endpoint at the server.<a href="#section-10-4" class="pilcrow">¶</a></p>
+<p id="section-10-5">Gateways MUST support the use of the HTTP GET and POST methods
+defined in RFC 2616 <span>[<a href="#RFC2616" class="cite xref">RFC2616</a>]</span> for the endpoint.<a href="#section-10-5" class="pilcrow">¶</a></p>
+<p id="section-10-6">Clients MAY use the HTTP GET or POST methods to send messages in this stage to the server.
 If using the HTTP GET method, the request parameters may be serialized
-using URI Query String Serialization.<a href="#section-10-7" class="pilcrow">¶</a></p>
-<p id="section-10-8">The client and server may be required to sign certain messages
+using URI Query String Serialization.<a href="#section-10-6" class="pilcrow">¶</a></p>
+<p id="section-10-7">The client and server may be required to sign certain messages
 in order to provide standalone proof (for non-repudiation) independent of the
 secure channel between the client and server.
-This proof may be required for audit verifications post-event.<a href="#section-10-8" class="pilcrow">¶</a></p>
-<p id="section-10-9">(NOTE: Flows occur over TLS. Nonces are not shown).<a href="#section-10-9" class="pilcrow">¶</a></p>
+This proof may be required for audit verifications post-event.<a href="#section-10-7" class="pilcrow">¶</a></p>
+<p id="section-10-8">(NOTE: Flows occur over TLS. Nonces are not shown).<a href="#section-10-8" class="pilcrow">¶</a></p>
 <div id="commit-preparation-message-commit-prepare">
 <section id="section-10.1">
         <h3 id="name-commit-preparation-message-">

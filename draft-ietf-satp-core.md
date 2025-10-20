@@ -433,15 +433,15 @@ All implementations MUST support a common default of "ES256", which is the ECDSA
 
 ### Lock assertion Claim Format
 This is the format of the claim regarding the state of the asset in the origin network.
+The default format is JSON, with parts being base64 encoded as needed.
 
-The claim is network-dependent in the sense that different asset networks or systems may utilize a different asset locking (disablement) mechanism.
-
-The sender gateway provides the choice of the format to the receiver gateway.  Mechanisms to establish this value between the sender and receiver gateways may be utilized prior commencing the SAT protocol. Specifically, these are expected to be negated prior to the establishment of the SAT protocol and are out of scope for this document.
+If the sender gateway offers multiple choices of other formats to the receiver gateway,
+the selection must occur prior to the establishment of the session.
 
 ### Lock assertion Claim
 
 The actual encoded JSON string representation of the claim using the
-format as specified by the corresponding Lock assertion Claim Format.
+format as specified by the corresponding Lock Assertion Claim Format value.
 
 ## Negotiation of Security Protocols and Parameters
 

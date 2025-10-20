@@ -1173,7 +1173,9 @@ Table of Contents
    *  transferContextId REQUIRED: A unique identifier used to identify
       the current transfer session at the application layer.
 
-   *  lockAssertionClaimFormat REQUIRED.  The format of the claim.
+   *  lockAssertionClaimFormat REQUIRED.  This is the format of the
+      claim payoad.  The default format of the claim is the JSON format
+      [RFC8259], with the relevant payloads Base64 encoded.
 
    *  lockAssertionClaim REQUIRED.  The lock assertion claim or
       statement by the client.

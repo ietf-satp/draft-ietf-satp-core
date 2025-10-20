@@ -2359,7 +2359,7 @@ client to identify the current session.<a href="#section-8.5-4.3.1" class="pilcr
 the current transfer session at the application layer.<a href="#section-8.5-4.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.5-4.5">
-            <p id="section-8.5-4.5.1">hashPrevMessage REQUIRED:  The hash of the last message that caused the rejection to occur.<a href="#section-8.5-4.5.1" class="pilcrow">¶</a></p>
+            <p id="section-8.5-4.5.1">hashPrevMessage REQUIRED:  The cryptographic hash of the last message that caused the rejection to occur. The default hash algorothm is SHA256.<a href="#section-8.5-4.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.5-4.6">
             <p id="section-8.5-4.6.1">reasonCode REQUIRED: the error code (see <a href="#error-types-section" class="auto internal xref">Section 15, Paragraph 1</a>) causing the rejection.<a href="#section-8.5-4.6.1" class="pilcrow">¶</a></p>
@@ -2411,8 +2411,8 @@ used to identify the current transfer session at the application layer.<a href="
 in the Transfer Proposal message.<a href="#section-8.6-5.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.6-5.5">
-            <p id="section-8.6-5.5.1">hashPrevMessage REQUIRED. The hash of the last message, in this case the
-Transfer Proposal Receipt message.<a href="#section-8.6-5.5.1" class="pilcrow">¶</a></p>
+            <p id="section-8.6-5.5.1">hashPrevMessage REQUIRED.  The cryptographic hash of the last message, in this case the
+Transfer Proposal Receipt message. The default hash algorithm is SHA256.<a href="#section-8.6-5.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-8.6-6">For example, the client makes the following HTTP request using TLS:<a href="#section-8.6-6" class="pilcrow">¶</a></p>
@@ -2452,8 +2452,7 @@ by the client in the Initialization Request Message.<a href="#section-8.7-5.2.1"
 used to identify the current transfer session at the application layer.<a href="#section-8.7-5.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.7-5.4">
-            <p id="section-8.7-5.4.1">hashPrevMessage REQUIRED.The hash of the last message, in this case the
-the Transfer Commence Message.<a href="#section-8.7-5.4.1" class="pilcrow">¶</a></p>
+            <p id="section-8.7-5.4.1">hashPrevMessage REQUIRED. The cryptographic hash of the last message, in this case the Transfer Commence Message. The default hash algorithm is SHA256.<a href="#section-8.7-5.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-8.7-6">An example of a success response could be as follows:<a href="#section-8.7-6" class="pilcrow">¶</a></p>
@@ -2527,7 +2526,7 @@ used to identify the current transfer session at the application layer.<a href="
             <p id="section-9.1-7.6.1">lockAssertionExpiration REQUIRED. The expiration date and time <span>[<a href="#DATETIME" class="cite xref">DATETIME</a>]</span> of the lock or escrow upon the asset on the origin network.<a href="#section-9.1-7.6.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-9.1-7.7">
-            <p id="section-9.1-7.7.1">hashPrevMessage REQUIRED. The hash of the previous message.<a href="#section-9.1-7.7.1" class="pilcrow">¶</a></p>
+            <p id="section-9.1-7.7.1">hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.<a href="#section-9.1-7.7.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-9.1-8">Example:<a href="#section-9.1-8" class="pilcrow">¶</a></p>
@@ -2569,7 +2568,7 @@ by the client in the Initialization Request Message.<a href="#section-9.2-5.2.1"
 used to identify the current transfer session at the application layer.<a href="#section-9.2-5.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-9.2-5.4">
-            <p id="section-9.2-5.4.1">hashPrevMessage REQUIRED. The hash of the previous message.<a href="#section-9.2-5.4.1" class="pilcrow">¶</a></p>
+            <p id="section-9.2-5.4.1">hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.<a href="#section-9.2-5.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-9.2-6">Example:<a href="#section-9.2-6" class="pilcrow">¶</a></p>
@@ -2636,7 +2635,7 @@ by the client in the Initialization Request Message.<a href="#section-10.1-5.2.1
 used to identify the current transfer session at the application layer.<a href="#section-10.1-5.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.1-5.4">
-            <p id="section-10.1-5.4.1">hashPrevMessage REQUIRED. The hash of the previous message.<a href="#section-10.1-5.4.1" class="pilcrow">¶</a></p>
+            <p id="section-10.1-5.4.1">hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.<a href="#section-10.1-5.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-10.1-6">Example:<a href="#section-10.1-6" class="pilcrow">¶</a></p>
@@ -2676,7 +2675,7 @@ by client in the Initialization Request Message.<a href="#section-10.2-5.2.1" cl
 used to identify the current transfer session at the application layer.<a href="#section-10.2-5.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-5.4">
-            <p id="section-10.2-5.4.1">hashPrevMessage REQUIRED. The hash of the previous message.<a href="#section-10.2-5.4.1" class="pilcrow">¶</a></p>
+            <p id="section-10.2-5.4.1">hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.<a href="#section-10.2-5.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-5.5">
             <p id="section-10.2-5.5.1">mintAssertionFormat REQUIRED. The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as "MINT_ASSERTION_CLAIM_FORMAT_1".<a href="#section-10.2-5.5.1" class="pilcrow">¶</a></p>
@@ -2725,7 +2724,7 @@ by the client in the Initialization Request Message.<a href="#section-10.3-6.2.1
 used to identify the current transfer session at the application layer.<a href="#section-10.3-6.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.3-6.4">
-            <p id="section-10.3-6.4.1">hashPrevMessage REQUIRED. The hash of the previous message.<a href="#section-10.3-6.4.1" class="pilcrow">¶</a></p>
+            <p id="section-10.3-6.4.1">hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.<a href="#section-10.3-6.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.3-6.5">
             <p id="section-10.3-6.5.1">burnAssertionClaimFormat REQUIRED. The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as "BURN_ASSERTION_CLAIM_FORMAT_1".<a href="#section-10.3-6.5.1" class="pilcrow">¶</a></p>
@@ -2771,7 +2770,7 @@ by client in the Initialization Request Message.<a href="#section-10.4-5.2.1" cl
 used to identify the current transfer session at the application layer.<a href="#section-10.4-5.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.4-5.4">
-            <p id="section-10.4-5.4.1">hashPrevMessage REQUIRED. The hash of the previous message.<a href="#section-10.4-5.4.1" class="pilcrow">¶</a></p>
+            <p id="section-10.4-5.4.1">hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.<a href="#section-10.4-5.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.4-5.5">
             <p id="section-10.4-5.5.1">assignmentAssertionClaimFormat REQUIRED. The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as "ASSIGNMENT_ASSERTION_CLAIM_FORMAT_1".<a href="#section-10.4-5.5.1" class="pilcrow">¶</a></p>
@@ -2820,7 +2819,7 @@ by the client in the Initialization Request Message.<a href="#section-10.5-6.2.1
 used to identify the current transfer session at the application layer.<a href="#section-10.5-6.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.5-6.4">
-            <p id="section-10.5-6.4.1">hashPrevMessage REQUIRED. The hash of the previous message.<a href="#section-10.5-6.4.1" class="pilcrow">¶</a></p>
+            <p id="section-10.5-6.4.1">hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.<a href="#section-10.5-6.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.5-6.5">
             <p id="section-10.5-6.5.1">hashTransferCommence REQUIRED. The hash of the Transfer Commence message

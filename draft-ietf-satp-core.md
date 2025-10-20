@@ -1066,16 +1066,11 @@ client (sender gateway) and the server (receiver gateway).
 This stage must be completed within the time specified
 in the lockAssertionExpiration value in the lock-assertion message.
 This value is the time when the lock or escrow upon the asset will expire on the origin network.
+
 The completion of this stage is denoted by the signed Commit-Final Acknowledgement Receipt Message
-sent from the server to the client.
-
+sent from the receiver gateway (server) to the sender gateway (client).
 If the lockAssertionExpiration timer at the client expires before the Commit-Final Acknowledgement Receipt Message
-is received by the client,
-the client may terminate the session.
-
-
-In the following steps, the sender gateway takes the role of the client
-while the recipient gateway takes the role of the server.
+is received by the client, the client may terminate the session.
 
 The flow follows a request-response model.
 The client makes a request (POST) to the Transfer Commitment endpoint at the server.

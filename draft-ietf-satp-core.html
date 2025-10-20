@@ -1695,7 +1695,7 @@ These flows deal with the asset transfer and commitment establishment between tw
 <div id="satp-message-format">
 <p id="section-5.3-1">SATP messages are exchanged between peer gateways, where depending on the message type one gateway may act as a client of the other (and vice versa).<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 </div>
-<p id="section-5.3-2">All SATP messages exchanged between gateways are in JSON format <span>[<a href="#JSON" class="cite xref">JSON</a>]</span>. Unless otherwise noted, all values are encoded as JSON Strings.  Values not representable as JSON strings (such as binary data), unless otherwise noted, will be encoded as base64 <span>[<a href="#BASE64" class="cite xref">BASE64</a>]</span>.<a href="#section-5.3-2" class="pilcrow">¶</a></p>
+<p id="section-5.3-2">All SATP messages exchanged between gateways are in JSON format <span>[<a href="#JSON" class="cite xref">JSON</a>]</span>.<a href="#section-5.3-2" class="pilcrow">¶</a></p>
 <div id="protocol-version">
 <section id="section-5.3.1">
           <h4 id="name-protocol-version">
@@ -1704,7 +1704,7 @@ These flows deal with the asset transfer and commitment establishment between tw
 <div id="satp-protocol-version">
 <p id="section-5.3.1-1">This refers to SATP protocol Version, encoded as "major.minor" (separated by a period symbol).<a href="#section-5.3.1-1" class="pilcrow">¶</a></p>
 </div>
-<p id="section-5.3.1-2">The current version is "1.0" defined in this specification.  Implementations not understanding a future option value should return an appropriate error response and cease the negotiation.<a href="#section-5.3.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.3.1-2">The current version is "1.0" defined in this specification. Implementations not understanding a future option value should return an appropriate error response and cease the negotiation.<a href="#section-5.3.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="message-type">
@@ -1814,7 +1814,7 @@ Registry <a href="#satp-message-types" class="auto internal xref">Section 14.3, 
 <a href="#section-5.3.8" class="section-number selfRef">5.3.8. </a><a href="#name-gateway-credential" class="section-name selfRef">Gateway Credential</a>
           </h4>
 <p id="section-5.3.8-1">This payload is the actual credential of the gateway (token,
-certificate, string, etc.) with a string based encoding based on the
+certificate, string) with a string based encoding based on the
 corresponding Gateway Credential Type.<a href="#section-5.3.8-1" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1844,7 +1844,7 @@ within an asset network MUST be identified by a unique gateway identifier.<a hre
 <a href="#section-5.3.11" class="section-number selfRef">5.3.11. </a><a href="#name-signature-algorithms-suppor" class="section-name selfRef">Signature Algorithms Supported</a>
           </h4>
 <p id="section-5.3.11-1">This is a JSON list of digital signature algorithms supported by a
-gateway.  Each entry in the list should either an Algorithm Name value registered in the IANA "JSON Web Signature and Encryption Algorithms" registry established by <span>[<a href="#JWA" class="cite xref">JWA</a>]</span> or be a value that contains a Collision-Resistant Name.<a href="#section-5.3.11-1" class="pilcrow">¶</a></p>
+gateway. Each entry in the list should be either an Algorithm Name value registered in the IANA "JSON Web Signature and Encryption Algorithms" registry established by <span>[<a href="#JWA" class="cite xref">JWA</a>]</span> or be a value that contains a Collision-Resistant Name.<a href="#section-5.3.11-1" class="pilcrow">¶</a></p>
 <p id="section-5.3.11-2">All implementations MUST support a common default of "ES256", which is the ECDSA signature algorithm with the P-256 curve and the SHA-256 hash function.<a href="#section-5.3.11-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1878,7 +1878,7 @@ format as specified by the corresponding Lock Assertion Claim Format value.<a hr
 <div id="satp-negotiation-params-sec">
 <p id="section-5.4-1">The peer gateways in SATP must establish a TLS session between them prior to starting the transfer initiation stage (Stage-0). The TLS session continues until the transfer is completed at the end of the commitment establishment stage (Stage-3).<a href="#section-5.4-1" class="pilcrow">¶</a></p>
 </div>
-<p id="section-5.4-2">In the following steps, the sender gateway is referred to as the client while the received gateway as the server.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
+<p id="section-5.4-2">In the following steps, the sender gateway is referred to as the client while the receiver gateway as the server.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
 <div id="tls-secure-channel-establishment">
 <section id="section-5.4.1">
           <h4 id="name-tls-secure-channel-establis">
@@ -2070,12 +2070,10 @@ gateway) and the server (recipient gateway).<a href="#section-8.1-1" class="pilc
 <p id="section-8.1-3">The Transfer Initialization Claim consists of the following:<a href="#section-8.1-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-8.1-4.1">
-            <p id="section-8.1-4.1.1">digitalAssetId REQUIRED: This is the globally unique identifier for the digital asset
-located in the origin network.  The format of this JSON string is dependent on the assetProfileId that indicates the asset network in which the asset is originating.<a href="#section-8.1-4.1.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.1.1">digitalAssetId REQUIRED: This is the globally unique identifier for the digital asset located in the origin network. The format of this JSON string is dependent on the assetProfileId that indicates the asset network in which the asset is originating.<a href="#section-8.1-4.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.2">
-            <p id="section-8.1-4.2.1">assetProfileId REQUIRED: This is the globally unique identifier for the asset-profile
-definition (document) on which the digital asset was issued.<a href="#section-8.1-4.2.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.2.1">assetProfileId REQUIRED: This is the globally unique identifier for the asset-profile definition (document) on which the digital asset was issued.<a href="#section-8.1-4.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.3">
             <p id="section-8.1-4.3.1">assetLockType REQUIRED: The default locking mechanism used for an asset. These can be (i) TIME_LOCK, (ii) HASH_LOCK, (iii) HASH_TIME_LOCK.<a href="#section-8.1-4.3.1" class="pilcrow">¶</a></p>
@@ -2084,56 +2082,46 @@ definition (document) on which the digital asset was issued.<a href="#section-8.
             <p id="section-8.1-4.4.1">assetLockExpirationTime OPTIONAL: The duration of time (in seconds) for an asset lock to expire in the network, if it is a HASH_TIME_LOCK or a TIME_LOCK.<a href="#section-8.1-4.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.5">
-            <p id="section-8.1-4.5.1">verifiedOriginatorEntityId REQUIRED: This is the identity data of the originator entity
-(person or organization) in the origin network.
-This information must be verified by the sender gateway.<a href="#section-8.1-4.5.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.5.1">verifiedOriginatorEntityId REQUIRED: This is the identity data of the originator entity (person or organization) in the origin network. This information must be verified by the sender gateway.<a href="#section-8.1-4.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.6">
-            <p id="section-8.1-4.6.1">verifiedBeneficiaryEntityId REQUIRED: This is the identity data of the beneficiary entity
-(person or organization) in the destination network.
-This information must be verified by the receiver gateway.<a href="#section-8.1-4.6.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.6.1">verifiedBeneficiaryEntityId REQUIRED: This is the identity data of the beneficiary entity (person or organization) in the destination network. This information must be verified by the receiver gateway.<a href="#section-8.1-4.6.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.7">
-            <p id="section-8.1-4.7.1">originatorPubkey REQUIRED. This is the public key of the asset owner (originator)
-in the origin network or system.<a href="#section-8.1-4.7.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.7.1">originatorPubkey REQUIRED: This is the public key of the asset owner (originator) in the origin network or system.<a href="#section-8.1-4.7.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.8">
-            <p id="section-8.1-4.8.1">beneficiaryPubkey REQUIRED. This is the public key of the beneficiary
-in the destination network.<a href="#section-8.1-4.8.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.8.1">beneficiaryPubkey REQUIRED: This is the public key of the beneficiary in the destination network.<a href="#section-8.1-4.8.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.9">
-            <p id="section-8.1-4.9.1">senderGatewaySignaturePublicKey REQUIRED. This is the public key of the key-pair used by the sender gateway to sign assertions and receipts.<a href="#section-8.1-4.9.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.9.1">senderGatewaySignaturePublicKey REQUIRED: This is the public key of the key-pair used by the sender gateway to sign assertions and receipts.<a href="#section-8.1-4.9.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.10">
-            <p id="section-8.1-4.10.1">receiverGatewaySignaturePublicKey REQUIRED. This is the public key of the key-pair used by the recevier gateway to sign assertions and receipts.<a href="#section-8.1-4.10.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.10.1">receiverGatewaySignaturePublicKey REQUIRED: This is the public key of the key-pair used by the recevier gateway to sign assertions and receipts.<a href="#section-8.1-4.10.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.11">
-            <p id="section-8.1-4.11.1">senderGatewayId REQUIRED. This is the identifier of the sender gateway.<a href="#section-8.1-4.11.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.11.1">senderGatewayId REQUIRED: This is the identifier of the sender gateway.<a href="#section-8.1-4.11.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.12">
-            <p id="section-8.1-4.12.1">recipientGatewayId REQUIRED. This is the identifier of the receiver gateway.<a href="#section-8.1-4.12.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.12.1">recipientGatewayId REQUIRED: This is the identifier of the receiver gateway.<a href="#section-8.1-4.12.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.13">
-            <p id="section-8.1-4.13.1">senderGatewayNetworkId REQUIRED. This is the identifier of the
-origin network or system behind the client.<a href="#section-8.1-4.13.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.13.1">senderGatewayNetworkId REQUIRED: This is the identifier of the origin network or system behind the client.<a href="#section-8.1-4.13.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.14">
-            <p id="section-8.1-4.14.1">recipientGatewayNetworkId REQUIRED. This is the identifier of the destination
-network or system behind the server.<a href="#section-8.1-4.14.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.14.1">recipientGatewayNetworkId REQUIRED: This is the identifier of the destination network or system behind the server.<a href="#section-8.1-4.14.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.15">
-            <p id="section-8.1-4.15.1">senderGatewayDeviceIdentityPubkey OPTIONAL. The device public key of the sender gateway (client).<a href="#section-8.1-4.15.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.15.1">senderGatewayDeviceIdentityPubkey OPTIONAL: The device public key of the sender gateway (client).<a href="#section-8.1-4.15.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.16">
-            <p id="section-8.1-4.16.1">receiverGatewayDeviceIdentityPubkey OPTIONAL. The device public key of the receiver gateway<a href="#section-8.1-4.16.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.16.1">receiverGatewayDeviceIdentityPubkey OPTIONAL: The device public key of the receiver gateway<a href="#section-8.1-4.16.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.17">
-            <p id="section-8.1-4.17.1">senderGatewayOwnerId OPTIONAL: This is the identity information of the owner or operator
-of the sender gateway.<a href="#section-8.1-4.17.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.17.1">senderGatewayOwnerId OPTIONAL: This is the identity information of the owner or operator of the sender gateway.<a href="#section-8.1-4.17.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.18">
-            <p id="section-8.1-4.18.1">receiverGatewayOwnerId OPTIONAL: This is the identity information of the owner or operator
-of the recipient gateway.<a href="#section-8.1-4.18.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.18.1">receiverGatewayOwnerId OPTIONAL: This is the identity information of the owner or operator of the recipient gateway.<a href="#section-8.1-4.18.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-8.1-5">Here is an example representation in JSON format:<a href="#section-8.1-5" class="pilcrow">¶</a></p>
@@ -2163,7 +2151,7 @@ of the recipient gateway.<a href="#section-8.1-4.18.1" class="pilcrow">¶</a></p
 <a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-conveyance-of-gateway-and-n" class="section-name selfRef">Conveyance of Gateway and Network Capabilities</a>
         </h3>
 <div id="satp-stage1-conveyance">
-<p id="section-8.2-1">This is the set of parameters pertaining to the origin network and the destination network, and the technical capabilities supported by the peer gateways.  Some of these parameters must be previously agreed to during the Stage-0 negotiations, which is outside the scope of this document.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
+<p id="section-8.2-1">This is the set of parameters pertaining to the origin network and the destination network, and the technical capabilities supported by the peer gateways. Some of these parameters must be previously agreed to during the Stage-0 negotiations, which is outside the scope of this document.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
 </div>
 <p id="section-8.2-2">Some network-specific parameters regarding the origin network may be relevant for a receiver gateway to evaluate its ability to process the proposed transfer.<a href="#section-8.2-2" class="pilcrow">¶</a></p>
 <p id="section-8.2-3">The gateway capabilities list is as follows:<a href="#section-8.2-3" class="pilcrow">¶</a></p>
@@ -2175,7 +2163,7 @@ of the recipient gateway.<a href="#section-8.1-4.18.1" class="pilcrow">¶</a></p
             <p id="section-8.2-4.2.1">gatewaySupportedSignatureAlgorithms OPTIONAL: The list of other digital signature algorithms (algorithm-id) from the IANA "JSON Web Signature and Encryption Algorithms" registry supported by a gateway to sign claims<a href="#section-8.2-4.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.2-4.3">
-            <p id="section-8.2-4.3.1">networkLockType REQUIRED: The default locking mechanism used by a network. The values allowed are "TIME_LOCK", "HASH_LOCK", "HASH_TIME_LOCK".  Future updates to this specification may define new values and implementations not supporting a value or not understanding a value for this field must return an appropriate error and cease the negotiation.<a href="#section-8.2-4.3.1" class="pilcrow">¶</a></p>
+            <p id="section-8.2-4.3.1">networkLockType REQUIRED: The default locking mechanism used by a network. The values allowed are "TIME_LOCK", "HASH_LOCK", "HASH_TIME_LOCK". Future updates to this specification may define new values and implementations not supporting a value or not understanding a value for this field must return an appropriate error and cease the negotiation.<a href="#section-8.2-4.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.2-4.4">
             <p id="section-8.2-4.4.1">networkLockExpirationTime REQUIRED: The duration of time (in integer seconds) for a lock to expire in the network.<a href="#section-8.2-4.4.1" class="pilcrow">¶</a></p>
@@ -2223,19 +2211,16 @@ of the recipient gateway.<a href="#section-8.1-4.18.1" class="pilcrow">¶</a></p
             <p id="section-8.3-5.2.1">messageType REQUIRED: urn:ietf:satp:msgtype:transfer-proposal-msg.<a href="#section-8.3-5.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.3-5.3">
-            <p id="section-8.3-5.3.1">sessionId REQUIRED: A unique identifier chosen by the
-client to identify the current session.<a href="#section-8.3-5.3.1" class="pilcrow">¶</a></p>
+            <p id="section-8.3-5.3.1">sessionId REQUIRED: A unique identifier chosen by the client to identify the current session.<a href="#section-8.3-5.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.3-5.4">
-            <p id="section-8.3-5.4.1">transferContextId REQUIRED: A unique identifier used to identify
-the current transfer session at the application layer.<a href="#section-8.3-5.4.1" class="pilcrow">¶</a></p>
+            <p id="section-8.3-5.4.1">transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.<a href="#section-8.3-5.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.3-5.5">
             <p id="section-8.3-5.5.1">transferInitClaimFormat REQUIRED: The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as "TRANSFER_INIT_CLAIM_FORMAT_1".<a href="#section-8.3-5.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.3-5.6">
-            <p id="section-8.3-5.6.1">transferInitClaim REQUIRED: The set of artifacts and parameters as the basis
-for the current transfer.<a href="#section-8.3-5.6.1" class="pilcrow">¶</a></p>
+            <p id="section-8.3-5.6.1">transferInitClaim REQUIRED: The set of artifacts and parameters as the basis for the current transfer.<a href="#section-8.3-5.6.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.3-5.7">
             <p id="section-8.3-5.7.1">gatewayAndNetworkCapabilities REQUIRED: The set of origin gateway and network parameters reported by the client to the server.<a href="#section-8.3-5.7.1" class="pilcrow">¶</a></p>
@@ -2302,20 +2287,16 @@ acceptance of the parameters in the claim part of the transfer proposal message.
             <p id="section-8.4-5.2.1">messageType REQUIRED: urn:ietf:satp:msgtype:proposal-receipt-msg.<a href="#section-8.4-5.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.4-5.3">
-            <p id="section-8.4-5.3.1">sessionId REQUIRED: A unique identifier chosen by the
-client to identify the current session.<a href="#section-8.4-5.3.1" class="pilcrow">¶</a></p>
+            <p id="section-8.4-5.3.1">sessionId REQUIRED: A unique identifier chosen by the client to identify the current session.<a href="#section-8.4-5.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.4-5.4">
-            <p id="section-8.4-5.4.1">transferContextId REQUIRED: A unique identifier used to identify
-the current transfer session at the application layer.<a href="#section-8.4-5.4.1" class="pilcrow">¶</a></p>
+            <p id="section-8.4-5.4.1">transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.<a href="#section-8.4-5.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.4-5.5">
-            <p id="section-8.4-5.5.1">hashTransferInitClaim REQUIRED: Hash of the Transfer Initialization Claim
-received in the Transfer Proposal Message.<a href="#section-8.4-5.5.1" class="pilcrow">¶</a></p>
+            <p id="section-8.4-5.5.1">hashTransferInitClaim REQUIRED: Hash of the Transfer Initialization Claim received in the Transfer Proposal Message.<a href="#section-8.4-5.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.4-5.6">
-            <p id="section-8.4-5.6.1">timestamp REQUIRED: timestamp referring to when
-the Initialization Request Message was received.<a href="#section-8.4-5.6.1" class="pilcrow">¶</a></p>
+            <p id="section-8.4-5.6.1">timestamp REQUIRED: timestamp referring to when the Initialization Request Message was received.<a href="#section-8.4-5.6.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-8.4-6">Here is an example of the message request body:<a href="#section-8.4-6" class="pilcrow">¶</a></p>
@@ -2351,12 +2332,10 @@ A reject message is taken to mean an immediate termination of the session.<a hre
             <p id="section-8.5-4.2.1">messageType REQUIRED: urn:ietf:satp:msgtype:reject-msg<a href="#section-8.5-4.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.5-4.3">
-            <p id="section-8.5-4.3.1">sessionId REQUIRED: A unique identifier chosen by the
-client to identify the current session.<a href="#section-8.5-4.3.1" class="pilcrow">¶</a></p>
+            <p id="section-8.5-4.3.1">sessionId REQUIRED: A unique identifier chosen by the client to identify the current session.<a href="#section-8.5-4.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.5-4.4">
-            <p id="section-8.5-4.4.1">transferContextId REQUIRED: A unique identifier used to identify
-the current transfer session at the application layer.<a href="#section-8.5-4.4.1" class="pilcrow">¶</a></p>
+            <p id="section-8.5-4.4.1">transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.<a href="#section-8.5-4.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.5-4.5">
             <p id="section-8.5-4.5.1">hashPrevMessage REQUIRED:  The cryptographic hash of the last message that caused the rejection to occur. The default hash algorothm is SHA256.<a href="#section-8.5-4.5.1" class="pilcrow">¶</a></p>
@@ -2396,19 +2375,16 @@ received from the server.<a href="#section-8.6-2" class="pilcrow">¶</a></p>
 <p id="section-8.6-4">The parameters of this message consist of the following:<a href="#section-8.6-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-8.6-5.1">
-            <p id="section-8.6-5.1.1">messageType REQUIRED. MUST be the value urn:ietf:satp:msgtype:transfer-commence-msg.<a href="#section-8.6-5.1.1" class="pilcrow">¶</a></p>
+            <p id="section-8.6-5.1.1">messageType REQUIRED: MUST be the value urn:ietf:satp:msgtype:transfer-commence-msg.<a href="#section-8.6-5.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.6-5.2">
-            <p id="section-8.6-5.2.1">sessionId REQUIRED: A unique identifier chosen earlier
-by the client in the Initialization Request Message.<a href="#section-8.6-5.2.1" class="pilcrow">¶</a></p>
+            <p id="section-8.6-5.2.1">sessionId REQUIRED: A unique identifier chosen earlier by the client in the Initialization Request Message.<a href="#section-8.6-5.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.6-5.3">
-            <p id="section-8.6-5.3.1">transferContextId REQUIRED: A unique identifier
-used to identify the current transfer session at the application layer.<a href="#section-8.6-5.3.1" class="pilcrow">¶</a></p>
+            <p id="section-8.6-5.3.1">transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.<a href="#section-8.6-5.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.6-5.4">
-            <p id="section-8.6-5.4.1">hashTransferInitClaim REQUIRED: Hash of the Transfer Initialization Claim
-in the Transfer Proposal message.<a href="#section-8.6-5.4.1" class="pilcrow">¶</a></p>
+            <p id="section-8.6-5.4.1">hashTransferInitClaim REQUIRED: Hash of the Transfer Initialization Claim in the Transfer Proposal message.<a href="#section-8.6-5.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.6-5.5">
             <p id="section-8.6-5.5.1">hashPrevMessage REQUIRED.  The cryptographic hash of the last message, in this case the
@@ -2437,19 +2413,16 @@ found in the previous Transfer Proposal Message.<a href="#section-8.7-1" class="
 </div>
 <p id="section-8.7-2">This message is sent by the server to the Transfer Commence Endpoint at the client.<a href="#section-8.7-2" class="pilcrow">¶</a></p>
 <p id="section-8.7-3">The message must be signed by the server.<a href="#section-8.7-3" class="pilcrow">¶</a></p>
-<p id="section-8.7-4">The parameters of this message consist of the following:
-The parameters of this message consist of the following:<a href="#section-8.7-4" class="pilcrow">¶</a></p>
+<p id="section-8.7-4">The parameters of this message consist of the following:<a href="#section-8.7-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-8.7-5.1">
-            <p id="section-8.7-5.1.1">messageType REQUIRED urn:ietf:satp:msgtype:ack-commence-msg<a href="#section-8.7-5.1.1" class="pilcrow">¶</a></p>
+            <p id="section-8.7-5.1.1">messageType REQUIRED: urn:ietf:satp:msgtype:ack-commence-msg<a href="#section-8.7-5.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.7-5.2">
-            <p id="section-8.7-5.2.1">sessionId REQUIRED: A unique identifier chosen earlier
-by the client in the Initialization Request Message.<a href="#section-8.7-5.2.1" class="pilcrow">¶</a></p>
+            <p id="section-8.7-5.2.1">sessionId REQUIRED: A unique identifier chosen earlier by the client in the Initialization Request Message.<a href="#section-8.7-5.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.7-5.3">
-            <p id="section-8.7-5.3.1">transferContextId REQUIRED: A unique identifier
-used to identify the current transfer session at the application layer.<a href="#section-8.7-5.3.1" class="pilcrow">¶</a></p>
+            <p id="section-8.7-5.3.1">transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.<a href="#section-8.7-5.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.7-5.4">
             <p id="section-8.7-5.4.1">hashPrevMessage REQUIRED. The cryptographic hash of the last message, in this case the Transfer Commence Message. The default hash algorithm is SHA256.<a href="#section-8.7-5.4.1" class="pilcrow">¶</a></p>
@@ -2506,21 +2479,19 @@ in this message prior to the next step.<a href="#section-9.1-4" class="pilcrow">
 <p id="section-9.1-6">The parameters of this message consist of the following:<a href="#section-9.1-6" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-9.1-7.1">
-            <p id="section-9.1-7.1.1">messageType REQUIRED urn:ietf:satp:msgtype:lock-assert-msg.<a href="#section-9.1-7.1.1" class="pilcrow">¶</a></p>
+            <p id="section-9.1-7.1.1">messageType REQUIRED: urn:ietf:satp:msgtype:lock-assert-msg.<a href="#section-9.1-7.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-9.1-7.2">
-            <p id="section-9.1-7.2.1">sessionId REQUIRED: A unique identifier chosen earlier
-by the client in the Initialization Request Message.<a href="#section-9.1-7.2.1" class="pilcrow">¶</a></p>
+            <p id="section-9.1-7.2.1">sessionId REQUIRED: A unique identifier chosen earlier by the client in the Initialization Request Message.<a href="#section-9.1-7.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-9.1-7.3">
-            <p id="section-9.1-7.3.1">transferContextId REQUIRED: A unique identifier
-used to identify the current transfer session at the application layer.<a href="#section-9.1-7.3.1" class="pilcrow">¶</a></p>
+            <p id="section-9.1-7.3.1">transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.<a href="#section-9.1-7.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-9.1-7.4">
             <p id="section-9.1-7.4.1">lockAssertionClaimFormat REQUIRED. The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as "LOCK_ASSERTION_CLAIM_FORMAT_1".<a href="#section-9.1-7.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-9.1-7.5">
-            <p id="section-9.1-7.5.1">lockAssertionClaim REQUIRED. The lock assertion claim or statement by the client.<a href="#section-9.1-7.5.1" class="pilcrow">¶</a></p>
+            <p id="section-9.1-7.5.1">lockAssertionClaim REQUIRED: The lock assertion claim or statement by the client.<a href="#section-9.1-7.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-9.1-7.6">
             <p id="section-9.1-7.6.1">lockAssertionExpiration REQUIRED. The expiration date and time <span>[<a href="#DATETIME" class="cite xref">DATETIME</a>]</span> of the lock or escrow upon the asset on the origin network.<a href="#section-9.1-7.6.1" class="pilcrow">¶</a></p>
@@ -2557,15 +2528,13 @@ at the client.<a href="#section-9.2-2" class="pilcrow">¶</a></p>
 <p id="section-9.2-4">The parameters of this message consist of the following:<a href="#section-9.2-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-9.2-5.1">
-            <p id="section-9.2-5.1.1">messageType REQUIRED urn:ietf:satp:msgtype:assertion-receipt-msg.<a href="#section-9.2-5.1.1" class="pilcrow">¶</a></p>
+            <p id="section-9.2-5.1.1">messageType REQUIRED: urn:ietf:satp:msgtype:assertion-receipt-msg.<a href="#section-9.2-5.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-9.2-5.2">
-            <p id="section-9.2-5.2.1">sessionId REQUIRED: A unique identifier chosen earlier
-by the client in the Initialization Request Message.<a href="#section-9.2-5.2.1" class="pilcrow">¶</a></p>
+            <p id="section-9.2-5.2.1">sessionId REQUIRED: A unique identifier chosen earlier by the client in the Initialization Request Message.<a href="#section-9.2-5.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-9.2-5.3">
-            <p id="section-9.2-5.3.1">transferContextId REQUIRED: A unique identifier
-used to identify the current transfer session at the application layer.<a href="#section-9.2-5.3.1" class="pilcrow">¶</a></p>
+            <p id="section-9.2-5.3.1">transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.<a href="#section-9.2-5.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-9.2-5.4">
             <p id="section-9.2-5.4.1">hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.<a href="#section-9.2-5.4.1" class="pilcrow">¶</a></p>
@@ -2624,15 +2593,13 @@ its readiness to begin the commitment of the transfer.<a href="#section-10.1-1" 
 <p id="section-10.1-4">The parameters of this message consist of the following:<a href="#section-10.1-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-10.1-5.1">
-            <p id="section-10.1-5.1.1">messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-prepare-msg<a href="#section-10.1-5.1.1" class="pilcrow">¶</a></p>
+            <p id="section-10.1-5.1.1">messageType REQUIRED: It MUST be the value urn:ietf:satp:msgtype:commit-prepare-msg<a href="#section-10.1-5.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.1-5.2">
-            <p id="section-10.1-5.2.1">sessionId REQUIRED: A unique identifier chosen earlier
-by the client in the Initialization Request Message.<a href="#section-10.1-5.2.1" class="pilcrow">¶</a></p>
+            <p id="section-10.1-5.2.1">sessionId REQUIRED: A unique identifier chosen earlier by the client in the Initialization Request Message.<a href="#section-10.1-5.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.1-5.3">
-            <p id="section-10.1-5.3.1">transferContextId REQUIRED: A unique identifier
-used to identify the current transfer session at the application layer.<a href="#section-10.1-5.3.1" class="pilcrow">¶</a></p>
+            <p id="section-10.1-5.3.1">transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.<a href="#section-10.1-5.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.1-5.4">
             <p id="section-10.1-5.4.1">hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.<a href="#section-10.1-5.4.1" class="pilcrow">¶</a></p>
@@ -2664,15 +2631,13 @@ and (iii) that the server is ready to proceed to the next step.<a href="#section
 <p id="section-10.2-4">The parameters of this message consist of the following:<a href="#section-10.2-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-10.2-5.1">
-            <p id="section-10.2-5.1.1">messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-ready-msg.<a href="#section-10.2-5.1.1" class="pilcrow">¶</a></p>
+            <p id="section-10.2-5.1.1">messageType REQUIRED: It MUST be the value urn:ietf:satp:msgtype:commit-ready-msg.<a href="#section-10.2-5.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-5.2">
-            <p id="section-10.2-5.2.1">sessionId REQUIRED: A unique identifier chosen earlier
-by client in the Initialization Request Message.<a href="#section-10.2-5.2.1" class="pilcrow">¶</a></p>
+            <p id="section-10.2-5.2.1">sessionId REQUIRED: A unique identifier chosen earlier by client in the Initialization Request Message.<a href="#section-10.2-5.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-5.3">
-            <p id="section-10.2-5.3.1">transferContextId REQUIRED: A unique identifier
-used to identify the current transfer session at the application layer.<a href="#section-10.2-5.3.1" class="pilcrow">¶</a></p>
+            <p id="section-10.2-5.3.1">transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.<a href="#section-10.2-5.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-5.4">
             <p id="section-10.2-5.4.1">hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.<a href="#section-10.2-5.4.1" class="pilcrow">¶</a></p>
@@ -2681,7 +2646,7 @@ used to identify the current transfer session at the application layer.<a href="
             <p id="section-10.2-5.5.1">mintAssertionFormat REQUIRED. The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as "MINT_ASSERTION_CLAIM_FORMAT_1".<a href="#section-10.2-5.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-5.6">
-            <p id="section-10.2-5.6.1">mintAssertionClaim REQUIRED. The mint assertion claim or statement by the server.<a href="#section-10.2-5.6.1" class="pilcrow">¶</a></p>
+            <p id="section-10.2-5.6.1">mintAssertionClaim REQUIRED: The mint assertion claim or statement by the server.<a href="#section-10.2-5.6.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-10.2-6">Example:<a href="#section-10.2-6" class="pilcrow">¶</a></p>
@@ -2713,15 +2678,13 @@ The standalone claim must be signed by the client.<a href="#section-10.3-2" clas
 <p id="section-10.3-5">The parameters of this message consist of the following:<a href="#section-10.3-5" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-10.3-6.1">
-            <p id="section-10.3-6.1.1">messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-final-msg.<a href="#section-10.3-6.1.1" class="pilcrow">¶</a></p>
+            <p id="section-10.3-6.1.1">messageType REQUIRED: It MUST be the value urn:ietf:satp:msgtype:commit-final-msg.<a href="#section-10.3-6.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.3-6.2">
-            <p id="section-10.3-6.2.1">sessionId REQUIRED: A unique identifier chosen earlier
-by the client in the Initialization Request Message.<a href="#section-10.3-6.2.1" class="pilcrow">¶</a></p>
+            <p id="section-10.3-6.2.1">sessionId REQUIRED: A unique identifier chosen earlier by the client in the Initialization Request Message.<a href="#section-10.3-6.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.3-6.3">
-            <p id="section-10.3-6.3.1">transferContextId REQUIRED: A unique identifier
-used to identify the current transfer session at the application layer.<a href="#section-10.3-6.3.1" class="pilcrow">¶</a></p>
+            <p id="section-10.3-6.3.1">transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.<a href="#section-10.3-6.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.3-6.4">
             <p id="section-10.3-6.4.1">hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.<a href="#section-10.3-6.4.1" class="pilcrow">¶</a></p>
@@ -2730,7 +2693,7 @@ used to identify the current transfer session at the application layer.<a href="
             <p id="section-10.3-6.5.1">burnAssertionClaimFormat REQUIRED. The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as "BURN_ASSERTION_CLAIM_FORMAT_1".<a href="#section-10.3-6.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.3-6.6">
-            <p id="section-10.3-6.6.1">burnAssertionClaim REQUIRED. The burn assertion signed claim or statement by the client.<a href="#section-10.3-6.6.1" class="pilcrow">¶</a></p>
+            <p id="section-10.3-6.6.1">burnAssertionClaim REQUIRED: The burn assertion signed claim or statement by the client.<a href="#section-10.3-6.6.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-10.3-7">Example:<a href="#section-10.3-7" class="pilcrow">¶</a></p>
@@ -2759,15 +2722,13 @@ the intended beneficiary at the destination network.<a href="#section-10.4-1" cl
 <p id="section-10.4-4">The parameters of this message consist of the following:<a href="#section-10.4-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-10.4-5.1">
-            <p id="section-10.4-5.1.1">messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:ack-commit-final-msg.<a href="#section-10.4-5.1.1" class="pilcrow">¶</a></p>
+            <p id="section-10.4-5.1.1">messageType REQUIRED: It MUST be the value urn:ietf:satp:msgtype:ack-commit-final-msg.<a href="#section-10.4-5.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.4-5.2">
-            <p id="section-10.4-5.2.1">sessionId REQUIRED: A unique identifier chosen earlier
-by client in the Initialization Request Message.<a href="#section-10.4-5.2.1" class="pilcrow">¶</a></p>
+            <p id="section-10.4-5.2.1">sessionId REQUIRED: A unique identifier chosen earlier by client in the Initialization Request Message.<a href="#section-10.4-5.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.4-5.3">
-            <p id="section-10.4-5.3.1">transferContextId REQUIRED: A unique identifier
-used to identify the current transfer session at the application layer.<a href="#section-10.4-5.3.1" class="pilcrow">¶</a></p>
+            <p id="section-10.4-5.3.1">transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.<a href="#section-10.4-5.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.4-5.4">
             <p id="section-10.4-5.4.1">hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.<a href="#section-10.4-5.4.1" class="pilcrow">¶</a></p>
@@ -2776,8 +2737,7 @@ used to identify the current transfer session at the application layer.<a href="
             <p id="section-10.4-5.5.1">assignmentAssertionClaimFormat REQUIRED. The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as "ASSIGNMENT_ASSERTION_CLAIM_FORMAT_1".<a href="#section-10.4-5.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.4-5.6">
-            <p id="section-10.4-5.6.1">assignmentAssertionClaim REQUIRED. The claim or statement by the server
-that the asset has been assigned by the server to the intended beneficiary.<a href="#section-10.4-5.6.1" class="pilcrow">¶</a></p>
+            <p id="section-10.4-5.6.1">assignmentAssertionClaim REQUIRED: The claim or statement by the server that the asset has been assigned by the server to the intended beneficiary.<a href="#section-10.4-5.6.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-10.4-6">Example:<a href="#section-10.4-6" class="pilcrow">¶</a></p>
@@ -2808,22 +2768,19 @@ expected from the client in regards to this transfer instance.<a href="#section-
 <p id="section-10.5-5">The parameters of this message consist of the following:<a href="#section-10.5-5" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-10.5-6.1">
-            <p id="section-10.5-6.1.1">messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:commit-transfer-complete-msg.<a href="#section-10.5-6.1.1" class="pilcrow">¶</a></p>
+            <p id="section-10.5-6.1.1">messageType REQUIRED: It MUST be the value urn:ietf:satp:msgtype:commit-transfer-complete-msg.<a href="#section-10.5-6.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.5-6.2">
-            <p id="section-10.5-6.2.1">sessionId REQUIRED: A unique identifier chosen earlier
-by the client in the Initialization Request Message.<a href="#section-10.5-6.2.1" class="pilcrow">¶</a></p>
+            <p id="section-10.5-6.2.1">sessionId REQUIRED: A unique identifier chosen earlier by the client in the Initialization Request Message.<a href="#section-10.5-6.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.5-6.3">
-            <p id="section-10.5-6.3.1">transferContextId REQUIRED: A unique identifier
-used to identify the current transfer session at the application layer.<a href="#section-10.5-6.3.1" class="pilcrow">¶</a></p>
+            <p id="section-10.5-6.3.1">transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.<a href="#section-10.5-6.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.5-6.4">
             <p id="section-10.5-6.4.1">hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.<a href="#section-10.5-6.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.5-6.5">
-            <p id="section-10.5-6.5.1">hashTransferCommence REQUIRED. The hash of the Transfer Commence message
-at the start of Stage 2.<a href="#section-10.5-6.5.1" class="pilcrow">¶</a></p>
+            <p id="section-10.5-6.5.1">hashTransferCommence REQUIRED: The hash of the Transfer Commence message at the start of Stage 2.<a href="#section-10.5-6.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-10.5-7">Example:<a href="#section-10.5-7" class="pilcrow">¶</a></p>
@@ -2847,7 +2804,7 @@ at the start of Stage 2.<a href="#section-10.5-6.5.1" class="pilcrow">¶</a></p>
 <p id="section-10.6-2">This message must contain the error type (see the appendix) and the course of action indicated by the severity level. Typicaly, the action taken will be the immediate termination of the session.<a href="#section-10.6-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-10.6-3.1">
-            <p id="section-10.6-3.1.1">messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:error-msg.<a href="#section-10.6-3.1.1" class="pilcrow">¶</a></p>
+            <p id="section-10.6-3.1.1">messageType REQUIRED: It MUST be the value urn:ietf:satp:msgtype:error-msg.<a href="#section-10.6-3.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.6-3.2">
             <p id="section-10.6-3.2.1">sessionId REQUIRED: This is the current session in which the error pertains.<a href="#section-10.6-3.2.1" class="pilcrow">¶</a></p>
@@ -2873,7 +2830,7 @@ at the start of Stage 2.<a href="#section-10.5-6.5.1" class="pilcrow">¶</a></p>
 <p id="section-10.7-1">The purpose of this message is to indicate that one of the peer gateways has decided not to proceed with the session. No further messages will be delivered after the abort message.<a href="#section-10.7-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-10.7-2.1">
-            <p id="section-10.7-2.1.1">messageType REQUIRED. It MUST be the value urn:ietf:satp:msgtype:session-abort-msg.<a href="#section-10.7-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-10.7-2.1.1">messageType REQUIRED: It MUST be the value urn:ietf:satp:msgtype:session-abort-msg.<a href="#section-10.7-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.7-2.2">
             <p id="section-10.7-2.2.1">sessionId REQUIRED: This is the current session in which the abort occurs.<a href="#section-10.7-2.2.1" class="pilcrow">¶</a></p>
@@ -2946,7 +2903,7 @@ may have been in the middle of executing the protocol when it crashed.<a href="#
 <a href="#section-11.2" class="section-number selfRef">11.2. </a><a href="#name-recovery-messages" class="section-name selfRef">Recovery Messages</a>
         </h3>
 <div id="satp-session-resume-recovery-msg">
-<p id="section-11.2-1">We have omitted the logging procedure, as that it implementation dependent to properly log a set of recovery steps needed to reconstruct state upon a gateway failure.
+<p id="section-11.2-1">We have omitted the logging procedure, as that it is implementation dependent to properly log a set of recovery steps needed to reconstruct state upon a gateway failure.
 As defined in the crash recovery draft <span>[<a href="#I-D.draft-belchior-satp-gateway-recovery" class="cite xref">I-D.draft-belchior-satp-gateway-recovery</a>]</span>,
 there is a set of messages that are exchanged between the recovered
 gateway and counterparty gateway:<a href="#section-11.2-1" class="pilcrow">¶</a></p>

@@ -13,22 +13,21 @@
 <meta content="
        This memo describes the Secure Asset Transfer (SAT) Protocol for digital assets. SAT is a protocol operating between two gateways that conducts the transfer of a digital asset from one gateway to another, each representing their corresponding digital asset networks. The protocol establishes a secure channel between the endpoints and implements a 2-phase commit (2PC) to ensure the properties of transfer atomicity, consistency, isolation and durability. 
     " name="description">
-<meta content="xml2rfc 3.30.2" name="generator">
+<meta content="xml2rfc 3.31.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-satp-core-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.30.2
-    Python 3.12.11
+  xml2rfc 3.31.0
+    Python 3.12.12
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.6
     lxml 5.3.1
-    platformdirs 4.4.0
+    platformdirs 4.5.0
     pycountry 24.6.1
     PyYAML 6.0.2
     requests 2.32.5
-    setuptools 80.9.0
     wcwidth 0.2.14
 -->
 <link href="draft-ietf-satp-core.xml" rel="alternate" type="application/rfc+xml">
@@ -1052,7 +1051,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Hargreaves, et al.</td>
-<td class="center">Expires 16 April 2026</td>
+<td class="center">Expires 23 April 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1064,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-satp-core-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-10-13" class="published">13 October 2025</time>
+<time datetime="2025-10-20" class="published">20 October 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-04-16">16 April 2026</time></dd>
+<dd class="expires"><time datetime="2026-04-23">23 April 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1136,7 +1135,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 16 April 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 23 April 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -2524,7 +2523,7 @@ used to identify the current transfer session at the application layer.<a href="
             <p id="section-9.1-7.5.1">lockAssertionClaim REQUIRED. The lock assertion claim or statement by the client.<a href="#section-9.1-7.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-9.1-7.6">
-            <p id="section-9.1-7.6.1">lockAssertionExpiration REQUIRED. The expiration date and time <span>[<a href="#DATETIME" class="cite xref">DATETIME</a>]</span> of the lock or escrow upon the asset.<a href="#section-9.1-7.6.1" class="pilcrow">¶</a></p>
+            <p id="section-9.1-7.6.1">lockAssertionExpiration REQUIRED. The expiration date and time <span>[<a href="#DATETIME" class="cite xref">DATETIME</a>]</span> of the lock or escrow upon the asset on the origin network.<a href="#section-9.1-7.6.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-9.1-7.7">
             <p id="section-9.1-7.7.1">hashPrevMessage REQUIRED. The hash of the previous message.<a href="#section-9.1-7.7.1" class="pilcrow">¶</a></p>
@@ -2593,21 +2592,27 @@ used to identify the current transfer session at the application layer.<a href="
 client (sender gateway) and the server (receiver gateway).<a href="#section-10-1" class="pilcrow">¶</a></p>
 </div>
 <p id="section-10-2">This stage must be completed within the time specified
-in the lockAssertionExpiration value in the lock-assertion message.<a href="#section-10-2" class="pilcrow">¶</a></p>
-<p id="section-10-3">In the following steps, the sender gateway takes the role of the client
-while the recipient gateway takes the role of the server.<a href="#section-10-3" class="pilcrow">¶</a></p>
-<p id="section-10-4">The flow follows a request-response model.
-The client makes a request (POST) to the Transfer Commitment endpoint at the server.<a href="#section-10-4" class="pilcrow">¶</a></p>
-<p id="section-10-5">Gateways MUST support the use of the HTTP GET and POST methods
-defined in RFC 2616 <span>[<a href="#RFC2616" class="cite xref">RFC2616</a>]</span> for the endpoint.<a href="#section-10-5" class="pilcrow">¶</a></p>
-<p id="section-10-6">Clients MAY use the HTTP GET or POST methods to send messages in this stage to the server.
+in the lockAssertionExpiration value in the lock-assertion message.
+This value is the time when the lock or escrow upon the asset will expire on the origin network.
+The completion of this stage is denoted by the signed Commit-Final Acknowledgement Receipt Message
+sent from the server to the client.<a href="#section-10-2" class="pilcrow">¶</a></p>
+<p id="section-10-3">If the lockAssertionExpiration timer at the client expires before the Commit-Final Acknowledgement Receipt Message
+is received by the client,
+the client may terminate the session.<a href="#section-10-3" class="pilcrow">¶</a></p>
+<p id="section-10-4">In the following steps, the sender gateway takes the role of the client
+while the recipient gateway takes the role of the server.<a href="#section-10-4" class="pilcrow">¶</a></p>
+<p id="section-10-5">The flow follows a request-response model.
+The client makes a request (POST) to the Transfer Commitment endpoint at the server.<a href="#section-10-5" class="pilcrow">¶</a></p>
+<p id="section-10-6">Gateways MUST support the use of the HTTP GET and POST methods
+defined in RFC 2616 <span>[<a href="#RFC2616" class="cite xref">RFC2616</a>]</span> for the endpoint.<a href="#section-10-6" class="pilcrow">¶</a></p>
+<p id="section-10-7">Clients MAY use the HTTP GET or POST methods to send messages in this stage to the server.
 If using the HTTP GET method, the request parameters may be serialized
-using URI Query String Serialization.<a href="#section-10-6" class="pilcrow">¶</a></p>
-<p id="section-10-7">The client and server may be required to sign certain messages
+using URI Query String Serialization.<a href="#section-10-7" class="pilcrow">¶</a></p>
+<p id="section-10-8">The client and server may be required to sign certain messages
 in order to provide standalone proof (for non-repudiation) independent of the
 secure channel between the client and server.
-This proof may be required for audit verifications post-event.<a href="#section-10-7" class="pilcrow">¶</a></p>
-<p id="section-10-8">(NOTE: Flows occur over TLS. Nonces are not shown).<a href="#section-10-8" class="pilcrow">¶</a></p>
+This proof may be required for audit verifications post-event.<a href="#section-10-8" class="pilcrow">¶</a></p>
+<p id="section-10-9">(NOTE: Flows occur over TLS. Nonces are not shown).<a href="#section-10-9" class="pilcrow">¶</a></p>
 <div id="commit-preparation-message-commit-prepare">
 <section id="section-10.1">
         <h3 id="name-commit-preparation-message-">

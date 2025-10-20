@@ -1004,7 +1004,7 @@ The parameters of this message consist of the following:
 - transferContextId REQUIRED: A unique identifier
   used to identify the current transfer session at the application layer.
 
-- lockAssertionClaimFormat REQUIRED. This is the format of the claim payoad. The default format of the claim is the JSON format [RFC8259], with the relevant payloads Base64 encoded.
+- lockAssertionClaimFormat REQUIRED. The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as "LOCK_ASSERTION_CLAIM_FORMAT_1".
 
 - lockAssertionClaim REQUIRED. The lock assertion claim or statement by the client.
 
@@ -1145,7 +1145,7 @@ The parameters of this message consist of the following:
 
 - hashPrevMessage REQUIRED. The hash of the previous message.
 
-- mintAssertionFormat REQUIRED. The format of the assertion payload.
+- mintAssertionFormat REQUIRED. The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as "MINT_ASSERTION_CLAIM_FORMAT_1".
 
 - mintAssertionClaim REQUIRED. The mint assertion claim or statement by the server.
 
@@ -1188,7 +1188,7 @@ The parameters of this message consist of the following:
 
 - hashPrevMessage REQUIRED. The hash of the previous message.
 
-- burnAssertionClaimFormat REQUIRED. The format of the claim.
+- burnAssertionClaimFormat REQUIRED. The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as "BURN_ASSERTION_CLAIM_FORMAT_1".
 
 - burnAssertionClaim REQUIRED. The burn assertion signed claim or statement by the client.
 
@@ -1227,7 +1227,7 @@ The parameters of this message consist of the following:
 
 - hashPrevMessage REQUIRED. The hash of the previous message.
 
-- assignmentAssertionClaimFormat REQUIRED. The format of the claim.
+- assignmentAssertionClaimFormat REQUIRED. The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as "ASSIGNMENT_ASSERTION_CLAIM_FORMAT_1".
 
 - assignmentAssertionClaim REQUIRED. The claim or statement by the server
   that the asset has been assigned by the server to the intended beneficiary.

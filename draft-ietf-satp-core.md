@@ -746,7 +746,7 @@ The parameters of this message consist of the following:
 - transferContextId REQUIRED: A unique identifier used to identify
   the current transfer session at the application layer.
 
-- transferInitClaimFormat REQUIRED: The format of the transfer initialization claim.
+- transferInitClaimFormat REQUIRED: The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as "TRANSFER_INIT_CLAIM_FORMAT_1".
 
 - transferInitClaim REQUIRED: The set of artifacts and parameters as the basis
   for the current transfer.

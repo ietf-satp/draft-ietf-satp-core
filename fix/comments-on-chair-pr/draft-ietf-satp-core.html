@@ -13,22 +13,21 @@
 <meta content="
        This memo describes the Secure Asset Transfer (SAT) Protocol for digital assets. SAT is a protocol operating between two gateways that conducts the transfer of a digital asset from one gateway to another, each representing their corresponding digital asset networks. The protocol establishes a secure channel between the endpoints and implements a 2-phase commit (2PC) to ensure the properties of transfer atomicity, consistency, isolation and durability. 
     " name="description">
-<meta content="xml2rfc 3.30.2" name="generator">
+<meta content="xml2rfc 3.31.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-satp-core-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.30.2
-    Python 3.12.11
+  xml2rfc 3.31.0
+    Python 3.12.12
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.6
     lxml 5.3.1
-    platformdirs 4.4.0
+    platformdirs 4.5.0
     pycountry 24.6.1
     PyYAML 6.0.2
     requests 2.32.5
-    setuptools 80.9.0
     wcwidth 0.2.14
 -->
 <link href="draft-ietf-satp-core.xml" rel="alternate" type="application/rfc+xml">
@@ -1052,7 +1051,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Hargreaves, et al.</td>
-<td class="center">Expires 19 April 2026</td>
+<td class="center">Expires 23 April 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1064,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-satp-core-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-10-16" class="published">16 October 2025</time>
+<time datetime="2025-10-20" class="published">20 October 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-04-19">19 April 2026</time></dd>
+<dd class="expires"><time datetime="2026-04-23">23 April 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1136,7 +1135,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 19 April 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 23 April 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1854,9 +1853,10 @@ gateway. Each entry in the list should be either an Algorithm Name value registe
           <h4 id="name-lock-assertion-claim-format">
 <a href="#section-5.3.12" class="section-number selfRef">5.3.12. </a><a href="#name-lock-assertion-claim-format" class="section-name selfRef">Lock assertion Claim Format</a>
           </h4>
-<p id="section-5.3.12-1">This is the format of the claim regarding the state of the asset in the origin network.<a href="#section-5.3.12-1" class="pilcrow">¶</a></p>
-<p id="section-5.3.12-2">The claim is network-dependent in the sense that different asset networks or systems may utilize a different asset locking (disablement) mechanism.<a href="#section-5.3.12-2" class="pilcrow">¶</a></p>
-<p id="section-5.3.12-3">The sender gateway provides the choice of the format to the receiver gateway.  Mechanisms to establish this value between the sender and receiver gateways may be utilized prior commencing the SAT protocol. Specifically, these are expected to be negated prior to the establishment of the SAT protocol and are out of scope for this document.<a href="#section-5.3.12-3" class="pilcrow">¶</a></p>
+<p id="section-5.3.12-1">This is the format of the claim regarding the state of the asset in the origin network.
+The default format is JSON, with parts being base64 encoded as needed.<a href="#section-5.3.12-1" class="pilcrow">¶</a></p>
+<p id="section-5.3.12-2">If the sender gateway offers multiple choices of other formats to the receiver gateway,
+the selection must occur prior to the establishment of the session.<a href="#section-5.3.12-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="lock-assertion-claim">
@@ -1865,7 +1865,7 @@ gateway. Each entry in the list should be either an Algorithm Name value registe
 <a href="#section-5.3.13" class="section-number selfRef">5.3.13. </a><a href="#name-lock-assertion-claim" class="section-name selfRef">Lock assertion Claim</a>
           </h4>
 <p id="section-5.3.13-1">The actual encoded JSON string representation of the claim using the
-format as specified by the corresponding Lock assertion Claim Format.<a href="#section-5.3.13-1" class="pilcrow">¶</a></p>
+format as specified by the corresponding Lock Assertion Claim Format value.<a href="#section-5.3.13-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2217,7 +2217,7 @@ gateway) and the server (recipient gateway).<a href="#section-8.1-1" class="pilc
             <p id="section-8.3-5.4.1">transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.<a href="#section-8.3-5.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.3-5.5">
-            <p id="section-8.3-5.5.1">transferInitClaimFormat REQUIRED: The format of the transfer initialization claim.<a href="#section-8.3-5.5.1" class="pilcrow">¶</a></p>
+            <p id="section-8.3-5.5.1">transferInitClaimFormat REQUIRED: The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as "TRANSFER_INIT_CLAIM_FORMAT_1".<a href="#section-8.3-5.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.3-5.6">
             <p id="section-8.3-5.6.1">transferInitClaim REQUIRED: The set of artifacts and parameters as the basis for the current transfer.<a href="#section-8.3-5.6.1" class="pilcrow">¶</a></p>
@@ -2338,7 +2338,7 @@ A reject message is taken to mean an immediate termination of the session.<a hre
             <p id="section-8.5-4.4.1">transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.<a href="#section-8.5-4.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.5-4.5">
-            <p id="section-8.5-4.5.1">hashPrevMessage REQUIRED: The hash of the last message that caused the rejection to occur.<a href="#section-8.5-4.5.1" class="pilcrow">¶</a></p>
+            <p id="section-8.5-4.5.1">hashPrevMessage REQUIRED:  The cryptographic hash of the last message that caused the rejection to occur. The default hash algorothm is SHA256.<a href="#section-8.5-4.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.5-4.6">
             <p id="section-8.5-4.6.1">reasonCode REQUIRED: the error code (see <a href="#error-types-section" class="auto internal xref">Section 15, Paragraph 1</a>) causing the rejection.<a href="#section-8.5-4.6.1" class="pilcrow">¶</a></p>
@@ -2387,7 +2387,8 @@ received from the server.<a href="#section-8.6-2" class="pilcrow">¶</a></p>
             <p id="section-8.6-5.4.1">hashTransferInitClaim REQUIRED: Hash of the Transfer Initialization Claim in the Transfer Proposal message.<a href="#section-8.6-5.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.6-5.5">
-            <p id="section-8.6-5.5.1">hashPrevMessage REQUIRED: The hash of the last message, in this case the Transfer Proposal Receipt message.<a href="#section-8.6-5.5.1" class="pilcrow">¶</a></p>
+            <p id="section-8.6-5.5.1">hashPrevMessage REQUIRED.  The cryptographic hash of the last message, in this case the
+Transfer Proposal Receipt message. The default hash algorithm is SHA256.<a href="#section-8.6-5.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-8.6-6">For example, the client makes the following HTTP request using TLS:<a href="#section-8.6-6" class="pilcrow">¶</a></p>
@@ -2424,7 +2425,7 @@ found in the previous Transfer Proposal Message.<a href="#section-8.7-1" class="
             <p id="section-8.7-5.3.1">transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.<a href="#section-8.7-5.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.7-5.4">
-            <p id="section-8.7-5.4.1">hashPrevMessage REQUIRED: The hash of the last message, in this case the Transfer Commence Message.<a href="#section-8.7-5.4.1" class="pilcrow">¶</a></p>
+            <p id="section-8.7-5.4.1">hashPrevMessage REQUIRED. The cryptographic hash of the last message, in this case the Transfer Commence Message. The default hash algorithm is SHA256.<a href="#section-8.7-5.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-8.7-6">An example of a success response could be as follows:<a href="#section-8.7-6" class="pilcrow">¶</a></p>
@@ -2487,16 +2488,16 @@ in this message prior to the next step.<a href="#section-9.1-4" class="pilcrow">
             <p id="section-9.1-7.3.1">transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.<a href="#section-9.1-7.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-9.1-7.4">
-            <p id="section-9.1-7.4.1">lockAssertionClaimFormat REQUIRED: The format of the claim.<a href="#section-9.1-7.4.1" class="pilcrow">¶</a></p>
+            <p id="section-9.1-7.4.1">lockAssertionClaimFormat REQUIRED. The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as "LOCK_ASSERTION_CLAIM_FORMAT_1".<a href="#section-9.1-7.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-9.1-7.5">
             <p id="section-9.1-7.5.1">lockAssertionClaim REQUIRED: The lock assertion claim or statement by the client.<a href="#section-9.1-7.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-9.1-7.6">
-            <p id="section-9.1-7.6.1">lockAssertionExpiration REQUIRED: The expiration date and time <span>[<a href="#DATETIME" class="cite xref">DATETIME</a>]</span> of the lock or escrow upon the asset.<a href="#section-9.1-7.6.1" class="pilcrow">¶</a></p>
+            <p id="section-9.1-7.6.1">lockAssertionExpiration REQUIRED. The expiration date and time <span>[<a href="#DATETIME" class="cite xref">DATETIME</a>]</span> of the lock or escrow upon the asset on the origin network.<a href="#section-9.1-7.6.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-9.1-7.7">
-            <p id="section-9.1-7.7.1">hashPrevMessage REQUIRED: The hash of the previous message.<a href="#section-9.1-7.7.1" class="pilcrow">¶</a></p>
+            <p id="section-9.1-7.7.1">hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.<a href="#section-9.1-7.7.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-9.1-8">Example:<a href="#section-9.1-8" class="pilcrow">¶</a></p>
@@ -2536,7 +2537,7 @@ at the client.<a href="#section-9.2-2" class="pilcrow">¶</a></p>
             <p id="section-9.2-5.3.1">transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.<a href="#section-9.2-5.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-9.2-5.4">
-            <p id="section-9.2-5.4.1">hashPrevMessage REQUIRED: The hash of the previous message.<a href="#section-9.2-5.4.1" class="pilcrow">¶</a></p>
+            <p id="section-9.2-5.4.1">hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.<a href="#section-9.2-5.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-9.2-6">Example:<a href="#section-9.2-6" class="pilcrow">¶</a></p>
@@ -2560,9 +2561,12 @@ at the client.<a href="#section-9.2-2" class="pilcrow">¶</a></p>
 client (sender gateway) and the server (receiver gateway).<a href="#section-10-1" class="pilcrow">¶</a></p>
 </div>
 <p id="section-10-2">This stage must be completed within the time specified
-in the lockAssertionExpiration value in the lock-assertion message.<a href="#section-10-2" class="pilcrow">¶</a></p>
-<p id="section-10-3">In the following steps, the sender gateway takes the role of the client
-while the recipient gateway takes the role of the server.<a href="#section-10-3" class="pilcrow">¶</a></p>
+in the lockAssertionExpiration value in the lock-assertion message.
+This value is the time when the lock or escrow upon the asset will expire on the origin network.<a href="#section-10-2" class="pilcrow">¶</a></p>
+<p id="section-10-3">The completion of this stage is denoted by the signed Commit-Final Acknowledgement Receipt Message
+sent from the receiver gateway (server) to the sender gateway (client).
+If the lockAssertionExpiration timer at the client expires before the Commit-Final Acknowledgement Receipt Message
+is received by the client, the client may terminate the session.<a href="#section-10-3" class="pilcrow">¶</a></p>
 <p id="section-10-4">The flow follows a request-response model.
 The client makes a request (POST) to the Transfer Commitment endpoint at the server.<a href="#section-10-4" class="pilcrow">¶</a></p>
 <p id="section-10-5">Gateways MUST support the use of the HTTP GET and POST methods
@@ -2598,7 +2602,7 @@ its readiness to begin the commitment of the transfer.<a href="#section-10.1-1" 
             <p id="section-10.1-5.3.1">transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.<a href="#section-10.1-5.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.1-5.4">
-            <p id="section-10.1-5.4.1">hashPrevMessage REQUIRED: The hash of the previous message.<a href="#section-10.1-5.4.1" class="pilcrow">¶</a></p>
+            <p id="section-10.1-5.4.1">hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.<a href="#section-10.1-5.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-10.1-6">Example:<a href="#section-10.1-6" class="pilcrow">¶</a></p>
@@ -2636,10 +2640,10 @@ and (iii) that the server is ready to proceed to the next step.<a href="#section
             <p id="section-10.2-5.3.1">transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.<a href="#section-10.2-5.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-5.4">
-            <p id="section-10.2-5.4.1">hashPrevMessage REQUIRED: The hash of the previous message.<a href="#section-10.2-5.4.1" class="pilcrow">¶</a></p>
+            <p id="section-10.2-5.4.1">hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.<a href="#section-10.2-5.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-5.5">
-            <p id="section-10.2-5.5.1">mintAssertionFormat REQUIRED: The format of the assertion payload.<a href="#section-10.2-5.5.1" class="pilcrow">¶</a></p>
+            <p id="section-10.2-5.5.1">mintAssertionFormat REQUIRED. The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as "MINT_ASSERTION_CLAIM_FORMAT_1".<a href="#section-10.2-5.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-5.6">
             <p id="section-10.2-5.6.1">mintAssertionClaim REQUIRED: The mint assertion claim or statement by the server.<a href="#section-10.2-5.6.1" class="pilcrow">¶</a></p>
@@ -2683,10 +2687,10 @@ The standalone claim must be signed by the client.<a href="#section-10.3-2" clas
             <p id="section-10.3-6.3.1">transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.<a href="#section-10.3-6.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.3-6.4">
-            <p id="section-10.3-6.4.1">hashPrevMessage REQUIRED: The hash of the previous message.<a href="#section-10.3-6.4.1" class="pilcrow">¶</a></p>
+            <p id="section-10.3-6.4.1">hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.<a href="#section-10.3-6.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.3-6.5">
-            <p id="section-10.3-6.5.1">burnAssertionClaimFormat REQUIRED: The format of the claim.<a href="#section-10.3-6.5.1" class="pilcrow">¶</a></p>
+            <p id="section-10.3-6.5.1">burnAssertionClaimFormat REQUIRED. The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as "BURN_ASSERTION_CLAIM_FORMAT_1".<a href="#section-10.3-6.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.3-6.6">
             <p id="section-10.3-6.6.1">burnAssertionClaim REQUIRED: The burn assertion signed claim or statement by the client.<a href="#section-10.3-6.6.1" class="pilcrow">¶</a></p>
@@ -2727,10 +2731,10 @@ the intended beneficiary at the destination network.<a href="#section-10.4-1" cl
             <p id="section-10.4-5.3.1">transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.<a href="#section-10.4-5.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.4-5.4">
-            <p id="section-10.4-5.4.1">hashPrevMessage REQUIRED: The hash of the previous message.<a href="#section-10.4-5.4.1" class="pilcrow">¶</a></p>
+            <p id="section-10.4-5.4.1">hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.<a href="#section-10.4-5.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.4-5.5">
-            <p id="section-10.4-5.5.1">assignmentAssertionClaimFormat REQUIRED: The format of the claim.<a href="#section-10.4-5.5.1" class="pilcrow">¶</a></p>
+            <p id="section-10.4-5.5.1">assignmentAssertionClaimFormat REQUIRED. The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as "ASSIGNMENT_ASSERTION_CLAIM_FORMAT_1".<a href="#section-10.4-5.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.4-5.6">
             <p id="section-10.4-5.6.1">assignmentAssertionClaim REQUIRED: The claim or statement by the server that the asset has been assigned by the server to the intended beneficiary.<a href="#section-10.4-5.6.1" class="pilcrow">¶</a></p>
@@ -2773,7 +2777,7 @@ expected from the client in regards to this transfer instance.<a href="#section-
             <p id="section-10.5-6.3.1">transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.<a href="#section-10.5-6.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.5-6.4">
-            <p id="section-10.5-6.4.1">hashPrevMessage REQUIRED: The hash of the previous message.<a href="#section-10.5-6.4.1" class="pilcrow">¶</a></p>
+            <p id="section-10.5-6.4.1">hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.<a href="#section-10.5-6.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.5-6.5">
             <p id="section-10.5-6.5.1">hashTransferCommence REQUIRED: The hash of the Transfer Commence message at the start of Stage 2.<a href="#section-10.5-6.5.1" class="pilcrow">¶</a></p>

@@ -858,7 +858,7 @@ The parameters of this message consist of the following:
 - transferContextId REQUIRED: A unique identifier used to identify
   the current transfer session at the application layer.
 
-- hashPrevMessage REQUIRED:  The hash of the last message that caused the rejection to occur.
+- hashPrevMessage REQUIRED:  The cryptographic hash of the last message that caused the rejection to occur. The default hash algorothm is SHA256.
 
 - reasonCode REQUIRED: the error code (see {{error-types-section}}) causing the rejection.
 
@@ -902,8 +902,8 @@ The parameters of this message consist of the following:
 - hashTransferInitClaim REQUIRED: Hash of the Transfer Initialization Claim
   in the Transfer Proposal message.
 
-- hashPrevMessage REQUIRED. The hash of the last message, in this case the
-  Transfer Proposal Receipt message.
+- hashPrevMessage REQUIRED.  The cryptographic hash of the last message, in this case the
+  Transfer Proposal Receipt message. The default hash algorithm is SHA256.
 
 For example, the client makes the following HTTP request using TLS:
 
@@ -940,8 +940,7 @@ The parameters of this message consist of the following:
 - transferContextId REQUIRED: A unique identifier
   used to identify the current transfer session at the application layer.
 
-- hashPrevMessage REQUIRED.The hash of the last message, in this case the
-  the Transfer Commence Message.
+- hashPrevMessage REQUIRED. The cryptographic hash of the last message, in this case the Transfer Commence Message. The default hash algorithm is SHA256.
 
 An example of a success response could be as follows:
 
@@ -1010,7 +1009,7 @@ The parameters of this message consist of the following:
 
 - lockAssertionExpiration REQUIRED. The expiration date and time {{DATETIME}} of the lock or escrow upon the asset on the origin network.
 
-- hashPrevMessage REQUIRED. The hash of the previous message.
+- hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.
 
 Example:
 
@@ -1046,7 +1045,7 @@ The parameters of this message consist of the following:
 - transferContextId REQUIRED: A unique identifier
   used to identify the current transfer session at the application layer.
 
-- hashPrevMessage REQUIRED. The hash of the previous message.
+- hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.
 
 Example:
 
@@ -1109,7 +1108,7 @@ The parameters of this message consist of the following:
 - transferContextId REQUIRED: A unique identifier
   used to identify the current transfer session at the application layer.
 
-- hashPrevMessage REQUIRED. The hash of the previous message.
+- hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.
 
 Example:
 
@@ -1143,7 +1142,7 @@ The parameters of this message consist of the following:
 - transferContextId REQUIRED: A unique identifier
   used to identify the current transfer session at the application layer.
 
-- hashPrevMessage REQUIRED. The hash of the previous message.
+- hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.
 
 - mintAssertionFormat REQUIRED. The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as "MINT_ASSERTION_CLAIM_FORMAT_1".
 
@@ -1186,7 +1185,7 @@ The parameters of this message consist of the following:
 - transferContextId REQUIRED: A unique identifier
   used to identify the current transfer session at the application layer.
 
-- hashPrevMessage REQUIRED. The hash of the previous message.
+- hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.
 
 - burnAssertionClaimFormat REQUIRED. The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as "BURN_ASSERTION_CLAIM_FORMAT_1".
 
@@ -1225,7 +1224,7 @@ The parameters of this message consist of the following:
 - transferContextId REQUIRED: A unique identifier
   used to identify the current transfer session at the application layer.
 
-- hashPrevMessage REQUIRED. The hash of the previous message.
+- hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.
 
 - assignmentAssertionClaimFormat REQUIRED. The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as "ASSIGNMENT_ASSERTION_CLAIM_FORMAT_1".
 
@@ -1268,7 +1267,7 @@ The parameters of this message consist of the following:
 - transferContextId REQUIRED: A unique identifier
   used to identify the current transfer session at the application layer.
 
-- hashPrevMessage REQUIRED. The hash of the previous message.
+- hashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.
 
 - hashTransferCommence REQUIRED. The hash of the Transfer Commence message
   at the start of Stage 2.

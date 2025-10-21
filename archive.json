@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-19T01:09:16.321312+00:00",
+  "timestamp": "2025-10-21T01:03:28.113001+00:00",
   "repo": "ietf-satp/draft-ietf-satp-core",
   "labels": [
     {
@@ -289,16 +289,24 @@
       "id": "I_kwDOKkmiaM7LvLdL",
       "title": "digitalAssetId format",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/33",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hardaker",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "The asset ID example shows that it's a UUID format, but I suspect it can be anything as long as its a string of some kind.  But if that's true, it should say so or otherwise state it's a UUID or something.",
       "createdAt": "2025-09-15T14:08:53Z",
-      "updatedAt": "2025-09-15T14:08:53Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-10-20T19:26:04Z",
+      "closedAt": "2025-10-20T19:26:04Z",
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The text has been updated to state the following:\n\n\"digitalAssetId REQUIRED: This is the globally unique identifier for the digital asset located in the origin network. The default format is JSON, with base64 encoding.\"\n\n",
+          "createdAt": "2025-10-20T19:26:04Z",
+          "updatedAt": "2025-10-20T19:26:04Z"
+        }
+      ]
     },
     {
       "number": 34,
@@ -411,7 +419,7 @@
       "id": "I_kwDOKkmiaM7LvpPo",
       "title": "transferInitClaimFormat",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/40",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hardaker",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -420,9 +428,17 @@
       ],
       "body": "This (and other similar) values needs to be defined as to acceptable values.  The examples uses \"TRANSFER_INIT_CLAIM_FORMAT_1\" as a value, but that is not defined anywhere.  That may be the only acceptable value for this version of the specification?",
       "createdAt": "2025-09-15T14:37:30Z",
-      "updatedAt": "2025-09-16T16:31:15Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-10-20T18:13:09Z",
+      "closedAt": "2025-10-20T18:13:09Z",
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The _CLAIM_FORMAT_1 value is used to denote the default format JSON, with parts being base64 encoded as needed. \n\nThe relevant parts of the draft have been updated as follows:\n\ntransferInitClaimFormat REQUIRED: The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as \"TRANSFER_INIT_CLAIM_FORMAT_1\".\n\nlockAssertionClaimFormat REQUIRED. The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as \"LOCK_ASSERTION_CLAIM_FORMAT_1\".\n\nmintAssertionFormat REQUIRED. The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as \"MINT_ASSERTION_CLAIM_FORMAT_1\".\n\nburnAssertionClaimFormat REQUIRED. The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as \"BURN_ASSERTION_CLAIM_FORMAT_1\".\n\nassignmentAssertionClaimFormat REQUIRED. The default format is JSON, with parts being base64 encoded as needed. The default format is denoted as \"ASSIGNMENT_ASSERTION_CLAIM_FORMAT_1\".\n\n",
+          "createdAt": "2025-10-20T18:13:09Z",
+          "updatedAt": "2025-10-20T18:13:09Z"
+        }
+      ]
     },
     {
       "number": 41,
@@ -436,16 +452,24 @@
       "labels": [],
       "body": "The content response message (and others) specify that messages should be signed.  Signed how though?  I'd suggest stating that signed messages should use the format defined by the JOSE work.  RFC7515 eg?",
       "createdAt": "2025-09-15T14:43:54Z",
-      "updatedAt": "2025-09-15T14:43:54Z",
+      "updatedAt": "2025-10-20T19:20:30Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Section 5.2 currently states that:\n\n\"All SATP messages exchanged between gateways must be signed, using JSON Web Signatures mechanism (RFC7515).\"\n\nDo we need to get the sender gateway to actually choose with signature algorithm from those supported in RFC7515?\n\n",
+          "createdAt": "2025-10-20T19:20:18Z",
+          "updatedAt": "2025-10-20T19:20:30Z"
+        }
+      ]
     },
     {
       "number": 42,
       "id": "I_kwDOKkmiaM7Lvvst",
       "title": "lockAssertianClaimFormat is missing acceptable values and definitions",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/42",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hardaker",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -454,24 +478,32 @@
       ],
       "body": "",
       "createdAt": "2025-09-15T14:44:19Z",
-      "updatedAt": "2025-09-16T16:30:58Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-10-20T17:47:16Z",
+      "closedAt": "2025-10-20T17:47:16Z",
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Text has been updated to state the following:\n\nlockAssertionClaimFormat REQUIRED. This is the format of the claim payoad. The default format of the claim is the JSON format [RFC8259], with the relevant payloads Base64 encoded.",
+          "createdAt": "2025-10-20T17:47:16Z",
+          "updatedAt": "2025-10-20T17:47:16Z"
+        }
+      ]
     },
     {
       "number": 43,
       "id": "I_kwDOKkmiaM7Lvx-_",
       "title": "hashPrevMessage hash type?",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/43",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hardaker",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "The hashPrevMessage field doesn't indicate which hash type should be used.  And it probably needs a format type in order to allow for multiple hashing types.",
       "createdAt": "2025-09-15T14:46:26Z",
-      "updatedAt": "2025-10-13T17:36:03Z",
-      "closedAt": null,
+      "updatedAt": "2025-10-20T19:09:01Z",
+      "closedAt": "2025-10-20T19:09:01Z",
       "comments": [
         {
           "author": "findthomas",
@@ -479,6 +511,13 @@
           "body": "Actually, I think we want to re-use the JWK/JWS supported format types.",
           "createdAt": "2025-10-13T15:00:07Z",
           "updatedAt": "2025-10-13T17:36:03Z"
+        },
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Text has been corrected throughout.  It now says:\n\nhashPrevMessage REQUIRED. The cryptographic hash of the last message. The default hash algorithm is SHA256.\n",
+          "createdAt": "2025-10-20T19:09:01Z",
+          "updatedAt": "2025-10-20T19:09:01Z"
         }
       ]
     },
@@ -487,7 +526,7 @@
       "id": "I_kwDOKkmiaM7LvzT1",
       "title": "Commitment prepration error handling",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/44",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hardaker",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -496,9 +535,17 @@
       ],
       "body": "Section 10 has a sentence that says the stage must be completed within the time specfied (...) but it doesn't specify what happens when this fails to happen in time.",
       "createdAt": "2025-09-15T14:47:30Z",
-      "updatedAt": "2025-09-16T16:30:02Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-10-20T17:38:18Z",
+      "closedAt": "2025-10-20T17:38:18Z",
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The sentence has been clarified.  Now it reads as follows (start of Stage 3): \n\nThis stage must be completed within the time specified\nin the lockAssertionExpiration value in the lock-assertion message.\nThis value is the time when the lock or escrow upon the asset will expire on the origin network.\n\nThe completion of this stage is denoted by the signed Commit-Final Acknowledgement Receipt Message\nsent from the receiver gateway (server) to the sender gateway (client).\n\nIf the lockAssertionExpiration timer at the client expires before the Commit-Final Acknowledgement Receipt Message\nis received by the client, the client may terminate the session.",
+          "createdAt": "2025-10-20T17:38:18Z",
+          "updatedAt": "2025-10-20T17:38:18Z"
+        }
+      ]
     },
     {
       "number": 45,
@@ -2314,24 +2361,26 @@
       "id": "PR_kwDOKkmiaM6uJLct",
       "title": "Address comments from chair's PR",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/pull/50",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "alexchiriac",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-10-16T18:05:43Z",
-      "updatedAt": "2025-10-16T20:18:50Z",
+      "updatedAt": "2025-10-20T19:12:53Z",
       "baseRepository": "ietf-satp/draft-ietf-satp-core",
       "baseRefName": "main",
-      "baseRefOid": "4cc5cfdf62ccc85e818cca3255ca853cdb9092a8",
+      "baseRefOid": "2a18c86f2382dcb15e4076189cb5310ca95f7162",
       "headRepository": "ietf-satp/draft-ietf-satp-core",
       "headRefName": "fix/comments-on-chair-pr",
-      "headRefOid": "4311b9827a02137e9c1481d346fa0eacf2d6af09",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "2aab70623ca8049964857c257c7250abf202b97e",
+      "closedAt": "2025-10-20T19:12:53Z",
+      "mergedAt": "2025-10-20T19:12:53Z",
+      "mergedBy": "findthomas",
+      "mergeCommit": {
+        "oid": "b0bfc13e14001fd00480d5150e01abf35a90269e"
+      },
       "comments": [],
       "reviews": [
         {

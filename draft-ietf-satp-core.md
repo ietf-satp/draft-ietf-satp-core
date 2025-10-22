@@ -375,6 +375,8 @@ This is the identifier that uniquely identifies the digital asset in the origin 
 
 The digital asset identifier is a value that is derived by the applications utilized by the originator and the beneficiary prior to starting the asset transfer.
 
+The default format of the digital asset Identifier is JSON, with base64 encoding.
+
 The mechanism used to derive the digital asset identifier is outside the scope of the current document.
 
 ### Asset Profile Identifier
@@ -382,6 +384,8 @@ The mechanism used to derive the digital asset identifier is outside the scope o
 This is the unique identifier of the asset schema or asset profile which defines the class or type of asset in question. The asset profile is relevant from a regulatory perspective.
 
 In some cases the profile identifier may be needed by the receiver gateway at the destination network in order to evaluate whether the asset is permitted to enter the destination network.
+
+The default format of the asset profile identifier is JSON, with base64 encoding.
 
 The formal specification of asset profiles and their identification is outside the scope of this document.
 

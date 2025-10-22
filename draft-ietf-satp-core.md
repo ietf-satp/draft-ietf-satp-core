@@ -1279,24 +1279,22 @@ The effect of session aborts on the state of the asset is discussed below.
 # SATP Session Resumption
 
 {: #satp-session-resume-section}
-This section answers the question of how can a backup gateway build trust
+This section addresses the question of how can a backup gateway build trust
 with the counterparty gateway to resume the execution of the protocol,
-in the presence of errors and crashes?
+in the presence of errors and crashes.
 
 Gateways may enter a faulty state at any time while executing the protocol.
 The faulty state can manifest itself in incorrect behavior,
 leading to gateways emitting alerts and errors.
 
 In some instances, gateways may crash.
-We employ either the primary-backup or self-healing paradigm,
-meaning that the crashed gateway will eventually be replaced
-by a functioning one, or recover, respectively.
-
-When a crash occurs, we initiate a recovery procedure by
-the backup gateway or the recovered gateway, as defined in the
-crash recovery draft {{?I-D.draft-belchior-satp-gateway-recovery}}.
+Several stratgies can be utlized to address gateway crashes,
+two notable approaches being the primary-backup strategy or self-healing paradigm.
+The first strategy pertains to the crashed gateway being eventually be replaced
+by a functioning one,while the second strategy focuses on the gateway recovering.
+When a crash occurs, a recovery procedure is initiated by
+the backup gateway or the recovered gateway.
 In either case, if the recovery happens within a time period defined as max_timeout (in Stage 2), the recovered gateway triggers a session resumption.
-The schema and order of the recovered messages are specified in the crash recovery draft.
 
 In the case where there is no answer from the gateway within the specified max_timeout,
 the counterparty gateway rollbacks the process up to the point when the crash occured (crash-point).
@@ -1318,29 +1316,7 @@ the sender gateway is just taking longer than normal;
 there are no new actions done or logs recorded),
 we focus on the primary-backup paradigm.
 
-## Primary-Backup Session Resumption
-
-{: #satp-session-resume-section-pb}
-
-Upon a gateway recovering using primary-backup,
-a new gateway (recovered gateway) takes over the crashed gateway.
-The counterparty gateway assures that the recovered gateway
-is legitimate (according to the crash recovery specification).
-
-After the recovery, the gateways exchange information about
-their current view of the protocol, since the crashed gateway
-may have been in the middle of executing the protocol when it crashed.
-
-After that, the gateways MUST agree on the current state of the protocol.
-
-## Recovery Messages
-
-{: #satp-session-resume-recovery-msg}
-We have omitted the logging procedure, as that it is implementation dependent to properly log a set of recovery steps needed to reconstruct state upon a gateway failure.
-
-The set of recovery messages are out of scope for this document, and will be defined in a separate specification.
-See draft {{?I-D.draft-belchior-satp-gateway-recovery}}.
-
+The mechanism to perform recovery and resumption in SATP will be defined in a separate specification.
 
 # Error Messages
 

@@ -1299,7 +1299,7 @@ In either case, if the recovery happens within a time period defined as max_time
 The schema and order of the recovered messages are specified in the crash recovery draft.
 
 In the case where there is no answer from the gateway within the specified max_timeout,
-the counterparty gateway rollbacks the process until that stage.
+the counterparty gateway rollbacks the process up to the point when the crash occured (crash-point).
 Upon recovery, the crashed gateway learns that the counterparty gateway
 has initiated a rollback, and it proceeds accordingly (by also initiating a rollback).
 Note that rollbacks can also happen in case of unresolved errors.

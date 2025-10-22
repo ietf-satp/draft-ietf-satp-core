@@ -461,6 +461,9 @@ Table of Contents
    applications utilized by the originator and the beneficiary prior to
    starting the asset transfer.
 
+   The default format of the digital asset Identifier is JSON, with
+   base64 encoding.
+
    The mechanism used to derive the digital asset identifier is outside
    the scope of the current document.
 
@@ -473,6 +476,9 @@ Table of Contents
    In some cases the profile identifier may be needed by the receiver
    gateway at the destination network in order to evaluate whether the
    asset is permitted to enter the destination network.
+
+   The default format of the asset profile identifier is JSON, with
+   base64 encoding.
 
    The formal specification of asset profiles and their identification
    is outside the scope of this document.

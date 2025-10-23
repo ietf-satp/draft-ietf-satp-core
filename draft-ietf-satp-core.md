@@ -307,7 +307,7 @@ This section describes the SATP message-types, the format of the messages exchan
 The mandatory fields are determined by the message type exchanged between the two gateways (see Section 7).
 
 
-## SATP Message Digital Signatures
+## SATP Message Digital Signatures and Key Types
 
 {: #satp-message-signatures}
 

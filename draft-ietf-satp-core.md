@@ -431,13 +431,12 @@ If no acceptable credential scheme was offered, a "unsupported
 gatewayCredentialScheme" (err_1.1.34) reject message is returned by the server
 {{satp-stage1-init-reject}}.
 
-### Client Offers Supported TLS Schemes
+### Client Offers Other Supported TLS Schemes
 
 {: #satp-client-offers-sec}
 
-Prior to commecing the TLS secure channel establishment if client (sender gateway) wishies to use a TLS scheme other than AES-128 in GCM mode with SHA-256, then the client may may choose to send a JSON block containing information regarding the client's supported TLS schemes.
+If a client (sender gateway) wishes to use TLS schemes other then the basic scheme (AES-128 in GCM mode with SHA-256), then the client may may choose to send a JSON block containing information regarding the client's supported TLS schemes.
 
-The purpose of the credential scheme is to enable the client to deliver to server the relevant identity information in that scheme regarding the gateway-identity and gateway-owner identity information.
 
 
 ### Gateway Identifier

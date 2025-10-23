@@ -472,6 +472,17 @@ gateway. Each entry in the list should be either an Algorithm Name value registe
 
 All implementations MUST support a common default of "ES256", which is the ECDSA signature algorithm with the P-256 curve and the SHA-256 hash function.
 
+### Asset Lock Mechanism within a Network
+
+SATP gateways may be providing service to multiple types of asset networks, each of which may utilize different local mechanisms to immobile (lock) a given asset as way to provide exclusion in the case of multiple attempts to change the state of the asset.
+
+The origin network and the destination network may in fact utilize distinct asset locking mechanisms, and the type of mechanisms to immobile (lock) a given asset may have different convergence (finalization) speeds. Peer gateways must exchange information about the asset locking information in their respective network to enable both gateways to compute an approximate time of convergence (assetLockExpirationTime) and set timers for the transfer of asset. A timer that expires too soon may result in the SAT protocol terminating too early before reaching the final commitment stage.
+
+Currently, the most common type of mechanisms (NetworkLockType) to temporarily lock an asset in a network are (i) TIME_LOCK, (ii) HASH_LOCK, (iii) HASH_TIME_LOCK.
+
+The exact definition of these asset locking mechanisms are network-dependent, and such are out of the scope of the current work.
+
+
 ### Lock assertion Claim Format
 This is the format of the claim regarding the state of the asset in the origin network.
 The default format is JSON, with parts being base64 encoded as needed.
@@ -645,7 +656,7 @@ The Transfer Initialization Claim consists of the following:
 
 - assetProfileId REQUIRED: This is the globally unique identifier for the asset-profile definition (document) on which the digital asset was issued.
 
-- assetLockType REQUIRED: The default locking mechanism used for an asset. These can be (i) TIME_LOCK, (ii) HASH_LOCK, (iii) HASH_TIME_LOCK.
+- networkLockType REQUIRED: The default locking mechanism used for an asset. These can be (i) TIME_LOCK, (ii) HASH_LOCK, (iii) HASH_TIME_LOCK.
 
 - assetLockExpirationTime OPTIONAL: The duration of time (in seconds) for an asset lock to expire in the network, if it is a HASH_TIME_LOCK or a TIME_LOCK.
 
@@ -773,7 +784,7 @@ Here is an example of the message request body:
   "transferInitClaim": {
       "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",
       "assetProfileId": "38561",
-      "assetLockType": "HASH_TIME_LOCK",
+      "networkLockType": "HASH_TIME_LOCK",
       "assetLockExpirationTime": 120,
       "verifiedOriginatorEntityId": "CN=Alice, OU=Example Org Unit, O=Example, L=New York, C=US",
       "verifiedBeneficiaryEntityId": "CN=Bob, OU=Case Org Unit, O=Case, L=San Francisco, C=US",

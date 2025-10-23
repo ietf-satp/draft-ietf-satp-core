@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-21T01:03:28.113001+00:00",
+  "timestamp": "2025-10-23T01:02:55.738343+00:00",
   "repo": "ietf-satp/draft-ietf-satp-core",
   "labels": [
     {
@@ -255,7 +255,7 @@
       "id": "I_kwDOKkmiaM7Lu_Tz",
       "title": "Transfer-Context ID format?",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/31",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hardaker",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -264,9 +264,17 @@
       ],
       "body": "Section 5.3.5 defines the transfer context ID, but only specifies that it \"may be a complex data structure\".   It fails to specify what format this might appear as in message(s).  Should it be encoded as a string?  Should it be encoded as a json sub-structure/obect?  Either?  Who needs to understand the format?  Just the side that defines it?  Who should define it?\n\nThe format may be outside the scope, but it still needs to specify how it should be encoded.",
       "createdAt": "2025-09-15T13:56:34Z",
-      "updatedAt": "2025-09-16T16:35:36Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-10-22T15:18:44Z",
+      "closedAt": "2025-10-22T15:18:44Z",
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The following line has been added to this section:\n\nThe default format of the transfer context identifier is JSON, with base64 encoding.\n\n",
+          "createdAt": "2025-10-22T15:18:44Z",
+          "updatedAt": "2025-10-22T15:18:44Z"
+        }
+      ]
     },
     {
       "number": 32,
@@ -552,7 +560,7 @@
       "id": "I_kwDOKkmiaM7Lv2lJ",
       "title": "Referecing the satp-gateway-recovery draft will hold publicatino",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/45",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hardaker",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -561,16 +569,24 @@
       ],
       "body": "As is the reference to an ID in section 11 will make the publication hold for that other document to be completed.  Instead it could specify that crash recovery will be defined later, but still reference that draft as a informative reference.",
       "createdAt": "2025-09-15T14:50:41Z",
-      "updatedAt": "2025-09-16T16:29:49Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-10-22T15:29:46Z",
+      "closedAt": "2025-10-22T15:29:46Z",
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The paragraphs in this section has been clarified. We also added a new line:\n\n\"The mechanism to perform recovery and resumption in SATP will be defined in a separate specification.\"\n\n",
+          "createdAt": "2025-10-22T15:29:46Z",
+          "updatedAt": "2025-10-22T15:29:46Z"
+        }
+      ]
     },
     {
       "number": 46,
       "id": "I_kwDOKkmiaM7Lv4Qd",
       "title": "session resumption rollback",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/46",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hardaker",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -579,16 +595,24 @@
       ],
       "body": "The 5th paragraph in section 11 talks about \"until that stage\" but \"that\" in the sentence is not very well defined.",
       "createdAt": "2025-09-15T14:52:12Z",
-      "updatedAt": "2025-09-16T16:29:40Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-10-22T15:23:35Z",
+      "closedAt": "2025-10-22T15:23:35Z",
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The seance has been corrected as follows:\n\n\"In the case where there is no answer from the gateway within the specified max_timeout,\nthe counterparty gateway rollbacks the process up to the point when the crash occurred (crash-point).\"",
+          "createdAt": "2025-10-22T15:23:35Z",
+          "updatedAt": "2025-10-22T15:23:35Z"
+        }
+      ]
     },
     {
       "number": 47,
       "id": "I_kwDOKkmiaM7Lv9vz",
       "title": "Recovery messages are half defined but also declared out of scope",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/47",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hardaker",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -597,8 +621,8 @@
       ],
       "body": "I'd suggest simply sticking with the fact that they'll be defined in the future and not quoting them in the document at all since it's likely theyl'l change in the future as the other specification advances?",
       "createdAt": "2025-09-15T14:57:22Z",
-      "updatedAt": "2025-09-16T16:29:27Z",
-      "closedAt": null,
+      "updatedAt": "2025-10-22T15:09:26Z",
+      "closedAt": "2025-10-22T15:09:26Z",
       "comments": [
         {
           "author": "RafaelAPB",
@@ -606,6 +630,13 @@
           "body": "@hardaker yes, perhaps we should entirely remove references to it, and state we have a draft on crash recovery",
           "createdAt": "2025-09-16T16:29:19Z",
           "updatedAt": "2025-09-16T16:29:19Z"
+        },
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Section 11.2 (about the Recovery Messages) has been removed, with a note to the reader to see the Recovery draft.\n",
+          "createdAt": "2025-10-22T15:09:26Z",
+          "updatedAt": "2025-10-22T15:09:26Z"
         }
       ]
     },

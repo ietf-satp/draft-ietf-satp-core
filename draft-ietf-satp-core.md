@@ -392,6 +392,18 @@ The default format of the asset profile identifier is JSON, with base64 encoding
 
 The formal specification of asset profiles and their identification is outside the scope of this document.
 
+### Gateway Network ID (NetworkID)
+
+The network identifier (NetworkID) is the unique alphanumeric string representing the asset network behind a gateway.
+A gateway may simultaneously stand in front of multiple asset networks.  As such, for a specific asset transfer instance both the sender gateway and recipient gateway must indicate which asset networks are the origin network and destination network respectively. 
+
+The network identifier values of the origin network (senderGatewayNetworkId) and destination network (recipientGatewayNetworkId) must be communicated and agreed upon prior to the commencement of the asset transfer.
+This selection is confirmed by peer gateways in the Transfer Initialization Claim that is transmitted within Transfer Proposal Message.
+
+The mechanism to allocate globally unique network identifier is outside the scope of the current specification. 
+
+
+
 ### Transfer-Context ID:
 
 This is the unique immutable identifier representing the application layer context of a single unidirectional transfer. The method to generate the transfer-context ID is outside the scope of the current document.

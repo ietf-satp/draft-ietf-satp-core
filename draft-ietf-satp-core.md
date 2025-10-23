@@ -397,7 +397,10 @@ The transfer-context may be a complex data structure that contains all informati
 
 The default format of the transfer context identifier is JSON, with base64 encoding.
 
-The mechanisms to establish this value between the sender and receiver gateways may be utilized prior commencing the SAT protocol. Specifically, these are expected to be negated prior to the establishment of the SAT protocol and are out of scope for this document.
+The Transfer Context ID (transferContextId) value is established by the sender application (possibly with the assistance of the sender gateway) in the origin network. The value is then communicated to the receiving application in the destination network prior to the commencement of the SAT protocol.  Both the sender gateway and receiver gateway must understand how to process the transferContextId value. The value is used in the Transfer Proposal Message (with message type satp:msgtype:transfer-proposal-msg) between the two gateways.
+
+The mechanism to derive the Transfer Context ID value and to communicate it between the applications is outside the scope of the current specification.
+
 
 
 ### Session ID:

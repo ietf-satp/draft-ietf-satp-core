@@ -709,8 +709,6 @@ The gateway capabilities list is as follows:
 
 - gatewayLoggingProfile REQUIRED: contains the profile of the logging procedure. "LOCAL_STORE" is the only defined allowed value at this time, but others may be defined in future updates to this specification.  Implementations not understanding a future option value should return an appropriate error response and cease the negotiation.
 
-- gatewayAccessControlProfile REQUIRED: the profile regarding the confidentiality of the log entries being stored. "RBAC" is the only defined allowed value at this time, but others may be defined in future updates to this specification.  Implementations not understanding a future option value should return an appropriate error response and cease the negotiation.  Default is only the gateway that created the logs can access them.
-
 Here is an example representation in JSON format:
 
 ```json
@@ -720,8 +718,7 @@ Here is an example representation in JSON format:
   "networkLockType": "HASH_TIME_LOCK",
   "networkLockExpirationTime": 120,
   "gatewayCredentialScheme": "TLS_AES_128_GCM_SHA256",
-  "gatewayLoggingProfile": "LOCAL_STORE",
-  "gatewayAccessControlProfile": "RBAC"
+  "gatewayLoggingProfile": "LOCAL_STORE"
 }
 ```
 
@@ -787,8 +784,7 @@ Here is an example of the message request body:
       "networkLockType": "HASH_TIME_LOCK",
       "networkLockExpirationTime": 120,
       "gatewayCredentialScheme": "TLS_AES_128_GCM_SHA256",
-      "gatewayLoggingProfile": "LOCAL_STORE",
-      "gatewayAccessControlProfile": "RBAC"
+      "gatewayLoggingProfile": "LOCAL_STORE"
   }
 }
 ```

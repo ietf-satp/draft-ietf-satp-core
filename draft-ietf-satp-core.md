@@ -412,18 +412,33 @@ This is the unique identifier representing a session between two gateways handli
 
 The sender gateway provides this value to the receiver gateway.
 
-### Gateway Credential Type
+### Client Credential Types Supported by Gateways
 
 SATP Gateways must support JSON Web Tokens (JWT) [RFC 7519] with OAUth2.0 [RFC6749] as the minimal credential type for authenticating incoming API calls from Client Applications (see Figure 1).
 
 A gateway may support additional credential mechanisms, which may be advertised by the gateway through different mechanisms (e.g. config file at a well-known endpoint). However, these mechanisms are out of scope for the current specification.
 
 
-### Gateway Credential
+### Gateway Supported TLS Schemes
 
-This payload is the actual credential of the gateway (token,
-certificate, string) with a string based encoding based on the
-corresponding Gateway Credential Type.
+Gateways must suport TLS1.2 or higher [RFC8448].
+
+The TLS scheme is used by peer gateways to establish the TLS session prior to the commencement of an asset transfer. Gateways must a minimal support the AES-128 in GCM mode with SHA-256 (TLS_AES_128_GCM_SHA256).
+
+If the client  (sender gateway) transmits a list of supported credential schemes, the server (recipient gateway) selects one acceptable credential scheme from the offered schemes.
+
+If no acceptable credential scheme was offered, a "unsupported
+gatewayCredentialScheme" (err_1.1.34) reject message is returned by the server
+{{satp-stage1-init-reject}}.
+
+### Client Offers Supported TLS Schemes
+
+{: #satp-client-offers-sec}
+
+Prior to commecing the TLS secure channel establishment if client (sender gateway) wishies to use a TLS scheme other than AES-128 in GCM mode with SHA-256, then the client may may choose to send a JSON block containing information regarding the client's supported TLS schemes.
+
+The purpose of the credential scheme is to enable the client to deliver to server the relevant identity information in that scheme regarding the gateway-identity and gateway-owner identity information.
+
 
 ### Gateway Identifier
 
@@ -472,23 +487,8 @@ In the following steps, the sender gateway is referred to as the client while th
 
 TLS 1.2 or higher MUST be implemented to protect gateway communications. TLS 1.3 or higher SHOULD be used where both gateways support TLS 1.3 or higher.
 
-### Client offers supported credential schemes
 
-{: #satp-client-offers-sec}
 
-Prior to commecing the TLS 1.3 secure channel establishment, the client (sender gateway) may choose to send a JSON block containing information regarding the client's supported credential schemes.
-
-The purpose of the credential scheme is to enable the client to deliver to server the relevant identity information in that scheme regarding the gateway-identity and gateway-owner identity information.
-
-### Server selects supported credential scheme
-
-{: #satp-server-selects-sec}
-
-If the client  (sender gateway) transmits a list of supported credential schemes, the server (recipient gateway) selects one acceptable credential scheme from the offered schemes.
-
-If no acceptable credential scheme was offered, a "unsupported
-gatewayCredentialProfile" (err_1.1.34) reject message is returned by the server
-{{satp-stage1-init-reject}}.
 
 ### Client asserts or proves identity
 
@@ -706,7 +706,7 @@ The gateway capabilities list is as follows:
 
 - networkLockExpirationTime REQUIRED: The duration of time (in integer seconds) for a lock to expire in the network.
 
-- gatewayCredentialProfile REQUIRED: Specify type of auth (e.g., SAML, OAuth, X.509).
+- gatewayCredentialScheme REQUIRED: Specify the TLS1.2 or TLS1.3 scheme.
 
 - gatewayLoggingProfile REQUIRED: contains the profile of the logging procedure. "LOCAL_STORE" is the only defined allowed value at this time, but others may be defined in future updates to this specification.  Implementations not understanding a future option value should return an appropriate error response and cease the negotiation.
 
@@ -720,7 +720,7 @@ Here is an example representation in JSON format:
   "gatewaySupportedSignatureAlgorithms": ["ES256", "RSA"],
   "networkLockType": "HASH_TIME_LOCK",
   "networkLockExpirationTime": 120,
-  "gatewayCredentialProfile": "OAUTH",
+  "gatewayCredentialScheme": "TLS_AES_128_GCM_SHA256",
   "gatewayLoggingProfile": "LOCAL_STORE",
   "gatewayAccessControlProfile": "RBAC"
 }
@@ -787,7 +787,7 @@ Here is an example of the message request body:
       "gatewaySupportedSignatureAlgorithms": ["ES256", "RSA"],
       "networkLockType": "HASH_TIME_LOCK",
       "networkLockExpirationTime": 120,
-      "gatewayCredentialProfile": "OAUTH",
+      "gatewayCredentialScheme": "TLS_AES_128_GCM_SHA256",
       "gatewayLoggingProfile": "LOCAL_STORE",
       "gatewayAccessControlProfile": "RBAC"
   }
@@ -1443,7 +1443,7 @@ This registry defines the error codes used in SATP protocol messages. Each entry
 | err_1.1.31   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported gatewayDefaultSignatureAlgorithm |
 | err_1.1.32   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported networkLockType         |
 | err_1.1.33   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported networkLockExpirationTime |
-| err_1.1.34   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported gatewayCredentialProfile |
+| err_1.1.34   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported gatewayCredentialScheme |
 | err_1.1.35   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported gatewayLoggingProfile   |
 | err_1.1.36   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported gatewayAccessControlProfile |
 | err_1.2.1    | Transfer Proposal/Receipt errors | badly formed message  | mismatch transferContextId          |
@@ -1605,7 +1605,7 @@ The following error codes are defined for SATP protocol errors:
 - err_3.1: Network connection failure
 - err_3.2: Gateway unavailable
 - err_3.3: Timeout exceeded
-- err_4.1: Unsupported credential profile
+- err_4.1: Unsupported credential scheme
 - err_4.2: Invalid credential format
 - err_4.3: Credential verification failed
 

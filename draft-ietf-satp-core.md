@@ -730,8 +730,6 @@ The gateway capabilities list is as follows:
 
 - gatewayTlsScheme REQUIRED: Specify the TLS1.2 or TLS1.3 scheme.
 
-- gatewayLoggingProfile REQUIRED: contains the profile of the logging procedure. "LOCAL_STORE" is the only defined allowed value at this time, but others may be defined in future updates to this specification.  Implementations not understanding a future option value should return an appropriate error response and cease the negotiation.
-
 Here is an example representation in JSON format:
 
 ```json
@@ -740,8 +738,7 @@ Here is an example representation in JSON format:
   "gatewaySupportedSignatureAlgorithms": ["ES256", "RSA"],
   "networkLockType": "HASH_TIME_LOCK",
   "networkLockExpirationTime": 120,
-  "gatewayTlsScheme": "TLS_AES_128_GCM_SHA256",
-  "gatewayLoggingProfile": "LOCAL_STORE"
+  "gatewayTlsScheme": "TLS_AES_128_GCM_SHA256"
 }
 ```
 
@@ -806,8 +803,7 @@ Here is an example of the message request body:
       "gatewaySupportedSignatureAlgorithms": ["ES256", "RSA"],
       "networkLockType": "HASH_TIME_LOCK",
       "networkLockExpirationTime": 120,
-      "gatewayTlsScheme": "TLS_AES_128_GCM_SHA256",
-      "gatewayLoggingProfile": "LOCAL_STORE"
+      "gatewayTlsScheme": "TLS_AES_128_GCM_SHA256"
   }
 }
 ```

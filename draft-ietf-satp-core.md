@@ -437,10 +437,10 @@ Gateways must suport TLS1.2 or higher [RFC8448].
 
 The TLS scheme is used by peer gateways to establish the TLS session prior to the commencement of an asset transfer. Gateways must a minimal support the AES-128 in GCM mode with SHA-256 (TLS_AES_128_GCM_SHA256).
 
-If the client  (sender gateway) transmits a list of supported credential schemes, the server (recipient gateway) selects one acceptable credential scheme from the offered schemes.
+If the client (sender gateway) transmits a list of supported credential schemes, the server (recipient gateway) selects one acceptable credential scheme from the offered schemes.
 
 If no acceptable credential scheme was offered, a "unsupported
-gatewayCredentialScheme" (err_1.1.34) reject message is returned by the server
+gatewayTlsScheme" (err_1.1.34) reject message is returned by the server
 {{satp-stage1-init-reject}}.
 
 ### Client Offers Other Supported TLS Schemes
@@ -728,7 +728,7 @@ The gateway capabilities list is as follows:
 
 - networkLockExpirationTime REQUIRED: The duration of time (in integer seconds) for a lock to expire in the network.
 
-- gatewayCredentialScheme REQUIRED: Specify the TLS1.2 or TLS1.3 scheme.
+- gatewayTlsScheme REQUIRED: Specify the TLS1.2 or TLS1.3 scheme.
 
 - gatewayLoggingProfile REQUIRED: contains the profile of the logging procedure. "LOCAL_STORE" is the only defined allowed value at this time, but others may be defined in future updates to this specification.  Implementations not understanding a future option value should return an appropriate error response and cease the negotiation.
 
@@ -740,7 +740,7 @@ Here is an example representation in JSON format:
   "gatewaySupportedSignatureAlgorithms": ["ES256", "RSA"],
   "networkLockType": "HASH_TIME_LOCK",
   "networkLockExpirationTime": 120,
-  "gatewayCredentialScheme": "TLS_AES_128_GCM_SHA256",
+  "gatewayTlsScheme": "TLS_AES_128_GCM_SHA256",
   "gatewayLoggingProfile": "LOCAL_STORE"
 }
 ```
@@ -806,7 +806,7 @@ Here is an example of the message request body:
       "gatewaySupportedSignatureAlgorithms": ["ES256", "RSA"],
       "networkLockType": "HASH_TIME_LOCK",
       "networkLockExpirationTime": 120,
-      "gatewayCredentialScheme": "TLS_AES_128_GCM_SHA256",
+      "gatewayTlsScheme": "TLS_AES_128_GCM_SHA256",
       "gatewayLoggingProfile": "LOCAL_STORE"
   }
 }
@@ -1461,7 +1461,7 @@ This registry defines the error codes used in SATP protocol messages. Each entry
 | err_1.1.31   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported gatewayDefaultSignatureAlgorithm |
 | err_1.1.32   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported networkLockType         |
 | err_1.1.33   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported networkLockExpirationTime |
-| err_1.1.34   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported gatewayCredentialScheme |
+| err_1.1.34   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported gatewayTlsScheme        |
 | err_1.1.35   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported gatewayLoggingProfile   |
 | err_1.1.36   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported gatewayAccessControlProfile |
 | err_1.2.1    | Transfer Proposal/Receipt errors | badly formed message  | mismatch transferContextId          |

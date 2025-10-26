@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-23T01:02:55.738343+00:00",
+  "timestamp": "2025-10-26T01:07:27.563610+00:00",
   "repo": "ietf-satp/draft-ietf-satp-core",
   "labels": [
     {
@@ -281,16 +281,24 @@
       "id": "I_kwDOKkmiaM7LvEs-",
       "title": "Gateway Credential Type needs a list of values",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/32",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hardaker",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Right now the credential type is under specified.  It merely gives an example.  For this specification to be usable it needs a specific type list.  It can come from somewhere else (see what I proposed in #30 for JWEB algorithms), or can be a list of acceptable values defined in the document and specified later (see #30 and the change to networkLockType).",
       "createdAt": "2025-09-15T14:02:07Z",
-      "updatedAt": "2025-09-15T14:02:07Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-10-23T18:40:08Z",
+      "closedAt": "2025-10-23T18:40:08Z",
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Text has been updated to follow JWT:\n\n[end]\n**Gateway Credential Type**\n\nSATP Gateways must support JSON Web Tokens (JWT) [RFC 7519] with OAUth2.0 [RFC6749] as the minimal credential type for authenticating incoming API calls from Client Applications (see Figure 1).\n\nA gateway may support additional credential mechanisms, which may be advertised by the gateway through different mechanisms (e.g. config file at a well-known endpoint). However, these mechanisms are out of scope for the current specification.\n\n[end]",
+          "createdAt": "2025-10-23T18:40:08Z",
+          "updatedAt": "2025-10-23T18:40:08Z"
+        }
+      ]
     },
     {
       "number": 33,
@@ -321,23 +329,31 @@
       "id": "I_kwDOKkmiaM7LvQ32",
       "title": "originator and beneficiary public key specification types needed",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/34",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hardaker",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "The originatorPubkey and beneficiaryPubkey types don't specify what type of key should be in the field.  It's possible that a format/type field may be needed if you expect to have different format types, or if it's a single type then it should say what type.  Note that a single type is not likely acceptable due to not being forward modifiable, which is always a danger with cryptographic mechanisms eventually being broken.  If a format is picked (or range of formats) the list needs to be clearly defined (probably with a reference like I suggested for other values in #30).",
       "createdAt": "2025-09-15T14:14:24Z",
-      "updatedAt": "2025-09-15T14:14:24Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-10-23T18:26:33Z",
+      "closedAt": "2025-10-23T18:26:33Z",
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The Section 5.2 on Digital Signatures have been re-written to follow the algorithms and key-types defined in JWS/JWK. This means SATP will follow/adop any new updates to these RFCs.\n\n\n[begin]\n**Section 5.2. SATP Message Digital Signatures and Key Types**\n\nAll SATP messages exchanged between gateways must be signed, using JSON Web Signatures mechanism (RFC7515).\n\nSATP gateways SHOULD support the algorithms defined in the JSON Web Algorithms (JWA) specification [RFC7518] and key types defined in the JSON Web Key (JWK) specification [RFC7517]. The choice of signature algorithm and key-type must be agreed upon between the gateways prior to the commencement of the SATP protocol session. The agreed values are then included within the Transfer Initialization Claim body in Transfer Proposal Message.\n\nAll gateways implementing SATP must implement at minimal the ECDSA signature algorithm with the P-256 curve and the SHA-256 hash function.\n\nAdditional signature algorithms and keying parameters may be negotiated by peer gateways. However, the negotiation protocol is outside the scope of this specification.\n\n[end]\n",
+          "createdAt": "2025-10-23T18:26:33Z",
+          "updatedAt": "2025-10-23T18:26:33Z"
+        }
+      ]
     },
     {
       "number": 35,
       "id": "I_kwDOKkmiaM7LvSS3",
       "title": "senderGatewaynetworkId and recipientGatewayNetworkId formats",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/35",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hardaker",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -346,16 +362,24 @@
       ],
       "body": "these two fields don't explain what types of values are acceptable, and who defines them.  The examples look like integers but I suspect they could be defined by the network in question as any sort of selection string?",
       "createdAt": "2025-09-15T14:15:46Z",
-      "updatedAt": "2025-09-16T16:31:47Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-10-23T19:50:08Z",
+      "closedAt": "2025-10-23T19:50:08Z",
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Yes, these two have not yet been defined or explained.  \n\nA new subsection has been added, as follows:\n\n[begin]\n\n**Gateway Network ID (NetworkID)**\n\nThe network identifier (NetworkID) is the unique alphanumeric string representing the asset network behind a gateway.\nA gateway may simultaneously stand in front of multiple asset networks.  As such, for a specific asset transfer instance both the sender gateway and recipient gateway must indicate which asset networks are the origin network and destination network respectively. \n\nThe network identifier values of the origin network (senderGatewayNetworkId) and destination network (recipientGatewayNetworkId) must be communicated and agreed upon prior to the commencement of the asset transfer.\nThis selection is confirmed by peer gateways in the Transfer Initialization Claim that is transmitted within Transfer Proposal Message.\n\nThe mechanism to allocate globally unique network identifier is outside the scope of the current specification. \n\n[end]",
+          "createdAt": "2025-10-23T19:50:08Z",
+          "updatedAt": "2025-10-23T19:50:08Z"
+        }
+      ]
     },
     {
       "number": 36,
       "id": "I_kwDOKkmiaM7LvTrY",
       "title": "networkLockTypes need defining",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/36",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hardaker",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -364,16 +388,24 @@
       ],
       "body": "I proposed some value clean ups in #30 but the three types still need a definition of what they mean.  Right now they're simply three strings without any definition of what the types mean.",
       "createdAt": "2025-09-15T14:16:59Z",
-      "updatedAt": "2025-09-16T16:34:46Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-10-23T20:07:27Z",
+      "closedAt": "2025-10-23T20:07:27Z",
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "There was some typos in the text where \"NetworkLockType\" and \"AssetLockType\" was used.  Now only the term \"NetworkLockType\" is used.\n\nA new subsection has been added to explain the NetworkLockType and the assetLockExpirationTime, as follows:\n\n\n[begin]\n\n**Asset Lock Mechanism within a Network**\n\nSATP gateways may be providing service to multiple types of asset networks, each of which may utilize different local mechanisms to immobile (lock) a given asset as way to provide exclusion in the case of multiple attempts to change the state of the asset.\n\nThe origin network and the destination network may in fact utilize distinct asset locking mechanisms, and the type of mechanisms to immobile (lock) a given asset may have different convergence (finalization) speeds. Peer gateways must exchange information about the asset locking information in their respective network to enable both gateways to compute an approximate time of convergence (assetLockExpirationTime) and set timers for the transfer of asset. A timer that expires too soon may result in the SAT protocol terminating too early before reaching the final commitment stage.\n\nCurrently, the most common type of mechanisms (NetworkLockType) to temporarily lock an asset in a network are (i) TIME_LOCK, (ii) HASH_LOCK, (iii) HASH_TIME_LOCK.\n\nThe exact definition of these asset locking mechanisms are network-dependent, and such are out of the scope of the current work.\n\n[end]",
+          "createdAt": "2025-10-23T20:07:27Z",
+          "updatedAt": "2025-10-23T20:07:27Z"
+        }
+      ]
     },
     {
       "number": 37,
       "id": "I_kwDOKkmiaM7Lvosv",
       "title": "Clarification for gatewayAccessControlProfile",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/37",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hardaker",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -382,16 +414,24 @@
       ],
       "body": "I suggested some changes to this in #30 but the last sentence (\"Default is only the gateway that created the logs can access them\") didn't make any sense to me so I couldn't figure if what I added got in the way of it or how I could make it more understandable.",
       "createdAt": "2025-09-15T14:36:58Z",
-      "updatedAt": "2025-09-16T16:31:54Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-10-23T19:10:18Z",
+      "closedAt": "2025-10-23T19:10:18Z",
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The text has been removed because the AccessControlProfile is used for accessing the logs (e.g. for crash recovery), but we are still working on the crash recovery draft (draft-belchior).",
+          "createdAt": "2025-10-23T19:10:18Z",
+          "updatedAt": "2025-10-23T19:10:18Z"
+        }
+      ]
     },
     {
       "number": 38,
       "id": "I_kwDOKkmiaM7LvpDg",
       "title": "gatewayCredentialProfile types needed",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/38",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hardaker",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -400,16 +440,24 @@
       ],
       "body": "Similar to the other bugs, this definition can't be an undefined list of values and needs to be pointed at definitions of a particular set of types where both sides understands what a string will mean.",
       "createdAt": "2025-09-15T14:37:22Z",
-      "updatedAt": "2025-09-16T16:31:30Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-10-23T19:03:39Z",
+      "closedAt": "2025-10-23T19:03:39Z",
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "There was confusion in the text between (i) the credential used by a Client Application to interact with API1 at the gateway, and (ii) the credential used to establish the TLS session between gateways before an asset transfer.\n\nTo remove this confusion, we have used the term \"Gateway TLS Scheme\" for the later.\n\nNew text has been added as follows:\n\n\n[begin]\n**Gateway Supported TLS Schemes**\n\nGateways must suport TLS1.2 or higher [RFC8448].\n\nThe TLS scheme is used by peer gateways to establish the TLS session prior to the commencement of an asset transfer. Gateways must a minimal support the AES-128 in GCM mode with SHA-256 (TLS_AES_128_GCM_SHA256).\n\nIf the client (sender gateway) transmits a list of supported credential schemes, the server (recipient gateway) selects one acceptable credential scheme from the offered schemes.\n\nIf no acceptable credential scheme was offered, a \"unsupported gatewayCredentialScheme\" (err_1.1.34) reject message is returned by the server {{satp-stage1-init-reject}}.\n\n[end]",
+          "createdAt": "2025-10-23T19:03:39Z",
+          "updatedAt": "2025-10-23T19:03:39Z"
+        }
+      ]
     },
     {
       "number": 39,
       "id": "I_kwDOKkmiaM7LvpIg",
       "title": "transfer protocol message's transferContextId",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/39",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hardaker",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -418,9 +466,17 @@
       ],
       "body": "It should be stated which party creates this value and whether or not both sides need to understand it or whether it's just a reference that one side needs to understand.",
       "createdAt": "2025-09-15T14:37:27Z",
-      "updatedAt": "2025-09-16T16:31:36Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-10-23T18:08:51Z",
+      "closedAt": "2025-10-23T18:08:51Z",
+      "comments": [
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Section 5.3.5 on the Transfer Context ID has bee clarified with the following text:\n\n\"The Transfer Context ID (transferContextId) value is established by the sender application (possibly with the assistance of the sender gateway) in the origin network. The value is then communicated to the receiving application in the destination network prior to the commencement of the SAT protocol.  Both the sender gateway and receiver gateway must understand how to process the transferContextId value. The value is used in the Transfer Proposal Message (with message type satp:msgtype:transfer-proposal-msg) between the two gateways.\n\nThe mechanism to derive the Transfer Context ID value and to communicate it between the applications is outside the scope of the current specification.\"\n",
+          "createdAt": "2025-10-23T18:08:51Z",
+          "updatedAt": "2025-10-23T18:08:51Z"
+        }
+      ]
     },
     {
       "number": 40,
@@ -453,15 +509,15 @@
       "id": "I_kwDOKkmiaM7LvvVN",
       "title": "message signature formats",
       "url": "https://github.com/ietf-satp/draft-ietf-satp-core/issues/41",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hardaker",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "The content response message (and others) specify that messages should be signed.  Signed how though?  I'd suggest stating that signed messages should use the format defined by the JOSE work.  RFC7515 eg?",
       "createdAt": "2025-09-15T14:43:54Z",
-      "updatedAt": "2025-10-20T19:20:30Z",
-      "closedAt": null,
+      "updatedAt": "2025-10-23T18:27:40Z",
+      "closedAt": "2025-10-23T18:27:39Z",
       "comments": [
         {
           "author": "findthomas",
@@ -469,6 +525,13 @@
           "body": "Section 5.2 currently states that:\n\n\"All SATP messages exchanged between gateways must be signed, using JSON Web Signatures mechanism (RFC7515).\"\n\nDo we need to get the sender gateway to actually choose with signature algorithm from those supported in RFC7515?\n\n",
           "createdAt": "2025-10-20T19:20:18Z",
           "updatedAt": "2025-10-20T19:20:30Z"
+        },
+        {
+          "author": "findthomas",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This question was covered in the response to the issue regarding Key Types. ",
+          "createdAt": "2025-10-23T18:27:40Z",
+          "updatedAt": "2025-10-23T18:27:40Z"
         }
       ]
     },

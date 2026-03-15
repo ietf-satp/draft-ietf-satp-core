@@ -98,17 +98,15 @@ informative:
     target: https://datatracker.ietf.org/doc/draft-ietf-satp-architecture/
     title: Secure Asset Transfer (SAT) Interoperability Architecture
 
-  RFC5939: RFC5939
-
   RFC9334: RFC9334
 
 normative:
-  JWT: RFC7519
-  JSON: RFC8259
-  JWS: RFC7515
-  JWA: RFC7518
+  RFC7519: RFC7519
+  RFC8259: RFC8259
+  RFC7515: RFC7515
+  RFC7518: RFC7518
   REQ-LEVEL: RFC2119
-  BASE64: RFC4648
+  RFC4648: RFC4648
   DATETIME: RFC3339
   RFC2616: RFC2616
 
@@ -311,7 +309,7 @@ The mandatory fields are determined by the message type exchanged between the tw
 
 {: #satp-message-signatures}
 
-All SATP messages exchanged between gateways must be signed, using JSON Web Signatures mechanism (RFC7515).
+All SATP messages exchanged between gateways must be signed [ECDSA], using JSON Web Signatures mechanism [RFC7515].
 
 SATP gateways SHOULD support the algorithms defined in the JSON Web Algorithms (JWA) specification [RFC7518] and key types defined in the JSON Web Key (JWK) specification [RFC7517].
 The choice of signature algorithm and key-type must be agreed upon between the gateways prior to the commencement of the SATP protocol session. The agreed values are then included within the Transfer Initialization Claim body in Transfer Proposal Message.

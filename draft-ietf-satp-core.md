@@ -325,7 +325,7 @@ Additional signature algorithms and keying parameters may be negotiated by peer 
 
 SATP messages are exchanged between peer gateways, where depending on the message type one gateway may act as a client of the other (and vice versa).
 
-All SATP messages exchanged between gateways are in JSON format {{JSON}}.
+All SATP messages exchanged between gateways are in JSON format.
 
 ### Protocol version
 

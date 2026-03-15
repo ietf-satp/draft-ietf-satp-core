@@ -207,9 +207,9 @@ The following are some terminology used in the current document, some borrowed f
 - Recipient gateway: The gateway that is the recipient side of
   a unidirectional asset transfer.
 
-- Claim: An assertion made by an Entity {{JWT}}.
+- Claim: An assertion made by an Entity.
 
-- Claim Type: Syntax used for representing a Claim Value {{JWT}}.
+- Claim Type: Syntax used for representing a Claim Value.
 
 - Gateway Claim: An assertion made by a Gateway regarding the status or
   condition of resources (e.g. assets, public keys, etc.)
@@ -424,7 +424,7 @@ The sender gateway provides this value to the receiver gateway.
 
 ### Client Credential Types Supported by Gateways
 
-SATP Gateways must support JSON Web Tokens (JWT) [RFC 7519] with OAUth2.0 [RFC6749] as the minimal credential type for authenticating incoming API calls from Client Applications (see Figure 1).
+SATP Gateways must support JSON Web Tokens (JWT) [RFC7519] with OAUth2.0 [RFC6749] as the minimal credential type for authenticating incoming API calls from Client Applications (see Figure 1).
 
 A gateway may support additional credential mechanisms, which may be advertised by the gateway through different mechanisms (e.g. config file at a well-known endpoint). However, these mechanisms are out of scope for the current specification.
 

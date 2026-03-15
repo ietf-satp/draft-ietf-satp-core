@@ -104,8 +104,11 @@ normative:
   RFC7519: RFC7519
   RFC8259: RFC8259
   RFC7515: RFC7515
+  RFC7517: RFC7517
+  RFC6749: RFC6749
   RFC7518: RFC7518
   REQ-LEVEL: RFC2119
+  RFC8446: RFC8446
   RFC4648: RFC4648
   DATETIME: RFC3339
   RFC2616: RFC2616
@@ -431,7 +434,7 @@ A gateway may support additional credential mechanisms, which may be advertised 
 
 ### Gateway Supported TLS Schemes
 
-Gateways must suport TLS1.2 or higher [RFC8448].
+Gateways must suport TLS1.3 [RFC8446].
 
 The TLS scheme is used by peer gateways to establish the TLS session prior to the commencement of an asset transfer. Gateways must a minimal support the AES-128 in GCM mode with SHA-256 (TLS_AES_128_GCM_SHA256).
 

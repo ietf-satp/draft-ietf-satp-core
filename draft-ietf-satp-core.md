@@ -378,7 +378,7 @@ This is the identifier that uniquely identifies the digital asset in the origin 
 
 The digital asset identifier is a value that is derived by the applications utilized by the originator and the beneficiary prior to starting the asset transfer.
 
-The default format of the digital asset Identifier is JSON, with base64 encoding.
+The default format of the digital asset Identifier is JSON, with base64 encoding [BASE64].
 
 The mechanism used to derive the digital asset identifier is outside the scope of the current document.
 

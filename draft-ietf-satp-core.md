@@ -111,7 +111,7 @@ normative:
   RFC8446: RFC8446
   RFC4648: RFC4648
   DATETIME: RFC3339
-  RFC2616: RFC2616
+  RFC7235: RFC7235
 
   X.500:
     author:
@@ -632,8 +632,7 @@ The sender gateway proposes the set of transfer parameters and asset-related art
 
 If the receiver gateway accepts the proposal, it returns a signed receipt message for the proposal indicating it agrees to proceed to the next stage. If the receiver gateway rejects any parameters or artifacts in the proposal, it can provide a counteroffer to the sender gateway by responding with a proposal reject message carrying alternative parameters.
 
-Gateways MUST support the use of the HTTP GET and POST methods
-defined in RFC 2616 [RFC2616] for the endpoint.
+Gateways MUST support the use of the HTTP GET and POST methods for the endpoint [RFC7235].
 
 Clients (sender gateway) MAY use the HTTP GET or POST methods to send messages
 in this stage to the server (recipient gateway).
@@ -968,8 +967,7 @@ while the recipient gateway takes the role of the server.
 The flow follows a request-response model.
 The client makes a request (POST) to the Lock-Assertion Endpoint at the server.
 
-Gateways MUST support the use of the HTTP GET and POST methods
-defined in RFC 2616 [RFC2616] for the endpoint.
+Gateways MUST support the use of the HTTP GET and POST methods for the endpoint.
 
 Clients MAY use the HTTP GET or POST methods to send messages in this stage to the server.
 If using the HTTP GET method, the request parameters may be serialized
@@ -1073,8 +1071,7 @@ is received by the client, the client may terminate the session.
 The flow follows a request-response model.
 The client makes a request (POST) to the Transfer Commitment endpoint at the server.
 
-Gateways MUST support the use of the HTTP GET and POST methods
-defined in RFC 2616 [RFC2616] for the endpoint.
+Gateways MUST support the use of the HTTP GET and POST methods for the endpoint.
 
 Clients MAY use the HTTP GET or POST methods to send messages in this stage to the server.
 If using the HTTP GET method, the request parameters may be serialized

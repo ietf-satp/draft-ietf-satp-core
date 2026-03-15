@@ -111,7 +111,7 @@ normative:
   RFC8446: RFC8446
   RFC4648: RFC4648
   DATETIME: RFC3339
-  RFC7235: RFC7235
+  RFC9110: RFC9110
 
   X.500:
     author:
@@ -632,7 +632,7 @@ The sender gateway proposes the set of transfer parameters and asset-related art
 
 If the receiver gateway accepts the proposal, it returns a signed receipt message for the proposal indicating it agrees to proceed to the next stage. If the receiver gateway rejects any parameters or artifacts in the proposal, it can provide a counteroffer to the sender gateway by responding with a proposal reject message carrying alternative parameters.
 
-Gateways MUST support the use of the HTTP GET and POST methods for the endpoint [RFC7235].
+Gateways MUST support the use of the HTTP GET and POST methods for the endpoint [RFC9110].
 
 Clients (sender gateway) MAY use the HTTP GET or POST methods to send messages
 in this stage to the server (recipient gateway).

@@ -466,7 +466,7 @@ This is the hash of the current message payload.
 ### Signature Algorithms Supported
 
 This is a JSON list of digital signature algorithms supported by a
-gateway. Each entry in the list should be either an Algorithm Name value registered in the IANA "JSON Web Signature and Encryption Algorithms" registry established by {{JWA}} or be a value that contains a Collision-Resistant Name.
+gateway. Each entry in the list should be either an Algorithm Name value registered in the IANA "JSON Web Signature and Encryption Algorithms" registry established by [RFC7518] or be a value that contains a Collision-Resistant Name.
 
 All implementations MUST support a common default of "ES256", which is the ECDSA signature algorithm with the P-256 curve and the SHA-256 hash function.
 

@@ -171,7 +171,7 @@ the transfer has been committed by both gateways,
 that this commitment must hold regardless of subsequent
 unavailability (e.g. crash) of the gateways implementing the SAT protocol.
 
-All messages exchanged between gateways are assumed to run over TLS1.2 or higher,
+All messages exchanged between gateways are assumed to run over TLS1.3,
 and the endpoints at the respective gateways are associated with
 a certificate indicating the legal owner (or operator) of the gateway.
 HTTPS/S must be used intead of plain HTTP.
@@ -287,7 +287,7 @@ SATP recognizes the following cryptographic keys which are intended for distinct
 
 - Gateway signature public key-pair: This is the key-pair utilized by a gateway to digitally sign assertions and receipts.
 
-- Gateway secure channel establishment public key-pair: This is the key-pair utilized by peer gateways to establish a secure channel (e.g. TLS) for a transfer session.
+- Gateway secure channel establishment public key-pair: This is the key-pair utilized by peer gateways to establish a secure channel (e.g. TLS1.3) for a transfer session.
 
 - Gateway identity public key pair: This is the key-pair that uniquely identifies a gateway.
 
@@ -508,7 +508,7 @@ In the following steps, the sender gateway is referred to as the client while th
 
 {: #satp-tls-Established-sec}
 
-TLS 1.2 or higher MUST be implemented to protect gateway communications. TLS 1.3 or higher SHOULD be used where both gateways support TLS 1.3 or higher.
+TLS 1.3 MUST be implemented to protect gateway communications.
 
 
 
@@ -728,7 +728,7 @@ The gateway capabilities list is as follows:
 
 - networkLockExpirationTime REQUIRED: The duration of time (in integer seconds) for a lock to expire in the network.
 
-- gatewayTlsScheme REQUIRED: Specify the TLS1.2 or TLS1.3 scheme.
+- gatewayTlsScheme REQUIRED: Specify the TLS1.3 scheme.
 
 Here is an example representation in JSON format:
 

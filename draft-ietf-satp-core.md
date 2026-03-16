@@ -323,7 +323,7 @@ the JSON Web Algorithms (JWA) specification [RFC7518], with key types defined in
 
 The choice of signature algorithm and key-type must be agreed upon between the gateways prior to the commencement of the SATP protocol session. The agreed values are then included within the Transfer Initialization Claim body in Transfer Proposal Message.
 
-All gateways implementing SATP must implement at minimal the ECDSA signature algorithm with the P-256 curve and the SHA-256 hash function.
+All SATP implementations MUST implement at minimal the ECDSA signature algorithm with the P-256 curve and the SHA-256 hash function.
 
 Additional signature algorithms and keying parameters may be negotiated by peer gateways. However, the negotiation protocol is outside the scope of this specification.
 
@@ -481,7 +481,7 @@ For example, the hash of the Transfer Proposal message from the sender gateway i
 This is a JSON list of digital signature algorithms supported by a
 gateway. Each entry in the list should be either an Algorithm Name value registered in the IANA "JSON Web Signature and Encryption Algorithms" registry established by [RFC7518] or be a value that contains a Collision-Resistant Name.
 
-All implementations MUST support a common default of "ES256", which is the ECDSA signature algorithm with the P-256 curve and the SHA-256 hash function.
+See Section (#satp-message-signatures).
 
 ### Asset Lock Mechanism within a Network
 

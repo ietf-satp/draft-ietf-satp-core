@@ -473,7 +473,7 @@ The mechanisms to establish the gateway identifier or the operator identifier is
 
 This is the hash of the current message payload. This is utilized in some crucial messages within the SATP message flows to detect errors or attacks, where the payload-hash of the previously received message (from a sender gateway) is included in the response message to that sender gateway.
 
-For example, the hash of the Transfer Proposal message from the sender gateway is include in the (msgtype:transfer-proposal-msg) is included in the Transfer Commence message (msgtype:transfer-commence-msg).
+For example, the hash of the Transfer Proposal message from the sender gateway is included in the Transfer Commence message. Similarly, the hash of the lock-assertion message (from the gateway at the origin network) is included in the Lock Assertion Receipt Message (sent in response by the gateway at the destination network).
 
 
 ### Signature Algorithms Supported

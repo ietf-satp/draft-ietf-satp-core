@@ -515,7 +515,7 @@ The default hash algorithm that all SATP implementations MUST support is the SHA
 This is a JSON list of digital signature algorithms supported by a
 gateway. Each entry in the list should be either an Algorithm Name value registered in the IANA "JSON Web Signature and Encryption Algorithms" registry established by [RFC7518] or be a value that contains a Collision-Resistant Name.
 
-See Section (#satp-message-signatures).
+See [Section](#satp-message-signatures).
 
 
 ### Asset Lock Mechanism within a Network

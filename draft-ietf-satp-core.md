@@ -1464,7 +1464,14 @@ The following request is being made to IANA.
 
 ## SATP Error Codes Registry
 
-This registry defines the error codes used in SATP protocol messages. Each entry consists of:
+This registry defines the error codes used in SATP protocol messages. 
+
+Many of the errors due to invalid identifiers (e.g., invalid transferContextId, invalid digitalAssetId) may arise within 
+the execution of the SATP protocol because these identifiers depart from those agreed-upon in Transfer Initialization Claim in the transfer proposal message.
+The validity of these identifiers must be verified by the gateways during set-up stage (Stage-0), which is beyond the scope of the current specification.
+See Section 7 on the Identity and Asset Verification Stage.
+
+In the following table, each entry consists of:
 
 - **Code**: The enumeration string (e.g., err_3.3.1)
 - **Category**: The protocol stage or message type (e.g., Commit Ready errors)

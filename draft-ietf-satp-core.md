@@ -1400,7 +1400,9 @@ Errors may occur at the connection layer, independent of the flows at the SATP l
 
 (b) badCertificate: The gateway TLS certificate was corrupt, contained signatures, that did not verify correctly, etc.  (Some common TLS level errors: unsupported_certificate, certificate_revoked, certificate_expired, certificate_unknown, unknown_ca).
 
-Connection errors resuting in the time-out of the session SHOULD result in the termination of the transfer session.
+Connection errors resulting in the time-out of the session MUST result in the termination of the transfer session.
+In the case of a transfer session termination, gateways SHOULD release its local computing resources and release asset-locks in their respective networks.
+
 
 
 ## SATP Protocol Errors

@@ -1354,7 +1354,7 @@ The purpose of this message is to indicate that one of the peer gateways has dec
 The effect of session aborts on the state of the asset is discussed below.
 
 
-# SATP Session Resumption
+## SATP Session Resumption
 
 {: #satp-session-resume-section}
 

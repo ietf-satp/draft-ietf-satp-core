@@ -89,6 +89,15 @@ informative:
     target: https://bitcoin.org/bitcoin.pdf
     title: Bitcoin - A Peer-to-Peer Electronic Cash System
 
+  XRP:
+    author:
+    - ins: D. Schwartz
+    - ins: N. Youngs
+    - ins: A. Britto
+    date: 2014
+    target: https://ripple.com/files/ripple_consensus_whitepaper.pdf
+    title: The Ripple Protocol Consensus Algorithm
+
   ECDSA:
     author:
     date: February 2023

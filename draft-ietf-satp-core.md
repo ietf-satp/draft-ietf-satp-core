@@ -119,7 +119,7 @@ informative:
     - ins: T. Hardjono
     date: April 2024
     target: https://doi.org/10.1016/j.future.2021.11.004
-    title: Hermes: Fault-tolerant middleware for blockchain interoperability (Future Generation Computer Systems (Vol 129))
+    title: Hermes: Fault-tolerant middleware for blockchain interoperability in Future Generation Computer Systems (Vol 129)
 
 W3CVC:
     author:

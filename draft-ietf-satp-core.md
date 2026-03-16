@@ -75,6 +75,13 @@ informative:
     target: https://doi.org/10.6028/NIST.IR.8202
     title: NIST Blockchain Technology Overview (NISTR-8202)
 
+  ETH:
+    author:
+    - ins: V. Buterin
+    date: 2018
+    target: https://ethereum.org
+    title: Ethereum: A next-generation smart contract and decentralized application platform
+
   ECDSA:
     author:
     date: February 2023

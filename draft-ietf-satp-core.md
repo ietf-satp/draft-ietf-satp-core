@@ -95,7 +95,7 @@ informative:
     - ins: N. Youngs
     - ins: A. Britto
     date: 2014
-    target: https://ripple.com/files/ripple_consensus_whitepaper.pdf
+    target: https://ripple.com/files/ripple-consensus-whitepaper.pdf
     title: The Ripple Protocol Consensus Algorithm
 
   ECDSA:

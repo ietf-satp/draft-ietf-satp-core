@@ -283,7 +283,7 @@ The current document pertains to the interaction between gateways through API2 {
 
 ## SATP Model
 
-{: #satp-model}
+{: #the-satp-model}
 
 The model for SATP is shown in Figure 1 {{ARCH}}.
 The Client (application) interacts with its local gateway (G1) over an interface (API1) in order to provide instructions to the gateway with regards to actions to assets and related resources located in the local system or network (NW1).
@@ -674,7 +674,6 @@ in this stage to the server (recipient gateway).
 If using the HTTP GET method, the request parameters may be
 serialized using URI Query String Serialization.
 
-(NOTE: Flows occur over TLS. Nonces are not shown).
 
 ## Transfer Initialization Claim
 

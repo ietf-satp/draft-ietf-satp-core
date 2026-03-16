@@ -455,9 +455,9 @@ gatewayTlsScheme" (err_1.1.34) reject message is returned by the server
 
 {: #satp-client-offers-sec}
 
-If a client (sender gateway) wishes to use TLS schemes other then the basic scheme (AES-128 in GCM mode with SHA-256), then the client may may choose to send a JSON block containing information regarding the client's supported TLS schemes.
+If a client (sender gateway) wishes to use TLS schemes other than the basic scheme (AES-128 in GCM mode with SHA-256), then the client may may choose to send a JSON object listing the client's supported TLS schemes.
 
-
+These must be selected from those defined in TLS1.3 [RFC8446].
 
 ### Gateway Identifier
 

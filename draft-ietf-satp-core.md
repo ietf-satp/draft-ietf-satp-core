@@ -725,7 +725,7 @@ The Transfer Initialization Claim consists of the following:
 
 - receiverGatewayOwnerId OPTIONAL: This is the identity information of the owner or operator of the recipient gateway.
 
-Here is an example representation in JSON format (with the public key in JWK being replaced with hexadecimal for brevity):
+Here is an example representation in JSON format (with the public keys in JWK being replaced with hexadecimal for brevity):
 
 {
   "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",\
@@ -806,7 +806,7 @@ The parameters of this message consist of the following:
 
 - gatewayAndNetworkCapabilities REQUIRED: The set of origin gateway and network parameters reported by the client to the server.
 
-Here is an example of the message request body:
+Here is an example of the message request body (with the public keys in JWK being replaced with hexadecimal for brevity):
 
 ```json
 {

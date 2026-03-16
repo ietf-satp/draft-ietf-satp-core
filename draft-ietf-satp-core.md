@@ -171,9 +171,14 @@ the transfer has been committed by both gateways,
 that this commitment must hold regardless of subsequent
 unavailability (e.g. crash) of the gateways implementing the SAT protocol.
 
-All messages exchanged between gateways are assumed to run over TLS1.3,
-and the endpoints at the respective gateways are associated with
-a certificate indicating the legal owner (or operator) of the gateway.
+All messages exchanged between gateways are assumed to run over TLS1.3.
+HTTPS/S must be used instead of plain HTTP.
+
+The endpoints at the respective gateways should provide access to credentials 
+(or other identification mechanisms) to prove the legal owner (or operator) of the gateway.
+An example of credentials include X509 certificates.
+
+
 
 # Conventions used in this document
 

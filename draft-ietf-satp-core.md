@@ -152,7 +152,8 @@ This memo describes the Secure Asset Transfer Protocol (SATP) for digital assets
 
 {: #introduction-doc}
 
-This memo proposes a secure asset transfer protocol (SATP) that is intended to be deployed between two gateway endpoints to transfer a digital asset from an origin asset network to a destination asset network.
+This memo proposes a secure asset transfer protocol (SATP) that is intended to be deployed between two gateway endpoints 
+to transfer a digital asset from an origin asset network to a destination asset network.
 Readers are directed first to {{ARCH}} for a description of the architecture underlying the current protocol.
 
 Both the origin and destination asset networks are assumed to be opaque
@@ -700,9 +701,9 @@ The Transfer Initialization Claim consists of the following:
 
 - verifiedBeneficiaryEntityId REQUIRED: This is the identity data of the beneficiary entity (person or organization) in the destination network. This information must be verified by the receiver gateway.
 
-- originatorPubkey REQUIRED: This is the public key of the asset owner (originator) in the origin network or system.
+- originatorPublicKey REQUIRED: This is the public key of the asset owner (originator) in the origin network or system.
 
-- beneficiaryPubkey REQUIRED: This is the public key of the beneficiary in the destination network.
+- beneficiaryPublicKey REQUIRED: This is the public key of the beneficiary in the destination network.
 
 - senderGatewaySignaturePublicKey REQUIRED: This is the public key of the key-pair used by the sender gateway to sign assertions and receipts.
 
@@ -716,9 +717,9 @@ The Transfer Initialization Claim consists of the following:
 
 - recipientGatewayNetworkId REQUIRED: This is the identifier of the destination network or system behind the server.
 
-- senderGatewayDeviceIdentityPubkey OPTIONAL: The device public key of the sender gateway (client).
+- senderGatewayDeviceIdentityPublicKey OPTIONAL: The device public key of the sender gateway (client).
 
-- receiverGatewayDeviceIdentityPubkey OPTIONAL: The device public key of the receiver gateway
+- receiverGatewayDeviceIdentityPublicKey OPTIONAL: The device public key of the receiver gateway
 
 - senderGatewayOwnerId OPTIONAL: This is the identity information of the owner or operator of the sender gateway.
 
@@ -731,16 +732,16 @@ Here is an example representation in JSON format:
   "assetProfileId": "38561",\
   "verifiedOriginatorEntityId": "CN=Alice, OU=Example Org Unit, O=Example, L=New York, C=US",\
   "verifiedBeneficiaryEntityId": "CN=Bob, OU=Case Org Unit, O=Case, L=San Francisco, C=US",\
-  "originatorPubkey": "0304b9f34d3898b27f85b3d88fa069a879abe14db5060dde466dd1e4a31ff75e44",\
-  "beneficiaryPubkey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",\
+  "originatorPublicKey": "0304b9f34d3898b27f85b3d88fa069a879abe14db5060dde466dd1e4a31ff75e44",\
+  "beneficiaryPublicKey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",\
   "senderGatewaySignaturePublicKey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",\
   "receiverGatewaySignaturePublicKey": "0243b12ada6515ada3bf99a7da32e84f00383b5765fd7701528e660449ba5ef260",\
   "senderGatewayId": "GW1",\
   "recipientGatewayId": "GW2",\
   "senderGatewayNetworkId": "1",\
   "recipientGatewayNetworkId": "43114",\
-  "senderGatewayDeviceIdentityPubkey": "0245785e34b4a7b457dd4683a297ea3d78bab35f8b2583df55d9df8c69604d0e73",\
-  "receiverGatewayDeviceIdentityPubkey": "03763f0bc48ff154cff45ea533a9d8a94349d65a45573e4de6ad6495b6e834312b",\
+  "senderGatewayDeviceIdentityPublicKey": "0245785e34b4a7b457dd4683a297ea3d78bab35f8b2583df55d9df8c69604d0e73",\
+  "receiverGatewayDeviceIdentityPublicKey": "03763f0bc48ff154cff45ea533a9d8a94349d65a45573e4de6ad6495b6e834312b",\
   "senderGatewayOwnerId": "CN=GatewayOps, OU=GatewayOps Systems, O=GatewayOps LTD, L=Austin, C=US",\
   "receiverGatewayOwnerId": "CN=BridgeSolutions, OU=BridgeSolutions Engineering, O=BridgeSolutions LTD, L=Austin, C=US"\
 }
@@ -821,16 +822,16 @@ Here is an example of the message request body:
       "assetLockExpirationTime": 120,
       "verifiedOriginatorEntityId": "CN=Alice, OU=Example Org Unit, O=Example, L=New York, C=US",
       "verifiedBeneficiaryEntityId": "CN=Bob, OU=Case Org Unit, O=Case, L=San Francisco, C=US",
-      "originatorPubkey": "0304b9f34d3898b27f85b3d88fa069a879abe14db5060dde466dd1e4a31ff75e44",
-      "beneficiaryPubkey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",
+      "originatorPublicKey": "0304b9f34d3898b27f85b3d88fa069a879abe14db5060dde466dd1e4a31ff75e44",
+      "beneficiaryPublicKey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",
       "senderGatewaySignaturePublicKey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",
       "receiverGatewaySignaturePublicKey": "0243b12ada6515ada3bf99a7da32e84f00383b5765fd7701528e660449ba5ef260",
       "senderGatewayId": "GW1",
       "recipientGatewayId": "GW2",
       "senderGatewayNetworkId": "1",
       "recipientGatewayNetworkId": "43114",
-      "senderGatewayDeviceIdentityPubkey": "0245785e34b4a7b457dd4683a297ea3d78bab35f8b2583df55d9df8c69604d0e73",
-      "receiverGatewayDeviceIdentityPubkey": "03763f0bc48ff154cff45ea533a9d8a94349d65a45573e4de6ad6495b6e834312b",
+      "senderGatewayDeviceIdentityPublicKey": "0245785e34b4a7b457dd4683a297ea3d78bab35f8b2583df55d9df8c69604d0e73",
+      "receiverGatewayDeviceIdentityPublicKey": "03763f0bc48ff154cff45ea533a9d8a94349d65a45573e4de6ad6495b6e834312b",
       "senderGatewayOwnerId": "CN=GatewayOps, OU=GatewayOps Systems, O=GatewayOps LTD, L=Austin, C=US",
       "receiverGatewayOwnerId": "CN=BridgeSolutions, OU=BridgeSolutions Engineering, O=BridgeSolutions LTD, L=Austin, C=US"
   },
@@ -1482,8 +1483,8 @@ This registry defines the error codes used in SATP protocol messages. Each entry
 | err_1.1.12   | Transfer Proposal/Receipt errors | badly formed claim    | invalid assetProfileId              |
 | err_1.1.13   | Transfer Proposal/Receipt errors | badly formed claim    | invalid verifiedOriginatorEntityId  |
 | err_1.1.14   | Transfer Proposal/Receipt errors | badly formed claim    | invalid verifiedBeneficiaryEntityId |
-| err_1.1.15   | Transfer Proposal/Receipt errors | badly formed claim    | invalid originatorPubkey            |
-| err_1.1.16   | Transfer Proposal/Receipt errors | badly formed claim    | invalid beneficiaryPubkey           |
+| err_1.1.15   | Transfer Proposal/Receipt errors | badly formed claim    | invalid originatorPublicKey         |
+| err_1.1.16   | Transfer Proposal/Receipt errors | badly formed claim    | invalid beneficiaryPublicKey        |
 | err_1.1.17   | Transfer Proposal/Receipt errors | badly formed claim    | invalid senderGatewaySignaturePublicKey |
 | err_1.1.18   | Transfer Proposal/Receipt errors | badly formed claim    | invalid receiverGatewaySignaturePublicKey |
 | err_1.1.19   | Transfer Proposal/Receipt errors | badly formed claim    | invalid senderGatewayId             |

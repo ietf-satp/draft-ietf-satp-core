@@ -479,7 +479,7 @@ A gateway may support additional credential mechanisms, which may be advertised 
 
 ### Gateway Supported TLS Schemes
 
-Gateways must suport TLS1.3 [RFC8446].
+Gateways must support TLS1.3 [RFC8446].
 
 The TLS scheme is used by peer gateways to establish the TLS session prior to the commencement of an asset transfer. Gateways must a minimal support the AES-128 in GCM mode with SHA-256 (TLS_AES_128_GCM_SHA256).
 
@@ -908,7 +908,7 @@ Here is an example of the message request body:
 {: #satp-stage1-init-reject}
 
 The purpose of this message is for the server to indicate explicit
-rejection of the the previous message receuved from the client.
+rejection of the previous message received from the client.
 This message can be sent at any time in the session.
 The server MUST include an error code (see {{error-types-section}}) in this message.
 A reject message is taken to mean an immediate termination of the session.
@@ -1419,7 +1419,7 @@ The errors at the SATP level pertain to protocol flow and the information carrie
 
 The effectiveness of a session-abort message on the state of the asset depends on where the abort message occurs in the SATP protocol flow in Figure 2.
 
-Note that a session-abort message by be lost and never be received by the peer gateway. Gateways can crash prior to receiving an abort message.
+Note that a session-abort message maybe lost and never be received by the peer gateway. Gateways can crash prior to receiving an abort message.
 
 If gateway G2 transmits a session-abort message after gateway G1 performs a lock (msgtype:lock-assert-msg) on the asset in network NW1, the gateway G1 can always unlock the asset and restore its state.
 

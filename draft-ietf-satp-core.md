@@ -65,7 +65,6 @@ author:
     email: alexandru.chiriac@quant.network
 
 informative:
-
   NIST:
     author:
     - ins: D. Yaga

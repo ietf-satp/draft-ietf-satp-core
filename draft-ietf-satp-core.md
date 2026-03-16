@@ -214,9 +214,9 @@ The following are some terminology used in the current document, some borrowed f
 - Recipient gateway: The gateway that is the recipient side of
   a unidirectional asset transfer.
 
-- Claim: An assertion made by an Entity.
+- Claim: An assertion made by an Entity. The terms Claim, Claim Name and Claim Value are as defined in [RFC7519].
 
-- Claim Type: Syntax used for representing a Claim Value.
+- Claim Type: The intended use of a claim in the context of the message flows (e.g., asset lock claim).
 
 - Gateway Claim: An assertion made by a Gateway regarding the status or
   condition of resources (e.g. assets, public keys, etc.)

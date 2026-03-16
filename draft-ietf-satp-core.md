@@ -111,6 +111,16 @@ informative:
     target: https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica
     title: EU Directive on Markets in Crypto-Assets Regulation (MiCA)
 
+  BELC:
+    author:
+    - ins: R. Belchior
+    - ins: A. Vasconcelos
+    - ins: M. Correia
+    - ins: T. Hardjono
+    date: April 2024
+    target: https://doi.org/10.1016/j.future.2021.11.004
+    title: Hermes: Fault-tolerant middleware for blockchain interoperability (Future Generation Computer Systems (Vol 129))
+    
   ARCH:
     author:
     - ins: T. Hardjono

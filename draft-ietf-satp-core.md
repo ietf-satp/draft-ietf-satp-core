@@ -65,6 +65,7 @@ author:
     email: alexandru.chiriac@quant.network
 
 informative:
+
   NIST:
     author:
     - ins: D. Yaga
@@ -80,14 +81,14 @@ informative:
     - ins: V. Buterin
     date: 2018
     target: https://ethereum.org
-    title: Ethereum - A next-generation smart contract and decentralized application platform
+    title: Ethereum A next-generation smart contract and decentralized application platform
 
   BTC:
     author:
     - ins: S. Nakamoto
     date: 2008
     target: https://bitcoin.org/bitcoin.pdf
-    title: Bitcoin - A Peer-to-Peer Electronic Cash System
+    title: Bitcoin A Peer-to-Peer Electronic Cash System
 
   XRP:
     author:

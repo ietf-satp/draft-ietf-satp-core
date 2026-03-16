@@ -121,7 +121,7 @@ informative:
     target: https://doi.org/10.1016/j.future.2021.11.004
     title: Hermes a Fault-tolerant middleware for blockchain interoperability
 
-W3CVC:
+  W3CVC:
     author:
     - ins: W3C
     date: September 2025

@@ -1357,44 +1357,12 @@ The effect of session aborts on the state of the asset is discussed below.
 # SATP Session Resumption
 
 {: #satp-session-resume-section}
-This section addresses the question of how can a backup gateway build trust
-with the counterparty gateway to resume the execution of the protocol,
-in the presence of errors and crashes.
 
-Gateways may enter a faulty state at any time while executing the protocol.
-The faulty state can manifest itself in incorrect behavior,
-leading to gateways emitting alerts and errors.
+Session recovery and resumption is not supported in the current version of the SATP protocol.
+These may be addressed in a future version of SATP, or be defined in a separate specification.
 
-In some instances, gateways may crash.
-Several stratgies can be utlized to address gateway crashes,
-two notable approaches being the primary-backup strategy or self-healing paradigm.
-The first strategy pertains to the crashed gateway being eventually be replaced
-by a functioning one,while the second strategy focuses on the gateway recovering.
-When a crash occurs, a recovery procedure is initiated by
-the backup gateway or the recovered gateway.
-In either case, if the recovery happens within a time period defined as max_timeout (in Stage 2), the recovered gateway triggers a session resumption.
+The reader interested in this topic is directed to [BELC] for further discussion.
 
-In the case where there is no answer from the gateway within the specified max_timeout,
-the counterparty gateway rollbacks the process up to the point when the crash occured (crash-point).
-Upon recovery, the crashed gateway learns that the counterparty gateway
-has initiated a rollback, and it proceeds accordingly (by also initiating a rollback).
-Note that rollbacks can also happen in case of unresolved errors.
-
-The non-crashed gateway that conducts the rollback tries to communicate
-with the crashed gateway from time to time (self-healing) or to contact
-the backup gateways (primary-backup).
-In any case, upon the completion of a rollback,
-the non-crashed gateway sends a ROLLBACK message
-to the recovered gateway to notify that a rollback happened.
-The recovered gateway should answer with ROLLBACK-ACK.
-
-Since the self-healing recovery process does not require
-changes to the protocol (since from the counterparty gateway perspective,
-the sender gateway is just taking longer than normal;
-there are no new actions done or logs recorded),
-we focus on the primary-backup paradigm.
-
-The mechanism to perform recovery and resumption in SATP will be defined in a separate specification.
 
 # Error Messages
 

@@ -121,7 +121,7 @@ normative:
 
 --- abstract
 
-This memo describes the Secure Asset Transfer (SAT) Protocol for digital assets. SAT is a protocol operating between two gateways that conducts the transfer of a digital asset from one gateway to another, each representing their corresponding digital asset networks. The protocol establishes a secure channel between the endpoints and implements a 2-phase commit (2PC) to ensure the properties of transfer atomicity, consistency, isolation and durability.
+This memo describes the Secure Asset Transfer Protocol (SATP) for digital assets. SATP is a protocol operating between two gateways that conducts the transfer of a digital asset from one gateway to another, each representing their corresponding digital asset networks. The protocol establishes a secure channel between the endpoints and implements a 2-phase commit (2PC) to ensure the properties of transfer atomicity, consistency, isolation and durability.
 
 --- middle
 
@@ -169,7 +169,7 @@ no other state changes can occur to the asset.
 The property of durability means that once
 the transfer has been committed by both gateways,
 that this commitment must hold regardless of subsequent
-unavailability (e.g. crash) of the gateways implementing the SAT protocol.
+unavailability (e.g. crash) of the gateways implementing the SATP protocol.
 
 All messages exchanged between gateways are assumed to run over TLS1.3.
 HTTPS/S must be used instead of plain HTTP.
@@ -258,7 +258,7 @@ The current document pertains to the interaction between gateways through API2 {
                                Figure 1
 ```
 
-## SAT Model
+## SATP Model
 
 {: #satp-model}
 
@@ -271,7 +271,7 @@ Gateways interact with each other over a gateway interface (API2). A given gatew
 
 {: #satp-flowtypes}
 
-The SAT protocol defines three (3) stages for a unidirectional asset transfer:
+The SATP protocol defines three (3) stages for a unidirectional asset transfer:
 
 - Transfer Initiation stage (Stage-1): These flows deal with commencing a transfer from one gateway to another. In this stage the sender gateway delivers a proposal containing the parameters agreed upon in Stage-0.
 
@@ -420,7 +420,7 @@ The transfer-context may be a complex data structure that contains all informati
 
 The default format of the transfer context identifier is JSON, with base64 encoding.
 
-The Transfer Context ID (transferContextId) value is established by the sender application (possibly with the assistance of the sender gateway) in the origin network. The value is then communicated to the receiving application in the destination network prior to the commencement of the SAT protocol.  Both the sender gateway and receiver gateway must understand how to process the transferContextId value. The value is used in the Transfer Proposal Message (with message type satp:msgtype:transfer-proposal-msg) between the two gateways.
+The Transfer Context ID (transferContextId) value is established by the sender application (possibly with the assistance of the sender gateway) in the origin network. The value is then communicated to the receiving application in the destination network prior to the commencement of the SATP protocol.  Both the sender gateway and receiver gateway must understand how to process the transferContextId value. The value is used in the Transfer Proposal Message (with message type satp:msgtype:transfer-proposal-msg) between the two gateways.
 
 The mechanism to derive the Transfer Context ID value and to communicate it between the applications is outside the scope of the current specification.
 
@@ -461,7 +461,7 @@ These must be selected from those defined in TLS1.3 [RFC8446].
 
 ### Gateway Identifier
 
-This is the unique identifier of the gateway service.  The gateway identifier MUST be uniquely bound to its SAT endpoint (e.g. via X.509 certificates).
+This is the unique identifier of the gateway service.  The gateway identifier MUST be uniquely bound to its SATP endpoint (e.g. via X.509 certificates).
 
 This gateway identifier is distinct from the gateway operator business identifier (e.g., legal entity identifier (LEI) number).
 A gateway operator may operate multiple gateways. Each of the gateways
@@ -484,7 +484,7 @@ All implementations MUST support a common default of "ES256", which is the ECDSA
 
 SATP gateways may be providing service to multiple types of asset networks, each of which may utilize different local mechanisms to immobile (lock) a given asset as way to provide exclusion in the case of multiple attempts to change the state of the asset.
 
-The origin network and the destination network may in fact utilize distinct asset locking mechanisms, and the type of mechanisms to immobile (lock) a given asset may have different convergence (finalization) speeds. Peer gateways must exchange information about the asset locking information in their respective network to enable both gateways to compute an approximate time of convergence (assetLockExpirationTime) and set timers for the transfer of asset. A timer that expires too soon may result in the SAT protocol terminating too early before reaching the final commitment stage.
+The origin network and the destination network may in fact utilize distinct asset locking mechanisms, and the type of mechanisms to immobile (lock) a given asset may have different convergence (finalization) speeds. Peer gateways must exchange information about the asset locking information in their respective network to enable both gateways to compute an approximate time of convergence (assetLockExpirationTime) and set timers for the transfer of asset. A timer that expires too soon may result in the SATP protocol terminating too early before reaching the final commitment stage.
 
 Currently, the most common type of mechanisms (NetworkLockType) to temporarily lock an asset in a network are (i) TIME_LOCK, (ii) HASH_LOCK, (iii) HASH_TIME_LOCK.
 
@@ -762,7 +762,7 @@ This message is sent from the client to the Transfer Initialization Endpoint at 
 
 The parameters of this message consist of the following:
 
-- version REQUIRED: SAT protocol Version (see {{satp-protocol-version}}) as a string "major.minor".
+- version REQUIRED: SATP protocol Version (see {{satp-protocol-version}}) as a string "major.minor".
 
 - messageType REQUIRED: urn:ietf:satp:msgtype:transfer-proposal-msg.
 
@@ -828,7 +828,7 @@ The message is sent from the server to the Transfer Proposal Endpoint at the cli
 
 The parameters of this message consist of the following:
 
-- version REQUIRED: SAT protocol Version see {satp-protocol-version}} as a string "major.minor".
+- version REQUIRED: SATP protocol Version see {satp-protocol-version}} as a string "major.minor".
 
 - messageType REQUIRED: urn:ietf:satp:msgtype:proposal-receipt-msg.
 
@@ -865,7 +865,7 @@ The message must be signed by the server.
 
 The parameters of this message consist of the following:
 
-- version REQUIRED: SAT protocol Version see {satp-protocol-version}} as a string "major.minor".
+- version REQUIRED: SATP protocol Version see {satp-protocol-version}} as a string "major.minor".
 
 - messageType REQUIRED: urn:ietf:satp:msgtype:reject-msg
 

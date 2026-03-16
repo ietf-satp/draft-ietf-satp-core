@@ -514,6 +514,8 @@ The origin network and the destination network may in fact utilize distinct asse
 
 Currently, the most common type of mechanisms (NetworkLockType) to temporarily lock an asset in a network are (i) TIME_LOCK, (ii) HASH_LOCK, (iii) HASH_TIME_LOCK.
 
+Some examples of the use of lock mechanisms are follows. Bitcoin [BTC] utilizes a time-lock for delays in some of its operations (e.g., nLockTime). Ethereum [ETH] uses a Hash-Lock mechanism for atomic swaps. Ethereum and Ripple [XRP] uses Hashed Time-lock in their contracts (HTLC).
+
 The exact definition of these asset locking mechanisms are network-dependent, and such are out of the scope of the current work.
 
 

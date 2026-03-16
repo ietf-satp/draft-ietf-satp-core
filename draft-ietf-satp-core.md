@@ -119,13 +119,13 @@ informative:
     - ins: T. Hardjono
     date: April 2024
     target: https://doi.org/10.1016/j.future.2021.11.004
-    title: Hermes: Fault-tolerant middleware for blockchain interoperability in Future Generation Computer Systems (Vol 129)
+    title: Hermes a Fault-tolerant middleware for blockchain interoperability
 
 W3CVC:
     author:
-    - ins: World Wide Web Consortium
+    - ins: W3C
     date: September 2025
-    target: https://www.w3.org/standards/history/vc-overview/
+    target: https://www.w3.org/TR/vc-overview/
     title: Verifiable Credentials Overview
 
   ARCH:

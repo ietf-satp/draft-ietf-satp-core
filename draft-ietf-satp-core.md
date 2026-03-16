@@ -900,7 +900,7 @@ The parameters of this message consist of the following:
 
 - transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.
 
-- hashPrevMessage REQUIRED:  The cryptographic hash of the last message that caused the rejection to occur. The default hash algorothm is SHA256.
+- hashPrevMessage REQUIRED:  The cryptographic hash of the last message that caused the rejection to occur. The default hash algorithm is SHA256.
 
 - reasonCode REQUIRED: the error code (see {{error-types-section}}) causing the rejection.
 

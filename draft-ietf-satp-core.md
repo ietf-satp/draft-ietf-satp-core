@@ -120,7 +120,14 @@ informative:
     date: April 2024
     target: https://doi.org/10.1016/j.future.2021.11.004
     title: Hermes: Fault-tolerant middleware for blockchain interoperability (Future Generation Computer Systems (Vol 129))
-    
+
+VC:
+    author:
+    - ins: W3C
+    date: September 2025
+    target: https://www.w3.org/TR/vc-overview/
+    title: Verifiable Credentials Overview
+
   ARCH:
     author:
     - ins: T. Hardjono
@@ -145,6 +152,7 @@ normative:
   RFC4648: RFC4648
   DATETIME: RFC3339
   RFC9110: RFC9110
+  RFC5280: RFC5280
 
   X.500:
     author:

@@ -502,12 +502,21 @@ This is the hash of the current message payload. This is utilized in some crucia
 For example, the hash of the Transfer Proposal message from the sender gateway is included in the Transfer Commence message. Similarly, the hash of the lock-assertion message (from the gateway at the origin network) is included in the Lock Assertion Receipt Message (sent in response by the gateway at the destination network).
 
 
+### Hash Algorithm Supported
+
+{: #satp-hash-algo-supported}
+
+All cryptographic hash operations in the current specification follow that used for JSON structures, which includes the canonicalization (normalization) and serialization of the data, prior to the application of the hash algorithm.
+
+The default hash algorithm that all SATP implementations MUST support is the SHA-256 algorithm [RFC7515].
+
 ### Signature Algorithms Supported
 
 This is a JSON list of digital signature algorithms supported by a
 gateway. Each entry in the list should be either an Algorithm Name value registered in the IANA "JSON Web Signature and Encryption Algorithms" registry established by [RFC7518] or be a value that contains a Collision-Resistant Name.
 
 See Section (#satp-message-signatures).
+
 
 ### Asset Lock Mechanism within a Network
 

@@ -750,9 +750,9 @@ Here is an example representation in JSON format (with the public keys in JWK be
 
 {: #satp-stage1-conveyance}
 
-This is the set of parameters pertaining to the origin network and the destination network, and the technical capabilities supported by the peer gateways. Some of these parameters must be previously agreed to during the Stage-0 negotiations, which is outside the scope of this document.
+This is the set of parameters pertaining to the origin network and the destination network, and the technical capabilities supported by the peer gateways.
 
-Some network-specific parameters regarding the origin network may be relevant for a receiver gateway to evaluate its ability to process the proposed transfer.
+Some network-specific parameters regarding the origin network may be relevant for a receiver gateway to evaluate its ability to process the proposed transfer. For example, if the duration of the lock-time (networkLockExpirationTime) in the origin network is too short, the gateway at the destination neywork may decline to proceed.
 
 The gateway capabilities list is as follows:
 

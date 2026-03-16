@@ -320,6 +320,8 @@ SATP recognizes the following cryptographic keys which are intended for distinct
 
 - Gateway-owner identity public key pair: This is the key-pair that identifies the owner (e.g. legal entity) who is the legal owner of a gateway.
 
+When peer gateways deliver public-keys, these are expressed in JSON Web Key (JWK) format [RFC7517].
+
 This document assumes that the relevant X.509 certificates are associated with these keys. However, the mechanisms to obtain X.509 certificates is outside the scope of this specification.
 
 # SATP Message Format, identifiers and Descriptors

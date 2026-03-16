@@ -123,9 +123,9 @@ informative:
 
 W3CVC:
     author:
-    - ins: W3C
+    - ins: World Wide Web Consortium
     date: September 2025
-    target: https://www.w3.org/TR/vc-overview/
+    target: https://www.w3.org/standards/history/vc-overview/
     title: Verifiable Credentials Overview
 
   ARCH:

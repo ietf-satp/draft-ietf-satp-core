@@ -682,7 +682,7 @@ This is set of artifacts pertaining to the asset that
 must be agreed upon between the client (sender
 gateway) and the server (recipient gateway).
 
-The format of the identity fields in this message, unless otherwise stated, is a JSON string that contains a [X.500] Distinguished Name.
+The format of the identity fields in this message, unless otherwise stated, is a JSON text.
 
 The Transfer Initialization Claim consists of the following:
 

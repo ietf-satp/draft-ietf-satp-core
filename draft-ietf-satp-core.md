@@ -316,9 +316,11 @@ The mandatory fields are determined by the message type exchanged between the tw
 
 {: #satp-message-signatures}
 
-All SATP messages exchanged between gateways must be signed [ECDSA], using JSON Web Signatures mechanism [RFC7515].
+All SATP messages exchanged between gateways must be signed [ECDSA], using the JSON Web Signatures mechanism [RFC7515].
 
-SATP gateways SHOULD support the algorithms defined in the JSON Web Algorithms (JWA) specification [RFC7518] and key types defined in the JSON Web Key (JWK) specification [RFC7517].
+Signature algorithms used by gateways for SATP messages SHOULD be selected from those defined in 
+the JSON Web Algorithms (JWA) specification [RFC7518], with key types defined in JSON Web Key (JWK) specification [RFC7517].
+
 The choice of signature algorithm and key-type must be agreed upon between the gateways prior to the commencement of the SATP protocol session. The agreed values are then included within the Transfer Initialization Claim body in Transfer Proposal Message.
 
 All gateways implementing SATP must implement at minimal the ECDSA signature algorithm with the P-256 curve and the SHA-256 hash function.

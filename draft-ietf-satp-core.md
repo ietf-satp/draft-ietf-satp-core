@@ -174,7 +174,6 @@ unavailability (e.g. crash) of the gateways implementing the SAT protocol.
 All messages exchanged between gateways are assumed to run over TLS1.3,
 and the endpoints at the respective gateways are associated with
 a certificate indicating the legal owner (or operator) of the gateway.
-HTTPS/S must be used intead of plain HTTP.
 
 # Conventions used in this document
 

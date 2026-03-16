@@ -154,12 +154,6 @@ normative:
   RFC9110: RFC9110
   RFC5280: RFC5280
 
-  X.500:
-    author:
-    - ins: ITU-T
-    date: 2005
-    title: "The Directory: Overview of concepts, models and services"
-
 --- abstract
 
 This memo describes the Secure Asset Transfer Protocol (SATP) for digital assets. SATP is a protocol operating between two gateways that conducts the transfer of a digital asset from one gateway to another, each representing their corresponding digital asset networks. The protocol establishes a secure channel between the endpoints and implements a 2-phase commit (2PC) to ensure the properties of transfer atomicity, consistency, isolation and durability.

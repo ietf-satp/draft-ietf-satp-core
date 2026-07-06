@@ -28,3 +28,18 @@ These tools help maintain consistent formatting and catch common issues before s
 Command line usage requires that you have the necessary software installed.  See
 [the instructions](https://github.com/martinthomson/i-d-template/blob/main/doc/SETUP.md).
 
+### Python version requirement
+
+The build toolchain requires **Python 3.10 or later**. If `make` fails with
+`Warning: python needs to be at least 3.10`, install a newer version and
+activate it before building:
+
+```sh
+pyenv install 3.12.13   # only needed once
+pyenv local 3.12.13     # pins the version for this directory
+make
+```
+
+The `pyenv local` command writes a `.python-version` file that is already
+listed in `.gitignore`, so it will not be committed.
+

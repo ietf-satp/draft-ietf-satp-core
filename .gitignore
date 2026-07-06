@@ -25,3 +25,5 @@ report.xml
 /tmp/**
 
 draft-ietf-satp-core.xml
+
+.python-version

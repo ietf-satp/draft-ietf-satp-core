@@ -153,6 +153,7 @@ normative:
   DATETIME: RFC3339
   RFC9110: RFC9110
   RFC5280: RFC5280
+  RFC9457: RFC9457
 
 --- abstract
 
@@ -164,7 +165,7 @@ This memo describes the Secure Asset Transfer Protocol (SATP) for digital assets
 
 {: #introduction-doc}
 
-This memo proposes a secure asset transfer protocol (SATP) that is intended to be deployed between two gateway endpoints 
+This memo proposes a secure asset transfer protocol (SATP) that is intended to be deployed between two gateway endpoints
 to transfer a digital asset from an origin asset network to a destination asset network.
 Readers are directed first to {{ARCH}} for a description of the architecture underlying the current protocol.
 
@@ -210,7 +211,7 @@ unavailability (e.g. crash) of the gateways implementing the SATP protocol.
 All messages exchanged between gateways are assumed to run over TLS1.3.
 HTTPS/S must be used instead of plain HTTP.
 
-The endpoints at the respective gateways should provide access to credentials 
+The endpoints at the respective gateways should provide access to credentials
 (or other identification mechanisms) to prove the legal owner (or operator) of the gateway.
 An example of credentials include X509 certificates.
 
@@ -356,7 +357,7 @@ The mandatory fields are determined by the message type exchanged between the tw
 
 All SATP messages exchanged between gateways must be signed [ECDSA], using the JSON Web Signatures mechanism [RFC7515].
 
-Signature algorithms used by gateways for SATP messages SHOULD be selected from those defined in 
+Signature algorithms used by gateways for SATP messages SHOULD be selected from those defined in
 the JSON Web Algorithms (JWA) specification [RFC7518], with key types defined in JSON Web Key (JWK) specification [RFC7517].
 
 The choice of signature algorithm and key-type must be agreed upon between the gateways prior to the commencement of the SATP protocol session. The agreed values are then included within the Transfer Initialization Claim body in Transfer Proposal Message.
@@ -441,12 +442,12 @@ The formal specification of asset profiles and their identification is outside t
 ### Gateway Network ID (NetworkID)
 
 The network identifier (NetworkID) is the unique alphanumeric string representing the asset network behind a gateway.
-A gateway may simultaneously stand in front of multiple asset networks.  As such, for a specific asset transfer instance both the sender gateway and recipient gateway must indicate which asset networks are the origin network and destination network respectively. 
+A gateway may simultaneously stand in front of multiple asset networks.  As such, for a specific asset transfer instance both the sender gateway and recipient gateway must indicate which asset networks are the origin network and destination network respectively.
 
 The network identifier values of the origin network (senderGatewayNetworkId) and destination network (recipientGatewayNetworkId) must be communicated and agreed upon prior to the commencement of the asset transfer.
 This selection is confirmed by peer gateways in the Transfer Initialization Claim that is transmitted within Transfer Proposal Message.
 
-The mechanism to allocate globally unique network identifier is outside the scope of the current specification. 
+The mechanism to allocate globally unique network identifier is outside the scope of the current specification.
 
 
 
@@ -454,7 +455,7 @@ The mechanism to allocate globally unique network identifier is outside the scop
 
 This is the unique immutable identifier representing the application layer context of a single unidirectional transfer. The method to generate the transfer-context ID is outside the scope of the current document.
 
-The transfer-context may be a complex data structure that contains all information related to a SATP execution instance. Examples of information contained in a transfer-context may include identifiers of sessions, gateways, networks or assets related to the specific SATP execution instance. The sender gateway provides this value to the receiver gateway. 
+The transfer-context may be a complex data structure that contains all information related to a SATP execution instance. Examples of information contained in a transfer-context may include identifiers of sessions, gateways, networks or assets related to the specific SATP execution instance. The sender gateway provides this value to the receiver gateway.
 
 The default format of the transfer context identifier is JSON, with base64 encoding.
 
@@ -773,7 +774,7 @@ Here is an example representation in JSON format (with the public keys in JWK be
 
 This is the set of parameters pertaining to the origin network and the destination network, and the technical capabilities supported by the peer gateways.
 
-Some network-specific parameters regarding the origin network may be relevant for a receiver gateway to evaluate its ability to process the proposed transfer. 
+Some network-specific parameters regarding the origin network may be relevant for a receiver gateway to evaluate its ability to process the proposed transfer.
 For example, if the duration of the lock-time (networkLockExpirationTime) in the origin network is too short, a receiver gateway at the destination network may decline to proceed.
 
 The gateway capabilities list is as follows:
@@ -910,7 +911,7 @@ Here is an example of the message request body:
 The purpose of this message is for the server to indicate explicit
 rejection of the previous message received from the client.
 This message can be sent at any time in the session.
-The server MUST include an error code (see {{error-types-section}}) in this message.
+The server MUST include error details using the Problem Details format defined in {{RFC9457}} (see {{error-types-section}}).
 A reject message is taken to mean an immediate termination of the session.
 
 The message must be signed by the server.
@@ -925,9 +926,13 @@ The parameters of this message consist of the following:
 
 - transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.
 
-- hashPrevMessage REQUIRED:  The cryptographic hash of the last message that caused the rejection to occur. The default hash algorithm is SHA256.
+- hashPrevMessage REQUIRED: The cryptographic hash of the last message that caused the rejection to occur. The default hash algorithm is SHA256.
 
-- reasonCode REQUIRED: the error code (see {{error-types-section}}) causing the rejection.
+- type REQUIRED: A URI reference identifying the error type causing the rejection, as defined in {{RFC9457}}. SHOULD be a URN of the form `urn:ietf:params:satp:error:<code>` where `<code>` is the error code from the SATP Error Codes Registry ({{error-types-section}}).
+
+- status REQUIRED: The HTTP status code for this error as an integer, as defined in {{RFC9457}}. MUST match the HTTP response status and be consistent with the HTTP Status column of the SATP Error Codes Registry ({{error-types-section}}).
+
+- title REQUIRED: A short, human-readable summary of the error type, as defined in {{RFC9457}}. SHOULD correspond to the Description column in the SATP Error Codes Registry ({{error-types-section}}).
 
 - timestamp REQUIRED: timestamp of this message.
 
@@ -939,7 +944,9 @@ Here is an example of the message request body:
   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
   "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
   "hashPrevMessage": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",\
-  "reasonCode": "err_2.1",\
+  "type": "urn:ietf:params:satp:error:err_1.1.11",\
+  "status": 422,\
+  "title": "invalid digitalAssetId",\
   "timestamp": "2024-10-03T12:02+00Z",\
 }\
 
@@ -1331,19 +1338,25 @@ Example:
 
 The purpose of this message is for either the sender or the receiver gateways to indicate to its peer that an error has occurred within the transfer protocol flow.
 
-This message must contain the error type (see the appendix) and the course of action indicated by the severity level. Typicaly, the action taken will be the immediate termination of the session.
+SATP error messages MUST be encoded as Problem Details objects as defined in {{RFC9457}}, with content type `application/problem+json`. The default action upon receiving an error message is the immediate termination of the session.
 
-- messageType REQUIRED: It MUST be the value urn:ietf:satp:msgtype:error-msg.
+- messageType REQUIRED: It MUST be the value urn:ietf:satp:msgtype:error-msg. This is a SATP-specific extension field (see {{RFC9457}}).
 
-- sessionId REQUIRED: This is the current session in which the error pertains.
+- sessionId REQUIRED: This is the current session in which the error pertains. This is a SATP-specific extension field (see {{RFC9457}}).
 
-- errorMsgType: The pevious msg-type that was erronous.
+- priorMsgType OPTIONAL: The message type of the previous SATP message that triggered the error. This is a SATP-specific extension field (see {{RFC9457}}).
 
-- errorType REQUIRED: This is the error code being reported ({{error-types-section}}).
+- type REQUIRED: A URI reference identifying the error type, as defined in {{RFC9457}}. SHOULD be a URN of the form `urn:ietf:params:satp:error:<code>` where `<code>` is the error code from the SATP Error Codes Registry ({{error-types-section}}).
 
-- errorSeverity REQUIRED: This is the severity level of the error, leading to the action.
+- status REQUIRED: The HTTP status code for this error as an integer, as defined in {{RFC9457}}. MUST match the HTTP response status and be consistent with the HTTP Status column of the SATP Error Codes Registry ({{error-types-section}}).
 
-Futher discussion on protocol errors can be found below ({{error-types-section}}).
+- title REQUIRED: A short, human-readable summary of the error type, as defined in {{RFC9457}}. SHOULD correspond to the Description column in the SATP Error Codes Registry ({{error-types-section}}).
+
+- detail OPTIONAL: A human-readable explanation specific to this occurrence of the error, as defined in {{RFC9457}}.
+
+- instance OPTIONAL: A URI reference identifying the specific occurrence of the error, as defined in {{RFC9457}}. MAY be used to convey the transferContextId.
+
+Further discussion on protocol errors can be found in the SATP Error Codes Registry ({{error-types-section}}).
 
 ## Session abort message
 
@@ -1411,7 +1424,7 @@ In the case of a transfer session termination, gateways SHOULD release its local
 
 {: #satp-protocol-errors-section}
 
-The errors at the SATP level pertain to protocol flow and the information carried within each message. These are enumerated in the appendix.
+The errors at the SATP level pertain to protocol flow and the information carried within each message. These are enumerated in the SATP Error Codes Registry ({{error-types-section}}).
 
 ## Effectiveness of Session Aborts
 
@@ -1458,12 +1471,16 @@ The following request is being made to IANA.
 
 ## SATP Error Codes Registry
 
-This registry defines the error codes used in SATP protocol messages. 
+{: #error-types-section}
 
-Many of the errors due to invalid identifiers (e.g., invalid transferContextId, invalid digitalAssetId) may arise within 
+This registry defines the error codes used in SATP protocol messages.
+
+Many of the errors due to invalid identifiers (e.g., invalid transferContextId, invalid digitalAssetId) may arise within
 the execution of the SATP protocol because these identifiers depart from those agreed-upon in Transfer Initialization Claim in the transfer proposal message.
 The validity of these identifiers must be verified by the gateways during set-up stage (Stage-0), which is beyond the scope of the current specification.
 See Section 7 on the Identity and Asset Verification Stage.
+
+SATP error messages MUST be encoded as Problem Details objects as defined in {{RFC9457}}, with content type `application/problem+json`. The `type` field of the Problem Details object SHOULD be set to a URN of the form `urn:ietf:params:satp:error:<code>`, where `<code>` is the error code from this registry. The `status` field MUST match the HTTP status of the response carrying the error and MUST be consistent with the HTTP Status column in the table below.
 
 In the following table, each entry consists of:
 
@@ -1471,76 +1488,82 @@ In the following table, each entry consists of:
 - **Category**: The protocol stage or message type (e.g., Commit Ready errors)
 - **Type**: The error type (e.g., badly formed message)
 - **Description**: A brief description (e.g., mismatch transferContextId)
+- **HTTP Status**: The HTTP status code {{RFC9110}} associated with this error
 
-| Code         | Category                        | Type                  | Description                        |
-|--------------|----------------------------------|-----------------------|-------------------------------------|
-| err_1.1.1    | Transfer Proposal/Receipt errors | badly formed message  | invalid transferContextId           |
-| err_1.1.2    | Transfer Proposal/Receipt errors | badly formed message  | invalid sessionId                   |
-| err_1.1.3    | Transfer Proposal/Receipt errors | badly formed message  | incorect transferInitClaimFormat    |
-| err_1.1.4    | Transfer Proposal/Receipt errors | badly formed message  | bad signature                       |
-| err_1.1.11   | Transfer Proposal/Receipt errors | badly formed claim    | invalid digitalAssetId              |
-| err_1.1.12   | Transfer Proposal/Receipt errors | badly formed claim    | invalid assetProfileId              |
-| err_1.1.13   | Transfer Proposal/Receipt errors | badly formed claim    | invalid verifiedOriginatorEntityId  |
-| err_1.1.14   | Transfer Proposal/Receipt errors | badly formed claim    | invalid verifiedBeneficiaryEntityId |
-| err_1.1.15   | Transfer Proposal/Receipt errors | badly formed claim    | invalid originatorPublicKey         |
-| err_1.1.16   | Transfer Proposal/Receipt errors | badly formed claim    | invalid beneficiaryPublicKey        |
-| err_1.1.17   | Transfer Proposal/Receipt errors | badly formed claim    | invalid senderGatewaySignaturePublicKey |
-| err_1.1.18   | Transfer Proposal/Receipt errors | badly formed claim    | invalid receiverGatewaySignaturePublicKey |
-| err_1.1.19   | Transfer Proposal/Receipt errors | badly formed claim    | invalid senderGatewayId             |
-| err_1.1.20   | Transfer Proposal/Receipt errors | badly formed claim    | invalid recipientGatewayId          |
-| err_1.1.31   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported gatewayDefaultSignatureAlgorithm |
-| err_1.1.32   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported networkLockType         |
-| err_1.1.33   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported networkLockExpirationTime |
-| err_1.1.34   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported gatewayTlsScheme        |
-| err_1.1.35   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported gatewayLoggingProfile   |
-| err_1.1.36   | Transfer Proposal/Receipt errors | badly formed parameter| unsupported gatewayAccessControlProfile |
-| err_1.2.1    | Transfer Proposal/Receipt errors | badly formed message  | mismatch transferContextId          |
-| err_1.2.2    | Transfer Proposal/Receipt errors | badly formed message  | mismatch sessionId                  |
-| err_1.2.3    | Transfer Proposal/Receipt errors | badly formed message  | mismatch hashTransferInitClaim      |
-| err_1.2.4    | Transfer Proposal/Receipt errors | badly formed message  | bad signature                       |
-| err_1.3.1    | Transfer Commence errors         | badly formed message  | mismatch transferContextId          |
-| err_1.3.2    | Transfer Commence errors         | badly formed message  | mismatch sessionId                  |
-| err_1.3.3    | Transfer Commence errors         | badly formed message  | mismatch hashTransferInitClaim      |
-| err_1.3.4    | Transfer Commence errors         | badly formed message  | mismatch hashPrevMessage            |
-| err_1.3.5    | Transfer Commence errors         | badly formed message  | bad signature                       |
-| err_1.4.1    | ACK Commence errors              | badly formed message  | mismatch transferContextId          |
-| err_1.4.2    | ACK Commence errors              | badly formed message  | mismatch sessionId                  |
-| err_1.4.3    | ACK Commence errors              | badly formed message  | mismatch hashPrevMessage            |
-| err_1.4.4    | ACK Commence errors              | badly formed message  | bad signature                       |
-| err_2.2.1    | Lock Assertion errors            | badly formed message  | mismatch transferContextId          |
-| err_2.2.2    | Lock Assertion errors            | badly formed message  | mismatch sessionId                  |
-| err_2.2.3    | Lock Assertion errors            | badly formed message  | unsupported lockAssertionClaimFormat|
-| err_2.2.4    | Lock Assertion errors            | badly formed message  | unsupported lockAssertionExpiration |
-| err_2.2.5    | Lock Assertion errors            | badly formed message  | mismatch hashPrevMessage            |
-| err_2.2.6    | Lock Assertion errors            | badly formed message  | bad signature                       |
-| err_2.4.1    | Lock Assertion Receipt errors    | badly formed message  | mismatch transferContextId          |
-| err_2.4.2    | Lock Assertion Receipt errors    | badly formed message  | mismatch sessionId                  |
-| err_2.4.3    | Lock Assertion Receipt errors    | badly formed message  | mismatch hashPrevMessage            |
-| err_2.4.4    | Lock Assertion Receipt errors    | badly formed message  | bad signature                       |
-| err_3.1.1    | Commit Preparation errors        | badly formed message  | mismatch transferContextId          |
-| err_3.1.2    | Commit Preparation errors        | badly formed message  | mismatch sessionId                  |
-| err_3.1.3    | Commit Preparation errors        | badly formed message  | mismatch hashPrevMessage            |
-| err_3.1.4    | Commit Preparation errors        | badly formed message  | bad signature                       |
-| err_3.3.1    | Commit Ready errors              | badly formed message  | mismatch transferContextId          |
-| err_3.3.2    | Commit Ready errors              | badly formed message  | mismatch sessionId                  |
-| err_3.3.3    | Commit Ready errors              | badly formed message  | mismatch hashPrevMessage            |
-| err_3.3.4    | Commit Ready errors              | badly formed message  | unsupported mintAssertionFormat     |
-| err_3.3.5    | Commit Ready errors              | badly formed message  | bad signature                       |
-| err_3.5.1    | Commit Final Assertion errors    | badly formed message  | mismatch transferContextId          |
-| err_3.5.2    | Commit Final Assertion errors    | badly formed message  | mismatch sessionId                  |
-| err_3.5.3    | Commit Final Assertion errors    | badly formed message  | mismatch hashPrevMessage            |
-| err_3.5.4    | Commit Final Assertion errors    | badly formed message  | unsupported burnAssertionClaimFormat|
-| err_3.5.5    | Commit Final Assertion errors    | badly formed message  | bad signature                       |
-| err_3.7.1    | Commit Final Ack Receipt errors  | badly formed message  | mismatch transferContextId          |
-| err_3.7.2    | Commit Final Ack Receipt errors  | badly formed message  | mismatch sessionId                  |
-| err_3.7.3    | Commit Final Ack Receipt errors  | badly formed message  | mismatch hashPrevMessage            |
-| err_3.7.4    | Commit Final Ack Receipt errors  | badly formed message  | unsupported assignmentAssertionClaimFormat |
-| err_3.7.5    | Commit Final Ack Receipt errors  | badly formed message  | bad signature                       |
-| err_3.9.1    | Transfer Complete errors         | badly formed message  | mismatch transferContextId          |
-| err_3.9.2    | Transfer Complete errors         | badly formed message  | mismatch sessionId                  |
-| err_3.9.3    | Transfer Complete errors         | badly formed message  | mismatch hashPrevMessage            |
-| err_3.9.4    | Transfer Complete errors         | badly formed message  | mismatch hashTransferCommence       |
-| err_3.9.5    | Transfer Complete errors         | badly formed message  | bad signature                       |
+| Code         | Category                        | Type                  | Description                                  | HTTP Status |
+|--------------|----------------------------------|-----------------------|----------------------------------------------|-------------|
+| err_1.1.1 | Transfer Proposal/Receipt errors | badly formed message | invalid transferContextId | 400 |
+| err_1.1.2 | Transfer Proposal/Receipt errors | badly formed message | invalid sessionId | 400 |
+| err_1.1.3 | Transfer Proposal/Receipt errors | badly formed message | incorect transferInitClaimFormat | 400 |
+| err_1.1.4 | Transfer Proposal/Receipt errors | badly formed message | bad signature | 400 |
+| err_1.1.11 | Transfer Proposal/Receipt errors | badly formed claim | invalid digitalAssetId | 422 |
+| err_1.1.12 | Transfer Proposal/Receipt errors | badly formed claim | invalid assetProfileId | 422 |
+| err_1.1.13 | Transfer Proposal/Receipt errors | badly formed claim | invalid verifiedOriginatorEntityId | 422 |
+| err_1.1.14 | Transfer Proposal/Receipt errors | badly formed claim | invalid verifiedBeneficiaryEntityId | 422 |
+| err_1.1.15 | Transfer Proposal/Receipt errors | badly formed claim | invalid originatorPublicKey | 422 |
+| err_1.1.16 | Transfer Proposal/Receipt errors | badly formed claim | invalid beneficiaryPublicKey | 422 |
+| err_1.1.17 | Transfer Proposal/Receipt errors | badly formed claim | invalid senderGatewaySignaturePublicKey | 422 |
+| err_1.1.18 | Transfer Proposal/Receipt errors | badly formed claim | invalid receiverGatewaySignaturePublicKey | 422 |
+| err_1.1.19 | Transfer Proposal/Receipt errors | badly formed claim | invalid senderGatewayId | 422 |
+| err_1.1.20 | Transfer Proposal/Receipt errors | badly formed claim | invalid recipientGatewayId | 422 |
+| err_1.1.31 | Transfer Proposal/Receipt errors | badly formed parameter | unsupported gatewayDefaultSignatureAlgorithm | 422 |
+| err_1.1.32 | Transfer Proposal/Receipt errors | badly formed parameter | unsupported networkLockType | 422 |
+| err_1.1.33 | Transfer Proposal/Receipt errors | badly formed parameter | unsupported networkLockExpirationTime | 422 |
+| err_1.1.34 | Transfer Proposal/Receipt errors | badly formed parameter | unsupported gatewayTlsScheme | 422 |
+| err_1.1.35 | Transfer Proposal/Receipt errors | badly formed parameter | unsupported gatewayLoggingProfile | 422 |
+| err_1.1.36 | Transfer Proposal/Receipt errors | badly formed parameter | unsupported gatewayAccessControlProfile | 422 |
+| err_1.2.1 | Transfer Proposal/Receipt errors | badly formed message | mismatch transferContextId | 400 |
+| err_1.2.2 | Transfer Proposal/Receipt errors | badly formed message | mismatch sessionId | 400 |
+| err_1.2.3 | Transfer Proposal/Receipt errors | badly formed message | mismatch hashTransferInitClaim | 400 |
+| err_1.2.4 | Transfer Proposal/Receipt errors | badly formed message | bad signature | 400 |
+| err_1.3.1 | Transfer Commence errors | badly formed message | mismatch transferContextId | 400 |
+| err_1.3.2 | Transfer Commence errors | badly formed message | mismatch sessionId | 400 |
+| err_1.3.3 | Transfer Commence errors | badly formed message | mismatch hashTransferInitClaim | 400 |
+| err_1.3.4 | Transfer Commence errors | badly formed message | mismatch hashPrevMessage | 400 |
+| err_1.3.5 | Transfer Commence errors | badly formed message | bad signature | 400 |
+| err_1.4.1 | ACK Commence errors | badly formed message | mismatch transferContextId | 400 |
+| err_1.4.2 | ACK Commence errors | badly formed message | mismatch sessionId | 400 |
+| err_1.4.3 | ACK Commence errors | badly formed message | mismatch hashPrevMessage | 400 |
+| err_1.4.4 | ACK Commence errors | badly formed message | bad signature | 400 |
+| err_2.2.1 | Lock Assertion errors | badly formed message | mismatch transferContextId | 400 |
+| err_2.2.2 | Lock Assertion errors | badly formed message | mismatch sessionId | 400 |
+| err_2.2.3 | Lock Assertion errors | badly formed message | unsupported lockAssertionClaimFormat | 400 |
+| err_2.2.4 | Lock Assertion errors | badly formed message | unsupported lockAssertionExpiration | 400 |
+| err_2.2.5 | Lock Assertion errors | badly formed message | mismatch hashPrevMessage | 400 |
+| err_2.2.6 | Lock Assertion errors | badly formed message | bad signature | 400 |
+| err_2.2.7 | Lock Assertion errors | semantic error | asset not found | 404 |
+| err_2.2.8 | Lock Assertion errors | semantic error | asset already locked | 409 |
+| err_2.2.9 | Lock Assertion errors | semantic error | asset lock expired | 410 |
+| err_2.4.1 | Lock Assertion Receipt errors | badly formed message | mismatch transferContextId | 400 |
+| err_2.4.2 | Lock Assertion Receipt errors | badly formed message | mismatch sessionId | 400 |
+| err_2.4.3 | Lock Assertion Receipt errors | badly formed message | mismatch hashPrevMessage | 400 |
+| err_2.4.4 | Lock Assertion Receipt errors | badly formed message | bad signature | 400 |
+| err_3.1.1 | Commit Preparation errors | badly formed message | mismatch transferContextId | 400 |
+| err_3.1.2 | Commit Preparation errors | badly formed message | mismatch sessionId | 400 |
+| err_3.1.3 | Commit Preparation errors | badly formed message | mismatch hashPrevMessage | 400 |
+| err_3.1.4 | Commit Preparation errors | badly formed message | bad signature | 400 |
+| err_3.3.1 | Commit Ready errors | badly formed message | mismatch transferContextId | 400 |
+| err_3.3.2 | Commit Ready errors | badly formed message | mismatch sessionId | 400 |
+| err_3.3.3 | Commit Ready errors | badly formed message | mismatch hashPrevMessage | 400 |
+| err_3.3.4 | Commit Ready errors | badly formed message | unsupported mintAssertionFormat | 400 |
+| err_3.3.5 | Commit Ready errors | badly formed message | bad signature | 400 |
+| err_3.5.1 | Commit Final Assertion errors | badly formed message | mismatch transferContextId | 400 |
+| err_3.5.2 | Commit Final Assertion errors | badly formed message | mismatch sessionId | 400 |
+| err_3.5.3 | Commit Final Assertion errors | badly formed message | mismatch hashPrevMessage | 400 |
+| err_3.5.4 | Commit Final Assertion errors | badly formed message | unsupported burnAssertionClaimFormat | 400 |
+| err_3.5.5 | Commit Final Assertion errors | badly formed message | bad signature | 400 |
+| err_3.7.1 | Commit Final Ack Receipt errors | badly formed message | mismatch transferContextId | 400 |
+| err_3.7.2 | Commit Final Ack Receipt errors | badly formed message | mismatch sessionId | 400 |
+| err_3.7.3 | Commit Final Ack Receipt errors | badly formed message | mismatch hashPrevMessage | 400 |
+| err_3.7.4 | Commit Final Ack Receipt errors | badly formed message | unsupported assignmentAssertionClaimFormat | 400 |
+| err_3.7.5 | Commit Final Ack Receipt errors | badly formed message | bad signature | 400 |
+| err_3.9.1 | Transfer Complete errors | badly formed message | mismatch transferContextId | 400 |
+| err_3.9.2 | Transfer Complete errors | badly formed message | mismatch sessionId | 400 |
+| err_3.9.3 | Transfer Complete errors | badly formed message | mismatch hashPrevMessage | 400 |
+| err_3.9.4 | Transfer Complete errors | badly formed message | mismatch hashTransferCommence | 400 |
+| err_3.9.5 | Transfer Complete errors | badly formed message | bad signature | 400 |
+| err_0.1.1 | General errors | badly formed message | invalid message type | 400 |
+| err_0.1.2 | General errors | authorization error | insufficient permissions | 403 |
 
 ## URN Registration
 
@@ -1630,32 +1653,6 @@ The SATP Message Types registry's initial contents are as follows:
 - Parameter usage location: Session Abort
 - Change controller: IETF
 - Specification document(s): Section 10.7 of draft-ietf-satp-core.
-
-# Error Types and Codes
-
-{: #error-types-section}
-
-This appendix defines the error codes that may be returned in SATP protocol messages.
-
-## Protocol Error Codes
-
-The following error codes are defined for SATP protocol errors:
-
-- err_1.1: Invalid message type
-- err_1.2: Invalid session ID
-- err_1.3: Invalid transfer context ID
-- err_1.4: Invalid signature
-- err_1.5: Invalid hash value
-- err_2.1: Asset not found
-- err_2.2: Asset already locked
-- err_2.3: Asset lock expired
-- err_2.4: Insufficient permissions
-- err_3.1: Network connection failure
-- err_3.2: Gateway unavailable
-- err_3.3: Timeout exceeded
-- err_4.1: Unsupported credential scheme
-- err_4.2: Invalid credential format
-- err_4.3: Credential verification failed
 
 # Acknowledgements
 

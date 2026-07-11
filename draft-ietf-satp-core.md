@@ -209,7 +209,7 @@ that this commitment must hold regardless of subsequent
 unavailability (e.g. crash) of the gateways implementing the SATP protocol.
 
 All messages exchanged between gateways are assumed to run over TLS1.3.
-HTTPS/S must be used instead of plain HTTP.
+HTTPS must be used instead of plain HTTP.
 
 The endpoints at the respective gateways should provide access to credentials
 (or other identification mechanisms) to prove the legal owner (or operator) of the gateway.
@@ -451,7 +451,7 @@ The mechanism to allocate globally unique network identifier is outside the scop
 
 
 
-### Transfer-Context ID:
+### Transfer-Context ID
 
 This is the unique immutable identifier representing the application layer context of a single unidirectional transfer. The method to generate the transfer-context ID is outside the scope of the current document.
 
@@ -465,7 +465,7 @@ The mechanism to derive the Transfer Context ID value and to communicate it betw
 
 
 
-### Session ID:
+### Session ID
 
 This is the unique identifier representing a session between two gateways handling a single unidirectional transfer. This may be derived from the Transfer-Context ID at the application level. There may be several session IDs related to a SATP execution instance. Only one Session ID may be active for a given SATP execution instance. Session IDs may be stored in the transfer-context for audit trail purposes.
 
@@ -488,7 +488,7 @@ If the client (sender gateway) transmits a list of supported credential schemes,
 
 If no acceptable credential scheme was offered, a "unsupported
 gatewayTlsScheme" (err_1.1.34) reject message is returned by the server
-{{satp-stage1-init-reject}}.
+(see {{satp-stage1-init-reject}}).
 
 ### Client Offers Other Supported TLS Schemes
 
@@ -1494,7 +1494,7 @@ In the following table, each entry consists of:
 |--------------|----------------------------------|-----------------------|----------------------------------------------|-------------|
 | err_1.1.1 | Transfer Proposal/Receipt errors | badly formed message | invalid transferContextId | 400 |
 | err_1.1.2 | Transfer Proposal/Receipt errors | badly formed message | invalid sessionId | 400 |
-| err_1.1.3 | Transfer Proposal/Receipt errors | badly formed message | incorect transferInitClaimFormat | 400 |
+| err_1.1.3 | Transfer Proposal/Receipt errors | badly formed message | incorrect transferInitClaimFormat | 400 |
 | err_1.1.4 | Transfer Proposal/Receipt errors | badly formed message | bad signature | 400 |
 | err_1.1.11 | Transfer Proposal/Receipt errors | badly formed claim | invalid digitalAssetId | 422 |
 | err_1.1.12 | Transfer Proposal/Receipt errors | badly formed claim | invalid assetProfileId | 422 |

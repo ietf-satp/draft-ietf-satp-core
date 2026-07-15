@@ -5,14 +5,14 @@
 Secure Asset Transfer Protocol                             M. Hargreaves
 Internet-Draft                                             Quant Network
 Intended status: Informational                               T. Hardjono
-Expires: 7 January 2027                                              MIT
+Expires: 16 January 2027                                             MIT
                                                              R. Belchior
                                    INESC-ID, Técnico Lisboa, Blockdaemon
                                                           V. Ramakrishna
                                                                      IBM
                                                               A. Chiriac
                                                            Quant Network
-                                                             6 July 2026
+                                                            15 July 2026
 
 
                Secure Asset Transfer Protocol (SATP) Core
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 January 2027.
+   This Internet-Draft will expire on 16 January 2027.
 
 Copyright Notice
 
@@ -96,8 +96,8 @@ Table of Contents
        5.3.3.  Digital Asset Identifier
        5.3.4.  Asset Profile Identifier
        5.3.5.  Gateway Network ID (NetworkID)
-       5.3.6.  Transfer-Context ID:
-       5.3.7.  Session ID:
+       5.3.6.  Transfer-Context ID
+       5.3.7.  Session ID
        5.3.8.  Client Credential Types Supported by Gateways
        5.3.9.  Gateway Supported TLS Schemes
        5.3.10. Client Offers Other Supported TLS Schemes
@@ -216,7 +216,7 @@ Table of Contents
    implementing the SATP protocol.
 
    All messages exchanged between gateways are assumed to run over
-   TLS1.3.  HTTPS/S must be used instead of plain HTTP.
+   TLS1.3.  HTTPS must be used instead of plain HTTP.
 
    The endpoints at the respective gateways should provide access to
    credentials (or other identification mechanisms) to prove the legal
@@ -517,7 +517,7 @@ Table of Contents
    The mechanism to allocate globally unique network identifier is
    outside the scope of the current specification.
 
-5.3.6.  Transfer-Context ID:
+5.3.6.  Transfer-Context ID
 
    This is the unique immutable identifier representing the application
    layer context of a single unidirectional transfer.  The method to
@@ -548,7 +548,7 @@ Table of Contents
    communicate it between the applications is outside the scope of the
    current specification.
 
-5.3.7.  Session ID:
+5.3.7.  Session ID
 
    This is the unique identifier representing a session between two
    gateways handling a single unidirectional transfer.  This may be
@@ -586,7 +586,7 @@ Table of Contents
 
    If no acceptable credential scheme was offered, a "unsupported
    gatewayTlsScheme" (err_1.1.34) reject message is returned by the
-   server Section 8.5, Paragraph 1.
+   server (see Section 8.5, Paragraph 1).
 
 5.3.10.  Client Offers Other Supported TLS Schemes
 
@@ -1851,7 +1851,7 @@ Table of Contents
    |          |Receipt    |             |                                 |      |
    |          |errors     |             |                                 |      |
    +----------+-----------+-------------+---------------------------------+------+
-   |err_1.1.3 |Transfer   |badly formed |incorect transferInitClaimFormat |400   |
+   |err_1.1.3 |Transfer   |badly formed |incorrect transferInitClaimFormat|400   |
    |          |Proposal/  |message      |                                 |      |
    |          |Receipt    |             |                                 |      |
    |          |errors     |             |                                 |      |

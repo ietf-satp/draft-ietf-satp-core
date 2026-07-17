@@ -928,7 +928,8 @@ The parameters of this message consist of the following:
 
 - hashPrevMessage REQUIRED: The cryptographic hash of the last message that caused the rejection to occur. The default hash algorithm is SHA256.
 
-- type REQUIRED: A URI reference identifying the error type causing the rejection, as defined in {{RFC9457}}. MUST be a URN of the form `urn:ietf:params:satp:error:<code>` where `<code>` is the error code from the SATP Error Codes Registry ({{error-types-section}}).
+- type REQUIRED: A URI reference identifying the error type causing the rejection, as defined in {{RFC9457}}. MUST be a URN of the form
+`urn:ietf:params:satp:error:<code>` where `<code>` is the error code from the SATP Error Codes Registry ({{error-types-section}}).
 
 - status REQUIRED: The HTTP status code for this error as an integer, as defined in {{RFC9457}}. MUST match the HTTP response status and be consistent with the HTTP Status column of the SATP Error Codes Registry ({{error-types-section}}).
 

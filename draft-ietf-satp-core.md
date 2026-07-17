@@ -1492,10 +1492,12 @@ In the following table, each entry consists of:
 
 | Code         | Category                        | Type                  | Description                                  | HTTP Status |
 |--------------|----------------------------------|-----------------------|----------------------------------------------|-------------|
-| err_1.1.1 | Transfer Proposal/Receipt errors | badly formed message | invalid transferContextId | 400 |
-| err_1.1.2 | Transfer Proposal/Receipt errors | badly formed message | invalid sessionId | 400 |
-| err_1.1.3 | Transfer Proposal/Receipt errors | badly formed message | incorrect transferInitClaimFormat | 400 |
-| err_1.1.4 | Transfer Proposal/Receipt errors | badly formed message | bad signature | 400 |
+| err_0.1.1 | General errors | badly formed message | invalid message type | 400 |
+| err_0.1.2 | General errors | authorization error | insufficient permissions | 403 |
+| err_0.1.3 | General errors | badly formed message | bad signature | 422 |
+| err_1.1.1 | Transfer Proposal/Receipt errors | badly formed message | invalid transferContextId | 422 |
+| err_1.1.2 | Transfer Proposal/Receipt errors | badly formed message | invalid sessionId | 422 |
+| err_1.1.3 | Transfer Proposal/Receipt errors | badly formed message | incorrect transferInitClaimFormat | 422 |
 | err_1.1.11 | Transfer Proposal/Receipt errors | badly formed claim | invalid digitalAssetId | 422 |
 | err_1.1.12 | Transfer Proposal/Receipt errors | badly formed claim | invalid assetProfileId | 422 |
 | err_1.1.13 | Transfer Proposal/Receipt errors | badly formed claim | invalid verifiedOriginatorEntityId | 422 |
@@ -1506,64 +1508,52 @@ In the following table, each entry consists of:
 | err_1.1.18 | Transfer Proposal/Receipt errors | badly formed claim | invalid receiverGatewaySignaturePublicKey | 422 |
 | err_1.1.19 | Transfer Proposal/Receipt errors | badly formed claim | invalid senderGatewayId | 422 |
 | err_1.1.20 | Transfer Proposal/Receipt errors | badly formed claim | invalid recipientGatewayId | 422 |
-| err_1.1.31 | Transfer Proposal/Receipt errors | badly formed parameter | unsupported gatewayDefaultSignatureAlgorithm | 422 |
-| err_1.1.32 | Transfer Proposal/Receipt errors | badly formed parameter | unsupported networkLockType | 422 |
-| err_1.1.33 | Transfer Proposal/Receipt errors | badly formed parameter | unsupported networkLockExpirationTime | 422 |
-| err_1.1.34 | Transfer Proposal/Receipt errors | badly formed parameter | unsupported gatewayTlsScheme | 422 |
-| err_1.1.35 | Transfer Proposal/Receipt errors | badly formed parameter | unsupported gatewayLoggingProfile | 422 |
-| err_1.1.36 | Transfer Proposal/Receipt errors | badly formed parameter | unsupported gatewayAccessControlProfile | 422 |
-| err_1.2.1 | Transfer Proposal/Receipt errors | badly formed message | mismatch transferContextId | 400 |
-| err_1.2.2 | Transfer Proposal/Receipt errors | badly formed message | mismatch sessionId | 400 |
-| err_1.2.3 | Transfer Proposal/Receipt errors | badly formed message | mismatch hashTransferInitClaim | 400 |
-| err_1.2.4 | Transfer Proposal/Receipt errors | badly formed message | bad signature | 400 |
-| err_1.3.1 | Transfer Commence errors | badly formed message | mismatch transferContextId | 400 |
-| err_1.3.2 | Transfer Commence errors | badly formed message | mismatch sessionId | 400 |
-| err_1.3.3 | Transfer Commence errors | badly formed message | mismatch hashTransferInitClaim | 400 |
-| err_1.3.4 | Transfer Commence errors | badly formed message | mismatch hashPrevMessage | 400 |
-| err_1.3.5 | Transfer Commence errors | badly formed message | bad signature | 400 |
-| err_1.4.1 | ACK Commence errors | badly formed message | mismatch transferContextId | 400 |
-| err_1.4.2 | ACK Commence errors | badly formed message | mismatch sessionId | 400 |
-| err_1.4.3 | ACK Commence errors | badly formed message | mismatch hashPrevMessage | 400 |
-| err_1.4.4 | ACK Commence errors | badly formed message | bad signature | 400 |
-| err_2.2.1 | Lock Assertion errors | badly formed message | mismatch transferContextId | 400 |
-| err_2.2.2 | Lock Assertion errors | badly formed message | mismatch sessionId | 400 |
-| err_2.2.3 | Lock Assertion errors | badly formed message | unsupported lockAssertionClaimFormat | 400 |
-| err_2.2.4 | Lock Assertion errors | badly formed message | unsupported lockAssertionExpiration | 400 |
-| err_2.2.5 | Lock Assertion errors | badly formed message | mismatch hashPrevMessage | 400 |
-| err_2.2.6 | Lock Assertion errors | badly formed message | bad signature | 400 |
+| err_1.1.31 | Transfer Proposal/Receipt errors | badly formed parameter | unsupported gatewayDefaultSignatureAlgorithm | 415 |
+| err_1.1.32 | Transfer Proposal/Receipt errors | badly formed parameter | unsupported networkLockType | 415 |
+| err_1.1.33 | Transfer Proposal/Receipt errors | badly formed parameter | unsupported networkLockExpirationTime | 415 |
+| err_1.1.34 | Transfer Proposal/Receipt errors | badly formed parameter | unsupported gatewayTlsScheme | 415 |
+| err_1.1.35 | Transfer Proposal/Receipt errors | badly formed parameter | unsupported gatewayLoggingProfile | 415 |
+| err_1.1.36 | Transfer Proposal/Receipt errors | badly formed parameter | unsupported gatewayAccessControlProfile | 415 |
+| err_1.2.1 | Transfer Proposal/Receipt errors | badly formed message | mismatch transferContextId | 404 |
+| err_1.2.2 | Transfer Proposal/Receipt errors | badly formed message | mismatch sessionId | 404 |
+| err_1.2.3 | Transfer Proposal/Receipt errors | badly formed message | mismatch hashTransferInitClaim | 404 |
+| err_1.3.1 | Transfer Commence errors | badly formed message | mismatch transferContextId | 404 |
+| err_1.3.2 | Transfer Commence errors | badly formed message | mismatch sessionId | 404 |
+| err_1.3.3 | Transfer Commence errors | badly formed message | mismatch hashTransferInitClaim | 404 |
+| err_1.3.4 | Transfer Commence errors | badly formed message | mismatch hashPrevMessage | 404 |
+| err_1.4.1 | ACK Commence errors | badly formed message | mismatch transferContextId | 404 |
+| err_1.4.2 | ACK Commence errors | badly formed message | mismatch sessionId | 404 |
+| err_1.4.3 | ACK Commence errors | badly formed message | mismatch hashPrevMessage | 404 |
+| err_2.2.1 | Lock Assertion errors | badly formed message | mismatch transferContextId | 404 |
+| err_2.2.2 | Lock Assertion errors | badly formed message | mismatch sessionId | 404 |
+| err_2.2.3 | Lock Assertion errors | badly formed message | unsupported lockAssertionClaimFormat | 415 |
+| err_2.2.4 | Lock Assertion errors | badly formed message | unsupported lockAssertionExpiration | 415 |
+| err_2.2.5 | Lock Assertion errors | badly formed message | mismatch hashPrevMessage | 404 |
 | err_2.2.7 | Lock Assertion errors | semantic error | asset not found | 404 |
 | err_2.2.8 | Lock Assertion errors | semantic error | asset already locked | 409 |
 | err_2.2.9 | Lock Assertion errors | semantic error | asset lock expired | 410 |
-| err_2.4.1 | Lock Assertion Receipt errors | badly formed message | mismatch transferContextId | 400 |
-| err_2.4.2 | Lock Assertion Receipt errors | badly formed message | mismatch sessionId | 400 |
-| err_2.4.3 | Lock Assertion Receipt errors | badly formed message | mismatch hashPrevMessage | 400 |
-| err_2.4.4 | Lock Assertion Receipt errors | badly formed message | bad signature | 400 |
-| err_3.1.1 | Commit Preparation errors | badly formed message | mismatch transferContextId | 400 |
-| err_3.1.2 | Commit Preparation errors | badly formed message | mismatch sessionId | 400 |
-| err_3.1.3 | Commit Preparation errors | badly formed message | mismatch hashPrevMessage | 400 |
-| err_3.1.4 | Commit Preparation errors | badly formed message | bad signature | 400 |
-| err_3.3.1 | Commit Ready errors | badly formed message | mismatch transferContextId | 400 |
-| err_3.3.2 | Commit Ready errors | badly formed message | mismatch sessionId | 400 |
-| err_3.3.3 | Commit Ready errors | badly formed message | mismatch hashPrevMessage | 400 |
-| err_3.3.4 | Commit Ready errors | badly formed message | unsupported mintAssertionFormat | 400 |
-| err_3.3.5 | Commit Ready errors | badly formed message | bad signature | 400 |
-| err_3.5.1 | Commit Final Assertion errors | badly formed message | mismatch transferContextId | 400 |
-| err_3.5.2 | Commit Final Assertion errors | badly formed message | mismatch sessionId | 400 |
-| err_3.5.3 | Commit Final Assertion errors | badly formed message | mismatch hashPrevMessage | 400 |
-| err_3.5.4 | Commit Final Assertion errors | badly formed message | unsupported burnAssertionClaimFormat | 400 |
-| err_3.5.5 | Commit Final Assertion errors | badly formed message | bad signature | 400 |
-| err_3.7.1 | Commit Final Ack Receipt errors | badly formed message | mismatch transferContextId | 400 |
-| err_3.7.2 | Commit Final Ack Receipt errors | badly formed message | mismatch sessionId | 400 |
-| err_3.7.3 | Commit Final Ack Receipt errors | badly formed message | mismatch hashPrevMessage | 400 |
-| err_3.7.4 | Commit Final Ack Receipt errors | badly formed message | unsupported assignmentAssertionClaimFormat | 400 |
-| err_3.7.5 | Commit Final Ack Receipt errors | badly formed message | bad signature | 400 |
-| err_3.9.1 | Transfer Complete errors | badly formed message | mismatch transferContextId | 400 |
-| err_3.9.2 | Transfer Complete errors | badly formed message | mismatch sessionId | 400 |
-| err_3.9.3 | Transfer Complete errors | badly formed message | mismatch hashPrevMessage | 400 |
-| err_3.9.4 | Transfer Complete errors | badly formed message | mismatch hashTransferCommence | 400 |
-| err_3.9.5 | Transfer Complete errors | badly formed message | bad signature | 400 |
-| err_0.1.1 | General errors | badly formed message | invalid message type | 400 |
-| err_0.1.2 | General errors | authorization error | insufficient permissions | 403 |
+| err_2.4.1 | Lock Assertion Receipt errors | badly formed message | mismatch transferContextId | 404 |
+| err_2.4.2 | Lock Assertion Receipt errors | badly formed message | mismatch sessionId | 404 |
+| err_2.4.3 | Lock Assertion Receipt errors | badly formed message | mismatch hashPrevMessage | 404 |
+| err_3.1.1 | Commit Preparation errors | badly formed message | mismatch transferContextId | 404 |
+| err_3.1.2 | Commit Preparation errors | badly formed message | mismatch sessionId | 404 |
+| err_3.1.3 | Commit Preparation errors | badly formed message | mismatch hashPrevMessage | 404 |
+| err_3.3.1 | Commit Ready errors | badly formed message | mismatch transferContextId | 404 |
+| err_3.3.2 | Commit Ready errors | badly formed message | mismatch sessionId | 404 |
+| err_3.3.3 | Commit Ready errors | badly formed message | mismatch hashPrevMessage | 404 |
+| err_3.3.4 | Commit Ready errors | badly formed message | unsupported mintAssertionFormat | 415 |
+| err_3.5.1 | Commit Final Assertion errors | badly formed message | mismatch transferContextId | 404 |
+| err_3.5.2 | Commit Final Assertion errors | badly formed message | mismatch sessionId | 404 |
+| err_3.5.3 | Commit Final Assertion errors | badly formed message | mismatch hashPrevMessage | 404 |
+| err_3.5.4 | Commit Final Assertion errors | badly formed message | unsupported burnAssertionClaimFormat | 415 |
+| err_3.7.1 | Commit Final Ack Receipt errors | badly formed message | mismatch transferContextId | 404 |
+| err_3.7.2 | Commit Final Ack Receipt errors | badly formed message | mismatch sessionId | 404 |
+| err_3.7.3 | Commit Final Ack Receipt errors | badly formed message | mismatch hashPrevMessage | 404 |
+| err_3.7.4 | Commit Final Ack Receipt errors | badly formed message | unsupported assignmentAssertionClaimFormat | 415 |
+| err_3.9.1 | Transfer Complete errors | badly formed message | mismatch transferContextId | 404 |
+| err_3.9.2 | Transfer Complete errors | badly formed message | mismatch sessionId | 404 |
+| err_3.9.3 | Transfer Complete errors | badly formed message | mismatch hashPrevMessage | 404 |
+| err_3.9.4 | Transfer Complete errors | badly formed message | mismatch hashTransferCommence | 404 |
 
 ## URN Registration
 

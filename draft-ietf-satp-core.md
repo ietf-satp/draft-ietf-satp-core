@@ -918,7 +918,7 @@ The message must be signed by the server.
 
 The parameters of this message consist of the following:
 
-- version REQUIRED: SATP protocol Version see {satp-protocol-version}} as a string "major.minor".
+- version REQUIRED: SATP protocol Version see {satp-protocol-version}} as a string "major.minor". This should assist in diagnosing problems when different versions of the standard are used. 
 
 - messageType REQUIRED: urn:ietf:satp:msgtype:reject-msg
 
@@ -928,7 +928,7 @@ The parameters of this message consist of the following:
 
 - hashPrevMessage REQUIRED: The cryptographic hash of the last message that caused the rejection to occur. The default hash algorithm is SHA256.
 
-- type REQUIRED: A URI reference identifying the error type causing the rejection, as defined in {{RFC9457}}. SHOULD be a URN of the form `urn:ietf:params:satp:error:<code>` where `<code>` is the error code from the SATP Error Codes Registry ({{error-types-section}}).
+- type REQUIRED: A URI reference identifying the error type causing the rejection, as defined in {{RFC9457}}. MUST be a URN of the form `urn:ietf:params:satp:error:<code>` where `<code>` is the error code from the SATP Error Codes Registry ({{error-types-section}}).
 
 - status REQUIRED: The HTTP status code for this error as an integer, as defined in {{RFC9457}}. MUST match the HTTP response status and be consistent with the HTTP Status column of the SATP Error Codes Registry ({{error-types-section}}).
 
@@ -1346,7 +1346,7 @@ SATP error messages MUST be encoded as Problem Details objects as defined in {{R
 
 - priorMsgType OPTIONAL: The message type of the previous SATP message that triggered the error. This is a SATP-specific extension field (see {{RFC9457}}).
 
-- type REQUIRED: A URI reference identifying the error type, as defined in {{RFC9457}}. SHOULD be a URN of the form `urn:ietf:params:satp:error:<code>` where `<code>` is the error code from the SATP Error Codes Registry ({{error-types-section}}).
+- type REQUIRED: A URI reference identifying the error type, as defined in {{RFC9457}}. MUST be a URN of the form `urn:ietf:params:satp:error:<code>` where `<code>` is the error code from the SATP Error Codes Registry ({{error-types-section}}).
 
 - status REQUIRED: The HTTP status code for this error as an integer, as defined in {{RFC9457}}. MUST match the HTTP response status and be consistent with the HTTP Status column of the SATP Error Codes Registry ({{error-types-section}}).
 
@@ -1354,7 +1354,10 @@ SATP error messages MUST be encoded as Problem Details objects as defined in {{R
 
 - detail OPTIONAL: A human-readable explanation specific to this occurrence of the error, as defined in {{RFC9457}}.
 
-- instance OPTIONAL: A URI reference identifying the specific occurrence of the error, as defined in {{RFC9457}}. MAY be used to convey the transferContextId.
+
+- transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer. Note that the transferContextId is always included, whereas the instance defined in {{RFC9457}} is optional, but if supplied, must also contain the transferContextId. The transferContextId is used in all messages, whereas instance is specific to errror messages.
+
+- instance OPTIONAL: A URI reference identifying the specific occurrence of the error, as defined in {{RFC9457}}. If supplied, it MUST contain the transferContextId.
 
 Further discussion on protocol errors can be found in the SATP Error Codes Registry ({{error-types-section}}).
 
@@ -1480,7 +1483,7 @@ the execution of the SATP protocol because these identifiers depart from those a
 The validity of these identifiers must be verified by the gateways during set-up stage (Stage-0), which is beyond the scope of the current specification.
 See Section 7 on the Identity and Asset Verification Stage.
 
-SATP error messages MUST be encoded as Problem Details objects as defined in {{RFC9457}}, with content type `application/problem+json`. The `type` field of the Problem Details object SHOULD be set to a URN of the form `urn:ietf:params:satp:error:<code>`, where `<code>` is the error code from this registry. The `status` field MUST match the HTTP status of the response carrying the error and MUST be consistent with the HTTP Status column in the table below.
+SATP error messages MUST be encoded as Problem Details objects as defined in {{RFC9457}}, with content type `application/problem+json`. The `type` field of the Problem Details object MUST be set to a URN of the form `urn:ietf:params:satp:error:<code>`, where `<code>` is the error code from this registry. The `status` field MUST match the HTTP status of the response carrying the error and MUST be consistent with the HTTP Status column in the table below.
 
 In the following table, each entry consists of:
 

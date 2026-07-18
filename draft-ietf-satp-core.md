@@ -911,7 +911,7 @@ Here is an example of the message request body:
 The purpose of this message is for the server to indicate explicit
 rejection of the previous message received from the client.
 This message can be sent at any time in the session.
-The server MUST include error details using the Problem Details format defined in {{RFC9457}} (see {{error-types-section}}).
+The server MUST include error details using the Problem Details format defined in {{RFC9457}} (see {{satp-protocol-errors-section}}).
 A reject message is taken to mean an immediate termination of the session.
 
 The message must be signed by the server.
@@ -930,11 +930,11 @@ This should assist in diagnosing problems when different versions of the standar
 - hashPrevMessage REQUIRED: The cryptographic hash of the last message that caused the rejection to occur. The default hash algorithm is SHA256.
 
 - type REQUIRED: A URI reference identifying the error type causing the rejection, as defined in {{RFC9457}}. MUST be a URN of the form
-`urn:ietf:params:satp:error:<code>` where `<code>` is the error code from the SATP Error Codes Registry ({{error-types-section}}).
+`urn:ietf:params:satp:error:<code>` where `<code>` is the error code from the SATP Error Codes Registry ({{satp-protocol-errors-section}}).
 
-- status REQUIRED: The HTTP status code for this error as an integer, as defined in {{RFC9457}}. MUST match the HTTP response status and be consistent with the HTTP Status column of the SATP Error Codes Registry ({{error-types-section}}).
+- status REQUIRED: The HTTP status code for this error as an integer, as defined in {{RFC9457}}. MUST match the HTTP response status and be consistent with the HTTP Status column of the SATP Error Codes Registry ({{satp-protocol-errors-section}}).
 
-- title REQUIRED: A short, human-readable summary of the error type, as defined in {{RFC9457}}. SHOULD correspond to the Description column in the SATP Error Codes Registry ({{error-types-section}}).
+- title REQUIRED: A short, human-readable summary of the error type, as defined in {{RFC9457}}. SHOULD correspond to the Description column in the SATP Error Codes Registry ({{satp-protocol-errors-section}}).
 
 - timestamp REQUIRED: timestamp of this message.
 
@@ -1348,11 +1348,11 @@ SATP error messages MUST be encoded as Problem Details objects as defined in {{R
 
 - priorMsgType OPTIONAL: The message type of the previous SATP message that triggered the error. This is a SATP-specific extension field (see {{RFC9457}}).
 
-- type REQUIRED: A URI reference identifying the error type, as defined in {{RFC9457}}. MUST be a URN of the form `urn:ietf:params:satp:error:<code>` where `<code>` is the error code from the SATP Error Codes Registry ({{error-types-section}}).
+- type REQUIRED: A URI reference identifying the error type, as defined in {{RFC9457}}. MUST be a URN of the form `urn:ietf:params:satp:error:<code>` where `<code>` is the error code from the SATP Error Codes Registry ({{satp-protocol-errors-section}}).
 
-- status REQUIRED: The HTTP status code for this error as an integer, as defined in {{RFC9457}}. MUST match the HTTP response status and be consistent with the HTTP Status column of the SATP Error Codes Registry ({{error-types-section}}).
+- status REQUIRED: The HTTP status code for this error as an integer, as defined in {{RFC9457}}. MUST match the HTTP response status and be consistent with the HTTP Status column of the SATP Error Codes Registry ({{satp-protocol-errors-section}}).
 
-- title REQUIRED: A short, human-readable summary of the error type, as defined in {{RFC9457}}. SHOULD correspond to the Description column in the SATP Error Codes Registry ({{error-types-section}}).
+- title REQUIRED: A short, human-readable summary of the error type, as defined in {{RFC9457}}. SHOULD correspond to the Description column in the SATP Error Codes Registry ({{satp-protocol-errors-section}}).
 
 - detail OPTIONAL: A human-readable explanation specific to this occurrence of the error, as defined in {{RFC9457}}.
 
@@ -1361,7 +1361,7 @@ SATP error messages MUST be encoded as Problem Details objects as defined in {{R
 
 - instance OPTIONAL: A URI reference identifying the specific occurrence of the error, as defined in {{RFC9457}}. If supplied, it MUST contain the transferContextId.
 
-Further discussion on protocol errors can be found in the SATP Error Codes Registry ({{error-types-section}}).
+Further discussion on protocol errors can be found in the SATP Error Codes Registry ({{satp-protocol-errors-section}}).
 
 ## Session abort message
 
@@ -1423,62 +1423,14 @@ Errors may occur at the connection layer, independent of the flows at the SATP l
 Connection errors resulting in the time-out of the session MUST result in the termination of the transfer session.
 In the case of a transfer session termination, gateways SHOULD release its local computing resources and release asset-locks in their respective networks.
 
-
+error-codes-section
 
 ## SATP Protocol Errors
 
 {: #satp-protocol-errors-section}
 
-The errors at the SATP level pertain to protocol flow and the information carried within each message. These are enumerated in the SATP Error Codes Registry ({{error-types-section}}).
-
-## Effectiveness of Session Aborts
-
-{: #satp-abort-effectiveness-section}
-
-The effectiveness of a session-abort message on the state of the asset depends on where the abort message occurs in the SATP protocol flow in Figure 2.
-
-Note that a session-abort message maybe lost and never be received by the peer gateway. Gateways can crash prior to receiving an abort message.
-
-If gateway G2 transmits a session-abort message after gateway G1 performs a lock (msgtype:lock-assert-msg) on the asset in network NW1, the gateway G1 can always unlock the asset and restore its state.
-
-If either gateway G1 or gateway G2 transmits a session-abort message after gateway G1 sends a lock-assert message (msgtype:lock-assert-msg) but before G2 sends the commit ready message (msgtype:commit-ready-msg), the gateway G1 can always unlock the asset and restore its state in network NW1.
-
-Similarly, if either gateway G1 or gateway G2 transmits a session-abort message immediately after gateway G1 sends a commit-prepare message (msgtype:commit-prepare-msg) but before G2 sends the commit ready message (msgtype:commit-ready-msg), the gateway G2 can always reverse the changes made by G2 to NW2 (i.e. reverse the assignment-to-self of the minted asset).
-
-However, an abort message (occurring in either direction) after gateway G1 transmits the commit final message (msgtype:commit-final-msg) will not be effective. This is because G1 has already burned the asset in NW1 and G2 has already minted the asset in NW2 and has legally agreed to assign the asset to the appropriate beneficiary in NW2.
-
-In general, the termination of sessions or aborts occurring before the sender gateway G1 disables (burns) the asset in NW1 (in flow 3.4 in Figure 2) will incur a minimal cost in terms of computing resources or fees on the part of both gateways G1 and G2.
-
-
-# Security Consideration
-
-{: #satp-Security-Consideration-section}
-
-Gateways may be of interest to attackers because they enable the transferal of digital assets across networks and therefore are an important function in the digital economy.
-
-- Disruptions in transfers and denial of service: Disruptions to a transfer session may cause not only resource waste (e.g. CPU usage), but in some cases may result in financial loss on the part of the gateway operator (e.g. fees charged by network). Denial-of-service attacks by third parties to a run of the protocol may result in the termination of the current run (e.g. time-outs at the SATP layer), and for new attempts to be conducted.
-
-- Dishonest gateways: The SATP protocol requires gateways to sign messages related to the transfer layer, not only to provide message source authentication and integrity but also to maintain honesty on the part of the gateways. Gateway-operators may take-on legal and financial liabilities in certain jurisdictions by digitally signing messages. Dishonest gateways may intentionally delay the delivery of certain messages or intentionally fail (abort) the protocol run at certain crucial points [ARCH].  Two such crucial points in the message flows are the following: (i) the commit-final-msg, where the sender G1 asserts it has extinguished (burned) the asset in the origin network, and (ii) the ack-prepare-msg where the receiver gateway G2 asserts it is ready to proceed with the final commitment. If gateway G1 intentionally drops the commit-final-msg (commit-final) such that gateway G2 times-out, then G2 may suffer financial loss due to roll-back costs in network NW2. Similarly, if G2 intentionally drops the ack-prepare-msg to signal that it is ready to proceed with the commitment (commit-ready), then gateway G1 may time-out and terminate the protocol run, causing resource waste at G1. Operators of gateways should utlize relevant tools to detect possible dishonest behavior of certain gateways, and select to have their gateways peer with other reliable gateways.
-
-- Protection of gateway keys: It is crucial to protect the cryptographic keys utilized by gateways. This includes keys for secure session establishment (TLS1.3) and keys utilized for signing SATP messages. Loss of gateway keys may incur financial loss on the part of the gateway-operator. Implementation of gateways should consider utilizing tamper-resistant hardware to store and manage the relevant keys for gateways operational functions.
-
-- Gateway identification: Mechanisms must be utilized to provide unique identifiers to gateway implementations to ensure global uniqueness and reachability. Existing identification mechanisms such a X509 certificates [RFC5280] and Verifiable Credentials [W3CVC] may be applied for gateway identification.
-
-- Identification of networks: There needs to be mechanism for gateways to declare or disclose the asset networks it current serves. Combined with strong gateway identification, this allows remote gateways to quickly locate suitable gateways to peer with for the purposes of asset transfers.
-
-
-# IANA Consideration
-
-{: #satp-iana-Consideration}
-
-
-The following request is being made to IANA.
-
-## SATP Error Codes Registry
-
-{: #error-types-section}
-
-This registry defines the error codes used in SATP protocol messages.
+The errors at the SATP level pertain to protocol flow and the information carried within each message. These are enumerated in the SATP Error Codes Registry, 
+{{error-codes-section}}.
 
 Many of the errors due to invalid identifiers (e.g., invalid transferContextId, invalid digitalAssetId) may arise within
 the execution of the SATP protocol because these identifiers depart from those agreed-upon in Transfer Initialization Claim in the transfer proposal message.
@@ -1486,6 +1438,10 @@ The validity of these identifiers must be verified by the gateways during set-up
 See Section 7 on the Identity and Asset Verification Stage.
 
 SATP error messages MUST be encoded as Problem Details objects as defined in {{RFC9457}}, with content type `application/problem+json`. The `type` field of the Problem Details object MUST be set to a URN of the form `urn:ietf:params:satp:error:<code>`, where `<code>` is the error code from this registry. The `status` field MUST match the HTTP status of the response carrying the error and MUST be consistent with the HTTP Status column in the table below.
+
+## Protocol Errors Codes
+
+{: #error-codes-section}
 
 In the following table, each entry consists of:
 
@@ -1559,6 +1515,51 @@ In the following table, each entry consists of:
 | err_3.9.2 | Transfer Complete errors | badly formed message | mismatch sessionId | 404 |
 | err_3.9.3 | Transfer Complete errors | badly formed message | mismatch hashPrevMessage | 404 |
 | err_3.9.4 | Transfer Complete errors | badly formed message | mismatch hashTransferCommence | 404 |
+
+## Effectiveness of Session Aborts
+
+{: #satp-abort-effectiveness-section}
+
+The effectiveness of a session-abort message on the state of the asset depends on where the abort message occurs in the SATP protocol flow in Figure 2.
+
+Note that a session-abort message maybe lost and never be received by the peer gateway. Gateways can crash prior to receiving an abort message.
+
+If gateway G2 transmits a session-abort message after gateway G1 performs a lock (msgtype:lock-assert-msg) on the asset in network NW1, the gateway G1 can always unlock the asset and restore its state.
+
+If either gateway G1 or gateway G2 transmits a session-abort message after gateway G1 sends a lock-assert message (msgtype:lock-assert-msg) but before G2 sends the commit ready message (msgtype:commit-ready-msg), the gateway G1 can always unlock the asset and restore its state in network NW1.
+
+Similarly, if either gateway G1 or gateway G2 transmits a session-abort message immediately after gateway G1 sends a commit-prepare message (msgtype:commit-prepare-msg) but before G2 sends the commit ready message (msgtype:commit-ready-msg), the gateway G2 can always reverse the changes made by G2 to NW2 (i.e. reverse the assignment-to-self of the minted asset).
+
+However, an abort message (occurring in either direction) after gateway G1 transmits the commit final message (msgtype:commit-final-msg) will not be effective. This is because G1 has already burned the asset in NW1 and G2 has already minted the asset in NW2 and has legally agreed to assign the asset to the appropriate beneficiary in NW2.
+
+In general, the termination of sessions or aborts occurring before the sender gateway G1 disables (burns) the asset in NW1 (in flow 3.4 in Figure 2) will incur a minimal cost in terms of computing resources or fees on the part of both gateways G1 and G2.
+
+
+# Security Consideration
+
+{: #satp-Security-Consideration-section}
+
+Gateways may be of interest to attackers because they enable the transferal of digital assets across networks and therefore are an important function in the digital economy.
+
+- Disruptions in transfers and denial of service: Disruptions to a transfer session may cause not only resource waste (e.g. CPU usage), but in some cases may result in financial loss on the part of the gateway operator (e.g. fees charged by network). Denial-of-service attacks by third parties to a run of the protocol may result in the termination of the current run (e.g. time-outs at the SATP layer), and for new attempts to be conducted.
+
+- Dishonest gateways: The SATP protocol requires gateways to sign messages related to the transfer layer, not only to provide message source authentication and integrity but also to maintain honesty on the part of the gateways. Gateway-operators may take-on legal and financial liabilities in certain jurisdictions by digitally signing messages. Dishonest gateways may intentionally delay the delivery of certain messages or intentionally fail (abort) the protocol run at certain crucial points [ARCH].  Two such crucial points in the message flows are the following: (i) the commit-final-msg, where the sender G1 asserts it has extinguished (burned) the asset in the origin network, and (ii) the ack-prepare-msg where the receiver gateway G2 asserts it is ready to proceed with the final commitment. If gateway G1 intentionally drops the commit-final-msg (commit-final) such that gateway G2 times-out, then G2 may suffer financial loss due to roll-back costs in network NW2. Similarly, if G2 intentionally drops the ack-prepare-msg to signal that it is ready to proceed with the commitment (commit-ready), then gateway G1 may time-out and terminate the protocol run, causing resource waste at G1. Operators of gateways should utlize relevant tools to detect possible dishonest behavior of certain gateways, and select to have their gateways peer with other reliable gateways.
+
+- Protection of gateway keys: It is crucial to protect the cryptographic keys utilized by gateways. This includes keys for secure session establishment (TLS1.3) and keys utilized for signing SATP messages. Loss of gateway keys may incur financial loss on the part of the gateway-operator. Implementation of gateways should consider utilizing tamper-resistant hardware to store and manage the relevant keys for gateways operational functions.
+
+- Gateway identification: Mechanisms must be utilized to provide unique identifiers to gateway implementations to ensure global uniqueness and reachability. Existing identification mechanisms such a X509 certificates [RFC5280] and Verifiable Credentials [W3CVC] may be applied for gateway identification.
+
+- Identification of networks: There needs to be mechanism for gateways to declare or disclose the asset networks it current serves. Combined with strong gateway identification, this allows remote gateways to quickly locate suitable gateways to peer with for the purposes of asset transfers.
+
+
+# IANA Consideration
+
+{: #satp-iana-Consideration}
+
+
+The following request is being made to IANA.
+
+
 
 ## URN Registration
 
@@ -1648,6 +1649,10 @@ The SATP Message Types registry's initial contents are as follows:
 - Parameter usage location: Session Abort
 - Change controller: IETF
 - Specification document(s): Section 10.7 of draft-ietf-satp-core.
+
+## SATP Error Codes Registry
+
+This specification establishes the SATP Error Codes registry. The purpose of this registry is to define the various error codes utilized in the secure asset transfer protocol (SATP). The errors listed in {{error-codes-section}} are to be registered.
 
 # Acknowledgements
 

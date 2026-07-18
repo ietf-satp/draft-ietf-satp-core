@@ -1429,7 +1429,7 @@ error-codes-section
 
 {: #satp-protocol-errors-section}
 
-The errors at the SATP level pertain to protocol flow and the information carried within each message. These are enumerated in the SATP Error Codes Registry, 
+The errors at the SATP level pertain to protocol flow and the information carried within each message. These are enumerated in the SATP Error Codes Registry,
 {{error-codes-section}}.
 
 Many of the errors due to invalid identifiers (e.g., invalid transferContextId, invalid digitalAssetId) may arise within

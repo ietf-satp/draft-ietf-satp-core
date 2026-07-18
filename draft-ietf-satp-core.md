@@ -918,7 +918,8 @@ The message must be signed by the server.
 
 The parameters of this message consist of the following:
 
-- version REQUIRED: SATP protocol Version see {satp-protocol-version}} as a string "major.minor". This should assist in diagnosing problems when different versions of the standard are used. 
+- version REQUIRED: SATP protocol Version see {satp-protocol-version}} as a string "major.minor".
+This should assist in diagnosing problems when different versions of the standard are used.
 
 - messageType REQUIRED: urn:ietf:satp:msgtype:reject-msg
 

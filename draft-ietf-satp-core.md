@@ -911,46 +911,13 @@ Here is an example of the message request body:
 The purpose of this message is for the server to indicate explicit
 rejection of the previous message received from the client.
 This message can be sent at any time in the session.
-The server MUST include error details using the Problem Details format defined in {{RFC9457}} (see {{satp-protocol-errors-section}}).
-A reject message is taken to mean an immediate termination of the session.
+The server MUST include error details using the Problem Details format defined in {{RFC9457}}
+(see {{satp-protocol-errors-section}}).
 
 The message must be signed by the server.
 
-The parameters of this message consist of the following:
+A reject message is taken to mean an immediate termination of the session.
 
-- version REQUIRED: SATP protocol Version see {satp-protocol-version}} as a string "major.minor".
-This should assist in diagnosing problems when different versions of the standard are used.
-
-- messageType REQUIRED: urn:ietf:satp:msgtype:reject-msg
-
-- sessionId REQUIRED: A unique identifier chosen by the client to identify the current session.
-
-- transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.
-
-- hashPrevMessage REQUIRED: The cryptographic hash of the last message that caused the rejection to occur. The default hash algorithm is SHA256.
-
-- type REQUIRED: A URI reference identifying the error type causing the rejection, as defined in {{RFC9457}}. MUST be a URN of the form
-`urn:ietf:params:satp:error:<code>` where `<code>` is the error code from the SATP Error Codes Registry ({{satp-protocol-errors-section}}).
-
-- status REQUIRED: The HTTP status code for this error as an integer, as defined in {{RFC9457}}. MUST match the HTTP response status and be consistent with the HTTP Status column of the SATP Error Codes Registry ({{satp-protocol-errors-section}}).
-
-- title REQUIRED: A short, human-readable summary of the error type, as defined in {{RFC9457}}. SHOULD correspond to the Description column in the SATP Error Codes Registry ({{satp-protocol-errors-section}}).
-
-- timestamp REQUIRED: timestamp of this message.
-
-Here is an example of the message request body:
-
-{\
-  "version": "1.0",\
-  "messageType": "urn:ietf:satp:msgtype:reject-msg",\
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
-  "hashPrevMessage": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",\
-  "type": "urn:ietf:params:satp:error:err_1.1.11",\
-  "status": 422,\
-  "title": "invalid digitalAssetId",\
-  "timestamp": "2024-10-03T12:02+00Z",\
-}\
 
 
 ## Transfer Commence Message
@@ -1340,28 +1307,9 @@ Example:
 
 The purpose of this message is for either the sender or the receiver gateways to indicate to its peer that an error has occurred within the transfer protocol flow.
 
-SATP error messages MUST be encoded as Problem Details objects as defined in {{RFC9457}}, with content type `application/problem+json`. The default action upon receiving an error message is the immediate termination of the session.
+The default action upon receiving an error message is the immediate termination of the session.
 
-- messageType REQUIRED: It MUST be the value urn:ietf:satp:msgtype:error-msg. This is a SATP-specific extension field (see {{RFC9457}}).
-
-- sessionId REQUIRED: This is the current session in which the error pertains. This is a SATP-specific extension field (see {{RFC9457}}).
-
-- priorMsgType OPTIONAL: The message type of the previous SATP message that triggered the error. This is a SATP-specific extension field (see {{RFC9457}}).
-
-- type REQUIRED: A URI reference identifying the error type, as defined in {{RFC9457}}. MUST be a URN of the form `urn:ietf:params:satp:error:<code>` where `<code>` is the error code from the SATP Error Codes Registry ({{satp-protocol-errors-section}}).
-
-- status REQUIRED: The HTTP status code for this error as an integer, as defined in {{RFC9457}}. MUST match the HTTP response status and be consistent with the HTTP Status column of the SATP Error Codes Registry ({{satp-protocol-errors-section}}).
-
-- title REQUIRED: A short, human-readable summary of the error type, as defined in {{RFC9457}}. SHOULD correspond to the Description column in the SATP Error Codes Registry ({{satp-protocol-errors-section}}).
-
-- detail OPTIONAL: A human-readable explanation specific to this occurrence of the error, as defined in {{RFC9457}}.
-
-
-- transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer. Note that the transferContextId is always included, whereas the instance defined in {{RFC9457}} is optional, but if supplied, must also contain the transferContextId. The transferContextId is used in all messages, whereas instance is specific to errror messages.
-
-- instance OPTIONAL: A URI reference identifying the specific occurrence of the error, as defined in {{RFC9457}}. If supplied, it MUST contain the transferContextId.
-
-Further discussion on protocol errors can be found in the SATP Error Codes Registry ({{satp-protocol-errors-section}}).
+The error message format and parameters are described in {{satp-protocol-errors-section}}.
 
 ## Session abort message
 
@@ -1438,6 +1386,52 @@ The validity of these identifiers must be verified by the gateways during set-up
 See Section 7 on the Identity and Asset Verification Stage.
 
 SATP error messages MUST be encoded as Problem Details objects as defined in {{RFC9457}}, with content type `application/problem+json`. The `type` field of the Problem Details object MUST be set to a URN of the form `urn:ietf:params:satp:error:<code>`, where `<code>` is the error code from this registry. The `status` field MUST match the HTTP status of the response carrying the error and MUST be consistent with the HTTP Status column in the table below.
+
+The parameters of error messages consist of the following:
+
+- messageType REQUIRED: urn:ietf:satp:msgtype:reject-msg
+
+- type REQUIRED: A URI reference identifying the error type causing the rejection, as defined in {{RFC9457}}. MUST be a URN of the form
+`urn:ietf:params:satp:error:<code>` where `<code>` is the error code from the SATP Error Codes Registry ({{satp-protocol-errors-section}}).
+
+- status REQUIRED: The HTTP status code for this error as an integer, as defined in {{RFC9457}}. MUST match the HTTP response status and be consistent with the HTTP Status column of the protocol error codes ({{error-codes-section}}).
+
+- title REQUIRED: A short, human-readable summary of the error type, as defined in {{RFC9457}}. SHOULD correspond to the Description column in the SATP Error Codes Registry ({{satp-protocol-errors-section}}).
+
+- detail OPTIONAL: A human-readable explanation specific to this occurrence of the error, as defined in {{RFC9457}}.
+
+- version REQUIRED: SATP protocol Version see {satp-protocol-version}} as a string "major.minor".
+This should assist in diagnosing problems when different versions of the standard are used.
+
+- sessionId REQUIRED: A unique identifier chosen by the client to identify the current session.
+
+- transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer. Note that the transferContextId is always included, whereas the instance defined in {{RFC9457}} is optional, but if supplied, must also contain the transferContextId. The transferContextId is used in all messages, whereas instance is specific to errror messages.
+
+- instance OPTIONAL: A URI reference identifying the specific occurrence of the error, as defined in {{RFC9457}}. If supplied, it MUST contain the transferContextId.
+
+- prevMsgType OPTIONAL: The message type of the previous SATP message that triggered the error. This is a SATP-specific extension field (see {{RFC9457}}).
+
+- hashPrevMessage REQUIRED: The cryptographic hash of the last message that caused the rejection to occur. The default hash algorithm is SHA256.
+
+- timestamp REQUIRED: timestamp of this message.
+
+
+Here is an example of the error message body:
+
+{\
+  "messageType": "urn:ietf:satp:msgtype:reject-msg",\
+  "type": "urn:ietf:params:satp:error:err_1.1.11",\
+  "status": 422,\
+  "title": "invalid digitalAssetId",\
+  "version": "1.0",\
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
+  "instance": "89e04e71-bba2-4363-933c-262f42ec07a0",\
+  "prevMsgType": "urn:ietf:satp:msgtype:transfer-proposal-msg"
+  "hashPrevMessage": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",\
+  "timestamp": "2024-10-03T12:02+00Z",\
+}\
+
 
 ## Protocol Errors Codes
 

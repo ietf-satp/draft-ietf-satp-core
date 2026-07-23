@@ -1052,7 +1052,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Hargreaves, et al.</td>
-<td class="center">Expires 22 January 2027</td>
+<td class="center">Expires 24 January 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg {
 <dd class="internet-draft">draft-ietf-satp-core-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-07-21" class="published">21 July 2026</time>
+<time datetime="2026-07-23" class="published">23 July 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
-<dd class="intended-status">Informational</dd>
+<dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-01-22">22 January 2027</time></dd>
+<dd class="expires"><time datetime="2027-01-24">24 January 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1083,7 +1083,7 @@ svg {
 </div>
 <div class="author">
       <div class="author-name">R. Belchior</div>
-<div class="org">INESC-ID, Técnico Lisboa, Blockdaemon</div>
+<div class="org">INESC-ID</div>
 </div>
 <div class="author">
       <div class="author-name">V. Ramakrishna</div>
@@ -1136,7 +1136,7 @@ svg {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 22 January 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 24 January 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1337,7 +1337,7 @@ svg {
                 <p id="section-toc.1-1.10.2.6.1"><a href="#section-10.6" class="auto internal xref">10.6</a>.  <a href="#name-error-message" class="internal xref">Error Message</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.7">
-                <p id="section-toc.1-1.10.2.7.1"><a href="#section-10.7" class="auto internal xref">10.7</a>.  <a href="#name-session-abort-message" class="internal xref">Session abort message</a></p>
+                <p id="section-toc.1-1.10.2.7.1"><a href="#section-10.7" class="auto internal xref">10.7</a>.  <a href="#name-session-abort-message" class="internal xref">Session Abort Message</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.8">
                 <p id="section-toc.1-1.10.2.8.1"><a href="#section-10.8" class="auto internal xref">10.8</a>.  <a href="#name-satp-session-resumption" class="internal xref">SATP Session Resumption</a></p>
@@ -1490,7 +1490,7 @@ the transfer has been committed by both gateways,
 that this commitment must hold regardless of subsequent
 unavailability (e.g. crash) of the gateways implementing the SATP protocol.<a href="#section-1-10" class="pilcrow">¶</a></p>
 <p id="section-1-11">All messages exchanged between gateways are assumed to run over TLS1.3.
-HTTPS must be used instead of plain HTTP.<a href="#section-1-11" class="pilcrow">¶</a></p>
+HTTP/S must be used instead of plain HTTP.<a href="#section-1-11" class="pilcrow">¶</a></p>
 <p id="section-1-12">The endpoints at the respective gateways should provide access to credentials
 (or other identification mechanisms) to prove the legal owner (or operator) of the gateway.
 An example of credentials include X509 certificates.<a href="#section-1-12" class="pilcrow">¶</a></p>
@@ -1678,7 +1678,7 @@ These flows deal with the asset transfer and commitment establishment between tw
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-satp-message-digital-signat" class="section-name selfRef">SATP Message Digital Signatures and Key Types</a>
         </h3>
 <div id="satp-message-signatures">
-<p id="section-5.2-1">All SATP messages exchanged between gateways must be signed <span>[<a href="#ECDSA" class="cite xref">ECDSA</a>]</span>, using the JSON Web Signatures mechanism <span>[<a href="#RFC7515" class="cite xref">RFC7515</a>]</span>.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-1">All SATP messages exchanged between gateways MUST be signed <span>[<a href="#ECDSA" class="cite xref">ECDSA</a>]</span>, using the JSON Web Signatures mechanism <span>[<a href="#RFC7515" class="cite xref">RFC7515</a>]</span>.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 </div>
 <p id="section-5.2-2">Signature algorithms used by gateways for SATP messages SHOULD be selected from those defined in
 the JSON Web Algorithms (JWA) specification <span>[<a href="#RFC7518" class="cite xref">RFC7518</a>]</span>, with key types defined in JSON Web Key (JWK) specification <span>[<a href="#RFC7517" class="cite xref">RFC7517</a>]</span>.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
@@ -1695,7 +1695,7 @@ the JSON Web Algorithms (JWA) specification <span>[<a href="#RFC7518" class="cit
 <div id="satp-message-format">
 <p id="section-5.3-1">SATP messages are exchanged between peer gateways, where depending on the message type one gateway may act as a client of the other (and vice versa).<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 </div>
-<p id="section-5.3-2">All SATP messages exchanged between gateways are in JSON format <span>[<a href="#RFC8259" class="cite xref">RFC8259</a>]</span>.<a href="#section-5.3-2" class="pilcrow">¶</a></p>
+<p id="section-5.3-2">All SATP messages exchanged between gateways MUST be JSON format <span>[<a href="#RFC8259" class="cite xref">RFC8259</a>]</span>.<a href="#section-5.3-2" class="pilcrow">¶</a></p>
 <div id="protocol-version">
 <section id="section-5.3.1">
           <h4 id="name-protocol-version">
@@ -1821,7 +1821,7 @@ This selection is confirmed by peer gateways in the Transfer Initialization Clai
           <h4 id="name-client-credential-types-sup">
 <a href="#section-5.3.8" class="section-number selfRef">5.3.8. </a><a href="#name-client-credential-types-sup" class="section-name selfRef">Client Credential Types Supported by Gateways</a>
           </h4>
-<p id="section-5.3.8-1">SATP Gateways must support JSON Web Tokens (JWT) <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span> with OAUth2.0 <span>[<a href="#RFC6749" class="cite xref">RFC6749</a>]</span> as the minimal credential type for authenticating incoming API calls from Client Applications (see Figure 1).<a href="#section-5.3.8-1" class="pilcrow">¶</a></p>
+<p id="section-5.3.8-1">SATP Gateways MUST support JSON Web Tokens (JWT) <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span> with OAUth2.0 <span>[<a href="#RFC6749" class="cite xref">RFC6749</a>]</span> as the minimal credential type for authenticating incoming API calls from Client Applications (see Figure 1).<a href="#section-5.3.8-1" class="pilcrow">¶</a></p>
 <p id="section-5.3.8-2">A gateway may support additional credential mechanisms, which may be advertised by the gateway through different mechanisms (e.g. config file at a well-known endpoint). However, these mechanisms are out of scope for the current specification.<a href="#section-5.3.8-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1830,8 +1830,8 @@ This selection is confirmed by peer gateways in the Transfer Initialization Clai
           <h4 id="name-gateway-supported-tls-schem">
 <a href="#section-5.3.9" class="section-number selfRef">5.3.9. </a><a href="#name-gateway-supported-tls-schem" class="section-name selfRef">Gateway Supported TLS Schemes</a>
           </h4>
-<p id="section-5.3.9-1">Gateways must support TLS1.3 <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>.<a href="#section-5.3.9-1" class="pilcrow">¶</a></p>
-<p id="section-5.3.9-2">The TLS scheme is used by peer gateways to establish the TLS session prior to the commencement of an asset transfer. Gateways must a minimal support the AES-128 in GCM mode with SHA-256 (TLS_AES_128_GCM_SHA256).<a href="#section-5.3.9-2" class="pilcrow">¶</a></p>
+<p id="section-5.3.9-1">Gateways MUST support TLS1.3 <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>.<a href="#section-5.3.9-1" class="pilcrow">¶</a></p>
+<p id="section-5.3.9-2">The TLS scheme is used by peer gateways to establish the TLS session prior to the commencement of an asset transfer. Gateways MUST support cryptographic schemes at least as secure AES-128 in GCM mode with SHA-256 (TLS_AES_128_GCM_SHA256).<a href="#section-5.3.9-2" class="pilcrow">¶</a></p>
 <p id="section-5.3.9-3">If the client (sender gateway) transmits a list of supported credential schemes, the server (recipient gateway) selects one acceptable credential scheme from the offered schemes.<a href="#section-5.3.9-3" class="pilcrow">¶</a></p>
 <p id="section-5.3.9-4">If no acceptable credential scheme was offered, a "unsupported
 gatewayTlsScheme" (err_1.1.34) reject message is returned by the server
@@ -2095,7 +2095,7 @@ serialized using URI Query String Serialization.<a href="#section-8-5" class="pi
 must be agreed upon between the client (sender
 gateway) and the server (recipient gateway).<a href="#section-8.1-1" class="pilcrow">¶</a></p>
 </div>
-<p id="section-8.1-2">The format of the identity fields in this message, unless otherwise stated, is a JSON text.<a href="#section-8.1-2" class="pilcrow">¶</a></p>
+<p id="section-8.1-2">The format of the identity fields in this message, unless otherwise stated, is a JSON string.<a href="#section-8.1-2" class="pilcrow">¶</a></p>
 <p id="section-8.1-3">The Transfer Initialization Claim consists of the following:<a href="#section-8.1-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-8.1-4.1">
@@ -2126,7 +2126,7 @@ gateway) and the server (recipient gateway).<a href="#section-8.1-1" class="pilc
             <p id="section-8.1-4.9.1">senderGatewaySignaturePublicKey REQUIRED: This is the public key of the key-pair used by the sender gateway to sign assertions and receipts.<a href="#section-8.1-4.9.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.10">
-            <p id="section-8.1-4.10.1">receiverGatewaySignaturePublicKey REQUIRED: This is the public key of the key-pair used by the recevier gateway to sign assertions and receipts.<a href="#section-8.1-4.10.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.10.1">receiverGatewaySignaturePublicKey REQUIRED: This is the public key of the key-pair used by the receiver gateway to sign assertions and receipts.<a href="#section-8.1-4.10.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-8.1-4.11">
             <p id="section-8.1-4.11.1">senderGatewayId REQUIRED: This is the identifier of the sender gateway.<a href="#section-8.1-4.11.1" class="pilcrow">¶</a></p>
@@ -2155,22 +2155,22 @@ gateway) and the server (recipient gateway).<a href="#section-8.1-1" class="pilc
         </ul>
 <p id="section-8.1-5">Here is an example representation in JSON format (with the public keys in JWK being replaced with hexadecimal for brevity):<a href="#section-8.1-5" class="pilcrow">¶</a></p>
 <p id="section-8.1-6">{
-  "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",\
-  "assetProfileId": "38561",\
-  "verifiedOriginatorEntityId": "CN=Alice, OU=Example Org Unit, O=Example, L=New York, C=US",\
-  "verifiedBeneficiaryEntityId": "CN=Bob, OU=Case Org Unit, O=Case, L=San Francisco, C=US",\
-  "originatorPublicKey": "0304b9f34d3898b27f85b3d88fa069a879abe14db5060dde466dd1e4a31ff75e44",\
-  "beneficiaryPublicKey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",\
-  "senderGatewaySignaturePublicKey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",\
-  "receiverGatewaySignaturePublicKey": "0243b12ada6515ada3bf99a7da32e84f00383b5765fd7701528e660449ba5ef260",\
-  "senderGatewayId": "GW1",\
-  "recipientGatewayId": "GW2",\
-  "senderGatewayNetworkId": "1",\
-  "recipientGatewayNetworkId": "43114",\
-  "senderGatewayDeviceIdentityPublicKey": "0245785e34b4a7b457dd4683a297ea3d78bab35f8b2583df55d9df8c69604d0e73",\
-  "receiverGatewayDeviceIdentityPublicKey": "03763f0bc48ff154cff45ea533a9d8a94349d65a45573e4de6ad6495b6e834312b",\
-  "senderGatewayOwnerId": "CN=GatewayOps, OU=GatewayOps Systems, O=GatewayOps LTD, L=Austin, C=US",\
-  "receiverGatewayOwnerId": "CN=BridgeSolutions, OU=BridgeSolutions Engineering, O=BridgeSolutions LTD, L=Austin, C=US"\
+  "digitalAssetId": "2c949e3c-5edb-4a2c-9ef4-20de64b9960d",
+  "assetProfileId": "38561",
+  "verifiedOriginatorEntityId": "CN=Alice, OU=Example Org Unit, O=Example, L=New York, C=US",
+  "verifiedBeneficiaryEntityId": "CN=Bob, OU=Case Org Unit, O=Case, L=San Francisco, C=US",
+  "originatorPublicKey": "0304b9f34d3898b27f85b3d88fa069a879abe14db5060dde466dd1e4a31ff75e44",
+  "beneficiaryPublicKey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",
+  "senderGatewaySignaturePublicKey": "02a7bc058e1c6f3a79601d046069c9b6d0cb8ea5afc99e6074a5997284756fc9ae",
+  "receiverGatewaySignaturePublicKey": "0243b12ada6515ada3bf99a7da32e84f00383b5765fd7701528e660449ba5ef260",
+  "senderGatewayId": "GW1",
+  "recipientGatewayId": "GW2",
+  "senderGatewayNetworkId": "1",
+  "recipientGatewayNetworkId": "43114",
+  "senderGatewayDeviceIdentityPublicKey": "0245785e34b4a7b457dd4683a297ea3d78bab35f8b2583df55d9df8c69604d0e73",
+  "receiverGatewayDeviceIdentityPublicKey": "03763f0bc48ff154cff45ea533a9d8a94349d65a45573e4de6ad6495b6e834312b",
+  "senderGatewayOwnerId": "CN=GatewayOps, OU=GatewayOps Systems, O=GatewayOps LTD, L=Austin, C=US",
+  "receiverGatewayOwnerId": "CN=BridgeSolutions, OU=BridgeSolutions Engineering, O=BridgeSolutions LTD, L=Austin, C=US"
 }<a href="#section-8.1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -2203,7 +2203,7 @@ For example, if the duration of the lock-time (networkLockExpirationTime) in the
 </li>
         </ul>
 <p id="section-8.2-5">Here is an example representation in JSON format:<a href="#section-8.2-5" class="pilcrow">¶</a></p>
-<p id="section-8.2-6"><code>json
+<p id="section-8.2-6"><code>
 {
   "gatewayDefaultSignatureAlgorithm": "ES256",
   "gatewaySupportedSignatureAlgorithms": ["ES256", "RSA"],
@@ -2222,7 +2222,7 @@ For example, if the duration of the lock-time (networkLockExpirationTime) in the
 <div id="satp-stage1-init-transfer-proposal">
 <p id="section-8.3-1">The purpose of this message is for the sender gateway as the client to initiate an asset transfer session with the receiver gateway as the server.<a href="#section-8.3-1" class="pilcrow">¶</a></p>
 </div>
-<p id="section-8.3-2">The client transmits a proposal message that carries the claim related to the asset to be transferred. This message must be signed by the client.<a href="#section-8.3-2" class="pilcrow">¶</a></p>
+<p id="section-8.3-2">The client transmits a proposal message that carries the claim related to the asset to be transferred. This message MUST be signed by the client.<a href="#section-8.3-2" class="pilcrow">¶</a></p>
 <p id="section-8.3-3">This message is sent from the client to the Transfer Initialization Endpoint at the server.<a href="#section-8.3-3" class="pilcrow">¶</a></p>
 <p id="section-8.3-4">The parameters of this message consist of the following:<a href="#section-8.3-4" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -2249,7 +2249,7 @@ For example, if the duration of the lock-time (networkLockExpirationTime) in the
 </li>
         </ul>
 <p id="section-8.3-6">Here is an example of the message request body (with the public keys in JWK being replaced with hexadecimal for brevity):<a href="#section-8.3-6" class="pilcrow">¶</a></p>
-<p id="section-8.3-7"><code>json
+<p id="section-8.3-7"><code>
 {
   "version": "1.0",
   "messageType": "urn:ietf:satp:msgtype:transfer-proposal-msg",
@@ -2296,7 +2296,7 @@ For example, if the duration of the lock-time (networkLockExpirationTime) in the
 <p id="section-8.4-1">The purpose of this message is for the server to indicate explicit
 acceptance of the parameters in the claim part of the transfer proposal message.<a href="#section-8.4-1" class="pilcrow">¶</a></p>
 </div>
-<p id="section-8.4-2">The message must be signed by the server.<a href="#section-8.4-2" class="pilcrow">¶</a></p>
+<p id="section-8.4-2">The message MUST be signed by the server.<a href="#section-8.4-2" class="pilcrow">¶</a></p>
 <p id="section-8.4-3">The message is sent from the server to the Transfer Proposal Endpoint at the client.<a href="#section-8.4-3" class="pilcrow">¶</a></p>
 <p id="section-8.4-4">The parameters of this message consist of the following:<a href="#section-8.4-4" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -2320,14 +2320,14 @@ acceptance of the parameters in the claim part of the transfer proposal message.
 </li>
         </ul>
 <p id="section-8.4-6">Here is an example of the message request body:<a href="#section-8.4-6" class="pilcrow">¶</a></p>
-<p id="section-8.4-7">{\
-  "version": "1.0",\
-  "messageType": "urn:ietf:satp:msgtype:proposal-receipt-msg",\
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
-  "hashTransferInitClaim": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",\
-  "timestamp": "2024-10-03T12:02+00Z",\
-}\<a href="#section-8.4-7" class="pilcrow">¶</a></p>
+<p id="section-8.4-7">{
+  "version": "1.0",
+  "messageType": "urn:ietf:satp:msgtype:proposal-receipt-msg",
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
+  "hashTransferInitClaim": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
+  "timestamp": "2024-10-03T12:02+00Z",
+}<a href="#section-8.4-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="reject-message">
@@ -2339,11 +2339,44 @@ acceptance of the parameters in the claim part of the transfer proposal message.
 <p id="section-8.5-1">The purpose of this message is for the server to indicate explicit
 rejection of the previous message received from the client.
 This message can be sent at any time in the session.
-The server MUST include error details using the Problem Details format defined in <span>[<a href="#RFC9457" class="cite xref">RFC9457</a>]</span>
-(see <a href="#satp-protocol-errors-section" class="auto internal xref">Section 11.3, Paragraph 1</a>).<a href="#section-8.5-1" class="pilcrow">¶</a></p>
+The server MUST include an error code (see <a href="#error-codes-section" class="auto internal xref">Section 11.4, Paragraph 1</a>) in this message.
+A reject message is taken to mean an immediate termination of the session.<a href="#section-8.5-1" class="pilcrow">¶</a></p>
 </div>
-<p id="section-8.5-2">The message must be signed by the server.<a href="#section-8.5-2" class="pilcrow">¶</a></p>
-<p id="section-8.5-3">A reject message is taken to mean an immediate termination of the session.<a href="#section-8.5-3" class="pilcrow">¶</a></p>
+<p id="section-8.5-2">The message MUST be signed by the server.<a href="#section-8.5-2" class="pilcrow">¶</a></p>
+<p id="section-8.5-3">The parameters of this message consist of the following:<a href="#section-8.5-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-8.5-4.1">
+            <p id="section-8.5-4.1.1">version REQUIRED: SATP protocol Version see <a href="#satp-protocol-version" class="auto internal xref">Section 5.3.1, Paragraph 1</a> as a string "major.minor".<a href="#section-8.5-4.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.5-4.2">
+            <p id="section-8.5-4.2.1">messageType REQUIRED: urn:ietf:satp:msgtype:reject-msg<a href="#section-8.5-4.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.5-4.3">
+            <p id="section-8.5-4.3.1">sessionId REQUIRED: A unique identifier chosen by the client to identify the current session.<a href="#section-8.5-4.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.5-4.4">
+            <p id="section-8.5-4.4.1">transferContextId REQUIRED: A unique identifier used to identify the current transfer session at the application layer.<a href="#section-8.5-4.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.5-4.5">
+            <p id="section-8.5-4.5.1">hashPrevMessage REQUIRED: The cryptographic hash of the last message that caused the rejection to occur. The default hash algorithm is SHA256.<a href="#section-8.5-4.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.5-4.6">
+            <p id="section-8.5-4.6.1">reasonCode REQUIRED: The error code (see <a href="#error-codes-section" class="auto internal xref">Section 11.4, Paragraph 1</a>) causing the rejection.<a href="#section-8.5-4.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.5-4.7">
+            <p id="section-8.5-4.7.1">timestamp REQUIRED: timestamp of this message.<a href="#section-8.5-4.7.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-8.5-5">Here is an example of the message request body:<a href="#section-8.5-5" class="pilcrow">¶</a></p>
+<p id="section-8.5-6">{
+  "version": "1.0",
+  "messageType": "urn:ietf:satp:msgtype:reject-msg",
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
+  "hashPrevMessage": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
+  "reasonCode": "err_2.1",
+  "timestamp": "2024-10-03T12:02+00Z",
+}<a href="#section-8.5-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="transfer-commence-message">
@@ -2379,13 +2412,13 @@ Transfer Proposal Receipt message. The default hash algorithm is SHA256.<a href=
 </li>
         </ul>
 <p id="section-8.6-6">For example, the client makes the following HTTP request using TLS:<a href="#section-8.6-6" class="pilcrow">¶</a></p>
-<p id="section-8.6-7">{\
-    "messageType": "urn:ietf:satp:msgtype:transfer-commence-msg",\
-    "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
-    "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
-    "hashTransferInitClaim": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",\
-    "hashPrevMessage": "0b0aecc2680e0d8a86bece6b54c454fba67068799484f477cdf2f87e6541db66",\
-}\<a href="#section-8.6-7" class="pilcrow">¶</a></p>
+<p id="section-8.6-7">{
+    "messageType": "urn:ietf:satp:msgtype:transfer-commence-msg",
+    "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+    "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
+    "hashTransferInitClaim": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
+    "hashPrevMessage": "0b0aecc2680e0d8a86bece6b54c454fba67068799484f477cdf2f87e6541db66",
+}<a href="#section-8.6-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="transfer-commence-sec-example">
@@ -2399,7 +2432,7 @@ to proceed with the asset transfer, based on the artifacts
 found in the previous Transfer Proposal Message.<a href="#section-8.7-1" class="pilcrow">¶</a></p>
 </div>
 <p id="section-8.7-2">This message is sent by the server to the Transfer Commence Endpoint at the client.<a href="#section-8.7-2" class="pilcrow">¶</a></p>
-<p id="section-8.7-3">The message must be signed by the server.<a href="#section-8.7-3" class="pilcrow">¶</a></p>
+<p id="section-8.7-3">The message MUST be signed by the server.<a href="#section-8.7-3" class="pilcrow">¶</a></p>
 <p id="section-8.7-4">The parameters of this message consist of the following:<a href="#section-8.7-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-8.7-5.1">
@@ -2416,12 +2449,12 @@ found in the previous Transfer Proposal Message.<a href="#section-8.7-1" class="
 </li>
         </ul>
 <p id="section-8.7-6">An example of a success response could be as follows:<a href="#section-8.7-6" class="pilcrow">¶</a></p>
-<p id="section-8.7-7">{\
-  "messageType": "urn:ietf:satp:msgtype:ack-commence-msg",\
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
-  "hashPrevMessage": "dd5a61a26fc8f5d72e5ca6052c2a1fca1613115e5582d9417d336375c196db89",\
-}\<a href="#section-8.7-7" class="pilcrow">¶</a></p>
+<p id="section-8.7-7">{
+  "messageType": "urn:ietf:satp:msgtype:ack-commence-msg",
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
+  "hashPrevMessage": "dd5a61a26fc8f5d72e5ca6052c2a1fca1613115e5582d9417d336375c196db89",
+}<a href="#section-8.7-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2444,7 +2477,6 @@ The client makes a request (POST) to the Lock-Assertion Endpoint at the server.<
 <p id="section-9-5">Clients MAY use the HTTP GET or POST methods to send messages in this stage to the server.
 If using the HTTP GET method, the request parameters may be serialized
 using URI Query String Serialization.<a href="#section-9-5" class="pilcrow">¶</a></p>
-<p id="section-9-6">(NOTE: Flows occur over TLS. Nonces are not shown).<a href="#section-9-6" class="pilcrow">¶</a></p>
 <div id="lock-assertion-message">
 <section id="section-9.1">
         <h3 id="name-lock-assertion-message">
@@ -2461,7 +2493,7 @@ of the client and is outside the scope of this specification.<a href="#section-9
 <p id="section-9.1-3">This message is sent from the client to the Lock Assertion Endpoint at the server.<a href="#section-9.1-3" class="pilcrow">¶</a></p>
 <p id="section-9.1-4">The server must validate the claim (payload)
 in this message prior to the next step.<a href="#section-9.1-4" class="pilcrow">¶</a></p>
-<p id="section-9.1-5">The message must be signed by the client.<a href="#section-9.1-5" class="pilcrow">¶</a></p>
+<p id="section-9.1-5">The message MUST be signed by the client.<a href="#section-9.1-5" class="pilcrow">¶</a></p>
 <p id="section-9.1-6">The parameters of this message consist of the following:<a href="#section-9.1-6" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-9.1-7.1">
@@ -2487,15 +2519,15 @@ in this message prior to the next step.<a href="#section-9.1-4" class="pilcrow">
 </li>
         </ul>
 <p id="section-9.1-8">Example:<a href="#section-9.1-8" class="pilcrow">¶</a></p>
-<p id="section-9.1-9">{\
-  "messageType": "urn:ietf:satp:msgtype:lock-assert-msg",\
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
-  "lockAssertionClaimFormat": "LOCK_ASSERTION_CLAIM_FORMAT_1",\
-  "lockAssertionClaim": {},\
-  "lockAssetionExpiration": "2024-12-23T23:59:59.999Z",\
-  "hashPrevMessage": "b2c3e916703c4ee4494f45bcf52414a2c3edfe53643510ff158ff4a406678346",\
-}\<a href="#section-9.1-9" class="pilcrow">¶</a></p>
+<p id="section-9.1-9">{
+  "messageType": "urn:ietf:satp:msgtype:lock-assert-msg",
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
+  "lockAssertionClaimFormat": "LOCK_ASSERTION_CLAIM_FORMAT_1",
+  "lockAssertionClaim": {},
+  "lockAssetionExpiration": "2024-12-23T23:59:59.999Z",
+  "hashPrevMessage": "b2c3e916703c4ee4494f45bcf52414a2c3edfe53643510ff158ff4a406678346",
+}<a href="#section-9.1-9" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="lock-assertion-receipt-message">
@@ -2510,7 +2542,7 @@ delivered by the client (sender gateway) in the previous message.<a href="#secti
 </div>
 <p id="section-9.2-2">This message is sent from the server to the Assertion Receipt Endpoint
 at the client.<a href="#section-9.2-2" class="pilcrow">¶</a></p>
-<p id="section-9.2-3">The message must be signed by the server.<a href="#section-9.2-3" class="pilcrow">¶</a></p>
+<p id="section-9.2-3">The message MUST be signed by the server.<a href="#section-9.2-3" class="pilcrow">¶</a></p>
 <p id="section-9.2-4">The parameters of this message consist of the following:<a href="#section-9.2-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-9.2-5.1">
@@ -2527,12 +2559,12 @@ at the client.<a href="#section-9.2-2" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-9.2-6">Example:<a href="#section-9.2-6" class="pilcrow">¶</a></p>
-<p id="section-9.2-7">{\
-  "messageType": "urn:ietf:satp:msgtype:assertion-receipt-msg",\
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
-  "hashPrevMessage": "16c983122d7506c78f906c15ca1dcc7142a0fa94552cdea9578fe87419c2c5d0",\
-}\<a href="#section-9.2-7" class="pilcrow">¶</a></p>
+<p id="section-9.2-7">{
+  "messageType": "urn:ietf:satp:msgtype:assertion-receipt-msg",
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
+  "hashPrevMessage": "16c983122d7506c78f906c15ca1dcc7142a0fa94552cdea9578fe87419c2c5d0",
+}<a href="#section-9.2-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2563,7 +2595,6 @@ using URI Query String Serialization.<a href="#section-10-6" class="pilcrow">¶<
 in order to provide standalone proof (for non-repudiation) independent of the
 secure channel between the client and server.
 This proof may be required for audit verifications post-event.<a href="#section-10-7" class="pilcrow">¶</a></p>
-<p id="section-10-8">(NOTE: Flows occur over TLS. Nonces are not shown).<a href="#section-10-8" class="pilcrow">¶</a></p>
 <div id="commit-preparation-message-commit-prepare">
 <section id="section-10.1">
         <h3 id="name-commit-preparation-message-">
@@ -2574,7 +2605,7 @@ This proof may be required for audit verifications post-event.<a href="#section-
 its readiness to begin the commitment of the transfer.<a href="#section-10.1-1" class="pilcrow">¶</a></p>
 </div>
 <p id="section-10.1-2">This message is sent from the client to the Commit Prepare Endpoint at the server.<a href="#section-10.1-2" class="pilcrow">¶</a></p>
-<p id="section-10.1-3">The message must be signed by the client.<a href="#section-10.1-3" class="pilcrow">¶</a></p>
+<p id="section-10.1-3">The message MUST be signed by the client.<a href="#section-10.1-3" class="pilcrow">¶</a></p>
 <p id="section-10.1-4">The parameters of this message consist of the following:<a href="#section-10.1-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-10.1-5.1">
@@ -2591,12 +2622,12 @@ its readiness to begin the commitment of the transfer.<a href="#section-10.1-1" 
 </li>
         </ul>
 <p id="section-10.1-6">Example:<a href="#section-10.1-6" class="pilcrow">¶</a></p>
-<p id="section-10.1-7">{\
-  "messageType": "urn:ietf:satp:msgtype:commit-prepare-msg",\
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
-  "hashPrevMessage": "399bdadc07fe0bd57c4dfdd6cc176ceeca50a5e744f774154eccbeee8908fbaa",\
-}\<a href="#section-10.1-7" class="pilcrow">¶</a></p>
+<p id="section-10.1-7">{
+  "messageType": "urn:ietf:satp:msgtype:commit-prepare-msg",
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
+  "hashPrevMessage": "399bdadc07fe0bd57c4dfdd6cc176ceeca50a5e744f774154eccbeee8908fbaa",
+}<a href="#section-10.1-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="commit-ready-message-commit-ready">
@@ -2612,7 +2643,7 @@ network;
 and (iii) that the server is ready to proceed to the next step.<a href="#section-10.2-1" class="pilcrow">¶</a></p>
 </div>
 <p id="section-10.2-2">This message is sent from the server to the Commit Ready Endpoint at the client.<a href="#section-10.2-2" class="pilcrow">¶</a></p>
-<p id="section-10.2-3">The message must be signed by the server.<a href="#section-10.2-3" class="pilcrow">¶</a></p>
+<p id="section-10.2-3">The message MUST be signed by the server.<a href="#section-10.2-3" class="pilcrow">¶</a></p>
 <p id="section-10.2-4">The parameters of this message consist of the following:<a href="#section-10.2-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-10.2-5.1">
@@ -2635,14 +2666,14 @@ and (iii) that the server is ready to proceed to the next step.<a href="#section
 </li>
         </ul>
 <p id="section-10.2-6">Example:<a href="#section-10.2-6" class="pilcrow">¶</a></p>
-<p id="section-10.2-7">{\
-  "messageType": "urn:ietf:satp:msgtype:commit-ready-msg",\
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
-  "hashPrevMessage": "8dcc8dc4e6c2c979474b42d24d3747ce4607a92637d1a7b294857ff7288b8e46",\
-  "mintAssertionClaimFormat": "MINT_ASSERTION_CLAIM_FORMAT_1",\
-  "mintAssertionClaim": {},\
-}\<a href="#section-10.2-7" class="pilcrow">¶</a></p>
+<p id="section-10.2-7">{
+  "messageType": "urn:ietf:satp:msgtype:commit-ready-msg",
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
+  "hashPrevMessage": "8dcc8dc4e6c2c979474b42d24d3747ce4607a92637d1a7b294857ff7288b8e46",
+  "mintAssertionClaimFormat": "MINT_ASSERTION_CLAIM_FORMAT_1",
+  "mintAssertionClaim": {},
+}<a href="#section-10.2-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="commit-final-assertion-message-commit-final">
@@ -2655,11 +2686,11 @@ and (iii) that the server is ready to proceed to the next step.<a href="#section
 that the client (sender gateway) has completed the extinguishment (burn)
 of the asset in the origin network.<a href="#section-10.3-1" class="pilcrow">¶</a></p>
 </div>
-<p id="section-10.3-2">The message must contain a standalone claim related
+<p id="section-10.3-2">The message MUST contain a standalone claim related
 to the extinguishment of the asset by the client.
-The standalone claim must be signed by the client.<a href="#section-10.3-2" class="pilcrow">¶</a></p>
+The standalone claim MUST be signed by the client.<a href="#section-10.3-2" class="pilcrow">¶</a></p>
 <p id="section-10.3-3">This message is sent from the client to the Commit Final Assertion Endpoint at the server.<a href="#section-10.3-3" class="pilcrow">¶</a></p>
-<p id="section-10.3-4">The message must be signed by the server.<a href="#section-10.3-4" class="pilcrow">¶</a></p>
+<p id="section-10.3-4">The message MUST be signed by the client.<a href="#section-10.3-4" class="pilcrow">¶</a></p>
 <p id="section-10.3-5">The parameters of this message consist of the following:<a href="#section-10.3-5" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-10.3-6.1">
@@ -2682,14 +2713,14 @@ The standalone claim must be signed by the client.<a href="#section-10.3-2" clas
 </li>
         </ul>
 <p id="section-10.3-7">Example:<a href="#section-10.3-7" class="pilcrow">¶</a></p>
-<p id="section-10.3-8">{\
-  "messageType": "urn:ietf:satp:msgtype:commit-final-msg",\
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
-  "hashPrevMessage": "b92f13007216c58f2b51a8621599c3aef6527b02c8284e90c6a54a181d898e02",\
-  "burnAssertionClaimFormat": "BURN_ASSERTION_CLAIM_FORMAT_1",\
-  "burnAssertionClaim": {},\
-}\<a href="#section-10.3-8" class="pilcrow">¶</a></p>
+<p id="section-10.3-8">{
+  "messageType": "urn:ietf:satp:msgtype:commit-final-msg",
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
+  "hashPrevMessage": "b92f13007216c58f2b51a8621599c3aef6527b02c8284e90c6a54a181d898e02",
+  "burnAssertionClaimFormat": "BURN_ASSERTION_CLAIM_FORMAT_1",
+  "burnAssertionClaim": {},
+}<a href="#section-10.3-8" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="commit-final-acknowledgement-receipt-message-ack-final-receipt">
@@ -2703,7 +2734,7 @@ completed the assignment of the newly minted asset to
 the intended beneficiary at the destination network.<a href="#section-10.4-1" class="pilcrow">¶</a></p>
 </div>
 <p id="section-10.4-2">This message is sent from the server to the Commit Final Receipt Endpoint at the client.<a href="#section-10.4-2" class="pilcrow">¶</a></p>
-<p id="section-10.4-3">The message must be signed by the server.<a href="#section-10.4-3" class="pilcrow">¶</a></p>
+<p id="section-10.4-3">The message MUST be signed by the server.<a href="#section-10.4-3" class="pilcrow">¶</a></p>
 <p id="section-10.4-4">The parameters of this message consist of the following:<a href="#section-10.4-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-10.4-5.1">
@@ -2726,14 +2757,14 @@ the intended beneficiary at the destination network.<a href="#section-10.4-1" cl
 </li>
         </ul>
 <p id="section-10.4-6">Example:<a href="#section-10.4-6" class="pilcrow">¶</a></p>
-<p id="section-10.4-7">{\
-  "messageType": "urn:ietf:satp:msgtype:ack-commit-final-msg",\
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
-  "hashPrevMessage": "9c8f07c22ccf6888fc0306fee0799325efb87dfd536d90bb47d97392f020e998",\
-  "assignmentAssertionClaimFormat": "ASSIGNMENT_ASSERTION_CLAIM_FORMAT_1",\
-  "assignmentAssertionClaim": {},\
-}\<a href="#section-10.4-7" class="pilcrow">¶</a></p>
+<p id="section-10.4-7">{
+  "messageType": "urn:ietf:satp:msgtype:ack-commit-final-msg",
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
+  "hashPrevMessage": "9c8f07c22ccf6888fc0306fee0799325efb87dfd536d90bb47d97392f020e998",
+  "assignmentAssertionClaimFormat": "ASSIGNMENT_ASSERTION_CLAIM_FORMAT_1",
+  "assignmentAssertionClaim": {},
+}<a href="#section-10.4-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="transfer-complete-message">
@@ -2749,7 +2780,7 @@ expected from the client in regards to this transfer instance.<a href="#section-
 </div>
 <p id="section-10.5-2">The message closes the first message of Stage 2 (Transfer Commence Message).<a href="#section-10.5-2" class="pilcrow">¶</a></p>
 <p id="section-10.5-3">This message is sent from the client to the Transfer Complete Endpoint at the server.<a href="#section-10.5-3" class="pilcrow">¶</a></p>
-<p id="section-10.5-4">The message must be signed by the client.<a href="#section-10.5-4" class="pilcrow">¶</a></p>
+<p id="section-10.5-4">The message MUST be signed by the client.<a href="#section-10.5-4" class="pilcrow">¶</a></p>
 <p id="section-10.5-5">The parameters of this message consist of the following:<a href="#section-10.5-5" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-10.5-6.1">
@@ -2769,13 +2800,13 @@ expected from the client in regards to this transfer instance.<a href="#section-
 </li>
         </ul>
 <p id="section-10.5-7">Example:<a href="#section-10.5-7" class="pilcrow">¶</a></p>
-<p id="section-10.5-8">{\
-  "messageType": "urn:ietf:satp:msgtype:commit-transfer-complete-msg",\
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
-  "hashPrevMessage": "9c8f07c22ccf6888fc0306fee0799325efb87dfd536d90bb47d97392f020e998",\
-  "hashTransferCommence": "4ba76c69265f4215b4e2d2f24fe56e708512fdb49e27f50d2ac0095928e1531b",\
-}\<a href="#section-10.5-8" class="pilcrow">¶</a></p>
+<p id="section-10.5-8">{
+  "messageType": "urn:ietf:satp:msgtype:commit-transfer-complete-msg",
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
+  "hashPrevMessage": "9c8f07c22ccf6888fc0306fee0799325efb87dfd536d90bb47d97392f020e998",
+  "hashTransferCommence": "4ba76c69265f4215b4e2d2f24fe56e708512fdb49e27f50d2ac0095928e1531b",
+}<a href="#section-10.5-8" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="error-message">
@@ -2793,9 +2824,11 @@ expected from the client in regards to this transfer instance.<a href="#section-
 <div id="session-abort-message">
 <section id="section-10.7">
         <h3 id="name-session-abort-message">
-<a href="#section-10.7" class="section-number selfRef">10.7. </a><a href="#name-session-abort-message" class="section-name selfRef">Session abort message</a>
+<a href="#section-10.7" class="section-number selfRef">10.7. </a><a href="#name-session-abort-message" class="section-name selfRef">Session Abort Message</a>
         </h3>
+<div id="satp-session-abort-msg-section">
 <p id="section-10.7-1">The purpose of this message is to indicate that one of the peer gateways has decided not to proceed with the session. No further messages will be delivered after the abort message.<a href="#section-10.7-1" class="pilcrow">¶</a></p>
+</div>
 <ul class="normal">
 <li class="normal" id="section-10.7-2.1">
             <p id="section-10.7-2.1.1">messageType REQUIRED: It MUST be the value urn:ietf:satp:msgtype:session-abort-msg.<a href="#section-10.7-2.1.1" class="pilcrow">¶</a></p>
@@ -2858,7 +2891,6 @@ These may be addressed in a future version of SATP, or be defined in a separate 
 <p id="section-11.2-3">(b) badCertificate: The gateway TLS certificate was corrupt, contained signatures, that did not verify correctly, etc.  (Some common TLS level errors: unsupported_certificate, certificate_revoked, certificate_expired, certificate_unknown, unknown_ca).<a href="#section-11.2-3" class="pilcrow">¶</a></p>
 <p id="section-11.2-4">Connection errors resulting in the time-out of the session MUST result in the termination of the transfer session.
 In the case of a transfer session termination, gateways SHOULD release its local computing resources and release asset-locks in their respective networks.<a href="#section-11.2-4" class="pilcrow">¶</a></p>
-<p id="section-11.2-5">error-codes-section<a href="#section-11.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="satp-protocol-errors">
@@ -2867,8 +2899,7 @@ In the case of a transfer session termination, gateways SHOULD release its local
 <a href="#section-11.3" class="section-number selfRef">11.3. </a><a href="#name-satp-protocol-errors" class="section-name selfRef">SATP Protocol Errors</a>
         </h3>
 <div id="satp-protocol-errors-section">
-<p id="section-11.3-1">The errors at the SATP level pertain to protocol flow and the information carried within each message. These are enumerated in the SATP Error Codes Registry,
-<a href="#error-codes-section" class="auto internal xref">Section 11.4, Paragraph 1</a>.<a href="#section-11.3-1" class="pilcrow">¶</a></p>
+<p id="section-11.3-1">The errors at the SATP level pertain to protocol flow and the information carried within each message. These are enumerated in <a href="#error-codes-section" class="auto internal xref">Section 11.4, Paragraph 1</a>.<a href="#section-11.3-1" class="pilcrow">¶</a></p>
 </div>
 <p id="section-11.3-2">Many of the errors due to invalid identifiers (e.g., invalid transferContextId, invalid digitalAssetId) may arise within
 the execution of the SATP protocol because these identifiers depart from those agreed-upon in Transfer Initialization Claim in the transfer proposal message.
@@ -2917,19 +2948,19 @@ This should assist in diagnosing problems when different versions of the standar
 </li>
         </ul>
 <p id="section-11.3-6">Here is an example of the error message body:<a href="#section-11.3-6" class="pilcrow">¶</a></p>
-<p id="section-11.3-7">{\
-  "messageType": "urn:ietf:satp:msgtype:reject-msg",\
-  "type": "urn:ietf:params:satp:error:err_1.1.11",\
-  "status": 422,\
-  "title": "invalid digitalAssetId",\
-  "version": "1.0",\
-  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",\
-  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",\
-  "instance": "89e04e71-bba2-4363-933c-262f42ec07a0",\
+<p id="section-11.3-7">{
+  "messageType": "urn:ietf:satp:msgtype:reject-msg",
+  "type": "urn:ietf:params:satp:error:err_1.1.11",
+  "status": 422,
+  "title": "invalid digitalAssetId",
+  "version": "1.0",
+  "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+  "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
+  "instance": "89e04e71-bba2-4363-933c-262f42ec07a0",
   "prevMsgType": "urn:ietf:satp:msgtype:transfer-proposal-msg"
-  "hashPrevMessage": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",\
-  "timestamp": "2024-10-03T12:02+00Z",\
-}\<a href="#section-11.3-7" class="pilcrow">¶</a></p>
+  "hashPrevMessage": "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
+  "timestamp": "2024-10-03T12:02+00Z",
+}<a href="#section-11.3-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="protocol-errors-codes">
@@ -2938,23 +2969,28 @@ This should assist in diagnosing problems when different versions of the standar
 <a href="#section-11.4" class="section-number selfRef">11.4. </a><a href="#name-protocol-errors-codes" class="section-name selfRef">Protocol Errors Codes</a>
         </h3>
 <div id="error-codes-section">
-<p id="section-11.4-1">In the following table, each entry consists of:<a href="#section-11.4-1" class="pilcrow">¶</a></p>
+<p id="section-11.4-1">This registry defines the error codes used in SATP protocol messages.<a href="#section-11.4-1" class="pilcrow">¶</a></p>
 </div>
+<p id="section-11.4-2">Many of the errors due to invalid identifiers (e.g., invalid transferContextId, invalid digitalAssetId) may arise within
+the execution of the SATP protocol because these identifiers depart from those agreed-upon in Transfer Initialization Claim in the transfer proposal message.
+The validity of these identifiers must be verified by the gateways during set-up stage (Stage-0), which is beyond the scope of the current specification.
+See Section 7 on the Identity and Asset Verification Stage.<a href="#section-11.4-2" class="pilcrow">¶</a></p>
+<p id="section-11.4-3">In the following table, each entry consists of:<a href="#section-11.4-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-11.4-2.1">
-            <p id="section-11.4-2.1.1"><strong>Code</strong>: The enumeration string (e.g., err_3.3.1)<a href="#section-11.4-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-11.4-4.1">
+            <p id="section-11.4-4.1.1"><strong>Code</strong>: The enumeration string (e.g., err_3.3.1)<a href="#section-11.4-4.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-11.4-2.2">
-            <p id="section-11.4-2.2.1"><strong>Category</strong>: The protocol stage or message type (e.g., Commit Ready errors)<a href="#section-11.4-2.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-11.4-4.2">
+            <p id="section-11.4-4.2.1"><strong>Category</strong>: The protocol stage or message type (e.g., Commit Ready errors)<a href="#section-11.4-4.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-11.4-2.3">
-            <p id="section-11.4-2.3.1"><strong>Type</strong>: The error type (e.g., badly formed message)<a href="#section-11.4-2.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-11.4-4.3">
+            <p id="section-11.4-4.3.1"><strong>Type</strong>: The error type (e.g., badly formed message)<a href="#section-11.4-4.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-11.4-2.4">
-            <p id="section-11.4-2.4.1"><strong>Description</strong>: A brief description (e.g., mismatch transferContextId)<a href="#section-11.4-2.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-11.4-4.4">
+            <p id="section-11.4-4.4.1"><strong>Description</strong>: A brief description (e.g., mismatch transferContextId)<a href="#section-11.4-4.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-11.4-2.5">
-            <p id="section-11.4-2.5.1"><strong>HTTP Status</strong>: The HTTP status code <span>[<a href="#RFC9110" class="cite xref">RFC9110</a>]</span> associated with this error<a href="#section-11.4-2.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-11.4-4.5">
+            <p id="section-11.4-4.5.1"><strong>HTTP Status</strong>: The HTTP status code <span>[<a href="#RFC9110" class="cite xref">RFC9110</a>]</span> associated with this error<a href="#section-11.4-4.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <table class="center" id="table-1">
@@ -3009,6 +3045,13 @@ This should assist in diagnosing problems when different versions of the standar
               <td class="text-left" rowspan="1" colspan="1">Transfer Proposal/Receipt errors</td>
               <td class="text-left" rowspan="1" colspan="1">badly formed message</td>
               <td class="text-left" rowspan="1" colspan="1">incorrect transferInitClaimFormat</td>
+              <td class="text-left" rowspan="1" colspan="1">422</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">err_1.1.4</td>
+              <td class="text-left" rowspan="1" colspan="1">Transfer Proposal/Receipt errors</td>
+              <td class="text-left" rowspan="1" colspan="1">badly formed message</td>
+              <td class="text-left" rowspan="1" colspan="1">bad signature</td>
               <td class="text-left" rowspan="1" colspan="1">422</td>
             </tr>
             <tr>
@@ -3145,6 +3188,13 @@ This should assist in diagnosing problems when different versions of the standar
               <td class="text-left" rowspan="1" colspan="1">404</td>
             </tr>
             <tr>
+              <td class="text-left" rowspan="1" colspan="1">err_1.2.4</td>
+              <td class="text-left" rowspan="1" colspan="1">Transfer Proposal/Receipt errors</td>
+              <td class="text-left" rowspan="1" colspan="1">badly formed message</td>
+              <td class="text-left" rowspan="1" colspan="1">bad signature</td>
+              <td class="text-left" rowspan="1" colspan="1">422</td>
+            </tr>
+            <tr>
               <td class="text-left" rowspan="1" colspan="1">err_1.3.1</td>
               <td class="text-left" rowspan="1" colspan="1">Transfer Commence errors</td>
               <td class="text-left" rowspan="1" colspan="1">badly formed message</td>
@@ -3173,6 +3223,13 @@ This should assist in diagnosing problems when different versions of the standar
               <td class="text-left" rowspan="1" colspan="1">404</td>
             </tr>
             <tr>
+              <td class="text-left" rowspan="1" colspan="1">err_1.3.5</td>
+              <td class="text-left" rowspan="1" colspan="1">Transfer Commence errors</td>
+              <td class="text-left" rowspan="1" colspan="1">badly formed message</td>
+              <td class="text-left" rowspan="1" colspan="1">bad signature</td>
+              <td class="text-left" rowspan="1" colspan="1">422</td>
+            </tr>
+            <tr>
               <td class="text-left" rowspan="1" colspan="1">err_1.4.1</td>
               <td class="text-left" rowspan="1" colspan="1">ACK Commence errors</td>
               <td class="text-left" rowspan="1" colspan="1">badly formed message</td>
@@ -3192,6 +3249,13 @@ This should assist in diagnosing problems when different versions of the standar
               <td class="text-left" rowspan="1" colspan="1">badly formed message</td>
               <td class="text-left" rowspan="1" colspan="1">mismatch hashPrevMessage</td>
               <td class="text-left" rowspan="1" colspan="1">404</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">err_1.4.4</td>
+              <td class="text-left" rowspan="1" colspan="1">ACK Commence errors</td>
+              <td class="text-left" rowspan="1" colspan="1">badly formed message</td>
+              <td class="text-left" rowspan="1" colspan="1">bad signature</td>
+              <td class="text-left" rowspan="1" colspan="1">422</td>
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">err_2.2.1</td>
@@ -3271,6 +3335,13 @@ This should assist in diagnosing problems when different versions of the standar
               <td class="text-left" rowspan="1" colspan="1">404</td>
             </tr>
             <tr>
+              <td class="text-left" rowspan="1" colspan="1">err_2.4.4</td>
+              <td class="text-left" rowspan="1" colspan="1">Lock Assertion Receipt errors</td>
+              <td class="text-left" rowspan="1" colspan="1">badly formed message</td>
+              <td class="text-left" rowspan="1" colspan="1">bad signature</td>
+              <td class="text-left" rowspan="1" colspan="1">422</td>
+            </tr>
+            <tr>
               <td class="text-left" rowspan="1" colspan="1">err_3.1.1</td>
               <td class="text-left" rowspan="1" colspan="1">Commit Preparation errors</td>
               <td class="text-left" rowspan="1" colspan="1">badly formed message</td>
@@ -3290,6 +3361,13 @@ This should assist in diagnosing problems when different versions of the standar
               <td class="text-left" rowspan="1" colspan="1">badly formed message</td>
               <td class="text-left" rowspan="1" colspan="1">mismatch hashPrevMessage</td>
               <td class="text-left" rowspan="1" colspan="1">404</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">err_3.1.4</td>
+              <td class="text-left" rowspan="1" colspan="1">Commit Preparation errors</td>
+              <td class="text-left" rowspan="1" colspan="1">badly formed message</td>
+              <td class="text-left" rowspan="1" colspan="1">bad signature</td>
+              <td class="text-left" rowspan="1" colspan="1">422</td>
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">err_3.3.1</td>
@@ -3320,6 +3398,13 @@ This should assist in diagnosing problems when different versions of the standar
               <td class="text-left" rowspan="1" colspan="1">415</td>
             </tr>
             <tr>
+              <td class="text-left" rowspan="1" colspan="1">err_3.3.5</td>
+              <td class="text-left" rowspan="1" colspan="1">Commit Ready errors</td>
+              <td class="text-left" rowspan="1" colspan="1">badly formed message</td>
+              <td class="text-left" rowspan="1" colspan="1">bad signature</td>
+              <td class="text-left" rowspan="1" colspan="1">422</td>
+            </tr>
+            <tr>
               <td class="text-left" rowspan="1" colspan="1">err_3.5.1</td>
               <td class="text-left" rowspan="1" colspan="1">Commit Final Assertion errors</td>
               <td class="text-left" rowspan="1" colspan="1">badly formed message</td>
@@ -3348,6 +3433,13 @@ This should assist in diagnosing problems when different versions of the standar
               <td class="text-left" rowspan="1" colspan="1">415</td>
             </tr>
             <tr>
+              <td class="text-left" rowspan="1" colspan="1">err_3.5.5</td>
+              <td class="text-left" rowspan="1" colspan="1">Commit Final Assertion errors</td>
+              <td class="text-left" rowspan="1" colspan="1">badly formed message</td>
+              <td class="text-left" rowspan="1" colspan="1">bad signature</td>
+              <td class="text-left" rowspan="1" colspan="1">422</td>
+            </tr>
+            <tr>
               <td class="text-left" rowspan="1" colspan="1">err_3.7.1</td>
               <td class="text-left" rowspan="1" colspan="1">Commit Final Ack Receipt errors</td>
               <td class="text-left" rowspan="1" colspan="1">badly formed message</td>
@@ -3374,6 +3466,13 @@ This should assist in diagnosing problems when different versions of the standar
               <td class="text-left" rowspan="1" colspan="1">badly formed message</td>
               <td class="text-left" rowspan="1" colspan="1">unsupported assignmentAssertionClaimFormat</td>
               <td class="text-left" rowspan="1" colspan="1">415</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">err_3.7.5</td>
+              <td class="text-left" rowspan="1" colspan="1">Commit Final Ack Receipt errors</td>
+              <td class="text-left" rowspan="1" colspan="1">badly formed message</td>
+              <td class="text-left" rowspan="1" colspan="1">bad signature</td>
+              <td class="text-left" rowspan="1" colspan="1">422</td>
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">err_3.9.1</td>
@@ -3918,7 +4017,7 @@ Weijia Zhang.<a href="#section-14-2" class="pilcrow">¶</a></p>
 </address>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Rafael Belchior</span></div>
-<div dir="auto" class="left"><span class="org">INESC-ID, Técnico Lisboa, Blockdaemon</span></div>
+<div dir="auto" class="left"><span class="org">INESC-ID</span></div>
 <div class="email">
 <span>Email:</span>
 <a href="mailto:rafael.belchior@tecnico.ulisboa.pt" class="email">rafael.belchior@tecnico.ulisboa.pt</a>

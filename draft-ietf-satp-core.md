@@ -275,7 +275,7 @@ The protocol defines a number of API endpoints, resources and identifier definit
 
 The current document pertains to the interaction between gateways through API2 {{ARCH}}.
 
-```
+~~~
                  +----------+                +----------+
                  |  Client  |                | Off-net  |
           ------ |   (App)  |                | Resource |
@@ -293,7 +293,7 @@ The current document pertains to the interaction between gateways through API2 {
        |     |   |         |    |        |    |         |   |     |
        +-----+   +---------+----+        +----+---------+   +-----+
                                Figure 1
-```
+~~~
 
 ## SATP Model
 
@@ -602,7 +602,7 @@ The Stage-3 flows commit gateways G1 and G2 to the burn and mint in Stage-2. The
 
 The reader is directed to {{ARCH}} for further discussion of this model.
 
-```
+~~~
        App1  NW1          G1                     G2          NW2    App2
       ..|.....|............|......................|............|.....|..
         |     |            |       Stage 1        |            |     |
@@ -649,7 +649,7 @@ The reader is directed to {{ARCH}} for further discussion of this model.
         |     |       (3.9)|--Transfer Complete-->|            |     |
       ..|.....|............|......................|............|.....|..
                                 Figure 2
-```
+~~~
 
 # Identity and Asset Verification Stage (Stage 0)
 

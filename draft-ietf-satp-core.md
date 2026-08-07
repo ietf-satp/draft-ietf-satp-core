@@ -348,7 +348,7 @@ This document assumes that the relevant X.509 certificates are associated with t
 
 This section describes the SATP message types, the format of the messages exchanged between two gateways, the format for resource descriptors and other related parameters.
 
-The mandatory fields are determined by the message type exchanged between the two gateways (see Section 7).
+The mandatory fields are determined by the message type exchanged between the two gateways (See section {{satp-Stage0-section}}{: format="counter"}).
 
 
 ## SATP Message Digital Signatures and Key Types
@@ -529,7 +529,7 @@ The default hash algorithm that all SATP implementations MUST support is the SHA
 This is a JSON list of digital signature algorithms supported by a
 gateway. Each entry in the list should be either an Algorithm Name value registered in the IANA "JSON Web Signature and Encryption Algorithms" registry established by [RFC7518] or be a value that contains a Collision-Resistant Name.
 
-See [Section](#satp-message-signatures).
+See {{satp-message-signatures}}.
 
 
 ### Asset Lock Mechanism within a Network
@@ -882,7 +882,7 @@ The message is sent from the server to the Transfer Proposal Endpoint at the cli
 
 The parameters of this message consist of the following:
 
-- version REQUIRED: SATP protocol Version see {satp-protocol-version}} as a string "major.minor".
+- version REQUIRED: SATP protocol Version see {{satp-protocol-version}} as a string "major.minor".
 
 - messageType REQUIRED: urn:ietf:params:satp:core:msgtype:proposal-receipt-msg.
 
@@ -1379,7 +1379,7 @@ The errors at the SATP level pertain to protocol flow and the information carrie
 Many of the errors due to invalid identifiers (e.g., invalid transferContextId, invalid digitalAssetId) may arise within
 the execution of the SATP protocol because these identifiers depart from those agreed-upon in Transfer Initialization Claim in the transfer proposal message.
 The validity of these identifiers must be verified by the gateways during set-up stage (Stage-0), which is beyond the scope of the current specification.
-See Section 7 on the Identity and Asset Verification Stage.
+See section {{satp-Stage0-section}}{: format="counter"} on the Identity and Asset Verification Stage.
 
 SATP error messages MUST be encoded as Problem Details objects as defined in {{RFC9457}}, with content type `application/problem+json`. The `type` field of the Problem Details object MUST be set to a URN of the form `urn:ietf:params:satp:core:error:<code>`, where `<code>` is the error code from this registry. The `status` field MUST match the HTTP status of the response carrying the error and MUST be consistent with the HTTP Status column in the table below.
 
@@ -1397,7 +1397,7 @@ column of the protocol error codes ({{error-codes-section}}).
 
 - detail OPTIONAL: A human-readable explanation specific to this occurrence of the error, as defined in {{RFC9457}}.
 
-- version REQUIRED: SATP protocol Version see {{satp-protocol-version}} as a string "major.minor".
+- version REQUIRED: SATP protocol Version; see {{satp-protocol-version}} as a string "major.minor".
 This should assist in diagnosing problems when different versions of the standard are used.
 
 - sessionId REQUIRED: A unique identifier chosen by the client to identify the current session.
@@ -1439,7 +1439,7 @@ This registry defines the error codes used in SATP protocol messages.
 Many of the errors due to invalid identifiers (e.g., invalid transferContextId, invalid digitalAssetId) may arise within
 the execution of the SATP protocol because these identifiers depart from those agreed-upon in Transfer Initialization Claim in the transfer proposal message.
 The validity of these identifiers must be verified by the gateways during set-up stage (Stage-0), which is beyond the scope of the current specification.
-See Section 7 on the Identity and Asset Verification Stage.
+See section {{satp-Stage0-section}}{: format="counter"} on the Identity and Asset Verification Stage.
 
 In the following table, each entry consists of:
 

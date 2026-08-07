@@ -348,7 +348,7 @@ This document assumes that the relevant X.509 certificates are associated with t
 
 This section describes the SATP message types, the format of the messages exchanged between two gateways, the format for resource descriptors and other related parameters.
 
-The mandatory fields are determined by the message type exchanged between the two gateways (see section {{satp-Stage0-section}}{: format="counter"}).
+The mandatory fields are determined by the message type exchanged between the two gateways (see section {{<satp-Stage0-section}}).
 
 
 ## SATP Message Digital Signatures and Key Types
@@ -390,7 +390,7 @@ The current version is "1.0" defined in this specification. Implementations not 
 This refers to the type of request or response to be conveyed in the message.
 
 The possible values are defined in the urn:ietf:params:satp:core:msgtype namespace under the IANA SATP registered
-namespace urn:ietf:params:satp ({{satp-iana-consideration}}):
+namespace urn:ietf:params:satp (see section {{<satp-iana-consideration}}):
 
 - transfer-proposal-msg: This is the transfer proposal message from the sender gateway carrying the set of proposed parameters for the transfer.
 
@@ -489,7 +489,7 @@ If the client (sender gateway) transmits a list of supported credential schemes,
 
 If no acceptable credential scheme was offered, a "unsupported
 gatewayTlsScheme" (err_1.1.34) reject error message is returned by the server
-(see {{<satp-stage1-init-reject}}).
+(see section {{<satp-stage1-init-reject}}).
 
 ### Client Offers Other Supported TLS Schemes
 
@@ -529,7 +529,7 @@ The default hash algorithm that all SATP implementations MUST support is the SHA
 This is a JSON list of digital signature algorithms supported by a
 gateway. Each entry in the list should be either an Algorithm Name value registered in the IANA "JSON Web Signature and Encryption Algorithms" registry established by [RFC7518] or be a value that contains a Collision-Resistant Name.
 
-See {{satp-message-signatures}}.
+See section {{<satp-message-signatures}}.
 
 
 ### Asset Lock Mechanism within a Network
@@ -816,7 +816,7 @@ This message is sent from the client to the Transfer Initialization Endpoint at 
 
 The parameters of this message consist of the following:
 
-- version REQUIRED: SATP protocol Version; see {{satp-protocol-version}}, as a string "major.minor".
+- version REQUIRED: SATP protocol Version, as a string "major.minor"; see section {{<satp-protocol-version}}.
 
 - messageType REQUIRED: urn:ietf:params:satp:core:msgtype:transfer-proposal-msg.
 
@@ -882,7 +882,7 @@ The message is sent from the server to the Transfer Proposal Endpoint at the cli
 
 The parameters of this message consist of the following:
 
-- version REQUIRED: SATP protocol Version see {{satp-protocol-version}} as a string "major.minor".
+- version REQUIRED: SATP protocol Version, as a string "major.minor"; see section {{<satp-protocol-version}}.
 
 - messageType REQUIRED: urn:ietf:params:satp:core:msgtype:proposal-receipt-msg.
 
@@ -914,7 +914,7 @@ rejection of the previous message received from the client.
 This message can be sent at any time in the session and is taken to mean an immediate termination of the session.
 
 The server MUST include error details using the Problem Details format defined in {{RFC9457}}
-(see {{satp-protocol-errors-section}}).
+(see section {{<satp-protocol-errors-section}}).
 
 The message MUST be signed by the server.
 
@@ -1306,7 +1306,7 @@ The purpose of this message is for either the sender or the receiver gateways to
 
 The default action upon receiving an error message is the immediate termination of the session.
 
-The error message format and parameters are described in {{satp-protocol-errors-section}}.
+The error message format and parameters are described in section {{<satp-protocol-errors-section}}.
 
 ## Session Abort Message
 
@@ -1379,7 +1379,7 @@ The errors at the SATP level pertain to protocol flow and the information carrie
 Many of the errors due to invalid identifiers (e.g., invalid transferContextId, invalid digitalAssetId) may arise within
 the execution of the SATP protocol because these identifiers depart from those agreed-upon in Transfer Initialization Claim in the transfer proposal message.
 The validity of these identifiers must be verified by the gateways during set-up stage (Stage-0), which is beyond the scope of the current specification.
-See section {{satp-Stage0-section}}{: format="counter"} on the Identity and Asset Verification Stage.
+See section {{<satp-Stage0-section}} on the Identity and Asset Verification Stage.
 
 SATP error messages MUST be encoded as Problem Details objects as defined in {{RFC9457}}, with content type `application/problem+json`. The `type` field of the Problem Details object MUST be set to a URN of the form `urn:ietf:params:satp:core:error:<code>`, where `<code>` is the error code from this registry. The `status` field MUST match the HTTP status of the response carrying the error and MUST be consistent with the HTTP Status column in the table below.
 
@@ -1388,16 +1388,17 @@ The parameters of error messages consist of the following:
 - messageType REQUIRED: urn:ietf:params:satp:core:msgtype:error-msg
 
 - type REQUIRED: A URI reference identifying the error type causing the rejection, as defined in {{RFC9457}}. MUST be a URN of the form
-`urn:ietf:params:satp:core:error:<code>` where `<code>` is the error code from the SATP Error Codes Registry ({{satp-protocol-errors-section}}).
+`urn:ietf:params:satp:core:error:<code>` where `<code>` is the error code from the SATP Error Codes Registry (see section {{<satp-protocol-errors-section}}).
 
-- status REQUIRED: The HTTP status code for this error as an integer, as defined in {{RFC9457}}. MUST match the HTTP response status and be consistent with the HTTP Status column of the protocol error codes ({{error-codes-section}}).
+- status REQUIRED: The HTTP status code for this error as an integer, as defined in {{RFC9457}}. MUST match the HTTP response status and be consistent with the HTTP Status column of the protocol error codes (see section {{<error-codes-section}}).
 
 - title REQUIRED: A short, human-readable summary of the error type, as defined in {{RFC9457}}. SHOULD correspond to the Description
-column of the protocol error codes ({{error-codes-section}}).
+column of the protocol error codes (see section {{<error-codes-section}}).
 
 - detail OPTIONAL: A human-readable explanation specific to this occurrence of the error, as defined in {{RFC9457}}.
 
-- version REQUIRED: SATP protocol Version; see {{satp-protocol-version}} as a string "major.minor".
+- version REQUIRED: SATP protocol Version, as a string "major.minor"; see section {{<satp-protocol-version}}.
+
 This should assist in diagnosing problems when different versions of the standard are used.
 
 - sessionId REQUIRED: A unique identifier chosen by the client to identify the current session.
@@ -1439,7 +1440,7 @@ This registry defines the error codes used in SATP protocol messages.
 Many of the errors due to invalid identifiers (e.g., invalid transferContextId, invalid digitalAssetId) may arise within
 the execution of the SATP protocol because these identifiers depart from those agreed-upon in Transfer Initialization Claim in the transfer proposal message.
 The validity of these identifiers must be verified by the gateways during set-up stage (Stage-0), which is beyond the scope of the current specification.
-See section {{satp-Stage0-section}}{: format="counter"} on the Identity and Asset Verification Stage.
+See section {{<satp-Stage0-section}}{: format="counter"} on the Identity and Asset Verification Stage.
 
 In the following table, each entry consists of:
 
@@ -1571,7 +1572,7 @@ namespace to prevent collision.
 
 This specification will use the sub namespace urn:ietf:params:satp:core.
 
-Messages types ({{satp-message-types}}) will use the namespace urn:ietf:params:satp:core:msgtype, whereas error codes ({{error-codes-section}})
+Messages types (section {{<satp-message-types}}) will use the namespace urn:ietf:params:satp:core:msgtype, whereas error codes (section {{<error-codes-section}})
 will use the namespace urn:ietf:params:satp:core:error.
 
 

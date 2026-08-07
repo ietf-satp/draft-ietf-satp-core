@@ -348,7 +348,7 @@ This document assumes that the relevant X.509 certificates are associated with t
 
 This section describes the SATP message types, the format of the messages exchanged between two gateways, the format for resource descriptors and other related parameters.
 
-The mandatory fields are determined by the message type exchanged between the two gateways (See section {{satp-Stage0-section}}{: format="counter"}).
+The mandatory fields are determined by the message type exchanged between the two gateways (see section {{satp-Stage0-section}}{: format="counter"}).
 
 
 ## SATP Message Digital Signatures and Key Types
@@ -489,7 +489,7 @@ If the client (sender gateway) transmits a list of supported credential schemes,
 
 If no acceptable credential scheme was offered, a "unsupported
 gatewayTlsScheme" (err_1.1.34) reject error message is returned by the server
-(see {{satp-stage1-init-reject}}).
+(see {{<satp-stage1-init-reject}}).
 
 ### Client Offers Other Supported TLS Schemes
 
@@ -816,7 +816,7 @@ This message is sent from the client to the Transfer Initialization Endpoint at 
 
 The parameters of this message consist of the following:
 
-- version REQUIRED: SATP protocol Version (see {{satp-protocol-version}}) as a string "major.minor".
+- version REQUIRED: SATP protocol Version; see {{satp-protocol-version}}, as a string "major.minor".
 
 - messageType REQUIRED: urn:ietf:params:satp:core:msgtype:transfer-proposal-msg.
 

@@ -1410,7 +1410,7 @@ This should assist in diagnosing problems when different versions of the standar
 - prevMsgType OPTIONAL: The message type of the previous SATP message that triggered the error. This is a SATP-specific extension field (see {{RFC9457}}).
 
 - hashPrevMessage REQUIRED: The cryptographic hash of the last message that caused the rejection to occur. The default hash algorithm is SHA256.
-sgtype
+
 - timestamp REQUIRED: timestamp of this message.
 
 

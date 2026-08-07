@@ -390,7 +390,7 @@ The current version is "1.0" defined in this specification. Implementations not 
 This refers to the type of request or response to be conveyed in the message.
 
 The possible values are defined in the urn:ietf:params:satp:core:msgtype namespace under the IANA SATP registered
-namespace urn:ietf:params:satp ({{#satp-iana-consideration}}):
+namespace urn:ietf:params:satp ({{satp-iana-consideration}}):
 
 - transfer-proposal-msg: This is the transfer proposal message from the sender gateway carrying the set of proposed parameters for the transfer.
 

@@ -5,14 +5,14 @@
 Secure Asset Transfer Protocol                             M. Hargreaves
 Internet-Draft                                             Quant Network
 Intended status: Standards Track                             T. Hardjono
-Expires: 3 February 2027                                             MIT
+Expires: 9 February 2027                                             MIT
                                                              R. Belchior
                                                                 INESC-ID
                                                           V. Ramakrishna
                                                                      IBM
                                                               A. Chiriac
                                                            Quant Network
-                                                           2 August 2026
+                                                           8 August 2026
 
 
                Secure Asset Transfer Protocol (SATP) Core
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 February 2027.
+   This Internet-Draft will expire on 9 February 2027.
 
 Copyright Notice
 
@@ -144,23 +144,6 @@ Table of Contents
    12. Security Consideration
    13. IANA Consideration
      13.1.  URN Registration
-     13.2.  SATP Message Types Registry
-     13.3.  Initial Registry Contents
-       13.3.1.  Parameter name: transfer-proposal-msg
-       13.3.2.  Parameter name: proposal-receipt-msg
-       13.3.3.  Parameter name: reject-msg
-       13.3.4.  Parameter name: transfer-commence-msg
-       13.3.5.  Parameter name: ack-commence-msg
-       13.3.6.  Parameter name: lock-assert-msg
-       13.3.7.  Parameter name: assertion-receipt-msg
-       13.3.8.  Parameter name: commit-prepare-msg
-       13.3.9.  Parameter name: commit-ready-msg
-       13.3.10. Parameter name: commit-final-msg
-       13.3.11. Parameter name: ack-commit-final-msg
-       13.3.12. Parameter name: commit-transfer-complete-msg
-       13.3.13. Parameter name: error-msg
-       13.3.14. Parameter name: session-abort-msg
-     13.4.  SATP Error Codes Registry
    14. Acknowledgements
    15. References
      15.1.  Normative References
@@ -374,12 +357,12 @@ Table of Contents
 
 5.1.  Overview
 
-   This section describes the SATP message-types, the format of the
+   This section describes the SATP message types, the format of the
    messages exchanged between two gateways, the format for resource
    descriptors and other related parameters.
 
    The mandatory fields are determined by the message type exchanged
-   between the two gateways (see Section 7).
+   between the two gateways (see section 7).
 
 5.2.  SATP Message Digital Signatures and Key Types
 
@@ -427,8 +410,9 @@ Table of Contents
    This refers to the type of request or response to be conveyed in the
    message.
 
-   The possible values are defined in the IANA SATP Message Types
-   Registry Section 13.2, Paragraph 1:
+   The possible values are defined in the
+   urn:ietf:params:satp:core:msgtype namespace under the IANA SATP
+   registered namespace urn:ietf:params:satp (see section 13):
 
    *  transfer-proposal-msg: This is the transfer proposal message from
       the sender gateway carrying the set of proposed parameters for the
@@ -436,10 +420,6 @@ Table of Contents
 
    *  proposal-receipt-msg: This is the signed receipt message
       indicating acceptance of the proposal by the receiver gateway.
-
-   *  reject-msg: This is a reject message from a gateway to the peer
-      gateway in the session, indication the reason and the resulting
-      action.
 
    *  transfer-commence-msg: Request to begin the commencement of the
       asset transfer.
@@ -552,7 +532,7 @@ Table of Contents
    commencement of the SATP protocol.  Both the sender gateway and
    receiver gateway must understand how to process the transferContextId
    value.  The value is used in the Transfer Proposal Message (with
-   message type satp:msgtype:transfer-proposal-msg) between the two
+   message type satp:core:msgtype:transfer-proposal-msg) between the two
    gateways.
 
    The mechanism to derive the Transfer Context ID value and to
@@ -596,8 +576,8 @@ Table of Contents
    acceptable credential scheme from the offered schemes.
 
    If no acceptable credential scheme was offered, a "unsupported
-   gatewayTlsScheme" (err_1.1.34) reject message is returned by the
-   server (see Section 8.5, Paragraph 1).
+   gatewayTlsScheme" (err_1.1.34) reject error message is returned by
+   the server (see section 8.5).
 
 5.3.10.  Client Offers Other Supported TLS Schemes
 
@@ -655,7 +635,7 @@ Table of Contents
    Algorithms" registry established by [RFC7518] or be a value that
    contains a Collision-Resistant Name.
 
-   See Section (Section 5.2, Paragraph 1).
+   See section 5.2.
 
 5.3.15.  Asset Lock Mechanism within a Network
 
@@ -1021,10 +1001,11 @@ Table of Contents
 
    The parameters of this message consist of the following:
 
-   *  version REQUIRED: SATP protocol Version (see Section 5.3.1,
-      Paragraph 1) as a string "major.minor".
+   *  version REQUIRED: SATP protocol Version, as a string
+      "major.minor"; see section 5.3.1.
 
-   *  messageType REQUIRED: urn:ietf:satp:msgtype:transfer-proposal-msg.
+   *  messageType REQUIRED: urn:ietf:params:satp:core:msgtype:transfer-
+      proposal-msg.
 
    *  sessionId REQUIRED: A unique identifier chosen by the client to
       identify the current session.
@@ -1045,8 +1026,9 @@ Table of Contents
    Here is an example of the message request body (with the public keys
    in JWK being replaced with hexadecimal for brevity):
 
-   { "version": "1.0", "messageType": "urn:ietf:satp:msgtype:transfer-
-   proposal-msg", "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+   { "version": "1.0", "messageType":
+   "urn:ietf:params:satp:core:msgtype:transfer-proposal-msg",
+   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
    "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
    "transferInitClaimFormat": "TRANSFER_INIT_CLAIM_FORMAT_1",
    "transferInitClaim": { "digitalAssetId": "2c949e3c-5edb-4a2c-
@@ -1092,10 +1074,11 @@ Table of Contents
 
    The parameters of this message consist of the following:
 
-   *  version REQUIRED: SATP protocol Version see {satp-protocol-
-      version}} as a string "major.minor".
+   *  version REQUIRED: SATP protocol Version, as a string
+      "major.minor"; see section 5.3.1.
 
-   *  messageType REQUIRED: urn:ietf:satp:msgtype:proposal-receipt-msg.
+   *  messageType REQUIRED: urn:ietf:params:satp:core:msgtype:proposal-
+      receipt-msg.
 
    *  sessionId REQUIRED: A unique identifier chosen by the client to
       identify the current session.
@@ -1111,8 +1094,9 @@ Table of Contents
 
    Here is an example of the message request body:
 
-   { "version": "1.0", "messageType": "urn:ietf:satp:msgtype:proposal-
-   receipt-msg", "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+   { "version": "1.0", "messageType":
+   "urn:ietf:params:satp:core:msgtype:proposal-receipt-msg",
+   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
    "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
    "hashTransferInitClaim":
    "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
@@ -1126,7 +1110,7 @@ Table of Contents
    an immediate termination of the session.
 
    The server MUST include error details using the Problem Details
-   format defined in [RFC9457] (see Section 11.3, Paragraph 1).
+   format defined in [RFC9457] (see section 11.3).
 
    The message MUST be signed by the server.
 
@@ -1145,7 +1129,7 @@ Table of Contents
    The parameters of this message consist of the following:
 
    *  messageType REQUIRED: MUST be the value
-      urn:ietf:satp:msgtype:transfer-commence-msg.
+      urn:ietf:params:satp:core:msgtype:transfer-commence-msg.
 
    *  sessionId REQUIRED: A unique identifier chosen earlier by the
       client in the Initialization Request Message.
@@ -1162,8 +1146,8 @@ Table of Contents
 
    For example, the client makes the following HTTP request using TLS:
 
-   { "messageType": "urn:ietf:satp:msgtype:transfer-commence-msg",
-   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+   { "messageType": "urn:ietf:params:satp:core:msgtype:transfer-
+   commence-msg", "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
    "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
    "hashTransferInitClaim":
    "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
@@ -1183,7 +1167,8 @@ Table of Contents
 
    The parameters of this message consist of the following:
 
-   *  messageType REQUIRED: urn:ietf:satp:msgtype:ack-commence-msg
+   *  messageType REQUIRED: urn:ietf:params:satp:core:msgtype:ack-
+      commence-msg
 
    *  sessionId REQUIRED: A unique identifier chosen earlier by the
       client in the Initialization Request Message.
@@ -1197,8 +1182,8 @@ Table of Contents
 
    An example of a success response could be as follows:
 
-   { "messageType": "urn:ietf:satp:msgtype:ack-commence-msg",
-   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+   { "messageType": "urn:ietf:params:satp:core:msgtype:ack-commence-
+   msg", "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
    "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
    "hashPrevMessage":
    "dd5a61a26fc8f5d72e5ca6052c2a1fca1613115e5582d9417d336375c196db89", }
@@ -1243,7 +1228,8 @@ Table of Contents
 
    The parameters of this message consist of the following:
 
-   *  messageType REQUIRED: urn:ietf:satp:msgtype:lock-assert-msg.
+   *  messageType REQUIRED: urn:ietf:params:satp:core:msgtype:lock-
+      assert-msg.
 
    *  sessionId REQUIRED: A unique identifier chosen earlier by the
       client in the Initialization Request Message.
@@ -1267,7 +1253,7 @@ Table of Contents
 
    Example:
 
-   { "messageType": "urn:ietf:satp:msgtype:lock-assert-msg",
+   { "messageType": "urn:ietf:params:satp:core:msgtype:lock-assert-msg",
    "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
    "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
    "lockAssertionClaimFormat": "LOCK_ASSERTION_CLAIM_FORMAT_1",
@@ -1288,7 +1274,8 @@ Table of Contents
 
    The parameters of this message consist of the following:
 
-   *  messageType REQUIRED: urn:ietf:satp:msgtype:assertion-receipt-msg.
+   *  messageType REQUIRED: urn:ietf:params:satp:core:msgtype:assertion-
+      receipt-msg.
 
    *  sessionId REQUIRED: A unique identifier chosen earlier by the
       client in the Initialization Request Message.
@@ -1301,8 +1288,8 @@ Table of Contents
 
    Example:
 
-   { "messageType": "urn:ietf:satp:msgtype:assertion-receipt-msg",
-   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+   { "messageType": "urn:ietf:params:satp:core:msgtype:assertion-
+   receipt-msg", "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
    "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
    "hashPrevMessage":
    "16c983122d7506c78f906c15ca1dcc7142a0fa94552cdea9578fe87419c2c5d0", }
@@ -1352,7 +1339,7 @@ Table of Contents
    The parameters of this message consist of the following:
 
    *  messageType REQUIRED: It MUST be the value
-      urn:ietf:satp:msgtype:commit-prepare-msg
+      urn:ietf:params:satp:core:msgtype:commit-prepare-msg
 
    *  sessionId REQUIRED: A unique identifier chosen earlier by the
       client in the Initialization Request Message.
@@ -1365,8 +1352,8 @@ Table of Contents
 
    Example:
 
-   { "messageType": "urn:ietf:satp:msgtype:commit-prepare-msg",
-   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+   { "messageType": "urn:ietf:params:satp:core:msgtype:commit-prepare-
+   msg", "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
    "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
    "hashPrevMessage":
    "399bdadc07fe0bd57c4dfdd6cc176ceeca50a5e744f774154eccbeee8908fbaa", }
@@ -1387,7 +1374,7 @@ Table of Contents
    The parameters of this message consist of the following:
 
    *  messageType REQUIRED: It MUST be the value
-      urn:ietf:satp:msgtype:commit-ready-msg.
+      urn:ietf:params:satp:core:msgtype:commit-ready-msg.
 
    *  sessionId REQUIRED: A unique identifier chosen earlier by client
       in the Initialization Request Message.
@@ -1407,8 +1394,8 @@ Table of Contents
 
    Example:
 
-   { "messageType": "urn:ietf:satp:msgtype:commit-ready-msg",
-   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+   { "messageType": "urn:ietf:params:satp:core:msgtype:commit-ready-
+   msg", "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
    "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
    "hashPrevMessage":
    "8dcc8dc4e6c2c979474b42d24d3747ce4607a92637d1a7b294857ff7288b8e46",
@@ -1433,7 +1420,7 @@ Table of Contents
    The parameters of this message consist of the following:
 
    *  messageType REQUIRED: It MUST be the value
-      urn:ietf:satp:msgtype:commit-final-msg.
+      urn:ietf:params:satp:core:msgtype:commit-final-msg.
 
    *  sessionId REQUIRED: A unique identifier chosen earlier by the
       client in the Initialization Request Message.
@@ -1453,8 +1440,8 @@ Table of Contents
 
    Example:
 
-   { "messageType": "urn:ietf:satp:msgtype:commit-final-msg",
-   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+   { "messageType": "urn:ietf:params:satp:core:msgtype:commit-final-
+   msg", "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
    "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
    "hashPrevMessage":
    "b92f13007216c58f2b51a8621599c3aef6527b02c8284e90c6a54a181d898e02",
@@ -1475,7 +1462,7 @@ Table of Contents
    The parameters of this message consist of the following:
 
    *  messageType REQUIRED: It MUST be the value
-      urn:ietf:satp:msgtype:ack-commit-final-msg.
+      urn:ietf:params:satp:core:msgtype:ack-commit-final-msg.
 
    *  sessionId REQUIRED: A unique identifier chosen earlier by client
       in the Initialization Request Message.
@@ -1496,8 +1483,8 @@ Table of Contents
 
    Example:
 
-   { "messageType": "urn:ietf:satp:msgtype:ack-commit-final-msg",
-   "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+   { "messageType": "urn:ietf:params:satp:core:msgtype:ack-commit-final-
+   msg", "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
    "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
    "hashPrevMessage":
    "9c8f07c22ccf6888fc0306fee0799325efb87dfd536d90bb47d97392f020e998",
@@ -1523,7 +1510,7 @@ Table of Contents
    The parameters of this message consist of the following:
 
    *  messageType REQUIRED: It MUST be the value
-      urn:ietf:satp:msgtype:commit-transfer-complete-msg.
+      urn:ietf:params:satp:core:msgtype:commit-transfer-complete-msg.
 
    *  sessionId REQUIRED: A unique identifier chosen earlier by the
       client in the Initialization Request Message.
@@ -1539,8 +1526,8 @@ Table of Contents
 
    Example:
 
-   { "messageType": "urn:ietf:satp:msgtype:commit-transfer-complete-
-   msg", "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
+   { "messageType": "urn:ietf:params:satp:core:msgtype:commit-transfer-
+   complete-msg", "sessionId": "d66a567c-11f2-4729-a0e9-17ce1faf47c1",
    "transferContextId": "89e04e71-bba2-4363-933c-262f42ec07a0",
    "hashPrevMessage":
    "9c8f07c22ccf6888fc0306fee0799325efb87dfd536d90bb47d97392f020e998",
@@ -1556,8 +1543,8 @@ Table of Contents
    The default action upon receiving an error message is the immediate
    termination of the session.
 
-   The error message format and parameters are described in
-   Section 11.3, Paragraph 1.
+   The error message format and parameters are described in section
+   11.3.
 
 10.7.  Session Abort Message
 
@@ -1566,7 +1553,7 @@ Table of Contents
    messages will be delivered after the abort message.
 
    *  messageType REQUIRED: It MUST be the value
-      urn:ietf:satp:msgtype:session-abort-msg.
+      urn:ietf:params:satp:core:msgtype:session-abort-msg.
 
    *  sessionId REQUIRED: This is the current session in which the abort
       occurs.
@@ -1647,42 +1634,43 @@ Table of Contents
    those agreed-upon in Transfer Initialization Claim in the transfer
    proposal message.  The validity of these identifiers must be verified
    by the gateways during set-up stage (Stage-0), which is beyond the
-   scope of the current specification.  See Section 7 on the Identity
+   scope of the current specification.  See section 7 on the Identity
    and Asset Verification Stage.
 
    SATP error messages MUST be encoded as Problem Details objects as
    defined in [RFC9457], with content type application/problem+json.
    The type field of the Problem Details object MUST be set to a URN of
-   the form urn:ietf:params:satp:error:<code>, where <code> is the error
-   code from this registry.  The status field MUST match the HTTP status
-   of the response carrying the error and MUST be consistent with the
-   HTTP Status column in the table below.
+   the form urn:ietf:params:satp:core:error:<code>, where <code> is the
+   error code from this registry.  The status field MUST match the HTTP
+   status of the response carrying the error and MUST be consistent with
+   the HTTP Status column in the table below.
 
    The parameters of error messages consist of the following:
 
-   *  messageType REQUIRED: urn:ietf:satp:msgtype:reject-msg
+   *  messageType REQUIRED: urn:ietf:params:satp:core:msgtype:error-msg
 
    *  type REQUIRED: A URI reference identifying the error type causing
       the rejection, as defined in [RFC9457].  MUST be a URN of the form
-      urn:ietf:params:satp:error:<code> where <code> is the error code
-      from the SATP Error Codes Registry (Section 11.3, Paragraph 1).
+      urn:ietf:params:satp:core:error:<code> where <code> is the error
+      code from the SATP Error Codes Registry (see section 11.3).
 
    *  status REQUIRED: The HTTP status code for this error as an
       integer, as defined in [RFC9457].  MUST match the HTTP response
       status and be consistent with the HTTP Status column of the
-      protocol error codes (Section 11.4, Paragraph 1).
+      protocol error codes (see section 11.4).
 
    *  title REQUIRED: A short, human-readable summary of the error type,
       as defined in [RFC9457].  SHOULD correspond to the Description
-      column of the protocol error codes (Section 11.4, Paragraph 1).
+      column of the protocol error codes (see section 11.4).
 
    *  detail OPTIONAL: A human-readable explanation specific to this
       occurrence of the error, as defined in [RFC9457].
 
-   *  version REQUIRED: SATP protocol Version see Section 5.3.1,
-      Paragraph 1 as a string "major.minor".  This should assist in
-      diagnosing problems when different versions of the standard are
-      used.
+   *  version REQUIRED: SATP protocol Version, as a string
+      "major.minor"; see section 5.3.1.
+
+   This should assist in diagnosing problems when different versions of
+   the standard are used.
 
    *  sessionId REQUIRED: A unique identifier chosen by the client to
       identify the current session.
@@ -1710,13 +1698,14 @@ Table of Contents
 
    Here is an example of the error message body:
 
-   { "messageType": "urn:ietf:satp:msgtype:reject-msg", "type":
-   "urn:ietf:params:satp:error:err_1.1.11", "status": 422, "title":
-   "invalid digitalAssetId", "version": "1.0", "sessionId": "d66a567c-
-   11f2-4729-a0e9-17ce1faf47c1", "transferContextId":
+   { "messageType": "urn:ietf:params:satp:core:msgtype:error-msg",
+   "type": "urn:ietf:params:satp:core:error:err_1.1.11", "status": 422,
+   "title": "invalid digitalAssetId", "version": "1.0", "sessionId":
+   "d66a567c-11f2-4729-a0e9-17ce1faf47c1", "transferContextId":
    "89e04e71-bba2-4363-933c-262f42ec07a0", "instance":
    "89e04e71-bba2-4363-933c-262f42ec07a0", "prevMsgType":
-   "urn:ietf:satp:msgtype:transfer-proposal-msg" "hashPrevMessage":
+   "urn:ietf:params:satp:core:msgtype:transfer-proposal-msg"
+   "hashPrevMessage":
    "154dfaf0406038641e7e59509febf41d9d5d80f367db96198690151f4758ca6e",
    "timestamp": "2024-10-03T12:02+00Z", }
 
@@ -1730,7 +1719,7 @@ Table of Contents
    those agreed-upon in Transfer Initialization Claim in the transfer
    proposal message.  The validity of these identifiers must be verified
    by the gateways during set-up stage (Stage-0), which is beyond the
-   scope of the current specification.  See Section 7 on the Identity
+   scope of the current specification.  See section 7 on the Identity
    and Asset Verification Stage.
 
    In the following table, each entry consists of:
@@ -2139,142 +2128,20 @@ Table of Contents
 
    URN: Request to be assigned by IANA.
 
-   Common Name: urn:ietf:satp
+   Common Name: urn:ietf:params:satp
 
    Registrant Contact: IESG
 
    Description: The secure asset transfer protocol (SATP) requires
-   message types, endpoints and parameters to be defined within a unique
-   namespace to prevent collision.
+   message types, error codes, and parameters to be defined within a
+   unique namespace to prevent collision.
 
-13.2.  SATP Message Types Registry
+   This specification will use the sub namespace
+   urn:ietf:params:satp:core.
 
-   This specification establishes the SATP Message Types registry.  The
-   purpose of this registry is to define the various message types
-   utilized in the secure asset transfer protocol (SATP).
-
-13.3.  Initial Registry Contents
-
-   The SATP Message Types registry's initial contents are as follows:
-
-13.3.1.  Parameter name: transfer-proposal-msg
-
-   *  Parameter usage location: Transfer Proposal
-
-   *  Change controller: IETF
-
-   *  Specification document(s): Section 8.3 of draft-ietf-satp-core.
-
-13.3.2.  Parameter name: proposal-receipt-msg
-
-   *  Parameter usage location: Transfer Proposal Receipt Message
-
-   *  Change controller: IETF
-
-   *  Specification document(s): Section 8.4 of draft-ietf-satp-core.
-
-13.3.3.  Parameter name: reject-msg
-
-   *  Parameter usage location: Transfer Reject
-
-   *  Change controller: IETF
-
-   *  Specification document(s): Section 8.5 of draft-ietf-satp-core.
-
-13.3.4.  Parameter name: transfer-commence-msg
-
-   *  Parameter usage location: Transfer Commence
-
-   *  Change controller: IETF
-
-   *  Specification document(s): Section 8.6 of draft-ietf-satp-core.
-
-13.3.5.  Parameter name: ack-commence-msg
-
-   *  Parameter usage location: Transfer Commence Response
-
-   *  Change controller: IETF
-
-   *  Specification document(s): Section 8.7 of draft-ietf-satp-core.
-
-13.3.6.  Parameter name: lock-assert-msg
-
-   *  Parameter usage location: Lock Assertion
-
-   *  Change controller: IETF
-
-   *  Specification document(s): Section 9.1 of draft-ietf-satp-core.
-
-13.3.7.  Parameter name: assertion-receipt-msg
-
-   *  Parameter usage location: Lock Assertion Receipt
-
-   *  Change controller: IETF
-
-   *  Specification document(s): Section 9.2 of draft-ietf-satp-core.
-
-13.3.8.  Parameter name: commit-prepare-msg
-
-   *  Parameter usage location: Commit Preparation
-
-   *  Change controller: IETF
-
-   *  Specification document(s): Section 10.1 of draft-ietf-satp-core.
-
-13.3.9.  Parameter name: commit-ready-msg
-
-   *  Parameter usage location: Commit Ready
-
-   *  Change controller: IETF
-
-   *  Specification document(s): Section 10.2 of draft-ietf-satp-core.
-
-13.3.10.  Parameter name: commit-final-msg
-
-   *  Parameter usage location: Commit Final Assertion
-
-   *  Change controller: IETF
-
-   *  Specification document(s): Section 10.3 of draft-ietf-satp-core.
-
-13.3.11.  Parameter name: ack-commit-final-msg
-
-   *  Parameter usage location: Commit-Final Acknowledgement Receipt
-
-   *  Change controller: IETF
-
-   *  Specification document(s): Section 10.4 of draft-ietf-satp-core.
-
-13.3.12.  Parameter name: commit-transfer-complete-msg
-
-   *  Parameter usage location: Transfer Complete
-
-   *  Change controller: IETF
-
-   *  Specification document(s): Section 10.5 of draft-ietf-satp-core.
-
-13.3.13.  Parameter name: error-msg
-
-   *  Parameter usage location: Error message
-
-   *  Change controller: IETF
-
-   *  Specification document(s): Section 10.6 of draft-ietf-satp-core.
-
-13.3.14.  Parameter name: session-abort-msg
-
-   *  Parameter usage location: Session Abort
-
-   *  Change controller: IETF
-
-   *  Specification document(s): Section 10.7 of draft-ietf-satp-core.
-
-13.4.  SATP Error Codes Registry
-
-   This specification establishes the SATP Error Codes registry.  The
-   purpose of this registry is to define the various error codes
-   utilized in the secure asset transfer protocol (SATP).  The errors
-   listed in Section 11.4, Paragraph 1 are to be registered.
+   Messages types (section 5.3.2) will use the namespace
+   urn:ietf:params:satp:core:msgtype, whereas error codes (section 11.4)
+   will use the namespace urn:ietf:params:satp:core:error.
 
 14.  Acknowledgements
 

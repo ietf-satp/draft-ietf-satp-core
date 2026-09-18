@@ -374,7 +374,7 @@ Additional signature algorithms and keying parameters may be negotiated by peer 
 
 SATP messages are exchanged between peer gateways, where depending on the message type one gateway may act as a client of the other (and vice versa).
 
-All SATP messages exchanged between gateways MUST be JSON format [RFC8259], and MUST use "application/satp+json" as the application media type
+All SATP messages exchanged between gateways MUST be JSON format [RFC8259], and MUST use `application/satp+json` as the application media type
 ([RFC6838]; see section {{<satp-iana-consideration}}).
 
 ### Protocol version
@@ -1431,7 +1431,8 @@ Here is an example of the error message body:
 
 {: #error-code-table}
 
-The table below defines the error codes used in SATP protocol messages.
+The table below defines the error codes used in SATP protocol messages. The error codes are not registered with IANA and are defined solely
+in this document.
 
 Many of the errors due to invalid identifiers (e.g., invalid transferContextId, invalid digitalAssetId) may arise within
 the execution of the SATP protocol because these identifiers depart from those agreed-upon in Transfer Initialization Claim in the transfer proposal message.
@@ -1575,9 +1576,9 @@ will use the namespace urn:ietf:params:satp:core:error.
 
 This specification defines a new Structured Syntax Suffix media type ( see [RFC6838], section 4.2.8):
 
-- Type name:  application/satp+json
+- Type name: `application/satp+json`
 
-- Suffix:  +json
+- Suffix:  `+json`
 
 - References: This document
 

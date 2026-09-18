@@ -154,6 +154,7 @@ normative:
   RFC9110: RFC9110
   RFC5280: RFC5280
   RFC9457: RFC9457
+  RFC6838: RFC6838
 
 --- abstract
 
@@ -373,7 +374,8 @@ Additional signature algorithms and keying parameters may be negotiated by peer 
 
 SATP messages are exchanged between peer gateways, where depending on the message type one gateway may act as a client of the other (and vice versa).
 
-All SATP messages exchanged between gateways MUST be JSON format [RFC8259].
+All SATP messages exchanged between gateways MUST be JSON format [RFC8259], and MUST use "application/satp+json" as the application media type
+([RFC6838]; see section {{<satp-iana-consideration}}).
 
 ### Protocol version
 
@@ -1550,7 +1552,7 @@ Gateways may be of interest to attackers because they enable the transferal of d
 {: #satp-iana-consideration}
 
 
-The following request is being made to IANA.
+The following requests are being made to IANA.
 
 
 ## URN Registration
@@ -1569,6 +1571,28 @@ This specification will use the sub namespace urn:ietf:params:satp:core.
 Messages types (section {{<satp-message-types}}) will use the namespace urn:ietf:params:satp:core:msgtype, whereas error codes (section {{<error-code-table}})
 will use the namespace urn:ietf:params:satp:core:error.
 
+## Internet Media Type registration
+
+This specification defines a new Structured Syntax Suffix media type ( see [RFC6838], section 4.2.8):
+
+- Type name:  application/satp+json
+
+- Suffix:  +json
+
+- References: This document
+
+- Encoding considerations:  Same as [RFC8259]
+
+- Interoperability considerations:  None
+
+- Fragment identifier considerations:  Same as [RFC8259]
+
+- Security considerations:  see Section {{<satp-Security-Consideration-section}} of this document
+
+- Contact: SATP WG, sat@ietf.org
+
+- Change controller:  IESG
+
 
 # Acknowledgements
 
@@ -1586,6 +1610,7 @@ Martin Gfeller,
 Wes Hardaker,
 David Millman,
 Krishnasuri Narayanam,
+Andy Newton,
 Anais Ofranc,
 Luke Riley,
 John Robotham,

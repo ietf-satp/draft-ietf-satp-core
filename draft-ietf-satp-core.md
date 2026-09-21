@@ -154,6 +154,7 @@ normative:
   RFC9110: RFC9110
   RFC5280: RFC5280
   RFC9457: RFC9457
+  RFC6838: RFC6838
 
 --- abstract
 
@@ -373,7 +374,8 @@ Additional signature algorithms and keying parameters may be negotiated by peer 
 
 SATP messages are exchanged between peer gateways, where depending on the message type one gateway may act as a client of the other (and vice versa).
 
-All SATP messages exchanged between gateways MUST be JSON format [RFC8259].
+All SATP messages exchanged between gateways MUST be JSON format [RFC8259], and MUST use `application/satp+json` as the application media type
+([RFC6838]; see section {{<satp-iana-consideration}}).
 
 ### Protocol version
 
@@ -1368,26 +1370,26 @@ In the case of a transfer session termination, gateways SHOULD release its local
 
 {: #satp-protocol-errors-section}
 
-The errors at the SATP level pertain to protocol flow and the information carried within each message. These are enumerated in {{error-codes-section}}.
+The errors at the SATP level pertain to protocol flow and the information carried within each message. These are enumerated in {{error-code-table}}.
 
 Many of the errors due to invalid identifiers (e.g., invalid transferContextId, invalid digitalAssetId) may arise within
 the execution of the SATP protocol because these identifiers depart from those agreed-upon in Transfer Initialization Claim in the transfer proposal message.
 The validity of these identifiers must be verified by the gateways during set-up stage (Stage-0), which is beyond the scope of the current specification.
 See section {{<satp-Stage0-section}} on the Identity and Asset Verification Stage.
 
-SATP error messages MUST be encoded as Problem Details objects as defined in {{RFC9457}}, with content type `application/problem+json`. The `type` field of the Problem Details object MUST be set to a URN of the form `urn:ietf:params:satp:core:error:<code>`, where `<code>` is the error code from this registry. The `status` field MUST match the HTTP status of the response carrying the error and MUST be consistent with the HTTP Status column in the table below.
+SATP error messages MUST be encoded as Problem Details objects as defined in {{RFC9457}}, with content type `application/problem+json`. The `type` field of the Problem Details object MUST be set to a URN of the form `urn:ietf:params:satp:core:error:<code>`, where `<code>` is the error code from the error code table in section {{<error-code-table}}. The `status` field MUST match the HTTP status of the response carrying the error and MUST be consistent with the HTTP Status column in the table below.
 
 The parameters of error messages consist of the following:
 
 - messageType REQUIRED: urn:ietf:params:satp:core:msgtype:error-msg
 
 - type REQUIRED: A URI reference identifying the error type causing the rejection, as defined in {{RFC9457}}. MUST be a URN of the form
-`urn:ietf:params:satp:core:error:<code>` where `<code>` is the error code from the SATP Error Codes Registry (see section {{<satp-protocol-errors-section}}).
+`urn:ietf:params:satp:core:error:<code>` where `<code>` is the error code from the SATP error code table (see section {{<error-code-table}}).
 
-- status REQUIRED: The HTTP status code for this error as an integer, as defined in {{RFC9457}}. MUST match the HTTP response status and be consistent with the HTTP Status column of the protocol error codes (see section {{<error-codes-section}}).
+- status REQUIRED: The HTTP status code for this error as an integer, as defined in {{RFC9457}}. MUST match the HTTP response status and be consistent with the HTTP Status column of the protocol error codes (see section {{<error-code-table}}).
 
 - title REQUIRED: A short, human-readable summary of the error type, as defined in {{RFC9457}}. SHOULD correspond to the Description
-column of the protocol error codes (see section {{<error-codes-section}}).
+column of the protocol error codes (see section {{<error-code-table}}).
 
 - detail OPTIONAL: A human-readable explanation specific to this occurrence of the error, as defined in {{RFC9457}}.
 
@@ -1427,9 +1429,10 @@ Here is an example of the error message body:
 
 ## Protocol Errors Codes
 
-{: #error-codes-section}
+{: #error-code-table}
 
-This registry defines the error codes used in SATP protocol messages.
+The table below defines the error codes used in SATP protocol messages. The error codes are not registered with IANA and are defined solely
+in this document.
 
 Many of the errors due to invalid identifiers (e.g., invalid transferContextId, invalid digitalAssetId) may arise within
 the execution of the SATP protocol because these identifiers depart from those agreed-upon in Transfer Initialization Claim in the transfer proposal message.
@@ -1550,7 +1553,7 @@ Gateways may be of interest to attackers because they enable the transferal of d
 {: #satp-iana-consideration}
 
 
-The following request is being made to IANA.
+The following requests are being made to IANA.
 
 
 ## URN Registration
@@ -1566,8 +1569,30 @@ namespace to prevent collision.
 
 This specification will use the sub namespace urn:ietf:params:satp:core.
 
-Messages types (section {{<satp-message-types}}) will use the namespace urn:ietf:params:satp:core:msgtype, whereas error codes (section {{<error-codes-section}})
+Messages types (section {{<satp-message-types}}) will use the namespace urn:ietf:params:satp:core:msgtype, whereas error codes (section {{<error-code-table}})
 will use the namespace urn:ietf:params:satp:core:error.
+
+## Internet Media Type registration
+
+This specification defines a new Structured Syntax Suffix media type ( see [RFC6838], section 4.2.8):
+
+- Type name: `application/satp+json`
+
+- Suffix:  `+json`
+
+- References: This document
+
+- Encoding considerations:  Same as [RFC8259]
+
+- Interoperability considerations:  None
+
+- Fragment identifier considerations:  Same as [RFC8259]
+
+- Security considerations:  see Section {{<satp-Security-Consideration-section}} of this document
+
+- Contact: SATP WG, sat@ietf.org
+
+- Change controller:  IESG
 
 
 # Acknowledgements
@@ -1586,6 +1611,7 @@ Martin Gfeller,
 Wes Hardaker,
 David Millman,
 Krishnasuri Narayanam,
+Andy Newton,
 Anais Ofranc,
 Luke Riley,
 John Robotham,

@@ -13,23 +13,23 @@
 <meta content="
        This memo describes the Secure Asset Transfer Protocol (SATP) for digital assets. SATP is a protocol operating between two gateways that conducts the transfer of a digital asset from one gateway to another, each representing their corresponding digital asset networks. The protocol establishes a secure channel between the endpoints and implements a 2-phase commit (2PC) to ensure the properties of transfer atomicity, consistency, isolation and durability. 
     " name="description">
-<meta content="xml2rfc 3.34.0" name="generator">
+<meta content="xml2rfc 3.34.1" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-satp-core-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.34.0
-    Python 3.14.5
-    ConfigArgParse 1.7.5
+  xml2rfc 3.34.1
+    Python 3.14.7
+    ConfigArgParse 1.7.7
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
     lxml 6.1.1
     natsort 8.4.0
-    platformdirs 4.11.0
+    platformdirs 4.11.10
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
-    wcwidth 0.8.2
+    wcwidth 0.8.4
 -->
 <link href="draft-ietf-satp-core.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1045,11 +1045,11 @@ svg {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">SATP Core</td>
-<td class="right">August 2026</td>
+<td class="right">September 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Hargreaves, et al.</td>
-<td class="center">Expires 14 February 2027</td>
+<td class="center">Expires 25 March 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1062,12 +1062,12 @@ svg {
 <dd class="internet-draft">draft-ietf-satp-core-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-08-13" class="published">13 August 2026</time>
+<time datetime="2026-09-21" class="published">21 September 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-02-14">14 February 2027</time></dd>
+<dd class="expires"><time datetime="2027-03-25">25 March 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1133,7 +1133,7 @@ svg {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 14 February 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 25 March 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1372,6 +1372,9 @@ svg {
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13.2.1">
                 <p id="section-toc.1-1.13.2.1.1"><a href="#section-13.1" class="auto internal xref">13.1</a>.  <a href="#name-urn-registration" class="internal xref">URN Registration</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13.2.2">
+                <p id="section-toc.1-1.13.2.2.1"><a href="#section-13.2" class="auto internal xref">13.2</a>.  <a href="#name-internet-media-type-registr" class="internal xref">Internet Media Type registration</a></p>
 </li>
             </ul>
 </li>
@@ -1644,7 +1647,8 @@ the JSON Web Algorithms (JWA) specification <span>[<a href="#RFC7518" class="cit
 <div id="satp-message-format">
 <p id="section-5.3-1">SATP messages are exchanged between peer gateways, where depending on the message type one gateway may act as a client of the other (and vice versa).<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 </div>
-<p id="section-5.3-2">All SATP messages exchanged between gateways MUST be JSON format <span>[<a href="#RFC8259" class="cite xref">RFC8259</a>]</span>.<a href="#section-5.3-2" class="pilcrow">¶</a></p>
+<p id="section-5.3-2">All SATP messages exchanged between gateways MUST be JSON format <span>[<a href="#RFC8259" class="cite xref">RFC8259</a>]</span>, and MUST use <code>application/satp+json</code> as the application media type
+(<span>[<a href="#RFC6838" class="cite xref">RFC6838</a>]</span>; see section <a href="#satp-iana-consideration" class="auto internal xref">13</a>).<a href="#section-5.3-2" class="pilcrow">¶</a></p>
 <div id="protocol-version">
 <section id="section-5.3.1">
           <h4 id="name-protocol-version">
@@ -2816,13 +2820,13 @@ In the case of a transfer session termination, gateways SHOULD release its local
 <a href="#section-11.3" class="section-number selfRef">11.3. </a><a href="#name-satp-protocol-errors" class="section-name selfRef">SATP Protocol Errors</a>
         </h3>
 <div id="satp-protocol-errors-section">
-<p id="section-11.3-1">The errors at the SATP level pertain to protocol flow and the information carried within each message. These are enumerated in <a href="#error-codes-section" class="auto internal xref">Section 11.4, Paragraph 1</a>.<a href="#section-11.3-1" class="pilcrow">¶</a></p>
+<p id="section-11.3-1">The errors at the SATP level pertain to protocol flow and the information carried within each message. These are enumerated in <a href="#error-code-table" class="auto internal xref">Section 11.4, Paragraph 1</a>.<a href="#section-11.3-1" class="pilcrow">¶</a></p>
 </div>
 <p id="section-11.3-2">Many of the errors due to invalid identifiers (e.g., invalid transferContextId, invalid digitalAssetId) may arise within
 the execution of the SATP protocol because these identifiers depart from those agreed-upon in Transfer Initialization Claim in the transfer proposal message.
 The validity of these identifiers must be verified by the gateways during set-up stage (Stage-0), which is beyond the scope of the current specification.
 See section <a href="#satp-Stage0-section" class="auto internal xref">7</a> on the Identity and Asset Verification Stage.<a href="#section-11.3-2" class="pilcrow">¶</a></p>
-<p id="section-11.3-3">SATP error messages MUST be encoded as Problem Details objects as defined in <span>[<a href="#RFC9457" class="cite xref">RFC9457</a>]</span>, with content type <code>application/problem+json</code>. The <code>type</code> field of the Problem Details object MUST be set to a URN of the form <code>urn:ietf:params:satp:core:error:&lt;code&gt;</code>, where <code>&lt;code&gt;</code> is the error code from this registry. The <code>status</code> field MUST match the HTTP status of the response carrying the error and MUST be consistent with the HTTP Status column in the table below.<a href="#section-11.3-3" class="pilcrow">¶</a></p>
+<p id="section-11.3-3">SATP error messages MUST be encoded as Problem Details objects as defined in <span>[<a href="#RFC9457" class="cite xref">RFC9457</a>]</span>, with content type <code>application/problem+json</code>. The <code>type</code> field of the Problem Details object MUST be set to a URN of the form <code>urn:ietf:params:satp:core:error:&lt;code&gt;</code>, where <code>&lt;code&gt;</code> is the error code from the error code table in section <a href="#error-code-table" class="auto internal xref">11.4</a>. The <code>status</code> field MUST match the HTTP status of the response carrying the error and MUST be consistent with the HTTP Status column in the table below.<a href="#section-11.3-3" class="pilcrow">¶</a></p>
 <p id="section-11.3-4">The parameters of error messages consist of the following:<a href="#section-11.3-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-11.3-5.1">
@@ -2830,14 +2834,14 @@ See section <a href="#satp-Stage0-section" class="auto internal xref">7</a> on t
 </li>
           <li class="normal" id="section-11.3-5.2">
             <p id="section-11.3-5.2.1">type REQUIRED: A URI reference identifying the error type causing the rejection, as defined in <span>[<a href="#RFC9457" class="cite xref">RFC9457</a>]</span>. MUST be a URN of the form
-<code>urn:ietf:params:satp:core:error:&lt;code&gt;</code> where <code>&lt;code&gt;</code> is the error code from the SATP Error Codes Registry (see section <a href="#satp-protocol-errors-section" class="auto internal xref">11.3</a>).<a href="#section-11.3-5.2.1" class="pilcrow">¶</a></p>
+<code>urn:ietf:params:satp:core:error:&lt;code&gt;</code> where <code>&lt;code&gt;</code> is the error code from the SATP error code table (see section <a href="#error-code-table" class="auto internal xref">11.4</a>).<a href="#section-11.3-5.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-11.3-5.3">
-            <p id="section-11.3-5.3.1">status REQUIRED: The HTTP status code for this error as an integer, as defined in <span>[<a href="#RFC9457" class="cite xref">RFC9457</a>]</span>. MUST match the HTTP response status and be consistent with the HTTP Status column of the protocol error codes (see section <a href="#error-codes-section" class="auto internal xref">11.4</a>).<a href="#section-11.3-5.3.1" class="pilcrow">¶</a></p>
+            <p id="section-11.3-5.3.1">status REQUIRED: The HTTP status code for this error as an integer, as defined in <span>[<a href="#RFC9457" class="cite xref">RFC9457</a>]</span>. MUST match the HTTP response status and be consistent with the HTTP Status column of the protocol error codes (see section <a href="#error-code-table" class="auto internal xref">11.4</a>).<a href="#section-11.3-5.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-11.3-5.4">
             <p id="section-11.3-5.4.1">title REQUIRED: A short, human-readable summary of the error type, as defined in <span>[<a href="#RFC9457" class="cite xref">RFC9457</a>]</span>. SHOULD correspond to the Description
-column of the protocol error codes (see section <a href="#error-codes-section" class="auto internal xref">11.4</a>).<a href="#section-11.3-5.4.1" class="pilcrow">¶</a></p>
+column of the protocol error codes (see section <a href="#error-code-table" class="auto internal xref">11.4</a>).<a href="#section-11.3-5.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-11.3-5.5">
             <p id="section-11.3-5.5.1">detail OPTIONAL: A human-readable explanation specific to this occurrence of the error, as defined in <span>[<a href="#RFC9457" class="cite xref">RFC9457</a>]</span>.<a href="#section-11.3-5.5.1" class="pilcrow">¶</a></p>
@@ -2888,8 +2892,9 @@ column of the protocol error codes (see section <a href="#error-codes-section" c
         <h3 id="name-protocol-errors-codes">
 <a href="#section-11.4" class="section-number selfRef">11.4. </a><a href="#name-protocol-errors-codes" class="section-name selfRef">Protocol Errors Codes</a>
         </h3>
-<div id="error-codes-section">
-<p id="section-11.4-1">This registry defines the error codes used in SATP protocol messages.<a href="#section-11.4-1" class="pilcrow">¶</a></p>
+<div id="error-code-table">
+<p id="section-11.4-1">The table below defines the error codes used in SATP protocol messages. The error codes are not registered with IANA and are defined solely
+in this document.<a href="#section-11.4-1" class="pilcrow">¶</a></p>
 </div>
 <p id="section-11.4-2">Many of the errors due to invalid identifiers (e.g., invalid transferContextId, invalid digitalAssetId) may arise within
 the execution of the SATP protocol because these identifiers depart from those agreed-upon in Transfer Initialization Claim in the transfer proposal message.
@@ -3414,7 +3419,7 @@ See section <a href="#satp-Stage0-section" class="auto internal xref">7</a> on t
 <a href="#section-13" class="section-number selfRef">13. </a><a href="#name-iana-consideration" class="section-name selfRef">IANA Consideration</a>
       </h2>
 <div id="satp-iana-consideration">
-<p id="section-13-1">The following request is being made to IANA.<a href="#section-13-1" class="pilcrow">¶</a></p>
+<p id="section-13-1">The following requests are being made to IANA.<a href="#section-13-1" class="pilcrow">¶</a></p>
 </div>
 <div id="urn-registration">
 <section id="section-13.1">
@@ -3427,8 +3432,45 @@ See section <a href="#satp-Stage0-section" class="auto internal xref">7</a> on t
 <p id="section-13.1-4">Description: The secure asset transfer protocol (SATP) requires message types, error codes, and parameters to be defined within a unique
 namespace to prevent collision.<a href="#section-13.1-4" class="pilcrow">¶</a></p>
 <p id="section-13.1-5">This specification will use the sub namespace urn:ietf:params:satp:core.<a href="#section-13.1-5" class="pilcrow">¶</a></p>
-<p id="section-13.1-6">Messages types (section <a href="#satp-message-types" class="auto internal xref">5.3.2</a>) will use the namespace urn:ietf:params:satp:core:msgtype, whereas error codes (section <a href="#error-codes-section" class="auto internal xref">11.4</a>)
+<p id="section-13.1-6">Messages types (section <a href="#satp-message-types" class="auto internal xref">5.3.2</a>) will use the namespace urn:ietf:params:satp:core:msgtype, whereas error codes (section <a href="#error-code-table" class="auto internal xref">11.4</a>)
 will use the namespace urn:ietf:params:satp:core:error.<a href="#section-13.1-6" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="internet-media-type-registration">
+<section id="section-13.2">
+        <h3 id="name-internet-media-type-registr">
+<a href="#section-13.2" class="section-number selfRef">13.2. </a><a href="#name-internet-media-type-registr" class="section-name selfRef">Internet Media Type registration</a>
+        </h3>
+<p id="section-13.2-1">This specification defines a new Structured Syntax Suffix media type ( see <span>[<a href="#RFC6838" class="cite xref">RFC6838</a>]</span>, section 4.2.8):<a href="#section-13.2-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-13.2-2.1">
+            <p id="section-13.2-2.1.1">Type name: <code>application/satp+json</code><a href="#section-13.2-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-13.2-2.2">
+            <p id="section-13.2-2.2.1">Suffix:  <code>+json</code><a href="#section-13.2-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-13.2-2.3">
+            <p id="section-13.2-2.3.1">References: This document<a href="#section-13.2-2.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-13.2-2.4">
+            <p id="section-13.2-2.4.1">Encoding considerations:  Same as <span>[<a href="#RFC8259" class="cite xref">RFC8259</a>]</span><a href="#section-13.2-2.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-13.2-2.5">
+            <p id="section-13.2-2.5.1">Interoperability considerations:  None<a href="#section-13.2-2.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-13.2-2.6">
+            <p id="section-13.2-2.6.1">Fragment identifier considerations:  Same as <span>[<a href="#RFC8259" class="cite xref">RFC8259</a>]</span><a href="#section-13.2-2.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-13.2-2.7">
+            <p id="section-13.2-2.7.1">Security considerations:  see Section <a href="#satp-Security-Consideration-section" class="auto internal xref">12</a> of this document<a href="#section-13.2-2.7.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-13.2-2.8">
+            <p id="section-13.2-2.8.1">Contact: SATP WG, sat@ietf.org<a href="#section-13.2-2.8.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-13.2-2.9">
+            <p id="section-13.2-2.9.1">Change controller:  IESG<a href="#section-13.2-2.9.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
 </section>
 </div>
 </section>
@@ -3451,6 +3493,7 @@ Martin Gfeller,
 Wes Hardaker,
 David Millman,
 Krishnasuri Narayanam,
+Andy Newton,
 Anais Ofranc,
 Luke Riley,
 John Robotham,
@@ -3490,6 +3533,10 @@ Weijia Zhang.<a href="#section-14-2" class="pilcrow">¶</a></p>
 <dt id="RFC6749">[RFC6749]</dt>
         <dd>
 <span class="refAuthor">Hardt, D., Ed.</span>, <span class="refTitle">"The OAuth 2.0 Authorization Framework"</span>, <span class="seriesInfo">RFC 6749</span>, <span class="seriesInfo">DOI 10.17487/RFC6749</span>, <time datetime="2012-10" class="refDate">October 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6749">https://www.rfc-editor.org/rfc/rfc6749</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6838">[RFC6838]</dt>
+        <dd>
+<span class="refAuthor">Freed, N.</span>, <span class="refAuthor">Klensin, J.</span>, and <span class="refAuthor">T. Hansen</span>, <span class="refTitle">"Media Type Specifications and Registration Procedures"</span>, <span class="seriesInfo">BCP 13</span>, <span class="seriesInfo">RFC 6838</span>, <span class="seriesInfo">DOI 10.17487/RFC6838</span>, <time datetime="2013-01" class="refDate">January 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6838">https://www.rfc-editor.org/rfc/rfc6838</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7515">[RFC7515]</dt>
         <dd>
